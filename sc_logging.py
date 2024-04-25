@@ -37,7 +37,10 @@ log_files = [
 log_files.sort()
 if len(log_files) > 10:
     for f in log_files[:-10]:
-        os.remove(os.path.join(data_dir, f))
+        try:
+            os.remove(os.path.join(data_dir, f))
+        except Exception as e:
+            logger.error(f"Failed to remove log file: {f}")
 
 # Create a file handler
 file_handler = logging.FileHandler(log_file_path)

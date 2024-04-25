@@ -7,7 +7,7 @@ from defaults import FieldType
 from storage import fetch_data
 from text_detection_target import TextDetectionTarget, TextDetectionTargetWithResult
 import re
-from PyQt6.QtCore import QRectF
+from PySide6.QtCore import QRectF
 from threading import Lock
 
 

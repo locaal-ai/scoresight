@@ -1,6 +1,6 @@
-from PyQt6.QtCore import QPointF, QRectF, Qt, QTimer
-from PyQt6.QtGui import QBrush, QColor, QFont, QMouseEvent, QPen, QPolygonF
-from PyQt6.QtWidgets import (
+from PySide6.QtCore import QPointF, QRectF, Qt, QTimer
+from PySide6.QtGui import QBrush, QColor, QFont, QMouseEvent, QPen, QPolygonF
+from PySide6.QtWidgets import (
     QGraphicsItem,
     QGraphicsPolygonItem,
     QGraphicsRectItem,

@@ -1,5 +1,5 @@
 import enum
-from PyQt6.QtCore import QRectF
+from PySide6.QtCore import QRectF
 
 
 class OCRResultPerCharacterSmoother:

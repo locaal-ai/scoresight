@@ -301,7 +301,7 @@
                 <item>
                  <widget class="QPushButton" name="pushButton_restoreDefaults">
                   <property name="text">
-                   <string>Defaults ↩️</string>
+                   <string>Defaults</string>
                   </property>
                  </widget>
                 </item>
@@ -931,14 +931,14 @@
               <item>
                <widget class="QToolButton" name="pushButton_selectFolder">
                 <property name="text">
-                 <string>📂</string>
+                 <string>Open</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QToolButton" name="toolButton_trashFolder">
                 <property name="text">
-                 <string>❌</string>
+                 <string>Clear</string>
                 </property>
                </widget>
               </item>
@@ -1137,11 +1137,7 @@
               </size>
              </property>
              <property name="text">
-              <string>🛜 Connect OBS</string>
-             </property>
-             <property name="icon">
-              <iconset theme="network-transmit-receive">
-               <normaloff>.</normaloff>.</iconset>
+              <string>Connect OBS</string>
              </property>
             </widget>
            </item>
@@ -1199,7 +1195,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>▶️ Start</string>
+                 <string>Start</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -1322,7 +1318,7 @@
           </size>
          </property>
          <property name="text">
-          <string>🛑 Stop Updates</string>
+          <string>Stop Updates</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -1474,7 +1470,7 @@
                 <string>Refresh Sources</string>
                </property>
                <property name="text">
-                <string>🔄</string>
+                <string>Reload</string>
                </property>
               </widget>
              </item>

@@ -1,20 +1,22 @@
 from os import path
 import platform
-from PyQt6.QtWidgets import QDialog
-from PyQt6.QtCore import QTimer
-from PyQt6.uic import loadUi
+from PySide6.QtWidgets import QDialog
+from PySide6.QtCore import QTimer
+from PySide6.QtUiTools import QUiLoader
 from sc_logging import log_file_path
+from ui_log_view import Ui_Dialog as Ui_LogViewerDialog
 
 
 class LogViewerDialog(QDialog):
     def __init__(self):
         super().__init__()
-        loadUi(path.abspath(path.join(path.dirname(__file__), "log_view.ui")), self)
+        self.ui = Ui_LogViewerDialog()
+        self.ui.setupUi(self)
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_ui)
         self.timer.start(1000)  # Update UI every 1 second
         self.current_log_data = ""
-        self.pushButton_openlogfolder.clicked.connect(self.open_log_folder)
+        self.ui.pushButton_openlogfolder.clicked.connect(self.open_log_folder)
 
     def open_log_folder(self):
         # Open the folder containing the log file
@@ -44,10 +46,10 @@ class LogViewerDialog(QDialog):
                 return
             self.current_log_data = log_data
             # Update the UI with the log data
-            self.textEdit_log.setPlainText(log_data)
-            if self.checkBox_autoScroll.isChecked():
+            self.ui.textEdit_log.setPlainText(log_data)
+            if self.ui.checkBox_autoScroll.isChecked():
                 # scroll to the bottom
-                self.textEdit_log.verticalScrollBar().setValue(
-                    self.textEdit_log.verticalScrollBar().maximum()
+                self.ui.textEdit_log.verticalScrollBar().setValue(
+                    self.ui.textEdit_log.verticalScrollBar().maximum()
                 )
-                self.scrollArea.ensureWidgetVisible(self.textEdit_log)
+                self.ui.scrollArea.ensureWidgetVisible(self.ui.textEdit_log)

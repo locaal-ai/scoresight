@@ -1,13 +1,13 @@
 import platform
 import time
-from PyQt6.QtWidgets import (
+from PySide6.QtWidgets import (
     QGraphicsView,
     QGraphicsScene,
     QGraphicsPixmapItem,
 )
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QImage, QPixmap, QPainter
-from PyQt6.QtCore import QThread, pyqtSignal
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QImage, QPixmap, QPainter
+from PySide6.QtCore import QThread, Signal
 import cv2
 import numpy as np
 from camera_info import CameraInfo
@@ -142,9 +142,9 @@ class FrameStabilizer:
 
 
 class TimerThread(QThread):
-    update_signal = pyqtSignal(object)
-    update_error = pyqtSignal(object)
-    ocr_result_signal = pyqtSignal(list)
+    update_signal = Signal(object)
+    update_error = Signal(object)
+    ocr_result_signal = Signal(list)
 
     def __init__(self, camera_info: CameraInfo, detectionTargetsStorage):
         super().__init__()
@@ -378,7 +378,7 @@ class TimerThread(QThread):
 
 
 class CameraView(QGraphicsView):
-    first_frame_received_signal = pyqtSignal()
+    first_frame_received_signal = Signal()
 
     def __init__(self, camera_index, detectionTargetsStorage=None):
         super().__init__()

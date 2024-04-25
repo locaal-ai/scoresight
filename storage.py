@@ -1,6 +1,6 @@
 import json
 import os
-from PyQt6.QtCore import QObject, pyqtSignal
+from PySide6.QtCore import QObject, Signal
 from platformdirs import user_data_dir
 from defaults import info_for_box_name, normalize_settings_dict
 
@@ -107,7 +107,7 @@ def fetch_custom_box_names():
 class TextDetectionTargetMemoryStorage(QObject):
     # This class is used to store the text detection targets in memory
 
-    data_changed = pyqtSignal(list)
+    data_changed = Signal(list)
 
     def __init__(self):
         super().__init__()

@@ -6,8 +6,8 @@ from io import StringIO
 from sc_logging import logger
 from storage import fetch_data, store_data
 from os import path
-from PyQt6.QtWidgets import QDialog
-from PyQt6.uic import loadUi
+from PySide6.QtWidgets import QDialog
+from PySide6.QtUiTools import QUiLoader
 
 
 def fetch_release_info(update_check_url):
@@ -109,10 +109,11 @@ def check_for_updates(override_settings: bool) -> bool:
 def check_for_updates_dialog(new_version_available: bool, error: bool = False):
     # popup a qdialog with the update info
     update_dialog = QDialog()
-    loadUi(
+    loader = QUiLoader()
+    ui = loader.load(
         path.abspath(path.join(path.dirname(__file__), "update_available.ui")),
-        update_dialog,
     )
+    update_dialog.setLayout(ui.layout())
     update_dialog.setWindowTitle("ScoreSight Update Available")
     update_dialog.checkBox_disableUpdateChecks.toggled.connect(
         lambda value: store_data("scoresight.json", "disable_update_checks", value)
