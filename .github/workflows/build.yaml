@@ -37,7 +37,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Python
-        if: matrix.os != 'windows-latest'
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -100,13 +99,13 @@ jobs:
       #     APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
 
       - name: Unlock keychain on Mac
-        if: matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge'
+        if: matrix.os == 'macos-latest'
         run: |
           security unlock-keychain -p "" github_build.keychain
           security set-key-partition-list -S apple-tool:,apple: -k "" -D "Developer" -t private github_build.keychain
 
       - name: List available signing identities
-        if: matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge'
+        if: matrix.os == 'macos-latest'
         run: |
           security find-identity -v -p codesigning
 
@@ -116,7 +115,6 @@ jobs:
         run: |
           echo "LOCAL_RELEASE_TAG=${GITHUB_REF_NAME}" >> .env
           echo "LOCAL_RELEASE_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> .env
-          echo "UPDATE_CHECK_URL=https://download.scoresight.live/release_info.env" >> .env
 
       - name: Write .env file Windows
         if: matrix.os == 'windows-latest'
@@ -124,7 +122,6 @@ jobs:
           @"
           LOCAL_RELEASE_TAG=$env:GITHUB_REF_NAME
           LOCAL_RELEASE_DATE=$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ssZ')
-          UPDATE_CHECK_URL=https://download.scoresight.live/release_info.env
           "@ | Out-File -FilePath .env -Encoding ASCII
         shell: pwsh
 
