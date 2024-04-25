@@ -19,7 +19,11 @@ Videos and tutorials will be provided shortly.
 
 ## Installation
 
-See the releases page for downloadable executables and installers.
+See the [releases](https://github.com/occ-ai/scoresight/releases) page for downloadable executables and installers.
+
+See the [Install Guide](INSTALL.md) for help with installation.
+
+## Build from Source
 
 ### Prerequisites
 

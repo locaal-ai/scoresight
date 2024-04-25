@@ -74,7 +74,6 @@ jobs:
           shopt -s extglob
           shopt -s nullglob
 
-          root_dir="$(pwd)"
           commit_hash="${GITHUB_SHA:0:9}"
 
           variants=(
@@ -83,15 +82,14 @@ jobs:
             'windows'
           )
 
-          mkdir -p "${root_dir}/uploads"
+          mkdir -p "${{ github.workspace }}/uploads"
 
           for variant in "${variants[@]}"; do
 
             candidates=(*-${variant}/@(*))
 
             for candidate in "${candidates[@]}"; do
-              cp "${candidate}" "${root_dir}/uploads/scoresight-${variant}-${GITHUB_REF_NAME}-${commit_hash}.${candidate##*.}"
-              cp "${candidate}" "${root_dir}/uploads/scoresight-${variant}-latest.${candidate##*.}"
+              cp "${candidate}" "${{ github.workspace }}/uploads/scoresight-${variant}-${GITHUB_REF_NAME}.${candidate##*.}"
             done
           done
 
@@ -111,19 +109,19 @@ jobs:
 
           echo "### Checksums" > ${{ github.workspace }}/CHECKSUMS.txt
           # find the files from the above step and generate checksums
-          for file in ${{ github.workspace }}/scoresight-*; do
+          for file in ${{ github.workspace }}/uploads/scoresight-*; do
             echo "    ${file##*/}: $(sha256sum "${file}" | cut -d " " -f 1)" >> ${{ github.workspace }}/CHECKSUMS.txt
           done
 
       - name: Create Release 🛫
         if: fromJSON(steps.check.outputs.validTag)
         id: create_release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           draft: true
           body_path: ${{ github.workspace }}/CHECKSUMS.txt
           files: |
-            ${{ github.workspace }}/scoresight-*.zip
-            ${{ github.workspace }}/scoresight-*.exe
-            ${{ github.workspace }}/scoresight-*.dmg
-            ${{ github.workspace }}/scoresight-*.tar
+            ${{ github.workspace }}/uploads/scoresight-*.zip
+            ${{ github.workspace }}/uploads/scoresight-*.exe
+            ${{ github.workspace }}/uploads/scoresight-*.dmg
+            ${{ github.workspace }}/uploads/scoresight-*.tar
