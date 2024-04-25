@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import (
     QGraphicsScene,
     QGraphicsPixmapItem,
 )
-from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QImage, QPixmap, QPainter
 from PyQt6.QtCore import QThread, pyqtSignal
 import cv2

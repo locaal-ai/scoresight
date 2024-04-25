@@ -189,10 +189,13 @@ async def shutdown():
 
 def stop_http_server():
     logger.info("Stopping server...")
-    conn = http.client.HTTPConnection("localhost", PORT)
-    conn.request("GET", "/shutdown")
-    conn.close()
-    logger.info("Server stopped")
+    try:
+        conn = http.client.HTTPConnection("localhost", PORT)
+        conn.request("GET", "/shutdown")
+        conn.close()
+        logger.info("Server stopped")
+    except Exception as e:
+        pass
 
 
 def update_http_server(results: list[TextDetectionTargetWithResult]):

@@ -23,7 +23,7 @@ See the [releases](https://github.com/occ-ai/scoresight/releases) page for downl
 
 See the [Install Guide](INSTALL.md) for help with installation.
 
-## Build from Source
+## Running and Building from Source
 
 ### Prerequisites
 
@@ -54,15 +54,40 @@ There are some extra steps for installation on Windows:
  - Download and install https://visualstudio.microsoft.com/visual-cpp-build-tools/ C++ Build Tools
  - Build the win32DeviceEnum pyd by `$ cd win32DeviceEnum && python.exe setup.py build_ext --inplace`
 
-## Usage
+### Running from source
 
-1. Launch the application:
+1. Once everything is installed launch the application:
 
   ```shell
   python main.py
   ```
 
 2. Follow the on-screen instructions to load an image of the scoreboard and extract the text.
+
+### Build an executable
+
+You may want to build a distributable .exe or .app or even an installer, this is possible with [PyInstaller](https://github.com/pyinstaller/pyinstaller).
+
+To build the executable run PyInstaller.
+
+#### MacOS
+
+```
+pyinstaller --clean --noconfirm scoresight.spec -- --mac_osx
+```
+
+#### Windows
+
+```
+pyinstaller --clean --noconfirm scoresight.spec -- --win
+```
+
+#### Linux
+
+```
+pyinstaller --clean --noconfirm scoresight.spec
+```
+
 
 ## Contributing
 

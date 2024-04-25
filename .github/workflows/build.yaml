@@ -53,17 +53,16 @@ jobs:
           brew install tesseract
           pip install --no-binary tesserocr tesserocr
 
-      # - name: Install pyinstaller for Windows
-      #   if: matrix.os == 'windows-latest'
-      #   # $env:PYINSTALLER_COMPILE_BOOTLOADER="True"
-      #   run: |
-      #     Invoke-WebRequest -Uri https://github.com/pyinstaller/pyinstaller/archive/refs/tags/v6.5.0.zip -OutFile pyinstaller-6.5.0.zip
-      #     Expand-Archive -Path pyinstaller-6.5.0.zip -DestinationPath .
-      #     cd pyinstaller-6.5.0
-      #     python -m pip install .
-      #     cd ..
-      #     Remove-Item -Recurse -Force pyinstaller-6.5.0
-      #     Remove-Item -Force pyinstaller-6.5.0.zip
+      - name: Install pyinstaller for Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          Invoke-WebRequest -Uri https://github.com/pyinstaller/pyinstaller/archive/refs/tags/v6.6.0.zip -OutFile pyinstaller-6.6.0.zip
+          Expand-Archive -Path pyinstaller-6.6.0.zip -DestinationPath .
+          cd pyinstaller-6.6.0
+          python -m pip install .
+          cd ..
+          Remove-Item -Recurse -Force pyinstaller-6.6.0
+          Remove-Item -Force pyinstaller-6.6.0.zip
 
       - name: Install dependencies
         run: |

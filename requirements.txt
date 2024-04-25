@@ -4,8 +4,9 @@ obsws-python
 opencv-python
 pillow
 platformdirs
-pyinstaller
-pyqt6
+pyinstaller==6.6.0
+pyqt6==6.6.1
+PyQt6-Qt6==6.7.0
 python-dotenv
 requests
 tesserocr

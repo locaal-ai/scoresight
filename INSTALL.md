@@ -36,6 +36,14 @@ To install on Windows, simply click the .zip file and then the .exe setup instal
 
 Once the setup is complete, ScoreSight will be available as an application.
 
+If you get an error of a virus (which is a false alarm) like so
+
+![alt text](docs/image-14.png)
+
+Make sure to disable real-time protection
+
+![alt text](docs/image-15.png)
+
 ## Mac OS
 
 On Mac OS ScoreSight comes as packaged .app application which doesn't need installation.
