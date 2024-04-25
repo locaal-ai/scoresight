@@ -15,7 +15,19 @@ It is written in Python and utilizes the following technologies:
 
 ## Usage
 
-Videos and tutorials will be provided shortly.
+Very short video tutorials:
+
+<div>
+<a href="https://youtu.be/wMNolI0w0tE" target="_blank"><img src="docs/image-16.png" width="30%"/></a>
+<a href="https://youtu.be/ACY4-yT3x84" target="_blank"><img src="docs/image-17.png" width="30%"/></a>
+<a href="https://youtu.be/yowoYzBWrps" target="_blank"><img src="docs/image-18.png" width="30%"/></a>
+<a href="https://youtu.be/ptR-Yh5FSPg" target="_blank"><img src="docs/image-19.png" width="30%"/></a>
+</div>
+
+Additional guides:
+
+- [How to use the internal HTTP server](docs/http_server.md)
+- [How to connect to vMix](docs/vmix.md)
 
 ## Installation
 
