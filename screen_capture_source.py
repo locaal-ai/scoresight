@@ -23,9 +23,11 @@ class ScreenCaptureNotImplemented:
 # platform-independent part of the code.
 if platform.system() == "Darwin":
     from screen_capture_source_mac import ScreenCaptureMacOS
+
     ScreenCapture = ScreenCaptureMacOS
 elif platform.system() == "Windows":
     from screen_capture_source_windows import ScreenCaptureWindows
+
     ScreenCapture = ScreenCaptureWindows
 else:
     ScreenCapture = ScreenCaptureNotImplemented
