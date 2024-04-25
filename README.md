@@ -1,17 +1,41 @@
-# ScoreSight - OCR Scoreboard Application
+# ScoreSight - Scoreboard OCR Application
 
-This is an OCR (Optical Character Recognition) application designed to read scoreboards.
+<div align="center">
+
+[![GitHub](https://img.shields.io/github/license/occ-ai/scoresight)](https://github.com/occ-ai/scoresight/blob/main/LICENSE)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/occ-ai/scoresight/build.yaml)](https://github.com/occ-ai/scoresight/actions/workflows/build.yaml)
+[![Total downloads](https://img.shields.io/github/downloads/occ-ai/scoresight/total)](https://github.com/occ-ai/scoresight/releases)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/occ-ai/scoresight)](https://github.com/occ-ai/scoresight/releases)
+[![Discord](https://img.shields.io/discord/1200229425141252116)](https://discord.gg/8pG2tC923N)
+
+</div>
+
+ScoreSight is an OCR (Optical Character Recognition) application designed to read scoreboards.
 It is written in Python and utilizes the following technologies:
 
 - Qt6: A cross-platform GUI toolkit for creating graphical user interfaces.
 - OpenCV: A computer vision library for image and video processing.
 - Tesseract OCR: An open-source OCR engine for recognizing text from images.
 
+It is the best **free** scoreboard OCR tool on planet Earth.
+
 ## Features
 
-- Extracts text from scoreboards using image processing techniques.
-- Provides a user-friendly interface for interacting with the application.
-- Supports multiple platforms thanks to PyInstaller packaging.
+- Works on Windows, Mac and Linux (the only scoreboard OCR tool that does it)
+- Input/Capture: USB, NDI, Screen Capture, URL / RTSP, Video Files, etc.
+- Perspective correction
+- Image processing and binarization techniques, local, global etc.
+- Output to text files (.txt, .csv, .xml)
+- HTTP output via local server: HTML, JSON, XML and CSV endpoints
+- Import & Export configuration profiles
+- Integrations: OBS (websocket), vMix (API), NewBlue FX Titler (API)
+- Up to 30 updates/s
+- Unlimited detection boxes
+- Camera bump and drift correction with stabilization algorithm
+- Unlimited devices or open instances on the same device
+- Custom detection boxes
+
+Price: FREE.
 
 ## Usage
 
@@ -122,5 +146,5 @@ You may also email [support@scoresight.live](mailto:support@scoresight.live).
 
 ## Business Inquiries
 
-If you wish to contract the development team to productionize ScoreSight for your business need,
+If you wish to contract the development team to productionize ScoreSight for your needs,
 please contact [info@scoresight.live](mailto:info@scoresight.live).
