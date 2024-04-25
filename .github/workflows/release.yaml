@@ -1,5 +1,5 @@
-# only run this workflow on the main branch and when a tag is pushed
-# this workflow will create a release draft and upload the build artifacts
+# only run this workflow on the main branch.
+# when a tag is pushed this workflow will create a release draft and upload the build artifacts
 # to the release draft
 name: Release
 run-name: ${{ github.ref_name }} release run 🚀
@@ -17,7 +17,6 @@ concurrency:
 jobs:
   build-project:
     name: Build Project 🧱
-    if: github.ref_type == 'tag'
     uses: ./.github/workflows/build.yaml
     secrets: inherit
     permissions:
@@ -96,49 +95,12 @@ jobs:
             done
           done
 
-      - name: Create Latest Release Info File
+      - name: Upload Release Artifacts 📤
         if: fromJSON(steps.check.outputs.validTag)
-        run: |
-          echo "LATEST_RELEASE_TAG=${GITHUB_REF_NAME}" > release_info.env
-          echo "LATEST_COMMIT_HASH=${GITHUB_SHA}" >> release_info.env
-          echo "LATEST_RELEASE_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> release_info.env
-          cp release_info.env "$(pwd)/uploads/release_info.env"
-
-      - name: Upload to S3 📤
-        if: fromJSON(steps.check.outputs.validTag)
-        uses: shallwefootball/s3-upload-action@master
+        uses: actions/upload-artifact@v4
         with:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.AWS_BUCKET }}
-          source_dir: './uploads/'
-          destination_dir: ''
-
-      - name: Create a release note on Shopify
-        if: fromJSON(steps.check.outputs.validTag)
-        run: |
-          : Create a release note on Shopify
-          if [[ "${RUNNER_DEBUG}" ]]; then set -x; fi
-          shopt -s extglob
-
-          echo "Creating a release note on Shopify"
-          echo "Get the blog id from Shopify"
-          BLOG_ID=$(curl -s -X GET "https://${{ secrets.SHOPIFY_STORE_ID }}.myshopify.com/admin/api/2024-01/blogs.json" \
-            -H 'Content-Type: application/json' \
-            -H "X-Shopify-Access-Token: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}" | jq ".blogs[0].id")
-          echo "Blog ID: ${BLOG_ID}"
-          if [ -z "${BLOG_ID}" ] || [ "${BLOG_ID}" == "null" ]; then
-            echo "Blog ID is empty"
-            exit 1
-          fi
-
-          PUBLISHED_AT=$(date -u +"%a %b %d %T %Z %Y")
-          echo "Create a new article on Shopify"
-          curl -s -X POST "https://${{ secrets.SHOPIFY_STORE_ID }}.myshopify.com/admin/api/2024-01/blogs/${BLOG_ID}/articles.json" \
-            -H 'Content-Type: application/json' \
-            -H "X-Shopify-Access-Token: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}" \
-            -d "{\"article\": {\"title\": \"New Release: ${GITHUB_REF_NAME}\",\"author\": \"ScoreSight\",\"tags\": \"release\",\"published_at\": \"${PUBLISHED_AT}\",\"body_html\": \"<p>Version: ${GITHUB_REF_NAME}</p><p>Bugfixes, features and improvements.</p><p>Release Date: ${PUBLISHED_AT}</p>\"}}"
-          echo "Release note created on Shopify"
+          name: scoresight-${GITHUB_REF_NAME}
+          path: uploads
 
       # - name: Generate Checksums 🪪
       #   if: fromJSON(steps.check.outputs.validTag)

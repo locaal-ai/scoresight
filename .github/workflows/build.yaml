@@ -21,7 +21,7 @@ jobs:
           - os: macos-latest
             python-version: '3.11'
             target: macos-x86
-            runs-on: [self-hosted, macOS]
+            runs-on: macos-latest
           - os: ubuntu-latest
             python-version: '3.11'
             target: linux
@@ -29,7 +29,7 @@ jobs:
           - os: windows-latest
             python-version: '3.11'
             target: windows
-            runs-on: [self-hosted, Windows]
+            runs-on: windows-latest
 
     runs-on: ${{ matrix.runs-on }}
 
