@@ -1,0 +1,12 @@
+cyndilib
+fastapi
+obsws-python
+opencv-python
+pillow
+platformdirs
+pyinstaller
+pyqt6
+python-dotenv
+requests
+tesserocr
+uvicorn

@@ -1,0 +1,166 @@
+# only run this workflow on the main branch and when a tag is pushed
+# this workflow will create a release draft and upload the build artifacts
+# to the release draft
+name: Release
+run-name: ${{ github.ref_name }} release run 🚀
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+permissions:
+  contents: write
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.ref }}'
+  cancel-in-progress: ${{ github.ref_type == 'tag' }}
+jobs:
+  build-project:
+    name: Build Project 🧱
+    if: github.ref_type == 'tag'
+    uses: ./.github/workflows/build.yaml
+    secrets: inherit
+    permissions:
+      contents: read
+
+  create-release:
+    name: Create Release 🛫
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-22.04
+    needs: build-project
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check Release Tag ☑️
+        id: check
+        run: |
+          : Check Release Tag ☑️
+          if [[ "${RUNNER_DEBUG}" ]]; then set -x; fi
+          shopt -s extglob
+
+          case "${GITHUB_REF_NAME}" in
+            +([0-9]).+([0-9]).+([0-9]) )
+              echo 'validTag=true' >> $GITHUB_OUTPUT
+              echo 'prerelease=false' >> $GITHUB_OUTPUT
+              echo "version=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+              ;;
+            +([0-9]).+([0-9]).+([0-9])-@(beta|rc)*([0-9]) )
+              echo 'validTag=true' >> $GITHUB_OUTPUT
+              echo 'prerelease=true' >> $GITHUB_OUTPUT
+              echo "version=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+              ;;
+            *) echo 'validTag=false' >> $GITHUB_OUTPUT ;;
+          esac
+
+      - name: Download Build Artifacts 📥
+        uses: actions/download-artifact@v4
+        if: fromJSON(steps.check.outputs.validTag)
+        id: download
+
+      - name: Print downloaded artifacts 📥
+        if: fromJSON(steps.check.outputs.validTag)
+        run: |
+          : Print downloaded artifacts 📥
+          if [[ "${RUNNER_DEBUG}" ]]; then set -x; fi
+          shopt -s extglob
+
+          ls -laR ${{ steps.download.outputs.artifacts }}
+
+      - name: Rename Files 🏷️
+        if: fromJSON(steps.check.outputs.validTag)
+        run: |
+          : Rename Files 🏷️
+          if [[ "${RUNNER_DEBUG}" ]]; then set -x; fi
+          shopt -s extglob
+          shopt -s nullglob
+
+          root_dir="$(pwd)"
+          commit_hash="${GITHUB_SHA:0:9}"
+
+          variants=(
+            'linux'
+            'macos-x86'
+            'windows'
+          )
+
+          mkdir -p "${root_dir}/uploads"
+
+          for variant in "${variants[@]}"; do
+
+            candidates=(*-${variant}/@(*))
+
+            for candidate in "${candidates[@]}"; do
+              cp "${candidate}" "${root_dir}/uploads/scoresight-${variant}-${GITHUB_REF_NAME}-${commit_hash}.${candidate##*.}"
+              cp "${candidate}" "${root_dir}/uploads/scoresight-${variant}-latest.${candidate##*.}"
+            done
+          done
+
+      - name: Create Latest Release Info File
+        if: fromJSON(steps.check.outputs.validTag)
+        run: |
+          echo "LATEST_RELEASE_TAG=${GITHUB_REF_NAME}" > release_info.env
+          echo "LATEST_COMMIT_HASH=${GITHUB_SHA}" >> release_info.env
+          echo "LATEST_RELEASE_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> release_info.env
+          cp release_info.env "$(pwd)/uploads/release_info.env"
+
+      - name: Upload to S3 📤
+        if: fromJSON(steps.check.outputs.validTag)
+        uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          source_dir: './uploads/'
+          destination_dir: ''
+
+      - name: Create a release note on Shopify
+        if: fromJSON(steps.check.outputs.validTag)
+        run: |
+          : Create a release note on Shopify
+          if [[ "${RUNNER_DEBUG}" ]]; then set -x; fi
+          shopt -s extglob
+
+          echo "Creating a release note on Shopify"
+          echo "Get the blog id from Shopify"
+          BLOG_ID=$(curl -s -X GET "https://${{ secrets.SHOPIFY_STORE_ID }}.myshopify.com/admin/api/2024-01/blogs.json" \
+            -H 'Content-Type: application/json' \
+            -H "X-Shopify-Access-Token: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}" | jq ".blogs[0].id")
+          echo "Blog ID: ${BLOG_ID}"
+          if [ -z "${BLOG_ID}" ] || [ "${BLOG_ID}" == "null" ]; then
+            echo "Blog ID is empty"
+            exit 1
+          fi
+
+          PUBLISHED_AT=$(date -u +"%a %b %d %T %Z %Y")
+          echo "Create a new article on Shopify"
+          curl -s -X POST "https://${{ secrets.SHOPIFY_STORE_ID }}.myshopify.com/admin/api/2024-01/blogs/${BLOG_ID}/articles.json" \
+            -H 'Content-Type: application/json' \
+            -H "X-Shopify-Access-Token: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}" \
+            -d "{\"article\": {\"title\": \"New Release: ${GITHUB_REF_NAME}\",\"author\": \"ScoreSight\",\"tags\": \"release\",\"published_at\": \"${PUBLISHED_AT}\",\"body_html\": \"<p>Version: ${GITHUB_REF_NAME}</p><p>Bugfixes, features and improvements.</p><p>Release Date: ${PUBLISHED_AT}</p>\"}}"
+          echo "Release note created on Shopify"
+
+      # - name: Generate Checksums 🪪
+      #   if: fromJSON(steps.check.outputs.validTag)
+      #   run: |
+      #     : Generate Checksums 🪪
+      #     if [[ "${RUNNER_DEBUG}" ]]; then set -x; fi
+      #     shopt -s extglob
+
+      #     echo "### Checksums" > ${{ github.workspace }}/CHECKSUMS.txt
+      #     # find the files from the above step and generate checksums
+      #     for file in ${{ github.workspace }}/scoresight-*; do
+      #       echo "    ${file##*/}: $(sha256sum "${file}" | cut -d " " -f 1)" >> ${{ github.workspace }}/CHECKSUMS.txt
+      #     done
+
+      # - name: Create Release 🛫
+      #   if: fromJSON(steps.check.outputs.validTag)
+      #   id: create_release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     draft: true
+      #     body_path: ${{ github.workspace }}/CHECKSUMS.txt
+      #     files: |
+      #       ${{ github.workspace }}/scoresight-*.exe
+      #       ${{ github.workspace }}/scoresight-*.dmg
+      #       ${{ github.workspace }}/scoresight-*.tar

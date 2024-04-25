@@ -1,0 +1,221 @@
+name: Cross-Platform Build with PyInstaller
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_call:
+
+jobs:
+  check-format:
+    name: Check Formatting 🔍
+    uses: ./.github/workflows/check-format.yaml
+    permissions:
+      contents: read
+
+  build:
+    needs: check-format
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: macos-latest
+            python-version: '3.11'
+            target: macos-x86
+            runs-on: [self-hosted, macOS]
+          - os: ubuntu-latest
+            python-version: '3.11'
+            target: linux
+            runs-on: ubuntu-latest
+          - os: windows-latest
+            python-version: '3.11'
+            target: windows
+            runs-on: [self-hosted, Windows]
+
+    runs-on: ${{ matrix.runs-on }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        if: matrix.os != 'windows-latest'
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install tesserocr for Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          Invoke-WebRequest -Uri https://github.com/simonflueckiger/tesserocr-windows_build/releases/download/tesserocr-v2.6.0-tesseract-5.3.1/tesserocr-2.6.0-cp311-cp311-win_amd64.whl -OutFile tesserocr-2.6.0-cp311-cp311-win_amd64.whl
+          python -m pip install tesserocr-2.6.0-cp311-cp311-win_amd64.whl
+
+      - name: Install tesserocr for MacOS arm64
+        if: matrix.os == 'macos-latest-xlarge'
+        run: |
+          brew install tesseract
+          pip install --no-binary tesserocr tesserocr
+
+      # - name: Install pyinstaller for Windows
+      #   if: matrix.os == 'windows-latest'
+      #   # $env:PYINSTALLER_COMPILE_BOOTLOADER="True"
+      #   run: |
+      #     Invoke-WebRequest -Uri https://github.com/pyinstaller/pyinstaller/archive/refs/tags/v6.5.0.zip -OutFile pyinstaller-6.5.0.zip
+      #     Expand-Archive -Path pyinstaller-6.5.0.zip -DestinationPath .
+      #     cd pyinstaller-6.5.0
+      #     python -m pip install .
+      #     cd ..
+      #     Remove-Item -Recurse -Force pyinstaller-6.5.0
+      #     Remove-Item -Force pyinstaller-6.5.0.zip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -r requirements.txt
+
+      - name: Install MacOS dependencies
+        if: matrix.os == 'macos-latest'
+        run: |
+          pip install -r requirements-mac.txt
+
+      - name: Install Windows dependencies
+        if: matrix.os == 'windows-latest'
+        run: |
+          python -m pip install -r requirements-win.txt
+
+      # - name: Import Apple Certificate
+      #   if: matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge' && github.runner != 'self-hosted'
+      #   run: |
+      #     if security list-keychains | grep -q "github_build.keychain"; then
+      #       security delete-keychain github_build.keychain
+      #     fi
+      #     security create-keychain -p "" github_build.keychain
+      #     security default-keychain -s github_build.keychain
+      #     security set-keychain-settings -lut 21600 github_build.keychain
+      #     echo "${{ secrets.APPLE_CERTIFICATE }}" | base64 --decode > apple_certificate.p12
+      #     security import apple_certificate.p12 -k github_build.keychain -P "${{ secrets.APPLE_CERTIFICATE_PASSWORD }}" \
+      #       -t cert -f pkcs12 -T /usr/bin/codesign -T /usr/bin/security -T /usr/bin/xcrun
+      #     security unlock-keychain -p "" github_build.keychain
+      #     security set-key-partition-list -S 'apple-tool:,apple:' -s -k "" github_build.keychain
+      #     security list-keychain -d user -s github_build.keychain 'login-keychain'
+      #   env:
+      #     APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      #     APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+
+      - name: Unlock keychain on Mac
+        if: matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge'
+        run: |
+          security unlock-keychain -p "" github_build.keychain
+          security set-key-partition-list -S apple-tool:,apple: -k "" -D "Developer" -t private github_build.keychain
+
+      - name: List available signing identities
+        if: matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge'
+        run: |
+          security find-identity -v -p codesigning
+
+      # write a .env file with the secrets
+      - name: Write .env file Mac & Linux
+        if: matrix.os != 'windows-latest'
+        run: |
+          echo "LOCAL_RELEASE_TAG=${GITHUB_REF_NAME}" >> .env
+          echo "LOCAL_RELEASE_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> .env
+          echo "UPDATE_CHECK_URL=https://download.scoresight.live/release_info.env" >> .env
+
+      - name: Write .env file Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          @"
+          LOCAL_RELEASE_TAG=$env:GITHUB_REF_NAME
+          LOCAL_RELEASE_DATE=$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ssZ')
+          UPDATE_CHECK_URL=https://download.scoresight.live/release_info.env
+          "@ | Out-File -FilePath .env -Encoding ASCII
+        shell: pwsh
+
+      - name: Build device enumeration module on Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd win32DeviceEnum
+          python setup.py build_ext --inplace
+          cd ..
+
+      - name: Build with PyInstaller (MacOS)
+        if: matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge'
+        run: |
+          pyinstaller --clean --noconfirm scoresight.spec -- --mac_osx
+        env:
+          APPLE_APP_DEVELOPER_ID: ${{ secrets.APPLE_APP_DEVELOPER_ID }}
+
+      - name: Build with PyInstaller (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          if ("${{ github.event_name }}" -eq "pull_request") {
+            pyinstaller --clean --noconfirm scoresight.spec -- --win --debug
+          } else {
+            pyinstaller --clean --noconfirm scoresight.spec -- --win
+          }
+
+      - name: Build with PyInstaller (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          pyinstaller --clean --noconfirm scoresight.spec
+
+      - name: Zip Application for Notarization
+        if: matrix.os == 'macos-latest' && github.event_name != 'pull_request'
+        run: |
+          ditto -c -k --keepParent dist/scoresight.app scoresight.zip
+
+      - name: Notarize and Staple
+        if: matrix.os == 'macos-latest' && github.event_name != 'pull_request'
+        run: |
+          xcrun notarytool submit scoresight.zip --apple-id \
+            "${{ secrets.APPLE_DEVELOPER_ID_USER }}" --password \
+            "${{ secrets.APPLE_DEVELOPER_ID_PASSWORD }}" --team-id \
+            "${{ secrets.APPLE_DEVELOPER_ID_TEAM }}" --wait --verbose
+          chmod 755 dist/scoresight.app
+          xcrun stapler staple dist/scoresight.app
+
+      - name: Verify Notarization
+        if: matrix.os == 'macos-latest' && github.event_name != 'pull_request'
+        run: |
+          spctl -a -v dist/scoresight.app
+          rm scoresight.zip
+
+      - name: Add version to .iss file
+        if: matrix.os == 'windows-latest'
+        run: |
+          $version = (Get-Content -Path scoresight.iss -Raw) -replace '@SCORESIGHT_VERSION@', $env:GITHUB_REF_NAME
+          $version | Out-File -FilePath scoresight.iss -Encoding ASCII
+        shell: pwsh
+
+      - name: Compile .ISS to .EXE Installer
+        if: matrix.os == 'windows-latest'
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
+        with:
+          path: scoresight.iss
+          options: /O+
+
+      - name: Create tar Linux
+        if: matrix.os == 'ubuntu-latest'
+        # strip the folder name from the tar
+        run: |
+          chmod a+x dist/scoresight
+          tar -cvf scoresight.tar -C dist scoresight
+
+      - name: Create dmg MacOS
+        if: matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge'
+        run: |
+          chmod a+x dist/scoresight.app
+          hdiutil create -volname "ScoreSight" -srcfolder dist/scoresight.app -ov -format UDRO scoresight.dmg
+
+      - name: Create zip on Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          Compress-Archive -Path "dist/scoresight-setup.exe" -DestinationPath "./scoresight.zip"
+        shell: pwsh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scoresight-${{ matrix.target }}
+          # only upload exe on windows, tar on linux, dmg on macos
+          path: |
+            scoresight.dmg
+            scoresight.tar
+            scoresight.zip

@@ -1,0 +1,3 @@
+pygetwindow
+pybind11
+pywin32
