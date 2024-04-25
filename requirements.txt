@@ -5,8 +5,7 @@ opencv-python
 pillow
 platformdirs
 pyinstaller==6.6.0
-pyqt6==6.6.1
-PyQt6-Qt6==6.7.0
+pyside6
 python-dotenv
 requests
 tesserocr
