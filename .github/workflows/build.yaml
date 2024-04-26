@@ -25,7 +25,7 @@ jobs:
           - os: macos-arm64
             python-version: '3.11'
             target: macos-arm64
-            runs-on: macos-14-arm64
+            runs-on: macos-latest
           - os: ubuntu-latest
             python-version: '3.11'
             target: linux
@@ -202,7 +202,7 @@ jobs:
         if: matrix.os == 'macos-x86' || matrix.os == 'macos-arm64'
         run: |
           chmod a+x dist/scoresight.app
-          hdiutil create -volname "ScoreSight" -srcfolder dist/scoresight.app -ov -format UDRO scoresight.dmg
+          hdiutil create -volname "ScoreSight" -srcfolder dist/scoresight.app -ov -format UDRO scoresight-${{ matrix.target }}.dmg
 
       - name: Create zip on Windows
         if: matrix.os == 'windows-latest'
@@ -216,6 +216,6 @@ jobs:
           name: scoresight-${{ matrix.target }}
           # only upload exe on windows, tar on linux, dmg on macos
           path: |
-            scoresight.dmg
+            scoresight-${{ matrix.target }}.dmg
             scoresight.tar
             scoresight.zip
