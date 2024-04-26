@@ -79,6 +79,7 @@ jobs:
           variants=(
             'linux'
             'macos-x86'
+            'macos-arm64'
             'windows'
           )
 

@@ -16,11 +16,15 @@ jobs:
     needs: check-format
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-x86, macos-arm64, windows-latest]
         include:
-          - os: macos-latest
+          - os: macos-x86
             python-version: '3.11'
             target: macos-x86
+            runs-on: macos-12
+          - os: macos-arm64
+            python-version: '3.11'
+            target: macos-arm64
             runs-on: macos-latest
           - os: ubuntu-latest
             python-version: '3.11'
@@ -48,7 +52,7 @@ jobs:
           python -m pip install tesserocr-2.6.0-cp311-cp311-win_amd64.whl
 
       - name: Install tesserocr for MacOS arm64
-        if: matrix.os == 'macos-latest-xlarge'
+        if: matrix.os == 'macos-arm64'
         run: |
           brew install tesseract
           pip install --no-binary tesserocr tesserocr
@@ -69,7 +73,7 @@ jobs:
           python -m pip install -r requirements.txt
 
       - name: Install MacOS dependencies
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-x86' || matrix.os == 'macos-arm64'
         run: |
           pip install -r requirements-mac.txt
 
@@ -79,7 +83,7 @@ jobs:
           python -m pip install -r requirements-win.txt
 
       - name: Import Apple Certificate
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-x86' || matrix.os == 'macos-arm64'
         run: |
           if security list-keychains | grep -q "github_build.keychain"; then
             security delete-keychain github_build.keychain
@@ -98,13 +102,13 @@ jobs:
           APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
 
       - name: Unlock keychain on Mac
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-x86' || matrix.os == 'macos-arm64'
         run: |
           security unlock-keychain -p "" github_build.keychain
           security set-key-partition-list -S apple-tool:,apple: -k "" -D "Developer" -t private github_build.keychain
 
       - name: List available signing identities
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-x86' || matrix.os == 'macos-arm64'
         run: |
           security find-identity -v -p codesigning
 
@@ -132,7 +136,7 @@ jobs:
           cd ..
 
       - name: Build with PyInstaller (MacOS)
-        if: matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge'
+        if: matrix.os == 'macos-x86' || matrix.os == 'macos-arm64'
         run: |
           pyinstaller --clean --noconfirm scoresight.spec -- --mac_osx
         env:
@@ -153,12 +157,12 @@ jobs:
           pyinstaller --clean --noconfirm scoresight.spec
 
       - name: Zip Application for Notarization
-        if: matrix.os == 'macos-latest' && github.event_name != 'pull_request'
+        if: (matrix.os == 'macos-x86' || matrix.os == 'macos-arm64') && github.event_name != 'pull_request'
         run: |
           ditto -c -k --keepParent dist/scoresight.app scoresight.zip
 
       - name: Notarize and Staple
-        if: matrix.os == 'macos-latest' && github.event_name != 'pull_request'
+        if: (matrix.os == 'macos-x86' || matrix.os == 'macos-arm64') && github.event_name != 'pull_request'
         run: |
           xcrun notarytool submit scoresight.zip --apple-id \
             "${{ secrets.APPLE_DEVELOPER_ID_USER }}" --password \
@@ -168,7 +172,7 @@ jobs:
           xcrun stapler staple dist/scoresight.app
 
       - name: Verify Notarization
-        if: matrix.os == 'macos-latest' && github.event_name != 'pull_request'
+        if: (matrix.os == 'macos-x86' || matrix.os == 'macos-arm64') && github.event_name != 'pull_request'
         run: |
           spctl -a -v dist/scoresight.app
           rm scoresight.zip
@@ -195,10 +199,10 @@ jobs:
           tar -cvf scoresight.tar -C dist scoresight
 
       - name: Create dmg MacOS
-        if: matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge'
+        if: matrix.os == 'macos-x86' || matrix.os == 'macos-arm64'
         run: |
           chmod a+x dist/scoresight.app
-          hdiutil create -volname "ScoreSight" -srcfolder dist/scoresight.app -ov -format UDRO scoresight.dmg
+          hdiutil create -volname "ScoreSight" -srcfolder dist/scoresight.app -ov -format UDRO scoresight-${{ matrix.target }}.dmg
 
       - name: Create zip on Windows
         if: matrix.os == 'windows-latest'
