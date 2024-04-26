@@ -212,6 +212,7 @@ jobs:
           name: scoresight-${{ matrix.target }}
           # only upload exe on windows, tar on linux, dmg on macos
           path: |
-            scoresight.dmg
+            scoresight-macos-arm64.dmg
+            scoresight-macos-x86.dmg
             scoresight.tar
             scoresight.zip
