@@ -19,6 +19,8 @@ It is written in Python and utilizes the following technologies:
 
 It is the best **free** scoreboard OCR tool on planet Earth.
 
+If you'd like to donate to help support the project, you can do so on [GitHub](https://github.com/sponsors/royshil) or [Patreon](https://www.patreon.com/RoyShilkrot).
+
 ## Features
 
 - Works on Windows, Mac and Linux (the only scoreboard OCR tool that does it)
