@@ -726,9 +726,16 @@ class Ui_MainWindow(object):
         self.horizontalSlider_detectionCadence.setOrientation(Qt.Horizontal)
         self.horizontalSlider_detectionCadence.setInvertedAppearance(False)
         self.horizontalSlider_detectionCadence.setInvertedControls(False)
+        self.horizontalSlider_detectionCadence.setTickPosition(QSlider.TicksBelow)
         self.horizontalSlider_detectionCadence.setTickInterval(5)
 
         self.horizontalLayout_9.addWidget(self.horizontalSlider_detectionCadence)
+
+        self.checkBox_updateOnchange = QCheckBox(self.widget_detectionCadence)
+        self.checkBox_updateOnchange.setObjectName(u"checkBox_updateOnchange")
+        self.checkBox_updateOnchange.setChecked(True)
+
+        self.horizontalLayout_9.addWidget(self.checkBox_updateOnchange)
 
 
         self.verticalLayout.addWidget(self.widget_detectionCadence)
@@ -998,6 +1005,10 @@ class Ui_MainWindow(object):
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_vmix), QCoreApplication.translate("MainWindow", u"VMix", None))
         self.pushButton_stopUpdates.setText(QCoreApplication.translate("MainWindow", u"Stop Updates", None))
         self.label_detectionCadence.setText(QCoreApplication.translate("MainWindow", u"Detections / s", None))
+#if QT_CONFIG(tooltip)
+        self.checkBox_updateOnchange.setToolTip(QCoreApplication.translate("MainWindow", u"Only send an update if the field value has changed", None))
+#endif // QT_CONFIG(tooltip)
+        self.checkBox_updateOnchange.setText(QCoreApplication.translate("MainWindow", u"Update on change", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Source", None))
 #if QT_CONFIG(tooltip)
         self.pushButton_refresh_sources.setToolTip(QCoreApplication.translate("MainWindow", u"Refresh Sources", None))

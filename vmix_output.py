@@ -26,8 +26,9 @@ class VMixAPI:
         # Prepare the data to send
         data = {}
         for target in detection:
-            if target.name in self.field_mapping:
-                data[self.field_mapping[target.name]] = target.result
+            if target.result_state == TextDetectionTargetWithResult.ResultState.Success:
+                if target.name in self.field_mapping:
+                    data[self.field_mapping[target.name]] = target.result
 
         if not data:
             logger.debug("No data to send")

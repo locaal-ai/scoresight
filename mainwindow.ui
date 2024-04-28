@@ -1370,8 +1370,24 @@
             <property name="invertedControls">
              <bool>false</bool>
             </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksBelow</enum>
+            </property>
             <property name="tickInterval">
              <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_updateOnchange">
+            <property name="toolTip">
+             <string>Only send an update if the field value has changed</string>
+            </property>
+            <property name="text">
+             <string>Update on change</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>

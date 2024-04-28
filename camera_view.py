@@ -14,6 +14,7 @@ from camera_info import CameraInfo
 from ndi import NDICapture
 from screen_capture_source import ScreenCapture
 
+from storage import TextDetectionTargetMemoryStorage
 from tesseract import TextDetector
 import datetime
 from datetime import datetime
@@ -146,7 +147,11 @@ class TimerThread(QThread):
     update_error = Signal(object)
     ocr_result_signal = Signal(list)
 
-    def __init__(self, camera_info: CameraInfo, detectionTargetsStorage):
+    def __init__(
+        self,
+        camera_info: CameraInfo,
+        detectionTargetsStorage: TextDetectionTargetMemoryStorage,
+    ):
         super().__init__()
         self.camera_info = camera_info
         self.homography = None
@@ -167,6 +172,7 @@ class TimerThread(QThread):
         self.pps = 1000 / self.preview_frame_interval  # previews per second
         self.ups = 1000 / self.update_frame_interval  # updates per second
         self.fps_alpha = 0.1  # Smoothing factor
+        self.updateOnChange = True
 
     def connect_video_capture(self) -> bool:
         if self.camera_info.type == CameraInfo.CameraType.NDI:
@@ -326,6 +332,15 @@ class TimerThread(QThread):
                     # augment the text detection targets with the results
                     results = []
                     for i, result in enumerate(texts):
+                        if self.updateOnChange:
+                            if (
+                                detectionTargets[i].last_text is not None
+                                and detectionTargets[i].last_text == result.text
+                            ):
+                                result.state = (
+                                    TextDetectionTargetWithResult.ResultState.SameNoChange
+                                )
+
                         results.append(
                             TextDetectionTargetWithResult(
                                 detectionTargets[i],
@@ -335,6 +350,7 @@ class TimerThread(QThread):
                                 result.extra,
                             )
                         )
+                        detectionTargets[i].last_text = result.text
 
                     # emit the results
                     self.ocr_result_signal.emit(results)
@@ -395,6 +411,9 @@ class CameraView(QGraphicsView):
         self.fps_text = None
         self.error_text = None
         self.showOSD = True
+
+    def setUpdateOnChange(self, updateOnChange):
+        self.timerThread.updateOnChange = updateOnChange
 
     def toggleOSD(self, state):
         self.showOSD = state

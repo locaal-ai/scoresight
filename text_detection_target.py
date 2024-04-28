@@ -45,6 +45,7 @@ class TextDetectionTarget(QRectF):
         self.settings = settings
         self.ocrResultPerCharacterSmoother = OCRResultPerCharacterSmoother()
         self.last_image = None
+        self.last_text = None
 
 
 class TextDetectionTargetWithResult(TextDetectionTarget):
@@ -52,6 +53,7 @@ class TextDetectionTargetWithResult(TextDetectionTarget):
         Success = 0
         FailedFilter = 1
         Empty = 2
+        SameNoChange = 3
 
     def __init__(
         self,

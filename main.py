@@ -82,9 +82,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         # load env variables
         load_dotenv()
-        self.setWindowTitle(
-            f"{fetch_data('scoresight.json', 'product_name')} - v{os.getenv('LOCAL_RELEASE_TAG')} - Registered to: {fetch_data('scoresight.json', 'customer_name')}"
-        )
+        self.setWindowTitle(f"ScoreSight - v{os.getenv('LOCAL_RELEASE_TAG')}")
         if platform.system() == "Windows":
             # set the icon
             self.setWindowIcon(
@@ -213,6 +211,7 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_formatPrefix.currentIndexChanged.connect(
             self.formatPrefixChanged
         )
+        self.ui.checkBox_updateOnchange.toggled.connect(self.toggleUpdateOnChange)
 
         # populate the tableWidget_boxes with the default and custom boxes
         custom_boxes_names = fetch_custom_box_names()
@@ -276,10 +275,18 @@ class MainWindow(QMainWindow):
         self.ui.horizontalSlider_aggsPerSecond.setValue(
             fetch_data("scoresight.json", "aggs_per_second", 5)
         )
+        self.ui.checkBox_updateOnchange.setChecked(
+            fetch_data("scoresight.json", "update_on_change", True)
+        )
 
         self.update_sources.connect(self.updateSources)
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
+
+    def toggleUpdateOnChange(self, value):
+        store_data("scoresight.json", "update_on_change", value)
+        if self.image_viewer:
+            self.image_viewer.setUpdateOnChange(value)
 
     def formatPrefixChanged(self, index):
         if index == 12:

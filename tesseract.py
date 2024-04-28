@@ -180,7 +180,8 @@ class TextDetector:
             scale_y = 1.0
             if multi_crop:
                 if (
-                    rect.x() < 0
+                    rect is None
+                    or rect.x() < 0
                     or rect.y() < 0
                     or rect.width() < 1
                     or rect.height() < 1
@@ -192,6 +193,12 @@ class TextDetector:
                     )
                     continue
 
+                if rect.x() >= binary.shape[1]:
+                    # move the rect inside the image
+                    rect.setX(binary.shape[1] - rect.width())
+                if rect.y() >= binary.shape[0]:
+                    # move the rect inside the image
+                    rect.setY(binary.shape[0] - rect.height())
                 if rect.x() + rect.width() > binary.shape[1]:
                     rect.setWidth(binary.shape[1] - rect.x())
                 if rect.y() + rect.height() > binary.shape[0]:
@@ -499,7 +506,7 @@ class TextDetector:
                             box["y"] = int(box["y"] + effectiveRect.y())
                         extras["boxes"].append(box)
                         # if char is a "wide character" (like 0,2,3,4,5,6,7,8,9), add the width-to-height ratio
-                        if char in "023456789":
+                        if char in "023456789" and box["h"] > 0:
                             wh_ratios.append(box["w"] / box["h"])
                     if (
                         "normalize_wh_ratio" in rect.settings

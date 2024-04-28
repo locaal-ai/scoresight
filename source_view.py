@@ -215,6 +215,11 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
             self.resultItem.setBrush(QBrush(QColor("green")))
         elif (
             targetWithResult.result_state
+            == TextDetectionTargetWithResult.ResultState.SameNoChange
+        ):
+            self.resultItem.setBrush(QBrush(QColor("lightgreen")))
+        elif (
+            targetWithResult.result_state
             == TextDetectionTargetWithResult.ResultState.FailedFilter
         ):
             self.resultItem.setBrush(QBrush(QColor("yellow")))
