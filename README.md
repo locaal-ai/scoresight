@@ -1,4 +1,4 @@
-# ScoreSight - Scoreboard OCR Application
+# ScoreSight - Real-time OCR For Scoreboards, Apps, Games and more
 
 <div align="center">
 
@@ -10,14 +10,14 @@
 
 </div>
 
-ScoreSight is an OCR (Optical Character Recognition) application designed to read scoreboards.
+ScoreSight is an OCR (Optical Character Recognition) application designed to extract text from real-time updating streams like scoreboards, applications, videos and games.
 It is written in Python and utilizes the following technologies:
 
 - Qt6: A cross-platform GUI toolkit for creating graphical user interfaces.
 - OpenCV: A computer vision library for image and video processing.
 - Tesseract OCR: An open-source OCR engine for recognizing text from images.
 
-It is the best **free** scoreboard OCR tool on planet Earth.
+It is the best **free** real-time OCR tool on planet Earth for scoreboards and games.
 
 If you'd like to donate to help support the project, you can do so on [GitHub](https://github.com/sponsors/royshil) or [Patreon](https://www.patreon.com/RoyShilkrot).
 
