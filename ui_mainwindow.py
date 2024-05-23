@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(961, 839)
+        MainWindow.resize(961, 824)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -67,6 +67,7 @@ class Ui_MainWindow(object):
         __qtablewidgetitem1 = QTableWidgetItem()
         self.tableWidget_boxes.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         self.tableWidget_boxes.setObjectName(u"tableWidget_boxes")
+        self.tableWidget_boxes.setMinimumSize(QSize(0, 100))
         self.tableWidget_boxes.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.tableWidget_boxes.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableWidget_boxes.setTabKeyNavigation(False)
@@ -461,16 +462,15 @@ class Ui_MainWindow(object):
         self.tabWidget_outputs.setObjectName(u"tabWidget_outputs")
         sizePolicy3.setHeightForWidth(self.tabWidget_outputs.sizePolicy().hasHeightForWidth())
         self.tabWidget_outputs.setSizePolicy(sizePolicy3)
+        self.tabWidget_outputs.setTabShape(QTabWidget.Rounded)
         self.tab_textFiles = QWidget()
         self.tab_textFiles.setObjectName(u"tab_textFiles")
         sizePolicy3.setHeightForWidth(self.tab_textFiles.sizePolicy().hasHeightForWidth())
         self.tab_textFiles.setSizePolicy(sizePolicy3)
         self.formLayout_2 = QFormLayout(self.tab_textFiles)
         self.formLayout_2.setObjectName(u"formLayout_2")
-        self.formLayout_2.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
-        self.formLayout_2.setLabelAlignment(Qt.AlignRight|Qt.AlignTop|Qt.AlignTrailing)
-        self.formLayout_2.setFormAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.formLayout_2.setVerticalSpacing(6)
+        self.formLayout_2.setVerticalSpacing(2)
+        self.formLayout_2.setContentsMargins(-1, -1, -1, 0)
         self.label_7 = QLabel(self.tab_textFiles)
         self.label_7.setObjectName(u"label_7")
 
@@ -559,43 +559,20 @@ class Ui_MainWindow(object):
         self.tab_browser.setObjectName(u"tab_browser")
         self.verticalLayout_4 = QVBoxLayout(self.tab_browser)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.label_serverRunning = QLabel(self.tab_browser)
-        self.label_serverRunning.setObjectName(u"label_serverRunning")
-
-        self.verticalLayout_4.addWidget(self.label_serverRunning)
-
         self.label_8 = QLabel(self.tab_browser)
         self.label_8.setObjectName(u"label_8")
         self.label_8.setTextFormat(Qt.RichText)
         self.label_8.setOpenExternalLinks(True)
         self.label_8.setTextInteractionFlags(Qt.LinksAccessibleByMouse|Qt.TextSelectableByMouse)
 
-        self.verticalLayout_4.addWidget(self.label_8)
+        self.verticalLayout_4.addWidget(self.label_8, 0, Qt.AlignTop)
 
         self.tabWidget_outputs.addTab(self.tab_browser, "")
         self.tab_obs = QWidget()
         self.tab_obs.setObjectName(u"tab_obs")
         self.gridLayout_2 = QGridLayout(self.tab_obs)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.lineEdit_sceneName = QLineEdit(self.tab_obs)
-        self.lineEdit_sceneName.setObjectName(u"lineEdit_sceneName")
-        self.lineEdit_sceneName.setEnabled(False)
-
-        self.gridLayout_2.addWidget(self.lineEdit_sceneName, 1, 0, 1, 1)
-
-        self.checkBox_recreate = QCheckBox(self.tab_obs)
-        self.checkBox_recreate.setObjectName(u"checkBox_recreate")
-        self.checkBox_recreate.setEnabled(False)
-        self.checkBox_recreate.setChecked(True)
-
-        self.gridLayout_2.addWidget(self.checkBox_recreate, 2, 0, 1, 1)
-
-        self.pushButton_createOBSScene = QPushButton(self.tab_obs)
-        self.pushButton_createOBSScene.setObjectName(u"pushButton_createOBSScene")
-        self.pushButton_createOBSScene.setEnabled(False)
-
-        self.gridLayout_2.addWidget(self.pushButton_createOBSScene, 3, 0, 1, 1)
-
+        self.gridLayout_2.setVerticalSpacing(2)
         self.pushButton_connectObs = QPushButton(self.tab_obs)
         self.pushButton_connectObs.setObjectName(u"pushButton_connectObs")
         sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
@@ -603,19 +580,44 @@ class Ui_MainWindow(object):
         sizePolicy6.setVerticalStretch(0)
         sizePolicy6.setHeightForWidth(self.pushButton_connectObs.sizePolicy().hasHeightForWidth())
         self.pushButton_connectObs.setSizePolicy(sizePolicy6)
-        self.pushButton_connectObs.setMinimumSize(QSize(0, 40))
+        self.pushButton_connectObs.setMinimumSize(QSize(0, 0))
 
         self.gridLayout_2.addWidget(self.pushButton_connectObs, 0, 0, 1, 1)
+
+        self.widget_18 = QWidget(self.tab_obs)
+        self.widget_18.setObjectName(u"widget_18")
+        self.horizontalLayout_22 = QHBoxLayout(self.widget_18)
+        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
+        self.lineEdit_sceneName = QLineEdit(self.widget_18)
+        self.lineEdit_sceneName.setObjectName(u"lineEdit_sceneName")
+        self.lineEdit_sceneName.setEnabled(False)
+
+        self.horizontalLayout_22.addWidget(self.lineEdit_sceneName)
+
+        self.pushButton_createOBSScene = QPushButton(self.widget_18)
+        self.pushButton_createOBSScene.setObjectName(u"pushButton_createOBSScene")
+        self.pushButton_createOBSScene.setEnabled(False)
+
+        self.horizontalLayout_22.addWidget(self.pushButton_createOBSScene)
+
+        self.checkBox_recreate = QCheckBox(self.widget_18)
+        self.checkBox_recreate.setObjectName(u"checkBox_recreate")
+        self.checkBox_recreate.setEnabled(False)
+        self.checkBox_recreate.setChecked(True)
+
+        self.horizontalLayout_22.addWidget(self.checkBox_recreate)
+
+
+        self.gridLayout_2.addWidget(self.widget_18, 1, 0, 1, 1, Qt.AlignTop)
 
         self.tabWidget_outputs.addTab(self.tab_obs, "")
         self.tab_vmix = QWidget()
         self.tab_vmix.setObjectName(u"tab_vmix")
         self.gridLayout_3 = QGridLayout(self.tab_vmix)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.gridLayout_3.setVerticalSpacing(2)
         self.tableView_vmixMapping = QTableView(self.tab_vmix)
         self.tableView_vmixMapping.setObjectName(u"tableView_vmixMapping")
-        sizePolicy2.setHeightForWidth(self.tableView_vmixMapping.sizePolicy().hasHeightForWidth())
-        self.tableView_vmixMapping.setSizePolicy(sizePolicy2)
         self.tableView_vmixMapping.horizontalHeader().setVisible(False)
         self.tableView_vmixMapping.horizontalHeader().setStretchLastSection(True)
 
@@ -626,23 +628,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_19 = QHBoxLayout(self.widget_16)
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
         self.horizontalLayout_19.setContentsMargins(0, 0, 0, 0)
-        self.label_6 = QLabel(self.widget_16)
-        self.label_6.setObjectName(u"label_6")
-
-        self.horizontalLayout_19.addWidget(self.label_6)
-
-        self.pushButton_startvmix = QPushButton(self.widget_16)
-        self.pushButton_startvmix.setObjectName(u"pushButton_startvmix")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.pushButton_startvmix.sizePolicy().hasHeightForWidth())
-        self.pushButton_startvmix.setSizePolicy(sizePolicy7)
-        self.pushButton_startvmix.setCheckable(True)
-        self.pushButton_startvmix.setChecked(False)
-
-        self.horizontalLayout_19.addWidget(self.pushButton_startvmix)
-
 
         self.gridLayout_3.addWidget(self.widget_16, 1, 0, 1, 1)
 
@@ -674,11 +659,23 @@ class Ui_MainWindow(object):
 
         self.lineEdit_vmixPort = QLineEdit(self.connectionWidget)
         self.lineEdit_vmixPort.setObjectName(u"lineEdit_vmixPort")
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
         sizePolicy7.setHeightForWidth(self.lineEdit_vmixPort.sizePolicy().hasHeightForWidth())
         self.lineEdit_vmixPort.setSizePolicy(sizePolicy7)
         self.lineEdit_vmixPort.setMaximumSize(QSize(50, 16777215))
 
         self.horizontalLayout_18.addWidget(self.lineEdit_vmixPort)
+
+        self.pushButton_startvmix = QPushButton(self.connectionWidget)
+        self.pushButton_startvmix.setObjectName(u"pushButton_startvmix")
+        sizePolicy7.setHeightForWidth(self.pushButton_startvmix.sizePolicy().hasHeightForWidth())
+        self.pushButton_startvmix.setSizePolicy(sizePolicy7)
+        self.pushButton_startvmix.setCheckable(True)
+        self.pushButton_startvmix.setChecked(False)
+
+        self.horizontalLayout_18.addWidget(self.pushButton_startvmix)
 
 
         self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.connectionWidget)
@@ -702,7 +699,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_stopUpdates = QPushButton(self.frame)
         self.pushButton_stopUpdates.setObjectName(u"pushButton_stopUpdates")
-        self.pushButton_stopUpdates.setMinimumSize(QSize(0, 40))
+        self.pushButton_stopUpdates.setMinimumSize(QSize(0, 0))
         self.pushButton_stopUpdates.setCheckable(True)
 
         self.verticalLayout.addWidget(self.pushButton_stopUpdates)
@@ -903,7 +900,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.comboBox_formatPrefix.setCurrentIndex(0)
-        self.tabWidget_outputs.setCurrentIndex(0)
+        self.tabWidget_outputs.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -986,20 +983,18 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.label_savePerSec.setText(QCoreApplication.translate("MainWindow", u"Save / s", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_textFiles), QCoreApplication.translate("MainWindow", u"Text Files", None))
-        self.label_serverRunning.setText(QCoreApplication.translate("MainWindow", u"Server is running.", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>HTML Scoreboard: <a href=\"http://localhost:18099/scoresight\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/scoresight</span></a></p><p>JSON: <a href=\"http://localhost:18099/json\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/json</span></a> (optional: ?pivot)</p><p>XML: <a href=\"http://localhost:18099/xml\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/xml</span></a> (optional: ?pivot)</p><p>CSV: <a href=\"http://localhost:18099/csv\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/csv</span></a></p></body></html>", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_browser), QCoreApplication.translate("MainWindow", u"Browser", None))
-        self.lineEdit_sceneName.setText(QCoreApplication.translate("MainWindow", u"ScoreSight Scene", None))
-        self.checkBox_recreate.setText(QCoreApplication.translate("MainWindow", u"Recreate if exists", None))
-        self.pushButton_createOBSScene.setText(QCoreApplication.translate("MainWindow", u"Create OBS Scene", None))
         self.pushButton_connectObs.setText(QCoreApplication.translate("MainWindow", u"Connect OBS", None))
+        self.lineEdit_sceneName.setText(QCoreApplication.translate("MainWindow", u"ScoreSight Scene", None))
+        self.pushButton_createOBSScene.setText(QCoreApplication.translate("MainWindow", u"Create OBS Scene", None))
+        self.checkBox_recreate.setText(QCoreApplication.translate("MainWindow", u"Recreate", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_obs), QCoreApplication.translate("MainWindow", u"OBS", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Output Mapping", None))
-        self.pushButton_startvmix.setText(QCoreApplication.translate("MainWindow", u"Start", None))
         self.connectionLabel.setText(QCoreApplication.translate("MainWindow", u"Connection", None))
         self.lineEdit_vmixHost.setText(QCoreApplication.translate("MainWindow", u"localhost", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u":", None))
         self.lineEdit_vmixPort.setText(QCoreApplication.translate("MainWindow", u"8099", None))
+        self.pushButton_startvmix.setText(QCoreApplication.translate("MainWindow", u"Start", None))
         self.vmixinputLabel.setText(QCoreApplication.translate("MainWindow", u"Input", None))
         self.inputLineEdit_vmix.setText(QCoreApplication.translate("MainWindow", u"1", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_vmix), QCoreApplication.translate("MainWindow", u"VMix", None))

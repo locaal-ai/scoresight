@@ -164,7 +164,7 @@ class TextDetectionTargetMemoryStorage(QObject):
         # load the boxes from scoresight.json
         boxes = fetch_data("scoresight.json", "boxes")
         if not boxes:
-            return
+            return False
         return self.loadBoxesFromDict(boxes)
 
     def loadBoxesFromFile(self, file_path) -> bool:
