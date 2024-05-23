@@ -94,13 +94,19 @@ There are some extra steps for installation on Windows:
 
 ### Running from source
 
-1. Once everything is installed launch the application:
+1. Compile the UI files into Python:
 
-  ```shell
-  python main.py
-  ```
+    ```powershell
+    ./scripts/compile_ui.ps1
+    ```
 
-2. Follow the on-screen instructions to load an image of the scoreboard and extract the text.
+1. Launch the application:
+
+    ```shell
+    python main.py
+    ```
+
+1. Follow the on-screen instructions to load an image of the scoreboard and extract the text.
 
 ### Build an executable
 

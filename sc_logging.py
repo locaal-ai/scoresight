@@ -27,21 +27,6 @@ logging.basicConfig(
 # prepend the user data directory
 log_file_path = os.path.join(data_dir, f"scoresight_{current_time}.log")
 
-# check to see if there are more log files, and only keep the most recent 10
-log_files = [
-    f
-    for f in os.listdir(data_dir)
-    if f.startswith("scoresight_") and f.endswith(".log")
-]
-# sort log files by date
-log_files.sort()
-if len(log_files) > 10:
-    for f in log_files[:-10]:
-        try:
-            os.remove(os.path.join(data_dir, f))
-        except Exception as e:
-            logger.error(f"Failed to remove log file: {f}")
-
 # Create a file handler
 file_handler = logging.FileHandler(log_file_path)
 file_handler.setLevel(logging.DEBUG)
@@ -60,3 +45,18 @@ if os.getenv("SCORESIGHT_DEBUG"):
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
     logger.debug("Debug mode enabled")
+
+# check to see if there are more log files, and only keep the most recent 10
+log_files = [
+    f
+    for f in os.listdir(data_dir)
+    if f.startswith("scoresight_") and f.endswith(".log")
+]
+# sort log files by date
+log_files.sort()
+if len(log_files) > 10:
+    for f in log_files[:-10]:
+        try:
+            os.remove(os.path.join(data_dir, f))
+        except PermissionError as e:
+            logger.error(f"Failed to remove log file: {f}")

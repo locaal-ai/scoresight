@@ -408,7 +408,7 @@ class MainWindow(QMainWindow):
         folder = QFileDialog.getExistingDirectory(
             self,
             "Select Output Folder",
-            fetch_data("scoresight.json", "output_folder"),
+            fetch_data("scoresight.json", "output_folder", ""),
             options=QFileDialog.Option.ShowDirsOnly,
         )
         if folder and len(folder) > 0:
@@ -522,7 +522,7 @@ class MainWindow(QMainWindow):
         if mapping:
             self.vmixUpdater.set_field_mapping(mapping)
 
-        self.ui.tableView_vmixMapping.model().itemChanged.connect(
+        self.ui.tableView_vmixMapping.model().dataChanged.connect(
             self.vmixMappingChanged
         )
 
@@ -759,9 +759,9 @@ class MainWindow(QMainWindow):
         if self.obs_connect_modal is not None:
             self.obs_websocket_client = open_obs_websocket(
                 {
-                    "ip": self.obs_modal_ui.obs_connect_modal.lineEdit_ip.text(),
-                    "port": self.obs_modal_ui.obs_connect_modal.lineEdit_port.text(),
-                    "password": self.obs_modal_ui.obs_connect_modal.lineEdit_password.text(),
+                    "ip": self.obs_modal_ui.lineEdit_ip.text(),
+                    "port": self.obs_modal_ui.lineEdit_port.text(),
+                    "password": self.obs_modal_ui.lineEdit_password.text(),
                 }
             )
         else:
@@ -865,6 +865,8 @@ class MainWindow(QMainWindow):
                 self, "Open Video File", "", "Video Files (*.mp4 *.avi *.mov)"
             )
             if not file:
+                # no file selected - change source to "Select a source"
+                self.ui.comboBox_camera_source.setCurrentText("Select a source")
                 return
             self.source_name = file
         if self.source_name == "URL Source (HTTP, RTSP)":
@@ -872,16 +874,17 @@ class MainWindow(QMainWindow):
             url_dialog = QDialog()
             ui_urlsource = Ui_UrlSource()
             ui_urlsource.setupUi(url_dialog)
-
             url_dialog.setWindowTitle("URL Source")
             # focus on url input
             ui_urlsource.lineEdit_url.setFocus()
             url_dialog.exec()  # wait for the dialog to close
             # check if the dialog was accepted
             if url_dialog.result() != QDialog.DialogCode.Accepted:
+                self.ui.comboBox_camera_source.setCurrentText("Select a source")
                 return
             self.source_name = ui_urlsource.lineEdit_url.text()
             if self.source_name == "":
+                self.ui.comboBox_camera_source.setCurrentText("Select a source")
                 return
         if self.source_name == "Screen Capture":
             # open a dialog to select the screen
@@ -898,6 +901,7 @@ class MainWindow(QMainWindow):
             screen_dialog.exec()
             # check if the dialog was accepted
             if screen_dialog.result() != QDialog.DialogCode.Accepted:
+                self.ui.comboBox_camera_source.setCurrentText("Select a source")
                 return
             # get the window ID from the comboBox_window
             window_id = ui_screencapture.comboBox_window.currentData()
@@ -932,6 +936,9 @@ class MainWindow(QMainWindow):
         self.ui.frame_source_view.setEnabled(False)
 
         if self.ui.comboBox_camera_source.currentData() == "file":
+            if self.source_name is None:
+                logger.error("No file selected")
+                return
             camera_info = CameraInfo(
                 self.source_name,
                 self.source_name,
@@ -939,6 +946,9 @@ class MainWindow(QMainWindow):
                 CameraInfo.CameraType.FILE,
             )
         elif self.ui.comboBox_camera_source.currentData() == "url":
+            if self.source_name is None:
+                logger.error("No url entered")
+                return
             camera_info = CameraInfo(
                 self.source_name,
                 self.source_name,
@@ -946,6 +956,9 @@ class MainWindow(QMainWindow):
                 CameraInfo.CameraType.URL,
             )
         elif self.ui.comboBox_camera_source.currentData() == "screen_capture":
+            if self.source_name is None:
+                logger.error("No screen capture selected")
+                return
             camera_info = CameraInfo(
                 self.source_name,
                 self.source_name,
@@ -1056,7 +1069,8 @@ class MainWindow(QMainWindow):
             if targetWithResult.result is None:
                 continue
             if (
-                "skip_empty" in targetWithResult.settings
+                targetWithResult.settings is not None
+                and "skip_empty" in targetWithResult.settings
                 and targetWithResult.settings["skip_empty"]
                 and len(targetWithResult.result) == 0
             ):
@@ -1067,7 +1081,10 @@ class MainWindow(QMainWindow):
             ):
                 continue
 
-            if self.obs_websocket_client is not None:
+            if (
+                self.obs_websocket_client is not None
+                and targetWithResult.settings is not None
+            ):
                 # find the source name for the target from the default boxes
                 update_text_source(
                     self.obs_websocket_client,
@@ -1202,12 +1219,12 @@ class MainWindow(QMainWindow):
         self.detectionTargetsStorage.remove_item(item.text())
 
     def createOBSScene(self):
-        self.ui.statusbar().showMessage("Creating OBS scene")
+        self.ui.statusbar.showMessage("Creating OBS scene")
         # get the scene name from the lineEdit_sceneName
         scene_name = self.ui.lineEdit_sceneName.text()
         # clear or create a new scene
         create_obs_scene_from_export(self.obs_websocket_client, scene_name)
-        self.ui.statusbar().showMessage("Finished creating scene")
+        self.ui.statusbar.showMessage("Finished creating scene")
 
     # on destroy, close the OBS connection
     def closeEvent(self, event):

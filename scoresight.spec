@@ -42,6 +42,7 @@ a = Analysis(
         'camera_view.py',
         'defaults.py',
         'file_output.py',
+        'frame_stabilizer.py',
         'get_camera_info.py',
         'http_server.py',
         'log_view.py',
@@ -74,7 +75,7 @@ a = Analysis(
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=['PyQt6'],
     noarchive=False,
 )
 pyz = PYZ(a.pure)

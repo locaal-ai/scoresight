@@ -40,7 +40,7 @@ class ResizableRect(QGraphicsRectItem):
 
     def getEdges(self, pos):
         rect = self.rect()
-        border = self.pen().width() / 2
+        border = self.pen().width() + 2
 
         edge = None
         if pos.x() < rect.x() + border:

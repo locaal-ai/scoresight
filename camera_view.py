@@ -1,5 +1,3 @@
-import platform
-import time
 from PySide6.QtWidgets import (
     QGraphicsView,
     QGraphicsScene,
@@ -8,19 +6,22 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QImage, QPixmap, QPainter
 from PySide6.QtCore import QThread, Signal
+
+import platform
+import time
 import cv2
 import numpy as np
-from camera_info import CameraInfo
-from ndi import NDICapture
-from screen_capture_source import ScreenCapture
-
-from storage import TextDetectionTargetMemoryStorage
-from tesseract import TextDetector
 import datetime
 from datetime import datetime
 
+from camera_info import CameraInfo
+from ndi import NDICapture
+from screen_capture_source import ScreenCapture
+from storage import TextDetectionTargetMemoryStorage
+from tesseract import TextDetector
 from text_detection_target import TextDetectionTargetWithResult
 from sc_logging import logger
+from frame_stabilizer import FrameStabilizer
 
 
 # Function to set the resolution
@@ -78,68 +79,6 @@ def set_camera_highest_resolution(cap):
     # Set the highest resolution
     logger.info("Setting camera resolution to: %d x %d", highest_res[0], highest_res[1])
     set_resolution(cap, *highest_res)
-
-
-class FrameStabilizer:
-    def __init__(self):
-        self.stabilizationFrame = None
-        self.stabilizationFrameCount = 0
-        self.stabilizationBurnInCompleted = False
-        self.stabilizationKPs = None
-        self.stabilizationDesc = None
-        self.orb = None
-        self.matcher = None
-
-    def reset(self):
-        self.stabilizationFrame = None
-        self.stabilizationFrameCount = 0
-        self.stabilizationBurnInCompleted = False
-        self.stabilizationKPs = None
-        self.stabilizationDesc = None
-
-    def stabilize_frame(self, frame_rgb):
-        if self.stabilizationFrame is None:
-            self.stabilizationFrame = frame_rgb
-            self.stabilizationFrameCount = 0
-        elif not self.stabilizationBurnInCompleted:
-            self.stabilizationFrameCount += 1
-            # add the new frame to the stabilization frame
-            frame_rgb = cv2.addWeighted(frame_rgb, 0.5, self.stabilizationFrame, 0.5, 0)
-            if self.stabilizationFrameCount == 10:
-                self.stabilizationBurnInCompleted = True
-                # extract ORB features from the stabilization frame
-                self.orb = cv2.ORB_create()
-                self.stabilizationKPs, self.stabilizationDesc = (
-                    self.orb.detectAndCompute(self.stabilizationFrame, None)
-                )
-                self.matcher = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
-
-        if self.stabilizationBurnInCompleted:
-            # stabilization burn-in period is over, start stabilization
-            # extract features from the current frame
-            kps, desc = self.orb.detectAndCompute(frame_rgb, None)
-            # match the features
-            matches = self.matcher.match(self.stabilizationDesc, desc)
-            # sort the matches by distance
-            matches = sorted(matches, key=lambda x: x.distance)
-            # calculate an affine transform from the matched keypoints
-            src_pts = np.float32(
-                [self.stabilizationKPs[m.queryIdx].pt for m in matches]
-            ).reshape(-1, 1, 2)
-            dst_pts = np.float32([kps[m.trainIdx].pt for m in matches]).reshape(
-                -1, 1, 2
-            )
-            h, _ = cv2.estimateAffinePartial2D(src_pts, dst_pts)
-            # warp the frame
-            if h is not None:
-                frame_rgb = cv2.warpAffine(
-                    frame_rgb,
-                    h,
-                    (frame_rgb.shape[1], frame_rgb.shape[0]),
-                    flags=cv2.WARP_INVERSE_MAP | cv2.INTER_LINEAR,
-                )
-
-        return frame_rgb
 
 
 class TimerThread(QThread):
