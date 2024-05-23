@@ -485,13 +485,15 @@ class MainWindow(QMainWindow):
     def vmixMappingChanged(self, _):
         # store entire mapping data in scoresight.json
         mapping = {}
-        for i in range(self.ui.tableView_vmixMapping.model().rowCount()):
-            item = self.ui.tableView_vmixMapping.model().item(i, 0)
-            value = self.ui.tableView_vmixMapping.model().item(i, 1)
-            if item and value:
-                mapping[item.text()] = value.text()
-        store_data("scoresight.json", "vmix_mapping", mapping)
-        self.vmixUpdater.set_field_mapping(mapping)
+        model = self.ui.tableView_vmixMapping.model()
+        if isinstance(model, QStandardItemModel):
+            for i in range(model.rowCount()):
+                item = model.item(i, 0)
+                value = model.item(i, 1)
+                if item and value:
+                    mapping[item.text()] = value.text()
+            store_data("scoresight.json", "vmix_mapping", mapping)
+            self.vmixUpdater.set_field_mapping(mapping)
 
     def vmixUiSetup(self):
         # populate the vmix connection from storage
@@ -796,12 +798,11 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def getSources(self):
-        # enumerate all the cameras
-        camera_sources = get_camera_info()
-        self.update_sources.emit(camera_sources)
+        self.update_sources.emit(get_camera_info())
 
     @Slot(list)
     def updateSources(self, camera_sources: list[CameraInfo]):
+        self.reset_playing_source()
         # populate the combobox with the sources
         self.ui.comboBox_camera_source.clear()
         self.ui.comboBox_camera_source.addItem("Select a source")
@@ -813,6 +814,7 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_camera_source.addItem("URL Source (HTTP, RTSP)", "url")
         self.ui.comboBox_camera_source.addItem("Screen Capture", "screen_capture")
         self.ui.comboBox_camera_source.setEnabled(True)
+        self.ui.comboBox_camera_source.currentIndexChanged.disconnect()
         self.ui.comboBox_camera_source.currentIndexChanged.connect(self.sourceChanged)
 
         # enable the source view frame
@@ -836,6 +838,20 @@ class MainWindow(QMainWindow):
                     selected_source_from_storage
                 )
 
+    def reset_playing_source(self):
+        if self.image_viewer:
+            # remove the image viewer from the layout frame_for_source_view_label
+            self.ui.frame_for_source_view_label.layout().removeWidget(self.image_viewer)
+            self.image_viewer.close()
+            self.image_viewer = None
+        # add a label with mardown text
+        label_select_source = QLabel("### Open a Camera or Load a File")
+        label_select_source.setTextFormat(Qt.TextFormat.MarkdownText)
+        label_select_source.setEnabled(False)
+        label_select_source.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        clear_layout(self.ui.frame_for_source_view_label.layout())
+        self.ui.frame_for_source_view_label.layout().addWidget(label_select_source)
+
     def sourceChanged(self, index):
         # get the source name from the combobox
         self.source_name = self.ui.comboBox_camera_source.currentText()
@@ -844,32 +860,23 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_fourCorner.setEnabled(False)
         self.ui.pushButton_binary.setEnabled(False)
         if self.source_name == "Select a source":
-            if self.image_viewer:
-                # remove the image viewer from the layout frame_for_source_view_label
-                self.ui.frame_for_source_view_label.layout().removeWidget(
-                    self.image_viewer
-                )
-                self.image_viewer.close()
-                self.image_viewer = None
-            # add a label with mardown text
-            label_select_source = QLabel("### Open a Camera or Load a File")
-            label_select_source.setTextFormat(Qt.TextFormat.MarkdownText)
-            label_select_source.setEnabled(False)
-            label_select_source.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            clear_layout(self.ui.frame_for_source_view_label.layout())
-            self.ui.frame_for_source_view_label.layout().addWidget(label_select_source)
+            self.reset_playing_source()
             return
-        if self.source_name == "Open a Video File":
+        elif self.source_name == "Open a Video File":
+            logger.info("Open File selection dialog")
             # open a file dialog to select a video file
             file, _ = QFileDialog.getOpenFileName(
                 self, "Open Video File", "", "Video Files (*.mp4 *.avi *.mov)"
             )
-            if not file:
+            if not file or not path.exists(file):
                 # no file selected - change source to "Select a source"
+                logger.error("No file selected")
                 self.ui.comboBox_camera_source.setCurrentText("Select a source")
                 return
+            else:
+                logger.info("File selected: %s", file)
             self.source_name = file
-        if self.source_name == "URL Source (HTTP, RTSP)":
+        elif self.source_name == "URL Source (HTTP, RTSP)":
             # open a dialog to enter the url
             url_dialog = QDialog()
             ui_urlsource = Ui_UrlSource()
@@ -886,7 +893,7 @@ class MainWindow(QMainWindow):
             if self.source_name == "":
                 self.ui.comboBox_camera_source.setCurrentText("Select a source")
                 return
-        if self.source_name == "Screen Capture":
+        elif self.source_name == "Screen Capture":
             # open a dialog to select the screen
             screen_dialog = QDialog()
             ui_screencapture = Ui_ScreenCapture()
@@ -936,8 +943,9 @@ class MainWindow(QMainWindow):
         self.ui.frame_source_view.setEnabled(False)
 
         if self.ui.comboBox_camera_source.currentData() == "file":
-            if self.source_name is None:
+            if self.source_name is None or not path.exists(self.source_name):
                 logger.error("No file selected")
+                self.ui.comboBox_camera_source.setCurrentText("Select a source")
                 return
             camera_info = CameraInfo(
                 self.source_name,
@@ -946,8 +954,9 @@ class MainWindow(QMainWindow):
                 CameraInfo.CameraType.FILE,
             )
         elif self.ui.comboBox_camera_source.currentData() == "url":
-            if self.source_name is None:
+            if self.source_name is None or self.source_name == "":
                 logger.error("No url entered")
+                self.ui.comboBox_camera_source.setCurrentText("Select a source")
                 return
             camera_info = CameraInfo(
                 self.source_name,
@@ -958,6 +967,7 @@ class MainWindow(QMainWindow):
         elif self.ui.comboBox_camera_source.currentData() == "screen_capture":
             if self.source_name is None:
                 logger.error("No screen capture selected")
+                self.ui.comboBox_camera_source.setCurrentText("Select a source")
                 return
             camera_info = CameraInfo(
                 self.source_name,
