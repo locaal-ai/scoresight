@@ -898,6 +898,8 @@ class MainWindow(QMainWindow):
             screen_dialog = QDialog()
             ui_screencapture = Ui_ScreenCapture()
             ui_screencapture.setupUi(screen_dialog)
+            # set width and height of the dialog
+            screen_dialog.setFixedWidth(400)
 
             screen_dialog.setWindowTitle("Screen Capture Selection")
             # populate comboBox_window with the available windows
