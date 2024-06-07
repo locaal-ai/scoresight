@@ -55,4 +55,18 @@ Additional guides:
 
 See the [releases](https://github.com/occ-ai/scoresight/releases) page for downloadable executables and installers.
 
-See the [Install Guide](../INSTALL.md) for help with installation.
+See the [Install Guide](INSTALL.md) for help with installation.
+
+## License
+
+This project is released under the MIT license.
+
+## Contact
+
+If you have any questions or suggestions, feel free to leave an issue on the repository.
+You may also email [support@scoresight.live](mailto:support@scoresight.live).
+
+## Business Inquiries
+
+If you wish to contract the development team to productionize ScoreSight for your needs,
+please contact [info@scoresight.live](mailto:info@scoresight.live).
