@@ -59,7 +59,7 @@ Additional guides:
 
 See the [releases](https://github.com/occ-ai/scoresight/releases) page for downloadable executables and installers.
 
-See the [Install Guide](INSTALL.md) for help with installation.
+See the [Install Guide](docs/INSTALL.md) for help with installation.
 
 ## Running and Building from Source
 
