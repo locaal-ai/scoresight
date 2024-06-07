@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(961, 824)
+        MainWindow.resize(961, 858)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -46,13 +46,13 @@ class Ui_MainWindow(object):
         self.verticalLayout = QVBoxLayout(self.frame)
         self.verticalLayout.setSpacing(12)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.groupBox_sb_info = QGroupBox(self.frame)
+        self.groupBox_sb_info = QWidget(self.frame)
         self.groupBox_sb_info.setObjectName(u"groupBox_sb_info")
         self.groupBox_sb_info.setEnabled(False)
         self.verticalLayout_3 = QVBoxLayout(self.groupBox_sb_info)
         self.verticalLayout_3.setSpacing(4)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(-1, -1, -1, 0)
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.widget = QWidget(self.groupBox_sb_info)
         self.widget.setObjectName(u"widget")
         self.horizontalLayout_2 = QHBoxLayout(self.widget)
@@ -793,6 +793,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.label)
 
         self.comboBox_camera_source = QComboBox(self.widget_3)
+        self.comboBox_camera_source.addItem("")
+        self.comboBox_camera_source.addItem("")
+        self.comboBox_camera_source.addItem("")
+        self.comboBox_camera_source.addItem("")
         self.comboBox_camera_source.setObjectName(u"comboBox_camera_source")
         sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy8.setHorizontalStretch(1)
@@ -930,7 +934,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"ScoreSight", None))
-        self.groupBox_sb_info.setTitle(QCoreApplication.translate("MainWindow", u"Scoreboard Information", None))
         ___qtablewidgetitem = self.tableWidget_boxes.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Field", None));
         ___qtablewidgetitem1 = self.tableWidget_boxes.horizontalHeaderItem(1)
@@ -1027,6 +1030,11 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.checkBox_updateOnchange.setText(QCoreApplication.translate("MainWindow", u"Update on change", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Source", None))
+        self.comboBox_camera_source.setItemText(0, QCoreApplication.translate("MainWindow", u"Select a source", None))
+        self.comboBox_camera_source.setItemText(1, QCoreApplication.translate("MainWindow", u"Open a Video File", None))
+        self.comboBox_camera_source.setItemText(2, QCoreApplication.translate("MainWindow", u"URL Source (HTTP, RTSP)", None))
+        self.comboBox_camera_source.setItemText(3, QCoreApplication.translate("MainWindow", u"Screen Capture", None))
+
 #if QT_CONFIG(tooltip)
         self.pushButton_refresh_sources.setToolTip(QCoreApplication.translate("MainWindow", u"Refresh Sources", None))
 #endif // QT_CONFIG(tooltip)

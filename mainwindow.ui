@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>961</width>
-    <height>824</height>
+    <height>858</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,16 +40,22 @@
         <number>12</number>
        </property>
        <item>
-        <widget class="QGroupBox" name="groupBox_sb_info">
+        <widget class="QWidget" name="groupBox_sb_info" native="true">
          <property name="enabled">
           <bool>false</bool>
-         </property>
-         <property name="title">
-          <string>Scoreboard Information</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="spacing">
            <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
@@ -1521,6 +1527,26 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <item>
+                <property name="text">
+                 <string>Select a source</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Open a Video File</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>URL Source (HTTP, RTSP)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Screen Capture</string>
+                </property>
+               </item>
               </widget>
              </item>
              <item>
