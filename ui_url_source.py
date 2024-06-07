@@ -51,7 +51,7 @@ class Ui_Dialog(object):
     # setupUi
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
+        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"URL Source", None))
         self.lineEdit_url.setPlaceholderText(QCoreApplication.translate("Dialog", u"URL", None))
     # retranslateUi
 

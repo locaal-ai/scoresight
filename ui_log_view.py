@@ -77,7 +77,7 @@ class Ui_Dialog(object):
     # setupUi
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
+        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Log View", None))
         self.checkBox_autoScroll.setText(QCoreApplication.translate("Dialog", u"Auto Scroll", None))
         self.pushButton_openlogfolder.setText(QCoreApplication.translate("Dialog", u"Open Log Folder", None))
     # retranslateUi

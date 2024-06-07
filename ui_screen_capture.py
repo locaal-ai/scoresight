@@ -57,7 +57,7 @@ class Ui_Dialog(object):
     # setupUi
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
+        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Screen Capture", None))
         self.label.setText(QCoreApplication.translate("Dialog", u"Window to Capture", None))
     # retranslateUi
 

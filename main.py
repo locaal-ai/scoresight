@@ -15,7 +15,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PySide6.QtCore import Qt, Signal, Slot, QTranslator, QLocale
+from PySide6.QtCore import Qt, Signal, Slot, QTranslator, QLocale, QObject
 from dotenv import load_dotenv
 from os import path
 
@@ -76,8 +76,9 @@ class MainWindow(QMainWindow):
     update_sources = Signal(list)
     get_sources = Signal()
 
-    def __init__(self, translator: QTranslator):
+    def __init__(self, translator: QTranslator, parent: QObject):
         super(MainWindow, self).__init__()
+        self.parent_object = parent
         self.ui = Ui_MainWindow()
         logger.info("Starting ScoreSight")
         self.ui.setupUi(self)
@@ -303,14 +304,13 @@ class MainWindow(QMainWindow):
         self.get_sources.emit()
 
     def changeLanguage(self, locale):
-        logger.info(f"Changing language to {locale}")
-        self.translator.load(
-            path.abspath(
-                path.join(
-                    path.dirname(__file__), "translations", f"scoresight_{locale}.qm"
-                )
-            )
+        locale_file = path.abspath(
+            path.join(path.dirname(__file__), "translations", f"scoresight_{locale}.qm")
         )
+        logger.info(f"Changing language to {locale_file}")
+        if not self.translator.load(locale_file):
+            logger.error(f"Could not load translation for {locale_file}")
+            return
         appInstance = QApplication.instance()
         if appInstance:
             logger.info(f"installing translator for {locale}")
@@ -1325,7 +1325,7 @@ if __name__ == "__main__":
         app.installTranslator(translator)
 
     # show the main window
-    mainWindow = MainWindow(translator)
+    mainWindow = MainWindow(translator, app)
     mainWindow.show()
 
     app.exec()

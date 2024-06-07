@@ -138,12 +138,9 @@ class Ui_MainWindow(object):
         self.groupBox_target_settings = QGroupBox(self.groupBox_sb_info)
         self.groupBox_target_settings.setObjectName(u"groupBox_target_settings")
         self.groupBox_target_settings.setCheckable(False)
-        self.formLayout = QFormLayout(self.groupBox_target_settings)
-        self.formLayout.setObjectName(u"formLayout")
-        self.formLayout.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
-        self.formLayout.setHorizontalSpacing(3)
-        self.formLayout.setVerticalSpacing(2)
-        self.formLayout.setContentsMargins(3, 3, 3, 3)
+        self.verticalLayout_5 = QVBoxLayout(self.groupBox_target_settings)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(3, 3, 3, 3)
         self.widget_10 = QWidget(self.groupBox_target_settings)
         self.widget_10.setObjectName(u"widget_10")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
@@ -170,12 +167,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_12.addWidget(self.pushButton_restoreDefaults)
 
 
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.widget_10)
-
-        self.label_2 = QLabel(self.groupBox_target_settings)
-        self.label_2.setObjectName(u"label_2")
-
-        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label_2)
+        self.verticalLayout_5.addWidget(self.widget_10)
 
         self.widget_7 = QWidget(self.groupBox_target_settings)
         self.widget_7.setObjectName(u"widget_7")
@@ -187,6 +179,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8 = QHBoxLayout(self.widget_7)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.label_2 = QLabel(self.widget_7)
+        self.label_2.setObjectName(u"label_2")
+
+        self.horizontalLayout_8.addWidget(self.label_2)
+
         self.lineEdit_format = QLineEdit(self.widget_7)
         self.lineEdit_format.setObjectName(u"lineEdit_format")
         sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -221,20 +218,29 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.addWidget(self.comboBox_formatPrefix)
 
 
-        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.widget_7)
+        self.verticalLayout_5.addWidget(self.widget_7)
 
-        self.label_13 = QLabel(self.groupBox_target_settings)
+        self.widget_19 = QWidget(self.groupBox_target_settings)
+        self.widget_19.setObjectName(u"widget_19")
+        self.horizontalLayout_21 = QHBoxLayout(self.widget_19)
+        self.horizontalLayout_21.setSpacing(3)
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.horizontalLayout_21.setContentsMargins(0, 0, 0, 0)
+        self.label_13 = QLabel(self.widget_19)
         self.label_13.setObjectName(u"label_13")
 
-        self.formLayout.setWidget(4, QFormLayout.LabelRole, self.label_13)
+        self.horizontalLayout_21.addWidget(self.label_13)
 
-        self.comboBox_fieldType = QComboBox(self.groupBox_target_settings)
+        self.comboBox_fieldType = QComboBox(self.widget_19)
         self.comboBox_fieldType.addItem("")
         self.comboBox_fieldType.addItem("")
         self.comboBox_fieldType.addItem("")
         self.comboBox_fieldType.setObjectName(u"comboBox_fieldType")
 
-        self.formLayout.setWidget(4, QFormLayout.FieldRole, self.comboBox_fieldType)
+        self.horizontalLayout_21.addWidget(self.comboBox_fieldType)
+
+
+        self.verticalLayout_5.addWidget(self.widget_19)
 
         self.widget_14 = QWidget(self.groupBox_target_settings)
         self.widget_14.setObjectName(u"widget_14")
@@ -255,7 +261,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_16.addWidget(self.checkBox_ordinalIndicator)
 
 
-        self.formLayout.setWidget(5, QFormLayout.FieldRole, self.widget_14)
+        self.verticalLayout_5.addWidget(self.widget_14)
 
         self.widget_11 = QWidget(self.groupBox_target_settings)
         self.widget_11.setObjectName(u"widget_11")
@@ -275,7 +281,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.addWidget(self.checkBox_skip_similar_image)
 
 
-        self.formLayout.setWidget(7, QFormLayout.FieldRole, self.widget_11)
+        self.verticalLayout_5.addWidget(self.widget_11)
 
         self.widget_15 = QWidget(self.groupBox_target_settings)
         self.widget_15.setObjectName(u"widget_15")
@@ -296,12 +302,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_17.addWidget(self.checkBox_invertPatch)
 
 
-        self.formLayout.setWidget(8, QFormLayout.FieldRole, self.widget_15)
+        self.verticalLayout_5.addWidget(self.widget_15)
 
         self.checkBox_removeLeadingZeros = QCheckBox(self.groupBox_target_settings)
         self.checkBox_removeLeadingZeros.setObjectName(u"checkBox_removeLeadingZeros")
 
-        self.formLayout.setWidget(10, QFormLayout.FieldRole, self.checkBox_removeLeadingZeros)
+        self.verticalLayout_5.addWidget(self.checkBox_removeLeadingZeros)
 
         self.widget_9 = QWidget(self.groupBox_target_settings)
         self.widget_9.setObjectName(u"widget_9")
@@ -320,23 +326,30 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.addWidget(self.checkBox_normWHRatio)
 
 
-        self.formLayout.setWidget(11, QFormLayout.FieldRole, self.widget_9)
+        self.verticalLayout_5.addWidget(self.widget_9)
 
-        self.label_binarizationMethod = QLabel(self.groupBox_target_settings)
+        self.widget_20 = QWidget(self.groupBox_target_settings)
+        self.widget_20.setObjectName(u"widget_20")
+        self.horizontalLayout_23 = QHBoxLayout(self.widget_20)
+        self.horizontalLayout_23.setSpacing(3)
+        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
+        self.horizontalLayout_23.setContentsMargins(0, 0, 0, 0)
+        self.label_binarizationMethod = QLabel(self.widget_20)
         self.label_binarizationMethod.setObjectName(u"label_binarizationMethod")
 
-        self.formLayout.setWidget(12, QFormLayout.LabelRole, self.label_binarizationMethod)
+        self.horizontalLayout_23.addWidget(self.label_binarizationMethod)
 
-        self.comboBox_binarizationMethod = QComboBox(self.groupBox_target_settings)
+        self.comboBox_binarizationMethod = QComboBox(self.widget_20)
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.setObjectName(u"comboBox_binarizationMethod")
-        sizePolicy4.setHeightForWidth(self.comboBox_binarizationMethod.sizePolicy().hasHeightForWidth())
-        self.comboBox_binarizationMethod.setSizePolicy(sizePolicy4)
 
-        self.formLayout.setWidget(12, QFormLayout.FieldRole, self.comboBox_binarizationMethod)
+        self.horizontalLayout_23.addWidget(self.comboBox_binarizationMethod)
+
+
+        self.verticalLayout_5.addWidget(self.widget_20)
 
         self.widget_17 = QWidget(self.groupBox_target_settings)
         self.widget_17.setObjectName(u"widget_17")
@@ -373,7 +386,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_20.addWidget(self.horizontalSlider_vscale)
 
 
-        self.formLayout.setWidget(13, QFormLayout.FieldRole, self.widget_17)
+        self.verticalLayout_5.addWidget(self.widget_17)
 
         self.widget_13 = QWidget(self.groupBox_target_settings)
         self.widget_13.setObjectName(u"widget_13")
@@ -410,19 +423,28 @@ class Ui_MainWindow(object):
         self.horizontalLayout_15.addWidget(self.horizontalSlider_skew)
 
 
-        self.formLayout.setWidget(14, QFormLayout.FieldRole, self.widget_13)
+        self.verticalLayout_5.addWidget(self.widget_13)
 
-        self.label_3 = QLabel(self.groupBox_target_settings)
+        self.widget_21 = QWidget(self.groupBox_target_settings)
+        self.widget_21.setObjectName(u"widget_21")
+        self.horizontalLayout_24 = QHBoxLayout(self.widget_21)
+        self.horizontalLayout_24.setSpacing(3)
+        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
+        self.horizontalLayout_24.setContentsMargins(0, 0, 0, 0)
+        self.label_3 = QLabel(self.widget_21)
         self.label_3.setObjectName(u"label_3")
 
-        self.formLayout.setWidget(16, QFormLayout.LabelRole, self.label_3)
+        self.horizontalLayout_24.addWidget(self.label_3)
 
-        self.horizontalSlider_conf_thresh = QSlider(self.groupBox_target_settings)
+        self.horizontalSlider_conf_thresh = QSlider(self.widget_21)
         self.horizontalSlider_conf_thresh.setObjectName(u"horizontalSlider_conf_thresh")
         self.horizontalSlider_conf_thresh.setValue(50)
         self.horizontalSlider_conf_thresh.setOrientation(Qt.Horizontal)
 
-        self.formLayout.setWidget(16, QFormLayout.FieldRole, self.horizontalSlider_conf_thresh)
+        self.horizontalLayout_24.addWidget(self.horizontalSlider_conf_thresh)
+
+
+        self.verticalLayout_5.addWidget(self.widget_21)
 
 
         self.verticalLayout_3.addWidget(self.groupBox_target_settings)
@@ -900,14 +922,14 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.comboBox_formatPrefix.setCurrentIndex(0)
-        self.tabWidget_outputs.setCurrentIndex(3)
+        self.tabWidget_outputs.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"ScoreSight Open", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"ScoreSight", None))
         self.groupBox_sb_info.setTitle(QCoreApplication.translate("MainWindow", u"Scoreboard Information", None))
         ___qtablewidgetitem = self.tableWidget_boxes.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Field", None));

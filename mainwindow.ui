@@ -238,16 +238,7 @@
             <property name="checkable">
              <bool>false</bool>
             </property>
-            <layout class="QFormLayout" name="formLayout">
-             <property name="fieldGrowthPolicy">
-              <enum>QFormLayout::ExpandingFieldsGrow</enum>
-             </property>
-             <property name="horizontalSpacing">
-              <number>3</number>
-             </property>
-             <property name="verticalSpacing">
-              <number>2</number>
-             </property>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
              <property name="leftMargin">
               <number>3</number>
              </property>
@@ -260,7 +251,7 @@
              <property name="bottomMargin">
               <number>3</number>
              </property>
-             <item row="0" column="1">
+             <item>
               <widget class="QWidget" name="widget_10" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -314,14 +305,7 @@
                </layout>
               </widget>
              </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Format</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
+             <item>
               <widget class="QWidget" name="widget_7" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -342,6 +326,13 @@
                 <property name="bottomMargin">
                  <number>0</number>
                 </property>
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
+                   <string>Format</string>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <widget class="QLineEdit" name="lineEdit_format">
                   <property name="sizePolicy">
@@ -433,33 +424,54 @@
                </layout>
               </widget>
              </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="label_13">
-               <property name="text">
-                <string>Type</string>
-               </property>
+             <item>
+              <widget class="QWidget" name="widget_19" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_21">
+                <property name="spacing">
+                 <number>3</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Type</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox_fieldType">
+                  <item>
+                   <property name="text">
+                    <string>Number 0-9</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Time 0-9 , . :</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Text</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
-             <item row="4" column="1">
-              <widget class="QComboBox" name="comboBox_fieldType">
-               <item>
-                <property name="text">
-                 <string>Number 0-9</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Time 0-9 , . :</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Text</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item row="5" column="1">
+             <item>
               <widget class="QWidget" name="widget_14" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -500,7 +512,7 @@
                </layout>
               </widget>
              </item>
-             <item row="7" column="1">
+             <item>
               <widget class="QWidget" name="widget_11" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -538,7 +550,7 @@
                </layout>
               </widget>
              </item>
-             <item row="8" column="1">
+             <item>
               <widget class="QWidget" name="widget_15" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -579,14 +591,14 @@
                </layout>
               </widget>
              </item>
-             <item row="10" column="1">
+             <item>
               <widget class="QCheckBox" name="checkBox_removeLeadingZeros">
                <property name="text">
                 <string>Remove leading 0s</string>
                </property>
               </widget>
              </item>
-             <item row="11" column="1">
+             <item>
               <widget class="QWidget" name="widget_9" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_11">
                 <property name="spacing">
@@ -627,44 +639,59 @@
                </layout>
               </widget>
              </item>
-             <item row="12" column="0">
-              <widget class="QLabel" name="label_binarizationMethod">
-               <property name="text">
-                <string>Binarize</string>
-               </property>
+             <item>
+              <widget class="QWidget" name="widget_20" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_23">
+                <property name="spacing">
+                 <number>3</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_binarizationMethod">
+                  <property name="text">
+                   <string>Binarize</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox_binarizationMethod">
+                  <item>
+                   <property name="text">
+                    <string>Global</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>No Binarization</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Local</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Adaptive</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
-             <item row="12" column="1">
-              <widget class="QComboBox" name="comboBox_binarizationMethod">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <item>
-                <property name="text">
-                 <string>Global</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>No Binarization</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Local</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Adaptive</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item row="13" column="1">
+             <item>
               <widget class="QWidget" name="widget_17" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -731,7 +758,7 @@
                </layout>
               </widget>
              </item>
-             <item row="14" column="1">
+             <item>
               <widget class="QWidget" name="widget_13" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -798,21 +825,42 @@
                </layout>
               </widget>
              </item>
-             <item row="16" column="0">
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Conf. Th</string>
-               </property>
-              </widget>
-             </item>
-             <item row="16" column="1">
-              <widget class="QSlider" name="horizontalSlider_conf_thresh">
-               <property name="value">
-                <number>50</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
+             <item>
+              <widget class="QWidget" name="widget_21" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_24">
+                <property name="spacing">
+                 <number>3</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>Conf. Th</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="horizontalSlider_conf_thresh">
+                  <property name="value">
+                   <number>50</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -877,7 +925,7 @@
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_textFiles">
           <property name="sizePolicy">
