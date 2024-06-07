@@ -23,3 +23,4 @@ __MACOSX/
 
 .env
 output/
+.vscode

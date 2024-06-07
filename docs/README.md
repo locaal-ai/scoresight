@@ -1,14 +1,10 @@
 # ScoreSight - Real-time OCR For Scoreboards, Apps, Games and more
 
-<div align="center">
-
 [![GitHub](https://img.shields.io/github/license/occ-ai/scoresight)](https://github.com/occ-ai/scoresight/blob/main/LICENSE)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/occ-ai/scoresight/build.yaml)](https://github.com/occ-ai/scoresight/actions/workflows/build.yaml)
 [![Total downloads](https://img.shields.io/github/downloads/occ-ai/scoresight/total)](https://github.com/occ-ai/scoresight/releases)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/occ-ai/scoresight)](https://github.com/occ-ai/scoresight/releases)
 [![Discord](https://img.shields.io/discord/1200229425141252116)](https://discord.gg/8pG2tC923N)
-
-</div>
 
 ScoreSight is an OCR (Optical Character Recognition) application designed to extract text from real-time updating streams like scoreboards, applications, videos and games.
 It is written in Python and utilizes the following technologies:
@@ -44,19 +40,19 @@ Price: FREE.
 Very short video tutorials:
 
 <div>
-<a href="https://youtu.be/wMNolI0w0tE" target="_blank"><img src="docs/image-16.png" width="30%"/></a>
-<a href="https://youtu.be/ACY4-yT3x84" target="_blank"><img src="docs/image-17.png" width="30%"/></a>
-<a href="https://youtu.be/yowoYzBWrps" target="_blank"><img src="docs/image-18.png" width="30%"/></a>
-<a href="https://youtu.be/ptR-Yh5FSPg" target="_blank"><img src="docs/image-19.png" width="30%"/></a>
+<a href="https://youtu.be/wMNolI0w0tE" target="_blank"><img src="./image-16.png" width="30%"/></a>
+<a href="https://youtu.be/ACY4-yT3x84" target="_blank"><img src="./image-17.png" width="30%"/></a>
+<a href="https://youtu.be/yowoYzBWrps" target="_blank"><img src="./image-18.png" width="30%"/></a>
+<a href="https://youtu.be/ptR-Yh5FSPg" target="_blank"><img src="./image-19.png" width="30%"/></a>
 </div>
 
 Additional guides:
 
-- [How to use the internal HTTP server](docs/http_server.md)
-- [How to connect to vMix](docs/vmix.md)
+- [How to use the internal HTTP server](http_server.md)
+- [How to connect to vMix](vmix.md)
 
 ## Installation
 
 See the [releases](https://github.com/occ-ai/scoresight/releases) page for downloadable executables and installers.
 
-See the [Install Guide](INSTALL.md) for help with installation.
+See the [Install Guide](../INSTALL.md) for help with installation.
