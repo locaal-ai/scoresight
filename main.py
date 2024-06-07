@@ -8,13 +8,14 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QFileDialog,
     QLabel,
+    QMenu,
     QDialog,
     QInputDialog,
     QTableWidgetItem,
 )
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PySide6.QtCore import Qt, Signal, Slot
+from PySide6.QtCore import Qt, Signal, Slot, QTranslator, QLocale
 from dotenv import load_dotenv
 from os import path
 
@@ -75,11 +76,12 @@ class MainWindow(QMainWindow):
     update_sources = Signal(list)
     get_sources = Signal()
 
-    def __init__(self):
+    def __init__(self, translator: QTranslator):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         logger.info("Starting ScoreSight")
         self.ui.setupUi(self)
+        self.translator = translator
         # load env variables
         load_dotenv()
         self.setWindowTitle(f"ScoreSight - v{os.getenv('LOCAL_RELEASE_TAG')}")
@@ -101,9 +103,26 @@ class MainWindow(QMainWindow):
         file_menu.addAction("Check for Updates", lambda: check_for_updates(True))
         file_menu.addAction("About", self.openAboutDialog)
         file_menu.addAction("View Current Log", self.openLogsDialog)
-
         file_menu.addAction("Import Configuration", self.importConfiguration)
         file_menu.addAction("Export Configuration", self.exportConfiguration)
+
+        # Add "Language" menu
+        languageMenu = file_menu.addMenu("Language")
+
+        # Add language options
+        self.addLanguageOption(languageMenu, "English (US)", "en_US")
+        self.addLanguageOption(languageMenu, "French (France)", "fr_FR")
+        self.addLanguageOption(languageMenu, "Spanish (Spain)", "es_ES")
+        self.addLanguageOption(languageMenu, "German", "de_DE")
+        self.addLanguageOption(languageMenu, "Italian", "it_IT")
+        self.addLanguageOption(languageMenu, "Japanese", "ja_JP")
+        self.addLanguageOption(languageMenu, "Korean", "ko_KR")
+        self.addLanguageOption(languageMenu, "Dutch", "nl_NL")
+        self.addLanguageOption(languageMenu, "Polish", "pl_PL")
+        self.addLanguageOption(languageMenu, "Portuguese (Brazil)", "pt_BR")
+        self.addLanguageOption(languageMenu, "Portuguese (Portugal)", "pt_PT")
+        self.addLanguageOption(languageMenu, "Russian", "ru_RU")
+        self.addLanguageOption(languageMenu, "Chinese (Simplified)", "zh_CN")
 
         self.ui.pushButton_connectObs.clicked.connect(self.openOBSConnectModal)
         self.ui.statusbar.showMessage("OBS: Not Connected")
@@ -282,6 +301,24 @@ class MainWindow(QMainWindow):
         self.update_sources.connect(self.updateSources)
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
+
+    def changeLanguage(self, locale):
+        logger.info(f"Changing language to {locale}")
+        self.translator.load(
+            path.abspath(
+                path.join(
+                    path.dirname(__file__), "translations", f"scoresight_{locale}.qm"
+                )
+            )
+        )
+        appInstance = QApplication.instance()
+        if appInstance:
+            logger.info(f"installing translator for {locale}")
+            appInstance.installTranslator(self.translator)
+            self.ui.retranslateUi(self)
+
+    def addLanguageOption(self, menu: QMenu, language_name: str, locale: str):
+        menu.addAction(language_name, lambda: self.changeLanguage(locale))
 
     def toggleUpdateOnChange(self, value):
         store_data("scoresight.json", "update_on_change", value)
@@ -1270,8 +1307,25 @@ if __name__ == "__main__":
             pass
     app = QApplication(sys.argv)
 
+    # Get system locale
+    locale = QLocale.system().name()
+
+    # Load the translation file based on the locale
+    translator = QTranslator()
+    locale_file = path.abspath(
+        path.join(path.dirname(__file__), "translations", f"scoresight_{locale}.qm")
+    )
+    # check if the file exists
+    if not path.exists(locale_file):
+        # load the default translation file
+        locale_file = path.abspath(
+            path.join(path.dirname(__file__), "translations", "scoresight_en_US.qm")
+        )
+    if translator.load(locale_file):
+        app.installTranslator(translator)
+
     # show the main window
-    mainWindow = MainWindow()
+    mainWindow = MainWindow(translator)
     mainWindow.show()
 
     app.exec()

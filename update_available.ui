@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Update Available</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="spacing">
