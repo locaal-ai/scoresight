@@ -7,15 +7,10 @@
 [![Discord](https://img.shields.io/discord/1200229425141252116)](https://discord.gg/8pG2tC923N)
 
 ScoreSight is an OCR (Optical Character Recognition) application designed to extract text from real-time updating streams like scoreboards, applications, videos and games.
-It is written in Python and utilizes the following technologies:
-
-- Qt6: A cross-platform GUI toolkit for creating graphical user interfaces.
-- OpenCV: A computer vision library for image and video processing.
-- Tesseract OCR: An open-source OCR engine for recognizing text from images.
 
 It is the best **free** real-time OCR tool on planet Earth for scoreboards and games.
 
-If you'd like to donate to help support the project, you can do so on [GitHub](https://github.com/sponsors/royshil) or [Patreon](https://www.patreon.com/RoyShilkrot).
+If you'd like to donate to help support the project, you can do so on [GitHub](https://github.com/sponsors/royshil) or [Patreon](https://www.patreon.com/RoyShilkrot) or [OpenCollective](https://opencollective.com/occ-ai).
 
 ## Features
 
@@ -32,6 +27,7 @@ If you'd like to donate to help support the project, you can do so on [GitHub](h
 - Camera bump and drift correction with stabilization algorithm
 - Unlimited devices or open instances on the same device
 - Custom detection boxes
+- Translated to 12 languages (English, German, Spanish, French, Italian, Japanese, Korean, Dutch, Polish, Portugese, Russian, Chinese)
 
 Price: FREE.
 
@@ -65,6 +61,8 @@ This project is released under the MIT license.
 
 If you have any questions or suggestions, feel free to leave an issue on the repository.
 You may also email [support@scoresight.live](mailto:support@scoresight.live).
+
+For live support reach out on [Discord](https://discord.gg/8pG2tC923N).
 
 ## Business Inquiries
 
