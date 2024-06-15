@@ -4,7 +4,7 @@ obsws-python
 opencv-python
 pillow
 platformdirs
-pyinstaller==6.6.0
+pyinstaller==6.8.0
 pyside6
 python-dotenv
 requests
