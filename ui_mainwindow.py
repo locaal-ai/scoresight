@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.0
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(961, 858)
+        MainWindow.resize(961, 720)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -44,7 +44,7 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QFrame.Plain)
         self.frame.setLineWidth(0)
         self.verticalLayout = QVBoxLayout(self.frame)
-        self.verticalLayout.setSpacing(12)
+        self.verticalLayout.setSpacing(3)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.groupBox_sb_info = QWidget(self.frame)
         self.groupBox_sb_info.setObjectName(u"groupBox_sb_info")
@@ -137,10 +137,10 @@ class Ui_MainWindow(object):
 
         self.groupBox_target_settings = QGroupBox(self.groupBox_sb_info)
         self.groupBox_target_settings.setObjectName(u"groupBox_target_settings")
-        self.groupBox_target_settings.setCheckable(False)
         self.verticalLayout_5 = QVBoxLayout(self.groupBox_target_settings)
+        self.verticalLayout_5.setSpacing(2)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.verticalLayout_5.setContentsMargins(3, 3, 3, 3)
+        self.verticalLayout_5.setContentsMargins(3, 0, 3, 3)
         self.widget_10 = QWidget(self.groupBox_target_settings)
         self.widget_10.setObjectName(u"widget_10")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
@@ -149,9 +149,14 @@ class Ui_MainWindow(object):
         sizePolicy2.setHeightForWidth(self.widget_10.sizePolicy().hasHeightForWidth())
         self.widget_10.setSizePolicy(sizePolicy2)
         self.horizontalLayout_12 = QHBoxLayout(self.widget_10)
-        self.horizontalLayout_12.setSpacing(0)
+        self.horizontalLayout_12.setSpacing(3)
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
         self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
+        self.label_6 = QLabel(self.widget_10)
+        self.label_6.setObjectName(u"label_6")
+
+        self.horizontalLayout_12.addWidget(self.label_6)
+
         self.label_selectedInfo = QLabel(self.widget_10)
         self.label_selectedInfo.setObjectName(u"label_selectedInfo")
 
@@ -491,7 +496,7 @@ class Ui_MainWindow(object):
         self.tab_textFiles.setSizePolicy(sizePolicy3)
         self.formLayout_2 = QFormLayout(self.tab_textFiles)
         self.formLayout_2.setObjectName(u"formLayout_2")
-        self.formLayout_2.setVerticalSpacing(2)
+        self.formLayout_2.setVerticalSpacing(0)
         self.formLayout_2.setContentsMargins(-1, -1, -1, 0)
         self.label_7 = QLabel(self.tab_textFiles)
         self.label_7.setObjectName(u"label_7")
@@ -917,7 +922,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 961, 21))
+        self.menubar.setGeometry(QRect(0, 0, 961, 20))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -942,7 +947,7 @@ class Ui_MainWindow(object):
         self.toolButton_removeBox.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.pushButton_makeBox.setText(QCoreApplication.translate("MainWindow", u"Add to Scene ->", None))
         self.pushButton_removeBox.setText(QCoreApplication.translate("MainWindow", u"Remove Selected", None))
-        self.groupBox_target_settings.setTitle(QCoreApplication.translate("MainWindow", u"Target Information Settings", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Target:", None))
         self.label_selectedInfo.setText(QCoreApplication.translate("MainWindow", u"Select an item above", None))
         self.pushButton_restoreDefaults.setText(QCoreApplication.translate("MainWindow", u"Defaults", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Format", None))
@@ -1008,7 +1013,7 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.label_savePerSec.setText(QCoreApplication.translate("MainWindow", u"Save / s", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_textFiles), QCoreApplication.translate("MainWindow", u"Text Files", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>HTML Scoreboard: <a href=\"http://localhost:18099/scoresight\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/scoresight</span></a></p><p>JSON: <a href=\"http://localhost:18099/json\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/json</span></a> (optional: ?pivot)</p><p>XML: <a href=\"http://localhost:18099/xml\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/xml</span></a> (optional: ?pivot)</p><p>CSV: <a href=\"http://localhost:18099/csv\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/csv</span></a></p></body></html>", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>HTML Scoreboard: <a href=\"http://localhost:18099/scoresight\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/scoresight<br/></span></a>JSON: <a href=\"http://localhost:18099/json\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/json</span></a> (optional: ?pivot)<br/>XML: <a href=\"http://localhost:18099/xml\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/xml</span></a> (optional: ?pivot)<br/>CSV: <a href=\"http://localhost:18099/csv\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/csv</span></a></p></body></html>", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_browser), QCoreApplication.translate("MainWindow", u"Browser", None))
         self.pushButton_connectObs.setText(QCoreApplication.translate("MainWindow", u"Connect OBS", None))
         self.lineEdit_sceneName.setText(QCoreApplication.translate("MainWindow", u"ScoreSight Scene", None))

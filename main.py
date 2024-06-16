@@ -23,6 +23,7 @@ from PySide6.QtCore import (
     QLocale,
     QObject,
     QCoreApplication,
+    QEvent,
 )
 from dotenv import load_dotenv
 from os import path
@@ -104,8 +105,8 @@ class MainWindow(QMainWindow):
                 )
             )
 
-        menubar = self.menuBar()
-        file_menu = menubar.addMenu("File")
+        self.menubar = self.menuBar()
+        file_menu = self.menubar.addMenu("File")
 
         # check for updates
         check_for_updates(False)
@@ -132,6 +133,12 @@ class MainWindow(QMainWindow):
         self.addLanguageOption(languageMenu, "Portuguese (Portugal)", "pt_PT")
         self.addLanguageOption(languageMenu, "Russian", "ru_RU")
         self.addLanguageOption(languageMenu, "Chinese (Simplified)", "zh_CN")
+
+        # Hide the menu bar by default
+        self.menubar.setVisible(False)
+
+        # Show the menu bar when the Alt key is pressed
+        self.installEventFilter(self)
 
         self.ui.pushButton_connectObs.clicked.connect(self.openOBSConnectModal)
         self.ui.statusbar.showMessage("OBS: Not Connected")
@@ -311,6 +318,25 @@ class MainWindow(QMainWindow):
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
 
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Alt:
+            self.menubar.setVisible(True)
+        elif event.type() == QEvent.FocusOut and self.menubar.isVisible():
+            self.menubar.setVisible(False)
+        elif event.type() == QEvent.WindowDeactivate and self.menubar.isVisible():
+            self.menubar.setVisible(False)
+        return super().eventFilter(obj, event)
+
+    def focusOutEvent(self, event):
+        if self.menubar.isVisible():
+            self.menubar.setVisible(False)
+        super().focusOutEvent(event)
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.WindowDeactivate and self.menubar.isVisible():
+            self.menubar.setVisible(False)
+        super().changeEvent(event)
+
     def changeLanguage(self, locale):
         locale_file = path.abspath(
             path.join(path.dirname(__file__), "translations", f"scoresight_{locale}.qm")
@@ -441,11 +467,17 @@ class MainWindow(QMainWindow):
     #         self.ui.pushButton_starthttpserver.setText("🛑 Stop the server")
 
     def toggleStopUpdates(self, value):
-        self.ui.statusbar.showMessage("Stopped updates" if value else "Resumed updates")
+        self.ui.statusbar.showMessage(
+            self.translator.translate("main", "Stopped updates")
+            if value
+            else self.translator.translate("main", "Resumed updates")
+        )
         self.updateOCRResults = not value
         # change the text on the button
         self.ui.pushButton_stopUpdates.setText(
-            "▶️ Resume updates" if value else "🛑 Stop updates"
+            self.translator.translate("main", "Resume updates")
+            if value
+            else self.translator.translate("main", "Stop updates")
         )
 
     def selectOutputFolder(self):

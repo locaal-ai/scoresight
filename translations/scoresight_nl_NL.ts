@@ -238,7 +238,7 @@
     <message>
         <location filename="../mainwindow.ui" line="425"/>
         <source>Select Preset</source>
-        <translation>Preset selecteren</translation>
+        <translation>Selecteren voorkeuze</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="454"/>
@@ -268,7 +268,7 @@
     <message>
         <location filename="../mainwindow.ui" line="514"/>
         <source>Ordinal (1st, 2nd, ..)</source>
-        <translation>Ordinaal (1e, 2e, ..)</translation>
+        <translation>Volgorde (1e, 2e, ..)</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="545"/>
@@ -293,7 +293,7 @@
     <message>
         <location filename="../mainwindow.ui" line="603"/>
         <source>Remove leading 0s</source>
-        <translation>Leidende nullen verwijderen</translation>
+        <translation>Eerste nul verwijderen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="628"/>
@@ -338,7 +338,7 @@
     <message>
         <location filename="../mainwindow.ui" line="692"/>
         <source>Adaptive</source>
-        <translation>Adaptief</translation>
+        <translation>Aanpasbaar</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="727"/>
@@ -353,7 +353,7 @@
     <message>
         <location filename="../mainwindow.ui" line="794"/>
         <source>Dilate</source>
-        <translation>Dilateren</translation>
+        <translation>Verbreden</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="814"/>

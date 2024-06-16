@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>961</width>
-    <height>858</height>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="spacing">
-        <number>12</number>
+        <number>3</number>
        </property>
        <item>
         <widget class="QWidget" name="groupBox_sb_info" native="true">
@@ -160,7 +160,6 @@
                   <property name="font">
                    <font>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -180,7 +179,6 @@
                   <property name="font">
                    <font>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -238,18 +236,15 @@
           </item>
           <item>
            <widget class="QGroupBox" name="groupBox_target_settings">
-            <property name="title">
-             <string>Target Information Settings</string>
-            </property>
-            <property name="checkable">
-             <bool>false</bool>
-            </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
+             <property name="spacing">
+              <number>2</number>
+             </property>
              <property name="leftMargin">
               <number>3</number>
              </property>
              <property name="topMargin">
-              <number>3</number>
+              <number>0</number>
              </property>
              <property name="rightMargin">
               <number>3</number>
@@ -267,7 +262,7 @@
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_12">
                 <property name="spacing">
-                 <number>0</number>
+                 <number>3</number>
                 </property>
                 <property name="leftMargin">
                  <number>0</number>
@@ -281,6 +276,13 @@
                 <property name="bottomMargin">
                  <number>0</number>
                 </property>
+                <item>
+                 <widget class="QLabel" name="label_6">
+                  <property name="text">
+                   <string>Target:</string>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <widget class="QLabel" name="label_selectedInfo">
                   <property name="text">
@@ -945,7 +947,7 @@
           </attribute>
           <layout class="QFormLayout" name="formLayout_2">
            <property name="verticalSpacing">
-            <number>2</number>
+            <number>3</number>
            </property>
            <property name="bottomMargin">
             <number>0</number>
@@ -1119,7 +1121,7 @@
            <item alignment="Qt::AlignTop">
             <widget class="QLabel" name="label_8">
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;HTML Scoreboard: &lt;a href=&quot;http://localhost:18099/scoresight&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/scoresight&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;JSON: &lt;a href=&quot;http://localhost:18099/json&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/json&lt;/span&gt;&lt;/a&gt; (optional: ?pivot)&lt;/p&gt;&lt;p&gt;XML: &lt;a href=&quot;http://localhost:18099/xml&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/xml&lt;/span&gt;&lt;/a&gt; (optional: ?pivot)&lt;/p&gt;&lt;p&gt;CSV: &lt;a href=&quot;http://localhost:18099/csv&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/csv&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;HTML Scoreboard: &lt;a href=&quot;http://localhost:18099/scoresight&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/scoresight&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;JSON: &lt;a href=&quot;http://localhost:18099/json&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/json&lt;/span&gt;&lt;/a&gt; (optional: ?pivot)&lt;br/&gt;XML: &lt;a href=&quot;http://localhost:18099/xml&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/xml&lt;/span&gt;&lt;/a&gt; (optional: ?pivot)&lt;br/&gt;CSV: &lt;a href=&quot;http://localhost:18099/csv&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/csv&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="textFormat">
               <enum>Qt::RichText</enum>
@@ -1781,7 +1783,7 @@
      <x>0</x>
      <y>0</y>
      <width>961</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
