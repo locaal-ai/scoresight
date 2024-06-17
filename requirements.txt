@@ -1,7 +1,8 @@
 cyndilib
 fastapi
+numpy==1.26.4
 obsws-python
-opencv-python
+opencv-python==4.9.0.80
 pillow
 platformdirs
 pyinstaller==6.8.0
