@@ -9,6 +9,7 @@ from text_detection_target import TextDetectionTarget, TextDetectionTargetWithRe
 import re
 from PySide6.QtCore import QRectF
 from threading import Lock
+from sc_logging import logger
 
 
 def autocrop(image_in):
@@ -158,7 +159,7 @@ class TextDetector:
         return text.strip()
 
     def detect_multi_text(
-        self, binary, gray, rects: list[TextDetectionTarget], multi_crop=False
+        self, binary, gray, rects: list[TextDetectionTarget]
     ) -> list[TextDetectionResult]:
         if binary is None:
             return []
@@ -168,288 +169,308 @@ class TextDetector:
         if len(binary.shape) < 2 or binary.shape[0] < 1 or binary.shape[1] < 1:
             return []
 
-        if not multi_crop:
-            pilimage = Image.fromarray(binary)
-            with self.api_lock:
-                self.api.SetImage(pilimage)
-
         texts = []
         for rect in rects:
             effectiveRect = None
             scale_x = 1.0
             scale_y = 1.0
-            if multi_crop:
-                if (
-                    rect is None
-                    or rect.x() < 0
-                    or rect.y() < 0
-                    or rect.width() < 1
-                    or rect.height() < 1
-                ):
-                    texts.append(
-                        TextDetectionResult(
-                            "", TextDetectionTargetWithResult.ResultState.Empty, None
-                        )
+
+            if (
+                rect is None
+                or rect.x() < 0
+                or rect.y() < 0
+                or rect.width() < 1
+                or rect.height() < 1
+            ):
+                texts.append(
+                    TextDetectionResult(
+                        "", TextDetectionTargetWithResult.ResultState.Empty, None
                     )
-                    continue
+                )
+                continue
 
-                if rect.x() >= binary.shape[1]:
-                    # move the rect inside the image
-                    rect.setX(binary.shape[1] - rect.width())
-                if rect.y() >= binary.shape[0]:
-                    # move the rect inside the image
-                    rect.setY(binary.shape[0] - rect.height())
-                if rect.x() + rect.width() > binary.shape[1]:
-                    rect.setWidth(binary.shape[1] - rect.x())
-                if rect.y() + rect.height() > binary.shape[0]:
-                    rect.setHeight(binary.shape[0] - rect.y())
+            if rect.x() >= binary.shape[1]:
+                # move the rect inside the image
+                rect.setX(binary.shape[1] - rect.width())
+            if rect.y() >= binary.shape[0]:
+                # move the rect inside the image
+                rect.setY(binary.shape[0] - rect.height())
+            if rect.x() + rect.width() > binary.shape[1]:
+                rect.setWidth(binary.shape[1] - rect.x())
+            if rect.y() + rect.height() > binary.shape[0]:
+                rect.setHeight(binary.shape[0] - rect.y())
 
+            if (
+                rect.settings is not None
+                and "binarization_method" in rect.settings
+                and rect.settings["binarization_method"]
+                != TextDetector.BinarizationMethod.GLOBAL
+            ):
                 if (
-                    rect.settings is not None
-                    and "binarization_method" in rect.settings
-                    and rect.settings["binarization_method"]
-                    != TextDetector.BinarizationMethod.GLOBAL
+                    rect.settings["binarization_method"]
+                    == TextDetector.BinarizationMethod.NO_BINARIZATION
                 ):
-                    if (
-                        rect.settings["binarization_method"]
-                        == TextDetector.BinarizationMethod.NO_BINARIZATION
-                    ):
-                        # no binarization
-                        imagecrop = gray[
-                            int(rect.y()) : int(rect.y() + rect.height()),
-                            int(rect.x()) : int(rect.x() + rect.width()),
-                        ]
-                    elif (
-                        rect.settings["binarization_method"]
-                        == TextDetector.BinarizationMethod.LOCAL
-                    ):
-                        # local binarization using Otsu's method
-                        _, imagecrop = cv2.threshold(
-                            gray[
-                                int(rect.y()) : int(rect.y() + rect.height()),
-                                int(rect.x()) : int(rect.x() + rect.width()),
-                            ],
-                            0,
-                            255,
-                            cv2.THRESH_BINARY + cv2.THRESH_OTSU,
-                        )
-                    elif (
-                        rect.settings["binarization_method"]
-                        == TextDetector.BinarizationMethod.ADAPTIVE
-                    ):
-                        # apply adaptive binarization
-                        imagecrop = cv2.adaptiveThreshold(
-                            gray[
-                                int(rect.y()) : int(rect.y() + rect.height()),
-                                int(rect.x()) : int(rect.x() + rect.width()),
-                            ],
-                            255,
-                            cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                            cv2.THRESH_BINARY,
-                            # use a fraction of the patch area
-                            max(int(rect.width() * rect.height() * 0.01), 3) | 1,
-                            2,
-                        )
-                    # update the binary image for visualisation in the binary mode
-                    binary[
-                        int(rect.y()) : int(rect.y() + rect.height()),
-                        int(rect.x()) : int(rect.x() + rect.width()),
-                    ] = imagecrop
-                else:
-                    imagecrop = binary[
+                    # no binarization
+                    imagecrop = gray[
                         int(rect.y()) : int(rect.y() + rect.height()),
                         int(rect.x()) : int(rect.x() + rect.width()),
                     ]
-
-                if (
-                    rect.settings is not None
-                    and "cleanup_thresh" in rect.settings
-                    and rect.settings["cleanup_thresh"] > 0
+                elif (
+                    rect.settings["binarization_method"]
+                    == TextDetector.BinarizationMethod.LOCAL
                 ):
-                    # cleanup image from small components: find contours and remove small ones
-                    contours, _ = cv2.findContours(
-                        imagecrop, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
-                    )
-                    # cleanup_thresh is [0, 1.0], convert to [0, 0.05]
-                    cleanup_thresh = rect.settings["cleanup_thresh"] * 0.05
-                    img_area_thresh = (
-                        imagecrop.shape[0] * imagecrop.shape[1] * cleanup_thresh
-                    )
-                    for contour in contours:
-                        if cv2.contourArea(contour) < img_area_thresh:
-                            cv2.drawContours(imagecrop, [contour], 0, 0, -1)
-
-                if (
-                    rect.settings is not None
-                    and "vscale" in rect.settings
-                    and rect.settings["vscale"] != 10
-                ):
-                    # vertical scale the image
-                    # the vscale input is in the range [1, 10] where 10 is the default (1:1)
-                    # scale the image in the y direction about the center
-                    rows, cols = imagecrop.shape
-                    # calculate the target height
-                    target_height = int(rows * (rect.settings["vscale"] / 10.0))
-                    scaled = cv2.resize(
-                        imagecrop, (cols, target_height), 0, 0, cv2.INTER_AREA
-                    )
-                    # add padding to the top and bottom
-                    pad_top = (rows - target_height) // 2
-                    pad_bottom = rows - target_height - pad_top
-                    scaled = cv2.copyMakeBorder(
-                        scaled, pad_top, pad_bottom, 0, 0, cv2.BORDER_REPLICATE
-                    )
-                    # make sure the image is the same size as the original
-                    scaled = scaled[:rows, :]
-                    # copy back into imagecrop and binary display
-                    binary[
-                        int(rect.y()) : int(rect.y() + rect.height()),
-                        int(rect.x()) : int(rect.x() + rect.width()),
-                    ] = scaled
-                    imagecrop = scaled
-
-                if (
-                    rect.settings is not None
-                    and "skew" in rect.settings
-                    and rect.settings["skew"] != 0
-                ):
-                    # skew the image in the x direction about the center
-                    rows, cols = imagecrop.shape
-                    # identity 2x2 matrix
-                    M = np.float32([[1, 0, 0], [0, 1, 0]])
-                    # add skew factor to matrix
-                    M[0, 1] = rect.settings["skew"] / 40.0
-                    try:
-                        skewed = cv2.warpAffine(imagecrop, M, (cols, rows))
-                        binary[
+                    # local binarization using Otsu's method
+                    _, imagecrop = cv2.threshold(
+                        gray[
                             int(rect.y()) : int(rect.y() + rect.height()),
                             int(rect.x()) : int(rect.x() + rect.width()),
-                        ] = skewed
-                        imagecrop = skewed
-                    except:
-                        pass
-
-                if (
-                    rect.settings is not None
-                    and "dilate" in rect.settings
-                    and rect.settings["dilate"] > 0
-                    and imagecrop.shape[0] > 0
-                    and imagecrop.shape[1] > 0
-                ):
-                    # dilate the image
-                    kernel = np.ones((3, 3), np.uint8)
-                    dilated = cv2.dilate(
-                        imagecrop.copy(),
-                        kernel,
-                        iterations=int(rect.settings["dilate"]),
+                        ],
+                        0,
+                        255,
+                        cv2.THRESH_BINARY + cv2.THRESH_OTSU,
                     )
-                    # copy back into image crop
+                elif (
+                    rect.settings["binarization_method"]
+                    == TextDetector.BinarizationMethod.ADAPTIVE
+                ):
+                    # apply adaptive binarization
+                    imagecrop = cv2.adaptiveThreshold(
+                        gray[
+                            int(rect.y()) : int(rect.y() + rect.height()),
+                            int(rect.x()) : int(rect.x() + rect.width()),
+                        ],
+                        255,
+                        cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                        cv2.THRESH_BINARY,
+                        # use a fraction of the patch area
+                        max(int(rect.width() * rect.height() * 0.01), 3) | 1,
+                        2,
+                    )
+                # update the binary image for visualisation in the binary mode
+                binary[
+                    int(rect.y()) : int(rect.y() + rect.height()),
+                    int(rect.x()) : int(rect.x() + rect.width()),
+                ] = imagecrop
+            else:
+                imagecrop = binary[
+                    int(rect.y()) : int(rect.y() + rect.height()),
+                    int(rect.x()) : int(rect.x() + rect.width()),
+                ]
+
+            if (
+                rect.settings is not None
+                and "cleanup_thresh" in rect.settings
+                and rect.settings["cleanup_thresh"] > 0
+            ):
+                # cleanup image from small components: find contours and remove small ones
+                contours, _ = cv2.findContours(
+                    imagecrop, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+                )
+                # cleanup_thresh is [0, 1.0], convert to [0, 0.05]
+                cleanup_thresh = rect.settings["cleanup_thresh"] * 0.05
+                img_area_thresh = (
+                    imagecrop.shape[0] * imagecrop.shape[1] * cleanup_thresh
+                )
+                for contour in contours:
+                    if cv2.contourArea(contour) < img_area_thresh:
+                        cv2.drawContours(imagecrop, [contour], 0, 0, -1)
+
+            if (
+                rect.settings is not None
+                and "vscale" in rect.settings
+                and rect.settings["vscale"] != 10
+            ):
+                # vertical scale the image
+                # the vscale input is in the range [1, 10] where 10 is the default (1:1)
+                # scale the image in the y direction about the center
+                rows, cols = imagecrop.shape
+                # calculate the target height
+                target_height = int(rows * (rect.settings["vscale"] / 10.0))
+                scaled = cv2.resize(
+                    imagecrop, (cols, target_height), 0, 0, cv2.INTER_AREA
+                )
+                # add padding to the top and bottom
+                pad_top = (rows - target_height) // 2
+                pad_bottom = rows - target_height - pad_top
+                scaled = cv2.copyMakeBorder(
+                    scaled, pad_top, pad_bottom, 0, 0, cv2.BORDER_REPLICATE
+                )
+                # make sure the image is the same size as the original
+                scaled = scaled[:rows, :]
+                # copy back into imagecrop and binary display
+                binary[
+                    int(rect.y()) : int(rect.y() + rect.height()),
+                    int(rect.x()) : int(rect.x() + rect.width()),
+                ] = scaled
+                imagecrop = scaled
+
+            if (
+                rect.settings is not None
+                and "skew" in rect.settings
+                and rect.settings["skew"] != 0
+            ):
+                # skew the image in the x direction about the center
+                rows, cols = imagecrop.shape
+                # identity 2x2 matrix
+                M = np.float32([[1, 0, 0], [0, 1, 0]])
+                # add skew factor to matrix
+                M[0, 1] = rect.settings["skew"] / 40.0
+                try:
+                    skewed = cv2.warpAffine(imagecrop, M, (cols, rows))
                     binary[
                         int(rect.y()) : int(rect.y() + rect.height()),
                         int(rect.x()) : int(rect.x() + rect.width()),
-                    ] = dilated
-
-                if (
-                    rect.settings is not None
-                    and "invert_patch" in rect.settings
-                    and rect.settings["invert_patch"]
-                ):
-                    # invert the image
-                    imagecrop = 255 - imagecrop
-
-                if (
-                    rect.settings is not None
-                    and "skip_similar_image" in rect.settings
-                    and rect.settings["skip_similar_image"]
-                ):
-                    # compare the image with the last image
-                    if (
-                        rect.last_image is not None
-                        and rect.last_image.shape == imagecrop.shape
-                    ):
-                        # check if the difference is less than 5%
-                        diff = cv2.absdiff(rect.last_image, imagecrop)
-                        diff = diff.astype(np.float32)
-                        diff = diff / 255.0
-                        diff = diff.sum() / (imagecrop.shape[0] * imagecrop.shape[1])
-                        if diff < 0.05:
-                            # skip this image
-                            texts.append(
-                                TextDetectionResult(
-                                    "SIM",
-                                    TextDetectionTargetWithResult.ResultState.FailedFilter,
-                                    effectiveRect,
-                                )
-                            )
-                            continue
-                    rect.last_image = imagecrop.copy()
-
-                if (
-                    rect.settings is not None
-                    and "autocrop" in rect.settings
-                    and rect.settings["autocrop"]
-                ):
-                    # auto crop the binary image around the text
-                    imagecrop, (first_row, last_row, first_col, last_col) = autocrop(
-                        imagecrop
-                    )
-                    effectiveRect = QRectF(
-                        first_col,
-                        first_row,
-                        last_col - first_col,
-                        last_row - first_row,
-                    )
-
-                # check if image is size 0
-                if imagecrop.shape[0] == 0 or imagecrop.shape[1] == 0:
-                    texts.append(
-                        TextDetectionResult(
-                            "",
-                            TextDetectionTargetWithResult.ResultState.Empty,
-                            effectiveRect,
-                        )
-                    )
-                    continue
-
-                if (
-                    rect.settings is not None
-                    and "rescale_patch" in rect.settings
-                    and rect.settings["rescale_patch"]
-                ):
-                    # rescale the image to 35 pixels height
-                    scale_x = 35 / imagecrop.shape[0]
-                    scale_y = scale_x
-
-                if (
-                    rect.settings is not None
-                    and "normalize_wh_ratio" in rect.settings
-                    and rect.settings["normalize_wh_ratio"]
-                    and "median_wh_ratio" in rect.settings
-                    and rect.settings["median_wh_ratio"] > 0
-                ):
-                    # rescale the image in x or in y such that the width-to-height ratio is 0.5
-                    scale_x *= 0.5 / rect.settings["median_wh_ratio"]
-
-                if scale_x != 1.0 or scale_y != 1.0:
-                    imagecrop = cv2.resize(
-                        imagecrop,
-                        None,
-                        fx=scale_x,
-                        fy=scale_y,
-                        interpolation=cv2.INTER_AREA,
-                    )
-
-                try:
-                    pilimage = Image.fromarray(imagecrop)
-                    with self.api_lock:
-                        self.api.SetImage(pilimage)
+                    ] = skewed
+                    imagecrop = skewed
                 except:
-                    texts.append(
-                        TextDetectionResult(
-                            "", TextDetectionTargetWithResult.ResultState.Empty, None
+                    pass
+
+            if (
+                rect.settings is not None
+                and "dilate" in rect.settings
+                and rect.settings["dilate"] > 0
+                and imagecrop.shape[0] > 0
+                and imagecrop.shape[1] > 0
+            ):
+                # dilate the image
+                kernel = np.ones((3, 3), np.uint8)
+                dilated = cv2.dilate(
+                    imagecrop.copy(),
+                    kernel,
+                    iterations=int(rect.settings["dilate"]),
+                )
+                # copy back into image crop
+                binary[
+                    int(rect.y()) : int(rect.y() + rect.height()),
+                    int(rect.x()) : int(rect.x() + rect.width()),
+                ] = dilated
+
+            if (
+                rect.settings is not None
+                and "invert_patch" in rect.settings
+                and rect.settings["invert_patch"]
+            ):
+                # invert the image
+                imagecrop = 255 - imagecrop
+
+            if (
+                rect.settings is not None
+                and "skip_similar_image" in rect.settings
+                and rect.settings["skip_similar_image"]
+            ):
+                # compare the image with the last image
+                if (
+                    rect.last_image is not None
+                    and rect.last_image.shape == imagecrop.shape
+                ):
+                    # check if the difference is less than 5%
+                    diff = cv2.absdiff(rect.last_image, imagecrop)
+                    diff = diff.astype(np.float32)
+                    diff = diff / 255.0
+                    diff = diff.sum() / (imagecrop.shape[0] * imagecrop.shape[1])
+                    if diff < 0.05:
+                        # skip this image
+                        texts.append(
+                            TextDetectionResult(
+                                "SIM",
+                                TextDetectionTargetWithResult.ResultState.FailedFilter,
+                                effectiveRect,
+                            )
                         )
+                        continue
+                rect.last_image = imagecrop.copy()
+
+            if (
+                rect.settings is not None
+                and "autocrop" in rect.settings
+                and rect.settings["autocrop"]
+            ):
+                # auto crop the binary image around the text
+                imagecrop, (first_row, last_row, first_col, last_col) = autocrop(
+                    imagecrop
+                )
+                effectiveRect = QRectF(
+                    first_col,
+                    first_row,
+                    last_col - first_col,
+                    last_row - first_row,
+                )
+
+            # check if image is size 0
+            if imagecrop.shape[0] == 0 or imagecrop.shape[1] == 0:
+                texts.append(
+                    TextDetectionResult(
+                        "",
+                        TextDetectionTargetWithResult.ResultState.Empty,
+                        effectiveRect,
                     )
-                    continue
+                )
+                continue
+
+            if (
+                rect.settings is not None
+                and "rescale_patch" in rect.settings
+                and rect.settings["rescale_patch"]
+            ):
+                # rescale the image to 35 pixels height
+                scale_x = 35 / imagecrop.shape[0]
+                scale_y = scale_x
+
+            if (
+                rect.settings is not None
+                and "normalize_wh_ratio" in rect.settings
+                and rect.settings["normalize_wh_ratio"]
+                and "median_wh_ratio" in rect.settings
+                and rect.settings["median_wh_ratio"] > 0
+            ):
+                # rescale the image in x or in y such that the width-to-height ratio is 0.5
+                scale_x *= 0.5 / rect.settings["median_wh_ratio"]
+
+            if scale_x != 1.0 or scale_y != 1.0:
+                imagecrop = cv2.resize(
+                    imagecrop,
+                    None,
+                    fx=scale_x,
+                    fy=scale_y,
+                    interpolation=cv2.INTER_AREA,
+                )
+
+            # if dot detector count the blobs in the patch
+            if (
+                rect.settings is not None
+                and "dot_detector" in rect.settings
+                and rect.settings["dot_detector"]
+            ):
+                # find the contours
+                contours, _ = cv2.findContours(
+                    imagecrop, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+                )
+                # count the number of contours
+                count = 0
+                for contour in contours:
+                    if cv2.contourArea(contour) > 5:
+                        count += 1
+
+                texts.append(
+                    TextDetectionResult(
+                        str(count),
+                        TextDetectionTargetWithResult.ResultState.Success,
+                        effectiveRect,
+                    )
+                )
+                continue
+
+            try:
+                pilimage = Image.fromarray(imagecrop)
+                with self.api_lock:
+                    self.api.SetImage(pilimage)
+            except:
+                texts.append(
+                    TextDetectionResult(
+                        "", TextDetectionTargetWithResult.ResultState.Empty, None
+                    )
+                )
+                continue
 
             if rect.settings["type"] == FieldType.NUMBER:
                 with self.api_lock:
@@ -462,12 +483,6 @@ class TextDetector:
                     self.api.SetVariable(
                         "tessedit_char_whitelist",
                         "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .,;:!?-_()[]{}<>@#$%^&*+=|\\~`\"'",
-                    )
-
-            if not multi_crop:
-                with self.api_lock:
-                    self.api.SetRectangle(
-                        rect.x(), rect.y(), rect.width(), rect.height()
                     )
 
             text = ""

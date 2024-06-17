@@ -265,7 +265,7 @@ class TimerThread(QThread):
             if not self.detectionTargetsStorage.is_empty():
                 detectionTargets = self.detectionTargetsStorage.get_data()
                 texts = self.textDetector.detect_multi_text(
-                    binary, gray, detectionTargets, multi_crop=True
+                    binary, gray, detectionTargets
                 )
                 if len(texts) > 0 and len(detectionTargets) == len(texts):
                     # augment the text detection targets with the results

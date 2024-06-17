@@ -189,6 +189,9 @@ def normalize_settings_dict(settings, box_info):
         "invert_patch": (
             settings["invert_patch"] if "invert_patch" in settings else False
         ),
+        "dot_detector": (
+            settings["dot_detector"] if "dot_detector" in settings else False
+        ),
         "binarization_method": (
             settings["binarization_method"] if "binarization_method" in settings else 0
         ),
