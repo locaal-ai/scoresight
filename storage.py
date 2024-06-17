@@ -242,6 +242,7 @@ class TextDetectionTargetMemoryStorage(QObject):
                             "normalize_wh_ratio"
                         ),
                         "invert_patch": detectionTarget.settings.get("invert_patch"),
+                        "dot_detector": detectionTarget.settings.get("dot_detector"),
                         "ordinal_indicator": detectionTarget.settings.get(
                             "ordinal_indicator"
                         ),

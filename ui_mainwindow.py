@@ -273,6 +273,7 @@ class Ui_MainWindow(object):
         sizePolicy2.setHeightForWidth(self.widget_11.sizePolicy().hasHeightForWidth())
         self.widget_11.setSizePolicy(sizePolicy2)
         self.horizontalLayout_13 = QHBoxLayout(self.widget_11)
+        self.horizontalLayout_13.setSpacing(3)
         self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
         self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
         self.checkBox_skip_empty = QCheckBox(self.widget_11)
@@ -309,10 +310,24 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_5.addWidget(self.widget_15)
 
-        self.checkBox_removeLeadingZeros = QCheckBox(self.groupBox_target_settings)
+        self.widget_22 = QWidget(self.groupBox_target_settings)
+        self.widget_22.setObjectName(u"widget_22")
+        self.horizontalLayout_25 = QHBoxLayout(self.widget_22)
+        self.horizontalLayout_25.setSpacing(3)
+        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
+        self.horizontalLayout_25.setContentsMargins(0, 0, 0, 0)
+        self.checkBox_removeLeadingZeros = QCheckBox(self.widget_22)
         self.checkBox_removeLeadingZeros.setObjectName(u"checkBox_removeLeadingZeros")
 
-        self.verticalLayout_5.addWidget(self.checkBox_removeLeadingZeros)
+        self.horizontalLayout_25.addWidget(self.checkBox_removeLeadingZeros)
+
+        self.checkBox_dotDetector = QCheckBox(self.widget_22)
+        self.checkBox_dotDetector.setObjectName(u"checkBox_dotDetector")
+
+        self.horizontalLayout_25.addWidget(self.checkBox_dotDetector)
+
+
+        self.verticalLayout_5.addWidget(self.widget_22)
 
         self.widget_9 = QWidget(self.groupBox_target_settings)
         self.widget_9.setObjectName(u"widget_9")
@@ -496,7 +511,7 @@ class Ui_MainWindow(object):
         self.tab_textFiles.setSizePolicy(sizePolicy3)
         self.formLayout_2 = QFormLayout(self.tab_textFiles)
         self.formLayout_2.setObjectName(u"formLayout_2")
-        self.formLayout_2.setVerticalSpacing(0)
+        self.formLayout_2.setVerticalSpacing(3)
         self.formLayout_2.setContentsMargins(-1, -1, -1, 0)
         self.label_7 = QLabel(self.tab_textFiles)
         self.label_7.setObjectName(u"label_7")
@@ -833,29 +848,23 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.setSpacing(3)
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
         self.horizontalLayout_10.setContentsMargins(0, 0, 0, 3)
-        self.pushButton_binary = QPushButton(self.widget_viewTools)
+        self.pushButton_binary = QToolButton(self.widget_viewTools)
         self.pushButton_binary.setObjectName(u"pushButton_binary")
         self.pushButton_binary.setEnabled(False)
-        sizePolicy7.setHeightForWidth(self.pushButton_binary.sizePolicy().hasHeightForWidth())
-        self.pushButton_binary.setSizePolicy(sizePolicy7)
         self.pushButton_binary.setCheckable(True)
 
         self.horizontalLayout_10.addWidget(self.pushButton_binary)
 
-        self.pushButton_fourCorner = QPushButton(self.widget_viewTools)
+        self.pushButton_fourCorner = QToolButton(self.widget_viewTools)
         self.pushButton_fourCorner.setObjectName(u"pushButton_fourCorner")
         self.pushButton_fourCorner.setEnabled(False)
-        sizePolicy7.setHeightForWidth(self.pushButton_fourCorner.sizePolicy().hasHeightForWidth())
-        self.pushButton_fourCorner.setSizePolicy(sizePolicy7)
         self.pushButton_fourCorner.setCheckable(True)
 
         self.horizontalLayout_10.addWidget(self.pushButton_fourCorner)
 
-        self.pushButton_stabilize = QPushButton(self.widget_viewTools)
+        self.pushButton_stabilize = QToolButton(self.widget_viewTools)
         self.pushButton_stabilize.setObjectName(u"pushButton_stabilize")
         self.pushButton_stabilize.setEnabled(False)
-        sizePolicy7.setHeightForWidth(self.pushButton_stabilize.sizePolicy().hasHeightForWidth())
-        self.pushButton_stabilize.setSizePolicy(sizePolicy7)
         self.pushButton_stabilize.setCheckable(True)
 
         self.horizontalLayout_10.addWidget(self.pushButton_stabilize)
@@ -978,6 +987,10 @@ class Ui_MainWindow(object):
         self.checkBox_invertPatch.setText(QCoreApplication.translate("MainWindow", u"Invert Input", None))
         self.checkBox_removeLeadingZeros.setText(QCoreApplication.translate("MainWindow", u"Remove leading 0s", None))
 #if QT_CONFIG(tooltip)
+        self.checkBox_dotDetector.setToolTip(QCoreApplication.translate("MainWindow", u"Count dots/blobs instead of detecting characters", None))
+#endif // QT_CONFIG(tooltip)
+        self.checkBox_dotDetector.setText(QCoreApplication.translate("MainWindow", u"Dot Counter", None))
+#if QT_CONFIG(tooltip)
         self.checkBox_rescalePatch.setToolTip(QCoreApplication.translate("MainWindow", u"Scale the image to 35 pixels height, a favorable size for OCR", None))
 #endif // QT_CONFIG(tooltip)
         self.checkBox_rescalePatch.setText(QCoreApplication.translate("MainWindow", u"Rescale Input", None))
@@ -1055,6 +1068,9 @@ class Ui_MainWindow(object):
         self.toolButton_showOCRrects.setToolTip(QCoreApplication.translate("MainWindow", u"Show OCR Detection Boxes", None))
 #endif // QT_CONFIG(tooltip)
         self.toolButton_showOCRrects.setText(QCoreApplication.translate("MainWindow", u"OCR", None))
+#if QT_CONFIG(tooltip)
+        self.toolButton_zoomReset.setToolTip(QCoreApplication.translate("MainWindow", u"Reset zoom", None))
+#endif // QT_CONFIG(tooltip)
         self.toolButton_zoomReset.setText(QCoreApplication.translate("MainWindow", u"1:1", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Ctrl-scroll to zoom", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"### Open a Camera or Load a File", None))

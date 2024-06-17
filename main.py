@@ -237,6 +237,9 @@ class MainWindow(QMainWindow):
         self.ui.checkBox_invertPatch.toggled.connect(
             partial(self.genericSettingsChanged, "invert_patch")
         )
+        self.ui.checkBox_dotDetector.toggled.connect(
+            partial(self.genericSettingsChanged, "dot_detector")
+        )
         self.ui.checkBox_ordinalIndicator.toggled.connect(
             partial(self.genericSettingsChanged, "ordinal_indicator")
         )
@@ -751,6 +754,7 @@ class MainWindow(QMainWindow):
                 item_obj.settings["normalize_wh_ratio"]
             )
             self.ui.checkBox_invertPatch.setChecked(item_obj.settings["invert_patch"])
+            self.ui.checkBox_dotDetector.setChecked(item_obj.settings["dot_detector"])
             self.ui.checkBox_ordinalIndicator.setChecked(
                 item_obj.settings["ordinal_indicator"]
             )

@@ -529,6 +529,9 @@
                 </sizepolicy>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_13">
+                <property name="spacing">
+                 <number>3</number>
+                </property>
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
@@ -600,10 +603,41 @@
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_removeLeadingZeros">
-               <property name="text">
-                <string>Remove leading 0s</string>
-               </property>
+              <widget class="QWidget" name="widget_22" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_25">
+                <property name="spacing">
+                 <number>3</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_removeLeadingZeros">
+                  <property name="text">
+                   <string>Remove leading 0s</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_dotDetector">
+                  <property name="toolTip">
+                   <string>Count dots/blobs instead of detecting characters</string>
+                  </property>
+                  <property name="text">
+                   <string>Dot Counter</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
              <item>
@@ -1602,15 +1636,9 @@
            <number>3</number>
           </property>
           <item>
-           <widget class="QPushButton" name="pushButton_binary">
+           <widget class="QToolButton" name="pushButton_binary">
             <property name="enabled">
              <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
             </property>
             <property name="text">
              <string>Binary View</string>
@@ -1621,15 +1649,9 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_fourCorner">
+           <widget class="QToolButton" name="pushButton_fourCorner">
             <property name="enabled">
              <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
             </property>
             <property name="text">
              <string>4-corner Correction</string>
@@ -1640,15 +1662,9 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_stabilize">
+           <widget class="QToolButton" name="pushButton_stabilize">
             <property name="enabled">
              <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
             </property>
             <property name="text">
              <string>Stabilize</string>
@@ -1705,6 +1721,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="toolButton_zoomReset">
+            <property name="toolTip">
+             <string>Reset zoom</string>
+            </property>
             <property name="text">
              <string>1:1</string>
             </property>
