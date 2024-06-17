@@ -1,6 +1,6 @@
 cyndilib
 fastapi
-numpy
+numpy==1.26.4
 obsws-python
 opencv-python==4.9.0.80
 pillow
