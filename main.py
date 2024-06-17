@@ -8,13 +8,23 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QFileDialog,
     QLabel,
+    QMenu,
     QDialog,
     QInputDialog,
     QTableWidgetItem,
 )
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PySide6.QtCore import Qt, Signal, Slot
+from PySide6.QtCore import (
+    Qt,
+    Signal,
+    Slot,
+    QTranslator,
+    QLocale,
+    QObject,
+    QCoreApplication,
+    QEvent,
+)
 from dotenv import load_dotenv
 from os import path
 
@@ -75,11 +85,13 @@ class MainWindow(QMainWindow):
     update_sources = Signal(list)
     get_sources = Signal()
 
-    def __init__(self):
+    def __init__(self, translator: QTranslator, parent: QObject):
         super(MainWindow, self).__init__()
+        self.parent_object = parent
         self.ui = Ui_MainWindow()
         logger.info("Starting ScoreSight")
         self.ui.setupUi(self)
+        self.translator = translator
         # load env variables
         load_dotenv()
         self.setWindowTitle(f"ScoreSight - v{os.getenv('LOCAL_RELEASE_TAG')}")
@@ -93,17 +105,40 @@ class MainWindow(QMainWindow):
                 )
             )
 
-        menubar = self.menuBar()
-        file_menu = menubar.addMenu("File")
+        self.menubar = self.menuBar()
+        file_menu = self.menubar.addMenu("File")
 
         # check for updates
         check_for_updates(False)
         file_menu.addAction("Check for Updates", lambda: check_for_updates(True))
         file_menu.addAction("About", self.openAboutDialog)
         file_menu.addAction("View Current Log", self.openLogsDialog)
-
         file_menu.addAction("Import Configuration", self.importConfiguration)
         file_menu.addAction("Export Configuration", self.exportConfiguration)
+
+        # Add "Language" menu
+        languageMenu = file_menu.addMenu("Language")
+
+        # Add language options
+        self.addLanguageOption(languageMenu, "English (US)", "en_US")
+        self.addLanguageOption(languageMenu, "French (France)", "fr_FR")
+        self.addLanguageOption(languageMenu, "Spanish (Spain)", "es_ES")
+        self.addLanguageOption(languageMenu, "German", "de_DE")
+        self.addLanguageOption(languageMenu, "Italian", "it_IT")
+        self.addLanguageOption(languageMenu, "Japanese", "ja_JP")
+        self.addLanguageOption(languageMenu, "Korean", "ko_KR")
+        self.addLanguageOption(languageMenu, "Dutch", "nl_NL")
+        self.addLanguageOption(languageMenu, "Polish", "pl_PL")
+        self.addLanguageOption(languageMenu, "Portuguese (Brazil)", "pt_BR")
+        self.addLanguageOption(languageMenu, "Portuguese (Portugal)", "pt_PT")
+        self.addLanguageOption(languageMenu, "Russian", "ru_RU")
+        self.addLanguageOption(languageMenu, "Chinese (Simplified)", "zh_CN")
+
+        # Hide the menu bar by default
+        self.menubar.setVisible(False)
+
+        # Show the menu bar when the Alt key is pressed
+        self.installEventFilter(self)
 
         self.ui.pushButton_connectObs.clicked.connect(self.openOBSConnectModal)
         self.ui.statusbar.showMessage("OBS: Not Connected")
@@ -283,6 +318,42 @@ class MainWindow(QMainWindow):
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
 
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Alt:
+            self.menubar.setVisible(True)
+        elif event.type() == QEvent.FocusOut and self.menubar.isVisible():
+            self.menubar.setVisible(False)
+        elif event.type() == QEvent.WindowDeactivate and self.menubar.isVisible():
+            self.menubar.setVisible(False)
+        return super().eventFilter(obj, event)
+
+    def focusOutEvent(self, event):
+        if self.menubar.isVisible():
+            self.menubar.setVisible(False)
+        super().focusOutEvent(event)
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.WindowDeactivate and self.menubar.isVisible():
+            self.menubar.setVisible(False)
+        super().changeEvent(event)
+
+    def changeLanguage(self, locale):
+        locale_file = path.abspath(
+            path.join(path.dirname(__file__), "translations", f"scoresight_{locale}.qm")
+        )
+        logger.info(f"Changing language to {locale_file}")
+        if not self.translator.load(locale_file):
+            logger.error(f"Could not load translation for {locale_file}")
+            return
+        appInstance = QApplication.instance()
+        if appInstance:
+            logger.info(f"installing translator for {locale}")
+            appInstance.installTranslator(self.translator)
+            self.ui.retranslateUi(self)
+
+    def addLanguageOption(self, menu: QMenu, language_name: str, locale: str):
+        menu.addAction(language_name, lambda: self.changeLanguage(locale))
+
     def toggleUpdateOnChange(self, value):
         store_data("scoresight.json", "update_on_change", value)
         if self.image_viewer:
@@ -382,25 +453,18 @@ class MainWindow(QMainWindow):
         # start or stop the stabilization
         self.image_viewer.toggleStabilization(self.ui.pushButton_stabilize.isChecked())
 
-    # def toggleHttpServer(self):
-    #     if not self.ui.pushButton_starthttpserver.isChecked():
-    #         # stop the http server
-    #         stop_http_server()
-    #         # change the button text to "start the http server"
-    #         self.ui.pushButton_starthttpserver.setText("▶️ Start the server")
-    #         return
-    #     else:
-    #         # start the http server
-    #         start_http_server()
-    #         # change the button text to "stop the http server"
-    #         self.ui.pushButton_starthttpserver.setText("🛑 Stop the server")
-
     def toggleStopUpdates(self, value):
-        self.ui.statusbar.showMessage("Stopped updates" if value else "Resumed updates")
+        self.ui.statusbar.showMessage(
+            self.translator.translate("main", "Stopped updates")
+            if value
+            else self.translator.translate("main", "Resumed updates")
+        )
         self.updateOCRResults = not value
         # change the text on the button
         self.ui.pushButton_stopUpdates.setText(
-            "▶️ Resume updates" if value else "🛑 Stop updates"
+            self.translator.translate("main", "Resume updates")
+            if value
+            else self.translator.translate("main", "Stop updates")
         )
 
     def selectOutputFolder(self):
@@ -803,16 +867,14 @@ class MainWindow(QMainWindow):
     @Slot(list)
     def updateSources(self, camera_sources: list[CameraInfo]):
         self.reset_playing_source()
+        # clear all the items after "Screen Capture"
+        for i in range(4, self.ui.comboBox_camera_source.count()):
+            self.ui.comboBox_camera_source.removeItem(4)
+
         # populate the combobox with the sources
-        self.ui.comboBox_camera_source.clear()
-        self.ui.comboBox_camera_source.addItem("Select a source")
         for source in camera_sources:
             self.ui.comboBox_camera_source.addItem(source.description, source)
 
-        # add an option to use a file as input
-        self.ui.comboBox_camera_source.addItem("Open a Video File", "file")
-        self.ui.comboBox_camera_source.addItem("URL Source (HTTP, RTSP)", "url")
-        self.ui.comboBox_camera_source.addItem("Screen Capture", "screen_capture")
         self.ui.comboBox_camera_source.setEnabled(True)
         self.ui.comboBox_camera_source.currentIndexChanged.disconnect()
         self.ui.comboBox_camera_source.currentIndexChanged.connect(self.sourceChanged)
@@ -827,8 +889,9 @@ class MainWindow(QMainWindow):
             )
             # check if the source is a file path
             if path.exists(selected_source_from_storage):
+                logger.info("File exists: %s", selected_source_from_storage)
                 self.ui.comboBox_camera_source.blockSignals(True)
-                self.ui.comboBox_camera_source.setCurrentText("Open a Video File")
+                self.ui.comboBox_camera_source.setCurrentIndex(1)
                 self.ui.comboBox_camera_source.blockSignals(False)
                 self.source_name = selected_source_from_storage
                 self.sourceSelectionSucessful()
@@ -844,7 +907,7 @@ class MainWindow(QMainWindow):
             self.ui.frame_for_source_view_label.layout().removeWidget(self.image_viewer)
             self.image_viewer.close()
             self.image_viewer = None
-        # add a label with mardown text
+        # add a label with markdown text
         label_select_source = QLabel("### Open a Camera or Load a File")
         label_select_source.setTextFormat(Qt.TextFormat.MarkdownText)
         label_select_source.setEnabled(False)
@@ -854,15 +917,15 @@ class MainWindow(QMainWindow):
 
     def sourceChanged(self, index):
         # get the source name from the combobox
-        self.source_name = self.ui.comboBox_camera_source.currentText()
+        self.source_name = None
         self.ui.groupBox_sb_info.setEnabled(False)
         self.ui.tableWidget_boxes.setEnabled(False)
         self.ui.pushButton_fourCorner.setEnabled(False)
         self.ui.pushButton_binary.setEnabled(False)
-        if self.source_name == "Select a source":
+        if self.ui.comboBox_camera_source.currentIndex() == 0:
             self.reset_playing_source()
             return
-        elif self.source_name == "Open a Video File":
+        elif self.ui.comboBox_camera_source.currentIndex() == 1:
             logger.info("Open File selection dialog")
             # open a file dialog to select a video file
             file, _ = QFileDialog.getOpenFileName(
@@ -876,7 +939,7 @@ class MainWindow(QMainWindow):
             else:
                 logger.info("File selected: %s", file)
             self.source_name = file
-        elif self.source_name == "URL Source (HTTP, RTSP)":
+        elif self.ui.comboBox_camera_source.currentIndex() == 2:
             # open a dialog to enter the url
             url_dialog = QDialog()
             ui_urlsource = Ui_UrlSource()
@@ -887,13 +950,13 @@ class MainWindow(QMainWindow):
             url_dialog.exec()  # wait for the dialog to close
             # check if the dialog was accepted
             if url_dialog.result() != QDialog.DialogCode.Accepted:
-                self.ui.comboBox_camera_source.setCurrentText("Select a source")
+                self.ui.comboBox_camera_source.setCurrentIndex(0)
                 return
             self.source_name = ui_urlsource.lineEdit_url.text()
             if self.source_name == "":
-                self.ui.comboBox_camera_source.setCurrentText("Select a source")
+                self.ui.comboBox_camera_source.setCurrentIndex(0)
                 return
-        elif self.source_name == "Screen Capture":
+        elif self.ui.comboBox_camera_source.currentIndex() == 3:
             # open a dialog to select the screen
             screen_dialog = QDialog()
             ui_screencapture = Ui_ScreenCapture()
@@ -901,16 +964,25 @@ class MainWindow(QMainWindow):
             # set width and height of the dialog
             screen_dialog.setFixedWidth(400)
 
-            screen_dialog.setWindowTitle("Screen Capture Selection")
+            screen_dialog.setWindowTitle(
+                QCoreApplication.translate(
+                    "MainWindow", "Screen Capture Selection", None
+                )
+            )
             # populate comboBox_window with the available windows
             ui_screencapture.comboBox_window.clear()
-            ui_screencapture.comboBox_window.addItem("Capture the entire screen", -1)
+            ui_screencapture.comboBox_window.addItem(
+                QCoreApplication.translate(
+                    "MainWindow", "Capture the entire screen", None
+                ),
+                -1,
+            )
             for window in ScreenCapture.list_windows():
                 ui_screencapture.comboBox_window.addItem(window[0], window[1])
             screen_dialog.exec()
             # check if the dialog was accepted
             if screen_dialog.result() != QDialog.DialogCode.Accepted:
-                self.ui.comboBox_camera_source.setCurrentText("Select a source")
+                self.ui.comboBox_camera_source.setCurrentIndex(0)
                 return
             # get the window ID from the comboBox_window
             window_id = ui_screencapture.comboBox_window.currentData()
@@ -937,40 +1009,41 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_fourCorner.setChecked(True)
 
     def sourceSelectionSucessful(self):
-        if self.ui.comboBox_camera_source.currentData() is None:
-            return
-        if self.ui.comboBox_camera_source.currentText() == "Select a source":
+        if self.ui.comboBox_camera_source.currentIndex() == 0:
             return
 
         self.ui.frame_source_view.setEnabled(False)
 
-        if self.ui.comboBox_camera_source.currentData() == "file":
+        if self.ui.comboBox_camera_source.currentIndex() == 1:
             if self.source_name is None or not path.exists(self.source_name):
                 logger.error("No file selected")
-                self.ui.comboBox_camera_source.setCurrentText("Select a source")
+                self.ui.comboBox_camera_source.setCurrentIndex(0)
                 return
+            logger.info("Loading file selected: %s", self.source_name)
             camera_info = CameraInfo(
                 self.source_name,
                 self.source_name,
                 self.source_name,
                 CameraInfo.CameraType.FILE,
             )
-        elif self.ui.comboBox_camera_source.currentData() == "url":
+        elif self.ui.comboBox_camera_source.currentIndex() == 2:
             if self.source_name is None or self.source_name == "":
                 logger.error("No url entered")
-                self.ui.comboBox_camera_source.setCurrentText("Select a source")
+                self.ui.comboBox_camera_source.setCurrentIndex(0)
                 return
+            logger.info("Loading url: %s", self.source_name)
             camera_info = CameraInfo(
                 self.source_name,
                 self.source_name,
                 self.source_name,
                 CameraInfo.CameraType.URL,
             )
-        elif self.ui.comboBox_camera_source.currentData() == "screen_capture":
+        elif self.ui.comboBox_camera_source.currentIndex() == 3:
             if self.source_name is None:
                 logger.error("No screen capture selected")
-                self.ui.comboBox_camera_source.setCurrentText("Select a source")
+                self.ui.comboBox_camera_source.setCurrentIndex(0)
                 return
+            logger.info("Loading screen capture: %s", self.source_name)
             camera_info = CameraInfo(
                 self.source_name,
                 self.source_name,
@@ -978,6 +1051,12 @@ class MainWindow(QMainWindow):
                 CameraInfo.CameraType.SCREEN_CAPTURE,
             )
         else:
+            if self.ui.comboBox_camera_source.currentData() is None:
+                return
+
+            logger.info(
+                "Loading camera: %s", self.ui.comboBox_camera_source.currentText()
+            )
             camera_info = self.ui.comboBox_camera_source.currentData()
 
         if self.image_viewer:
@@ -1270,8 +1349,25 @@ if __name__ == "__main__":
             pass
     app = QApplication(sys.argv)
 
+    # Get system locale
+    locale = QLocale.system().name()
+
+    # Load the translation file based on the locale
+    translator = QTranslator()
+    locale_file = path.abspath(
+        path.join(path.dirname(__file__), "translations", f"scoresight_{locale}.qm")
+    )
+    # check if the file exists
+    if not path.exists(locale_file):
+        # load the default translation file
+        locale_file = path.abspath(
+            path.join(path.dirname(__file__), "translations", "scoresight_en_US.qm")
+        )
+    if translator.load(locale_file):
+        app.installTranslator(translator)
+
     # show the main window
-    mainWindow = MainWindow()
+    mainWindow = MainWindow(translator, app)
     mainWindow.show()
 
     app.exec()

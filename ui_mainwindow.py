@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.0
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(961, 824)
+        MainWindow.resize(961, 720)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -44,15 +44,15 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QFrame.Plain)
         self.frame.setLineWidth(0)
         self.verticalLayout = QVBoxLayout(self.frame)
-        self.verticalLayout.setSpacing(12)
+        self.verticalLayout.setSpacing(3)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.groupBox_sb_info = QGroupBox(self.frame)
+        self.groupBox_sb_info = QWidget(self.frame)
         self.groupBox_sb_info.setObjectName(u"groupBox_sb_info")
         self.groupBox_sb_info.setEnabled(False)
         self.verticalLayout_3 = QVBoxLayout(self.groupBox_sb_info)
         self.verticalLayout_3.setSpacing(4)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(-1, -1, -1, 0)
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.widget = QWidget(self.groupBox_sb_info)
         self.widget.setObjectName(u"widget")
         self.horizontalLayout_2 = QHBoxLayout(self.widget)
@@ -137,13 +137,10 @@ class Ui_MainWindow(object):
 
         self.groupBox_target_settings = QGroupBox(self.groupBox_sb_info)
         self.groupBox_target_settings.setObjectName(u"groupBox_target_settings")
-        self.groupBox_target_settings.setCheckable(False)
-        self.formLayout = QFormLayout(self.groupBox_target_settings)
-        self.formLayout.setObjectName(u"formLayout")
-        self.formLayout.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
-        self.formLayout.setHorizontalSpacing(3)
-        self.formLayout.setVerticalSpacing(2)
-        self.formLayout.setContentsMargins(3, 3, 3, 3)
+        self.verticalLayout_5 = QVBoxLayout(self.groupBox_target_settings)
+        self.verticalLayout_5.setSpacing(2)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(3, 0, 3, 3)
         self.widget_10 = QWidget(self.groupBox_target_settings)
         self.widget_10.setObjectName(u"widget_10")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
@@ -152,9 +149,14 @@ class Ui_MainWindow(object):
         sizePolicy2.setHeightForWidth(self.widget_10.sizePolicy().hasHeightForWidth())
         self.widget_10.setSizePolicy(sizePolicy2)
         self.horizontalLayout_12 = QHBoxLayout(self.widget_10)
-        self.horizontalLayout_12.setSpacing(0)
+        self.horizontalLayout_12.setSpacing(3)
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
         self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
+        self.label_6 = QLabel(self.widget_10)
+        self.label_6.setObjectName(u"label_6")
+
+        self.horizontalLayout_12.addWidget(self.label_6)
+
         self.label_selectedInfo = QLabel(self.widget_10)
         self.label_selectedInfo.setObjectName(u"label_selectedInfo")
 
@@ -170,12 +172,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_12.addWidget(self.pushButton_restoreDefaults)
 
 
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.widget_10)
-
-        self.label_2 = QLabel(self.groupBox_target_settings)
-        self.label_2.setObjectName(u"label_2")
-
-        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label_2)
+        self.verticalLayout_5.addWidget(self.widget_10)
 
         self.widget_7 = QWidget(self.groupBox_target_settings)
         self.widget_7.setObjectName(u"widget_7")
@@ -187,6 +184,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8 = QHBoxLayout(self.widget_7)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.label_2 = QLabel(self.widget_7)
+        self.label_2.setObjectName(u"label_2")
+
+        self.horizontalLayout_8.addWidget(self.label_2)
+
         self.lineEdit_format = QLineEdit(self.widget_7)
         self.lineEdit_format.setObjectName(u"lineEdit_format")
         sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -221,20 +223,29 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.addWidget(self.comboBox_formatPrefix)
 
 
-        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.widget_7)
+        self.verticalLayout_5.addWidget(self.widget_7)
 
-        self.label_13 = QLabel(self.groupBox_target_settings)
+        self.widget_19 = QWidget(self.groupBox_target_settings)
+        self.widget_19.setObjectName(u"widget_19")
+        self.horizontalLayout_21 = QHBoxLayout(self.widget_19)
+        self.horizontalLayout_21.setSpacing(3)
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.horizontalLayout_21.setContentsMargins(0, 0, 0, 0)
+        self.label_13 = QLabel(self.widget_19)
         self.label_13.setObjectName(u"label_13")
 
-        self.formLayout.setWidget(4, QFormLayout.LabelRole, self.label_13)
+        self.horizontalLayout_21.addWidget(self.label_13)
 
-        self.comboBox_fieldType = QComboBox(self.groupBox_target_settings)
+        self.comboBox_fieldType = QComboBox(self.widget_19)
         self.comboBox_fieldType.addItem("")
         self.comboBox_fieldType.addItem("")
         self.comboBox_fieldType.addItem("")
         self.comboBox_fieldType.setObjectName(u"comboBox_fieldType")
 
-        self.formLayout.setWidget(4, QFormLayout.FieldRole, self.comboBox_fieldType)
+        self.horizontalLayout_21.addWidget(self.comboBox_fieldType)
+
+
+        self.verticalLayout_5.addWidget(self.widget_19)
 
         self.widget_14 = QWidget(self.groupBox_target_settings)
         self.widget_14.setObjectName(u"widget_14")
@@ -255,7 +266,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_16.addWidget(self.checkBox_ordinalIndicator)
 
 
-        self.formLayout.setWidget(5, QFormLayout.FieldRole, self.widget_14)
+        self.verticalLayout_5.addWidget(self.widget_14)
 
         self.widget_11 = QWidget(self.groupBox_target_settings)
         self.widget_11.setObjectName(u"widget_11")
@@ -275,7 +286,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.addWidget(self.checkBox_skip_similar_image)
 
 
-        self.formLayout.setWidget(7, QFormLayout.FieldRole, self.widget_11)
+        self.verticalLayout_5.addWidget(self.widget_11)
 
         self.widget_15 = QWidget(self.groupBox_target_settings)
         self.widget_15.setObjectName(u"widget_15")
@@ -296,12 +307,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_17.addWidget(self.checkBox_invertPatch)
 
 
-        self.formLayout.setWidget(8, QFormLayout.FieldRole, self.widget_15)
+        self.verticalLayout_5.addWidget(self.widget_15)
 
         self.checkBox_removeLeadingZeros = QCheckBox(self.groupBox_target_settings)
         self.checkBox_removeLeadingZeros.setObjectName(u"checkBox_removeLeadingZeros")
 
-        self.formLayout.setWidget(10, QFormLayout.FieldRole, self.checkBox_removeLeadingZeros)
+        self.verticalLayout_5.addWidget(self.checkBox_removeLeadingZeros)
 
         self.widget_9 = QWidget(self.groupBox_target_settings)
         self.widget_9.setObjectName(u"widget_9")
@@ -320,23 +331,30 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.addWidget(self.checkBox_normWHRatio)
 
 
-        self.formLayout.setWidget(11, QFormLayout.FieldRole, self.widget_9)
+        self.verticalLayout_5.addWidget(self.widget_9)
 
-        self.label_binarizationMethod = QLabel(self.groupBox_target_settings)
+        self.widget_20 = QWidget(self.groupBox_target_settings)
+        self.widget_20.setObjectName(u"widget_20")
+        self.horizontalLayout_23 = QHBoxLayout(self.widget_20)
+        self.horizontalLayout_23.setSpacing(3)
+        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
+        self.horizontalLayout_23.setContentsMargins(0, 0, 0, 0)
+        self.label_binarizationMethod = QLabel(self.widget_20)
         self.label_binarizationMethod.setObjectName(u"label_binarizationMethod")
 
-        self.formLayout.setWidget(12, QFormLayout.LabelRole, self.label_binarizationMethod)
+        self.horizontalLayout_23.addWidget(self.label_binarizationMethod)
 
-        self.comboBox_binarizationMethod = QComboBox(self.groupBox_target_settings)
+        self.comboBox_binarizationMethod = QComboBox(self.widget_20)
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.setObjectName(u"comboBox_binarizationMethod")
-        sizePolicy4.setHeightForWidth(self.comboBox_binarizationMethod.sizePolicy().hasHeightForWidth())
-        self.comboBox_binarizationMethod.setSizePolicy(sizePolicy4)
 
-        self.formLayout.setWidget(12, QFormLayout.FieldRole, self.comboBox_binarizationMethod)
+        self.horizontalLayout_23.addWidget(self.comboBox_binarizationMethod)
+
+
+        self.verticalLayout_5.addWidget(self.widget_20)
 
         self.widget_17 = QWidget(self.groupBox_target_settings)
         self.widget_17.setObjectName(u"widget_17")
@@ -373,7 +391,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_20.addWidget(self.horizontalSlider_vscale)
 
 
-        self.formLayout.setWidget(13, QFormLayout.FieldRole, self.widget_17)
+        self.verticalLayout_5.addWidget(self.widget_17)
 
         self.widget_13 = QWidget(self.groupBox_target_settings)
         self.widget_13.setObjectName(u"widget_13")
@@ -410,19 +428,28 @@ class Ui_MainWindow(object):
         self.horizontalLayout_15.addWidget(self.horizontalSlider_skew)
 
 
-        self.formLayout.setWidget(14, QFormLayout.FieldRole, self.widget_13)
+        self.verticalLayout_5.addWidget(self.widget_13)
 
-        self.label_3 = QLabel(self.groupBox_target_settings)
+        self.widget_21 = QWidget(self.groupBox_target_settings)
+        self.widget_21.setObjectName(u"widget_21")
+        self.horizontalLayout_24 = QHBoxLayout(self.widget_21)
+        self.horizontalLayout_24.setSpacing(3)
+        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
+        self.horizontalLayout_24.setContentsMargins(0, 0, 0, 0)
+        self.label_3 = QLabel(self.widget_21)
         self.label_3.setObjectName(u"label_3")
 
-        self.formLayout.setWidget(16, QFormLayout.LabelRole, self.label_3)
+        self.horizontalLayout_24.addWidget(self.label_3)
 
-        self.horizontalSlider_conf_thresh = QSlider(self.groupBox_target_settings)
+        self.horizontalSlider_conf_thresh = QSlider(self.widget_21)
         self.horizontalSlider_conf_thresh.setObjectName(u"horizontalSlider_conf_thresh")
         self.horizontalSlider_conf_thresh.setValue(50)
         self.horizontalSlider_conf_thresh.setOrientation(Qt.Horizontal)
 
-        self.formLayout.setWidget(16, QFormLayout.FieldRole, self.horizontalSlider_conf_thresh)
+        self.horizontalLayout_24.addWidget(self.horizontalSlider_conf_thresh)
+
+
+        self.verticalLayout_5.addWidget(self.widget_21)
 
 
         self.verticalLayout_3.addWidget(self.groupBox_target_settings)
@@ -469,7 +496,7 @@ class Ui_MainWindow(object):
         self.tab_textFiles.setSizePolicy(sizePolicy3)
         self.formLayout_2 = QFormLayout(self.tab_textFiles)
         self.formLayout_2.setObjectName(u"formLayout_2")
-        self.formLayout_2.setVerticalSpacing(2)
+        self.formLayout_2.setVerticalSpacing(0)
         self.formLayout_2.setContentsMargins(-1, -1, -1, 0)
         self.label_7 = QLabel(self.tab_textFiles)
         self.label_7.setObjectName(u"label_7")
@@ -771,6 +798,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.label)
 
         self.comboBox_camera_source = QComboBox(self.widget_3)
+        self.comboBox_camera_source.addItem("")
+        self.comboBox_camera_source.addItem("")
+        self.comboBox_camera_source.addItem("")
+        self.comboBox_camera_source.addItem("")
         self.comboBox_camera_source.setObjectName(u"comboBox_camera_source")
         sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy8.setHorizontalStretch(1)
@@ -891,7 +922,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 961, 21))
+        self.menubar.setGeometry(QRect(0, 0, 961, 20))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -900,15 +931,14 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.comboBox_formatPrefix.setCurrentIndex(0)
-        self.tabWidget_outputs.setCurrentIndex(3)
+        self.tabWidget_outputs.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"ScoreSight Open", None))
-        self.groupBox_sb_info.setTitle(QCoreApplication.translate("MainWindow", u"Scoreboard Information", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"ScoreSight", None))
         ___qtablewidgetitem = self.tableWidget_boxes.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Field", None));
         ___qtablewidgetitem1 = self.tableWidget_boxes.horizontalHeaderItem(1)
@@ -917,7 +947,7 @@ class Ui_MainWindow(object):
         self.toolButton_removeBox.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.pushButton_makeBox.setText(QCoreApplication.translate("MainWindow", u"Add to Scene ->", None))
         self.pushButton_removeBox.setText(QCoreApplication.translate("MainWindow", u"Remove Selected", None))
-        self.groupBox_target_settings.setTitle(QCoreApplication.translate("MainWindow", u"Target Information Settings", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Target:", None))
         self.label_selectedInfo.setText(QCoreApplication.translate("MainWindow", u"Select an item above", None))
         self.pushButton_restoreDefaults.setText(QCoreApplication.translate("MainWindow", u"Defaults", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Format", None))
@@ -983,7 +1013,7 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.label_savePerSec.setText(QCoreApplication.translate("MainWindow", u"Save / s", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_textFiles), QCoreApplication.translate("MainWindow", u"Text Files", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>HTML Scoreboard: <a href=\"http://localhost:18099/scoresight\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/scoresight</span></a></p><p>JSON: <a href=\"http://localhost:18099/json\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/json</span></a> (optional: ?pivot)</p><p>XML: <a href=\"http://localhost:18099/xml\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/xml</span></a> (optional: ?pivot)</p><p>CSV: <a href=\"http://localhost:18099/csv\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/csv</span></a></p></body></html>", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>HTML Scoreboard: <a href=\"http://localhost:18099/scoresight\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/scoresight<br/></span></a>JSON: <a href=\"http://localhost:18099/json\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/json</span></a> (optional: ?pivot)<br/>XML: <a href=\"http://localhost:18099/xml\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/xml</span></a> (optional: ?pivot)<br/>CSV: <a href=\"http://localhost:18099/csv\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/csv</span></a></p></body></html>", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_browser), QCoreApplication.translate("MainWindow", u"Browser", None))
         self.pushButton_connectObs.setText(QCoreApplication.translate("MainWindow", u"Connect OBS", None))
         self.lineEdit_sceneName.setText(QCoreApplication.translate("MainWindow", u"ScoreSight Scene", None))
@@ -1005,6 +1035,11 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.checkBox_updateOnchange.setText(QCoreApplication.translate("MainWindow", u"Update on change", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Source", None))
+        self.comboBox_camera_source.setItemText(0, QCoreApplication.translate("MainWindow", u"Select a source", None))
+        self.comboBox_camera_source.setItemText(1, QCoreApplication.translate("MainWindow", u"Open a Video File", None))
+        self.comboBox_camera_source.setItemText(2, QCoreApplication.translate("MainWindow", u"URL Source (HTTP, RTSP)", None))
+        self.comboBox_camera_source.setItemText(3, QCoreApplication.translate("MainWindow", u"Screen Capture", None))
+
 #if QT_CONFIG(tooltip)
         self.pushButton_refresh_sources.setToolTip(QCoreApplication.translate("MainWindow", u"Refresh Sources", None))
 #endif // QT_CONFIG(tooltip)

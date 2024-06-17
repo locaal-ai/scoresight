@@ -18,7 +18,7 @@ from sc_logging import logger
 
 PORT = 18099
 http_results = []
-loop: asyncio.AbstractEventLoop = None
+loop: asyncio.AbstractEventLoop | None = None
 
 app = FastAPI()
 

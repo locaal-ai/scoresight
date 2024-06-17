@@ -31,6 +31,19 @@ datas = [
     ('obs_data/Scoreboard parts/Right Scoreboard.png', './obs_data/Scoreboard parts'),
     ('obs_data/Scoreboard parts/Right base Scoreboard.png', './obs_data/Scoreboard parts'),
     ('obs_data/Scoreboard parts/logo-placeholder-image.png', './obs_data/Scoreboard parts'),
+    ('translations/scoresight_de_DE.qm', './translations'),
+    ('translations/scoresight_en_US.qm', './translations'),
+    ('translations/scoresight_es_ES.qm', './translations'),
+    ('translations/scoresight_fr_FR.qm', './translations'),
+    ('translations/scoresight_it_IT.qm', './translations'),
+    ('translations/scoresight_ja_JP.qm', './translations'),
+    ('translations/scoresight_ko_KR.qm', './translations'),
+    ('translations/scoresight_nl_NL.qm', './translations'),
+    ('translations/scoresight_pl_PL.qm', './translations'),
+    ('translations/scoresight_pt_BR.qm', './translations'),
+    ('translations/scoresight_pt_PT.qm', './translations'),
+    ('translations/scoresight_ru_RU.qm', './translations'),
+    ('translations/scoresight_zh_CN.qm', './translations'),
 ]
 
 sources = [

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'update_available.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.0
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -92,7 +92,7 @@ class Ui_Dialog(object):
     # setupUi
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
+        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Update Available", None))
         self.label_newVersion.setText(QCoreApplication.translate("Dialog", u"<html><head/><body><p>New version of ScoreSight is available!</p><p>Download:</p><p><a href=\"https://download.scoresight.live/scoresight-windows-latest.zip\"><span style=\" text-decoration: underline; color:#0000ff;\">https://download.scoresight.live/scoresight-windows-latest.zip</span></a></p><p><a href=\"https://download.scoresight.live/scoresight-macos-x86-latest.dmg\"><span style=\" text-decoration: underline; color:#0000ff;\">https://download.scoresight.live/scoresight-macos-x86-latest.dmg</span></a></p><p><a href=\"https://download.scoresight.live/scoresight-linux-latest.tar\"><span style=\" text-decoration: underline; color:#0000ff;\">https://download.scoresight.live/scoresight-linux-latest.tar</span></a></p><p>Your configuration will transfer to the new version.</p></body></html>", None))
         self.label_noNewVersion.setText(QCoreApplication.translate("Dialog", u"<html><head/><body><p>You are already running the latest version.</p><p>However, you can always download the latest version from:</p><p><a href=\"https://download.scoresight.live/scoresight-windows-latest.zip\"><span style=\" text-decoration: underline; color:#0000ff;\">https://download.scoresight.live/scoresight-windows-latest.zip</span></a></p><p><a href=\"https://download.scoresight.live/scoresight-macos-x86-latest.dmg\"><span style=\" text-decoration: underline; color:#0000ff;\">https://download.scoresight.live/scoresight-macos-x86-latest.dmg</span></a></p><p><a href=\"https://download.scoresight.live/scoresight-linux-latest.tar\"><span style=\" text-decoration: underline; color:#0000ff;\">https://download.scoresight.live/scoresight-linux-latest.tar</span></a></p></body></html>", None))
         self.checkBox_disableUpdateChecks.setText(QCoreApplication.translate("Dialog", u"Disable update checks", None))

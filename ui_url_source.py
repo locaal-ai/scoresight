@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'url_source.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.0
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -51,7 +51,7 @@ class Ui_Dialog(object):
     # setupUi
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
+        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"URL Source", None))
         self.lineEdit_url.setPlaceholderText(QCoreApplication.translate("Dialog", u"URL", None))
     # retranslateUi
 
