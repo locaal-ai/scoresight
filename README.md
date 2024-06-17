@@ -23,7 +23,7 @@ If you'd like to donate to help support the project, you can do so on [GitHub](h
 
 ## Features
 
-- Works on Windows, Mac and Linux (the only scoreboard OCR tool that does it)
+- Works natively on Windows, Mac and Linux (the only scoreboard OCR tool that does it)
 - Input/Capture: USB, NDI, Screen Capture, URL / RTSP, Video Files, etc.
 - Perspective correction
 - Image processing and binarization techniques, local, global etc.
@@ -35,7 +35,8 @@ If you'd like to donate to help support the project, you can do so on [GitHub](h
 - Unlimited detection boxes
 - Camera bump and drift correction with stabilization algorithm
 - Unlimited devices or open instances on the same device
-- Custom detection boxes
+- Detect any scoreboard fonts, general fonts and even "dot" indicators
+- Translated to 12 languages (English, German, Spanish, French, Italian, Japanese, Korean, Dutch, Polish, Portugese, Russian, Chinese)
 
 Price: FREE.
 
