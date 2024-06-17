@@ -1,6 +1,7 @@
 import asyncio
 import http.server
 import http.client
+import logging
 import os
 import signal
 import threading
@@ -10,17 +11,27 @@ from fastapi.middleware.cors import CORSMiddleware
 import csv
 import xml.etree.ElementTree as ET
 from io import StringIO
+from dotenv import load_dotenv
 
 import uvicorn
 
 from text_detection_target import TextDetectionTargetWithResult
-from sc_logging import logger
+from sc_logging import logger, file_handler
+
+load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), ".env")))
 
 PORT = 18099
 http_results = []
 loop: asyncio.AbstractEventLoop | None = None
 
-app = FastAPI()
+
+def lifespan(app: FastAPI):
+    logger = logging.getLogger("uvicorn.access")
+    logger.addHandler(file_handler)
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -166,7 +177,15 @@ async def get_csv():
 
 def start_http_server():
     def run_uvicorn():
-        config = uvicorn.Config(app=app, host="0.0.0.0", port=PORT, loop="asyncio")
+        config = uvicorn.Config(
+            app=app,
+            host="0.0.0.0",
+            port=PORT,
+            loop="asyncio",
+            log_level="debug" if os.getenv("SCORESIGHT_DEBUG") else "info",
+            log_config=None,
+            lifespan="on",
+        )
         server = uvicorn.Server(config)
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
