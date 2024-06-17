@@ -9,8 +9,8 @@ from PySide6.QtCore import QThread, Signal
 
 import platform
 import time
-import cv2
 import numpy as np
+import cv2
 import datetime
 from datetime import datetime
 
