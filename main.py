@@ -453,19 +453,6 @@ class MainWindow(QMainWindow):
         # start or stop the stabilization
         self.image_viewer.toggleStabilization(self.ui.pushButton_stabilize.isChecked())
 
-    # def toggleHttpServer(self):
-    #     if not self.ui.pushButton_starthttpserver.isChecked():
-    #         # stop the http server
-    #         stop_http_server()
-    #         # change the button text to "start the http server"
-    #         self.ui.pushButton_starthttpserver.setText("▶️ Start the server")
-    #         return
-    #     else:
-    #         # start the http server
-    #         start_http_server()
-    #         # change the button text to "stop the http server"
-    #         self.ui.pushButton_starthttpserver.setText("🛑 Stop the server")
-
     def toggleStopUpdates(self, value):
         self.ui.statusbar.showMessage(
             self.translator.translate("main", "Stopped updates")
