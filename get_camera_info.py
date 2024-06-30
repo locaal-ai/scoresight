@@ -48,8 +48,11 @@ def get_camera_info_mac():
 
 def get_camera_info_linux():
     # Basic method using /dev/video* enumeration
+    import glob
+
+    device_info = glob.glob("/dev/video*")
     device_info = [
-        CameraInfo(f"Camera {i}", f"/dev/{dev}", i, CameraInfo.CameraType.OPENCV)
+        CameraInfo(f"Camera {i}", dev, i, CameraInfo.CameraType.OPENCV)
         for i, dev in enumerate(device_info)
     ]
     return device_info
