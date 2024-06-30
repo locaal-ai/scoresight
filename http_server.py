@@ -62,23 +62,35 @@ HTML_PAGE = """
 <body>
 <script>
   function updateScoreboard() {
-    fetch('http://localhost:8099/json')
+    fetch('http://localhost:18099/json')
       .then(response => response.json())
       .then(data => {
-        const homeScore = data.find(item => item.name === 'Home Score').text;
-        const awayScore = data.find(item => item.name === 'Away Score').text;
-        const homeFouls = data.find(item => item.name === 'Home Fouls').text;
-        const awayFouls = data.find(item => item.name === 'Away Fouls').text;
+        if (data.find(item => item.name === 'Home Score') !== undefined) {
+          const homeScore = data.find(item => item.name === 'Home Score').text;
+          document.querySelector('.team.home .score').textContent = homeScore;
+        }
 
-        document.querySelector('.team.home .score').textContent = homeScore;
-        document.querySelector('.team.away .score').textContent = awayScore;
-        document.querySelector('.team.home .fouls').textContent = `Fouls: ${homeFouls}`;
-        document.querySelector('.team.away .fouls').textContent = `Fouls: ${awayFouls}`;
+        if (data.find(item => item.name === 'Away Score') !== undefined) {
+          const awayScore = data.find(item => item.name === 'Away Score').text;
+          document.querySelector('.team.away .score').textContent = awayScore;
+        }
+        
+        if (data.find(item => item.name === 'Home Fouls') !== undefined) {
+          const homeFouls = data.find(item => item.name === 'Home Fouls').text;
+          document.querySelector('.team.home .fouls').textContent = `Fouls: ${homeFouls}`;
+        }
+        
+        if (data.find(item => item.name === 'Away Fouls') !== undefined) {
+          const awayFouls = data.find(item => item.name === 'Away Fouls').text;
+          document.querySelector('.team.away .fouls').textContent = `Fouls: ${awayFouls}`;
+        }
 
-        const timeItem = data.find(item => item.name === 'Time');
-        if (timeItem.state === 'Success') {
+        if (data.find(item => item.name === 'Time') !== undefined) {
+          const timeItem = data.find(item => item.name === 'Time');
+          if (timeItem.state === 'Success' || timeItem.state === 'SameNoChange') {
             const time = timeItem.text;
             document.querySelector('.timer').textContent = time;
+          }
         }
       })
       .catch(error => console.error('Error:', error));
