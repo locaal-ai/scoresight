@@ -122,7 +122,11 @@ async def get_json(pivot=Query(None)):
     data = {}
     if pivot is not None:
         for result in http_results:
-            if result.result_state == TextDetectionTargetWithResult.ResultState.Success:
+            if (
+                result.result_state == TextDetectionTargetWithResult.ResultState.Success
+                or result.result_state
+                == TextDetectionTargetWithResult.ResultState.SameNoChange
+            ):
                 data[result.name] = result.result
     else:
         data = [result.to_dict() for result in http_results]
@@ -136,7 +140,11 @@ async def get_xml(pivot=Query(None)):
     if pivot is not None:
         data = {}
         for result in http_results:
-            if result.result_state == TextDetectionTargetWithResult.ResultState.Success:
+            if (
+                result.result_state == TextDetectionTargetWithResult.ResultState.Success
+                or result.result_state
+                == TextDetectionTargetWithResult.ResultState.SameNoChange
+            ):
                 data[result.name] = result.result
         for key in data:
             # transform key to camelCase
