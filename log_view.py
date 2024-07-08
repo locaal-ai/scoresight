@@ -5,6 +5,7 @@ from PySide6.QtCore import QTimer
 from PySide6.QtUiTools import QUiLoader
 from sc_logging import log_file_path
 from ui_log_view import Ui_Dialog as Ui_LogViewerDialog
+from storage import store_data, fetch_data
 
 
 class LogViewerDialog(QDialog):
@@ -17,6 +18,17 @@ class LogViewerDialog(QDialog):
         self.timer.start(1000)  # Update UI every 1 second
         self.current_log_data = ""
         self.ui.pushButton_openlogfolder.clicked.connect(self.open_log_folder)
+        self.ui.checkBox_openOnStartup.clicked.connect(self.open_on_startup)
+        self.ui.checkBox_openOnStartup.setChecked(
+            fetch_data("scoresight.json", "open_on_startup", False)
+        )
+
+    def open_on_startup(self):
+        store_data(
+            "scoresight.json",
+            "open_on_startup",
+            self.ui.checkBox_openOnStartup.isChecked(),
+        )
 
     def open_log_folder(self):
         # Open the folder containing the log file

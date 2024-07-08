@@ -307,6 +307,9 @@ class MainWindow(QMainWindow):
         self.source_name = None
         self.updateOCRResults = True
         self.log_dialog = None
+        if fetch_data("scoresight.json", "open_on_startup", False):
+            logger.info("Opening log dialog on startup")
+            self.openLogsDialog()
 
         if fetch_data("scoresight.json", "obs"):
             self.connectObs()
