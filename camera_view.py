@@ -17,7 +17,7 @@ from datetime import datetime
 from camera_info import CameraInfo
 from ndi import NDICapture
 from screen_capture_source import ScreenCapture
-from storage import TextDetectionTargetMemoryStorage
+from storage import TextDetectionTargetMemoryStorage, subscribe_to_data, fetch_data
 from tesseract import TextDetector
 from text_detection_target import TextDetectionTargetWithResult
 from sc_logging import logger
@@ -81,6 +81,35 @@ def set_camera_highest_resolution(cap):
     set_resolution(cap, *highest_res)
 
 
+class FrameCrop:
+    def __init__(self):
+        self.isCropSet = fetch_data("scoresight.json", "crop_mode", False)
+        self.cropTop = fetch_data("scoresight.json", "top_crop", 0)
+        self.cropBottom = fetch_data("scoresight.json", "bottom_crop", 0)
+        self.cropLeft = fetch_data("scoresight.json", "left_crop", 0)
+        self.cropRight = fetch_data("scoresight.json", "right_crop", 0)
+        subscribe_to_data("scoresight.json", "crop_mode", self.setCropMode)
+        subscribe_to_data("scoresight.json", "top_crop", self.setCropTop)
+        subscribe_to_data("scoresight.json", "bottom_crop", self.setCropBottom)
+        subscribe_to_data("scoresight.json", "left_crop", self.setCropLeft)
+        subscribe_to_data("scoresight.json", "right_crop", self.setCropRight)
+
+    def setCropMode(self, crop_mode):
+        self.isCropSet = crop_mode
+
+    def setCropTop(self, crop_top):
+        self.cropTop = crop_top
+
+    def setCropBottom(self, crop_bottom):
+        self.cropBottom = crop_bottom
+
+    def setCropLeft(self, crop_left):
+        self.cropLeft = crop_left
+
+    def setCropRight(self, crop_right):
+        self.cropRight = crop_right
+
+
 class TimerThread(QThread):
     update_signal = Signal(object)
     update_error = Signal(object)
@@ -112,6 +141,7 @@ class TimerThread(QThread):
         self.ups = 1000 / self.update_frame_interval  # updates per second
         self.fps_alpha = 0.1  # Smoothing factor
         self.updateOnChange = True
+        self.crop = FrameCrop()
 
     def connect_video_capture(self) -> bool:
         if self.camera_info.type == CameraInfo.CameraType.NDI:
@@ -248,6 +278,13 @@ class TimerThread(QThread):
                 + (1.0 - self.fps_alpha) * self.ups
             )
 
+            # apply top-level crop if set
+            if self.crop.isCropSet:
+                frame_rgb = frame_rgb[
+                    self.crop.cropTop : frame_rgb.shape[0] - self.crop.cropBottom,
+                    self.crop.cropLeft : frame_rgb.shape[1] - self.crop.cropRight,
+                ]
+
             # Stabilize the frame
             if self.stabilizationEnabled:
                 frame_rgb = self.framestabilizer.stabilize_frame(frame_rgb)
@@ -363,6 +400,10 @@ class CameraView(QGraphicsView):
         if self.timerThread is None:
             return
 
+        # check if frame is not contiguous
+        if not frame.flags["C_CONTIGUOUS"]:
+            frame = np.ascontiguousarray(frame)
+
         # Create a QImage from the frame data
         image = QImage(
             frame.data,
@@ -387,9 +428,20 @@ class CameraView(QGraphicsView):
             self.scenePixmapItem = QGraphicsPixmapItem(pixmap)
             self.scene.addItem(self.scenePixmapItem)
             self.scenePixmapItem.setZValue(0)
-            self.fitInView(self.scene.sceneRect(), Qt.AspectRatioMode.KeepAspectRatio)
+            self.fitInView(self.scenePixmapItem, Qt.AspectRatioMode.KeepAspectRatio)
         else:
+            refit = False
+            # check if the pixmap is the same size as the current one
+            if self.scenePixmapItem.pixmap().size() != pixmap.size():
+                logger.info(f"scene size: {self.scene.sceneRect()}")
+                refit = True
             self.scenePixmapItem.setPixmap(pixmap)
+            if refit:
+                self.scene.setSceneRect(0, 0, pixmap.width(), pixmap.height())
+                logger.info(f"scene size: {self.scene.sceneRect()}")
+                logger.info(f"Refitting view to new pixmap size: {pixmap.size()}")
+                self.fitInView(self.scenePixmapItem, Qt.AspectRatioMode.KeepAspectRatio)
+                self.centerOn(self.scenePixmapItem)
 
         if not self.firstFrameReceived:
             self.firstFrameReceived = True
@@ -403,9 +455,9 @@ class CameraView(QGraphicsView):
             self.fps_text.setZValue(2)
             self.fps_text.setDefaultTextColor(Qt.GlobalColor.white)
             # scale the text according to the view size so its always the same size
-            self.fps_text.setScale(0.004 * self.width())
         else:
             self.fps_text.setPlainText(fps_text)
+        self.fps_text.setScale(0.002 * self.scenePixmapItem.boundingRect().width())
 
     def error_event(self, error):
         if self.error_text is not None:

@@ -40,6 +40,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QCheckBox" name="checkBox_openOnStartup">
+       <property name="text">
+        <string>Open on startup</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QDialogButtonBox" name="buttonBox">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -61,8 +68,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>533</width>
-        <height>250</height>
+        <width>537</width>
+        <height>255</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
