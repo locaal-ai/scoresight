@@ -47,6 +47,7 @@ default_boxes = [
         "obs_source_name": "Home score",
         "format_regex": format_prefixes[5],
         "ordinal_indicator": False,
+        "is_custom": False,
     },
     {
         "name": "Away Score",
@@ -58,6 +59,7 @@ default_boxes = [
         "obs_source_name": "Away score",
         "format_regex": format_prefixes[5],
         "ordinal_indicator": False,
+        "is_custom": False,
     },
     {
         "name": "Time",
@@ -69,6 +71,7 @@ default_boxes = [
         "obs_source_name": "Clock",
         "format_regex": format_prefixes[0],
         "ordinal_indicator": False,
+        "is_custom": False,
     },
     {
         "name": "Period",
@@ -80,6 +83,7 @@ default_boxes = [
         "obs_source_name": "Period",
         "format_regex": format_prefixes[7],
         "ordinal_indicator": True,
+        "is_custom": False,
     },
     {
         "name": "Home Fouls",
@@ -91,6 +95,7 @@ default_boxes = [
         "obs_source_name": "#Home Fouls",
         "format_regex": format_prefixes[11],
         "ordinal_indicator": False,
+        "is_custom": False,
     },
     {
         "name": "Away Fouls",
@@ -102,6 +107,7 @@ default_boxes = [
         "obs_source_name": "#Away Fouls",
         "format_regex": format_prefixes[11],
         "ordinal_indicator": False,
+        "is_custom": False,
     },
     {
         "name": "Shot Clock",
@@ -113,6 +119,7 @@ default_boxes = [
         "obs_source_name": "shotclock",
         "format_regex": format_prefixes[4],
         "ordinal_indicator": False,
+        "is_custom": False,
     },
 ]
 default_custom_box_info = {
@@ -124,10 +131,11 @@ default_custom_box_info = {
     "obs_source_name": "",
     "format_regex": format_prefixes[11],
     "ordinal_indicator": False,
+    "is_custom": True,
 }
 
 
-def info_for_box_name(name):
+def default_info_for_box_name(name):
     # Get the info for a box name
     for box in default_boxes:
         if box["name"] == name:
@@ -145,8 +153,12 @@ def normalize_settings_dict(settings, box_info):
             "format_regex": format_prefixes[11],
             "type": FieldType.NUMBER,
             "ordinal_indicator": False,
+            "is_custom": True,
         }
     return {
+        "is_custom": (
+            settings["is_custom"] if "is_custom" in settings else box_info["is_custom"]
+        ),
         "obs_source_name": (
             settings["obs_source_name"]
             if "obs_source_name" in settings
