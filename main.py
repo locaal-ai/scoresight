@@ -150,6 +150,34 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_stabilize.setEnabled(True)
         self.ui.pushButton_stabilize.clicked.connect(self.toggleStabilize)
 
+        self.ui.toolButton_topCrop.clicked.connect(self.cropMode)
+        # check configuation if crop is enabled
+        self.ui.toolButton_topCrop.setChecked(
+            fetch_data("scoresight.json", "crop_mode", False)
+        )
+        self.ui.widget_cropPanel.setVisible(self.ui.toolButton_topCrop.isChecked())
+        self.ui.widget_cropPanel.setEnabled(self.ui.toolButton_topCrop.isChecked())
+        self.ui.spinBox_leftCrop.valueChanged.connect(
+            partial(self.globalSettingsChanged, "left_crop")
+        )
+        self.ui.spinBox_leftCrop.setValue(fetch_data("scoresight.json", "left_crop", 0))
+        self.ui.spinBox_rightCrop.valueChanged.connect(
+            partial(self.globalSettingsChanged, "right_crop")
+        )
+        self.ui.spinBox_rightCrop.setValue(
+            fetch_data("scoresight.json", "right_crop", 0)
+        )
+        self.ui.spinBox_topCrop.valueChanged.connect(
+            partial(self.globalSettingsChanged, "top_crop")
+        )
+        self.ui.spinBox_topCrop.setValue(fetch_data("scoresight.json", "top_crop", 0))
+        self.ui.spinBox_bottomCrop.valueChanged.connect(
+            partial(self.globalSettingsChanged, "bottom_crop")
+        )
+        self.ui.spinBox_bottomCrop.setValue(
+            fetch_data("scoresight.json", "bottom_crop", 0)
+        )
+
         self.ui.widget_detectionCadence.setVisible(True)
         self.ui.horizontalSlider_detectionCadence.setValue(
             fetch_data("scoresight.json", "detection_cadence", 5)
@@ -279,6 +307,9 @@ class MainWindow(QMainWindow):
         self.source_name = None
         self.updateOCRResults = True
         self.log_dialog = None
+        if fetch_data("scoresight.json", "open_on_startup", False):
+            logger.info("Opening log dialog on startup")
+            self.openLogsDialog()
 
         if fetch_data("scoresight.json", "obs"):
             self.connectObs()
@@ -293,19 +324,23 @@ class MainWindow(QMainWindow):
 
         self.first_csv_append = True
         self.last_aggregate_save = datetime.datetime.now()
-        self.ui.checkBox_saveCsv.toggled.connect(self.save_csv_toggled)
+        self.ui.checkBox_saveCsv.toggled.connect(
+            partial(self.globalSettingsChanged, "save_csv")
+        )
         self.ui.checkBox_saveCsv.setChecked(
             fetch_data("scoresight.json", "save_csv", False)
         )
-        self.ui.checkBox_saveXML.toggled.connect(self.save_xml_toggled)
+        self.ui.checkBox_saveXML.toggled.connect(
+            partial(self.globalSettingsChanged, "save_xml")
+        )
         self.ui.checkBox_saveXML.setChecked(
             fetch_data("scoresight.json", "save_xml", False)
         )
         self.ui.comboBox_appendMethod.currentIndexChanged.connect(
-            self.appendMethodChanged
+            partial(self.globalSettingsChanged, "append_method")
         )
         self.ui.horizontalSlider_aggsPerSecond.valueChanged.connect(
-            self.aggsPerSecondChanged
+            partial(self.globalSettingsChanged, "aggs_per_second")
         )
         self.ui.comboBox_appendMethod.setCurrentIndex(
             fetch_data("scoresight.json", "append_method", 3)
@@ -320,6 +355,20 @@ class MainWindow(QMainWindow):
         self.update_sources.connect(self.updateSources)
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
+
+    def cropMode(self):
+        # if the toolButton_topCrop is unchecked, go to crop mode
+        if self.ui.toolButton_topCrop.isChecked():
+            self.ui.widget_cropPanel.setVisible(True)
+            self.ui.widget_cropPanel.setEnabled(True)
+            self.globalSettingsChanged("crop_mode", True)
+        else:
+            self.ui.widget_cropPanel.setVisible(False)
+            self.ui.widget_cropPanel.setEnabled(False)
+            self.globalSettingsChanged("crop_mode", False)
+
+    def globalSettingsChanged(self, settingName, value):
+        store_data("scoresight.json", settingName, value)
 
     def eventFilter(self, obj, event):
         if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Alt:
@@ -358,7 +407,7 @@ class MainWindow(QMainWindow):
         menu.addAction(language_name, lambda: self.changeLanguage(locale))
 
     def toggleUpdateOnChange(self, value):
-        store_data("scoresight.json", "update_on_change", value)
+        self.globalSettingsChanged("update_on_change", value)
         if self.image_viewer:
             self.image_viewer.setUpdateOnChange(value)
 
@@ -399,24 +448,12 @@ class MainWindow(QMainWindow):
         if self.image_viewer:
             self.image_viewer.toggleOCRRects(value)
 
-    def save_csv_toggled(self, value):
-        store_data("scoresight.json", "save_csv", value)
-
-    def save_xml_toggled(self, value):
-        store_data("scoresight.json", "save_xml", value)
-
-    def appendMethodChanged(self, index):
-        store_data("scoresight.json", "append_method", index)
-
-    def aggsPerSecondChanged(self, value):
-        store_data("scoresight.json", "aggs_per_second", value)
-
     def resetZoom(self):
         if self.image_viewer:
             self.image_viewer.resetZoom()
 
     def detectionCadenceChanged(self, detections_per_second):
-        store_data("scoresight.json", "detection_cadence", detections_per_second)
+        self.globalSettingsChanged("detection_cadence", detections_per_second)
         if self.image_viewer and self.image_viewer.timerThread:
             # convert the detections_per_second to milliseconds
             self.image_viewer.timerThread.update_frame_interval = (
@@ -424,7 +461,7 @@ class MainWindow(QMainWindow):
             )
 
     def ocrModelChanged(self, index):
-        store_data("scoresight.json", "ocr_model", index)
+        self.globalSettingsChanged("ocr_model", index)
         # update the ocr model in the text detector
         if (
             self.image_viewer
@@ -481,7 +518,7 @@ class MainWindow(QMainWindow):
         if folder and len(folder) > 0:
             self.ui.lineEdit_folder.setText(folder)
             self.out_folder = folder
-            store_data("scoresight.json", "output_folder", folder)
+            self.globalSettingsChanged("output_folder", folder)
 
     def clearOutputFolder(self):
         # clear the output folder
@@ -545,9 +582,9 @@ class MainWindow(QMainWindow):
             self.ui.inputLineEdit_vmix.text(),
             {},
         )
-        store_data("scoresight.json", "vmix_host", self.ui.lineEdit_vmixHost.text())
-        store_data("scoresight.json", "vmix_port", self.ui.lineEdit_vmixPort.text())
-        store_data("scoresight.json", "vmix_input", self.ui.inputLineEdit_vmix.text())
+        self.globalSettingsChanged("vmix_host", self.ui.lineEdit_vmixHost.text())
+        self.globalSettingsChanged("vmix_port", self.ui.lineEdit_vmixPort.text())
+        self.globalSettingsChanged("vmix_input", self.ui.inputLineEdit_vmix.text())
 
     def vmixMappingChanged(self, _):
         # store entire mapping data in scoresight.json
@@ -559,7 +596,7 @@ class MainWindow(QMainWindow):
                 value = model.item(i, 1)
                 if item and value:
                     mapping[item.text()] = value.text()
-            store_data("scoresight.json", "vmix_mapping", mapping)
+            self.globalSettingsChanged("vmix_mapping", mapping)
             self.vmixUpdater.set_field_mapping(mapping)
 
     def vmixUiSetup(self):
@@ -993,7 +1030,7 @@ class MainWindow(QMainWindow):
             self.source_name = window_id
 
         # store the source selection in scoresight.json
-        store_data("scoresight.json", "source_selected", self.source_name)
+        self.globalSettingsChanged("source_selected", self.source_name)
         self.sourceSelectionSucessful()
 
     def itemSelected(self, item_name):

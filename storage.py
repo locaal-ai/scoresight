@@ -8,6 +8,21 @@ from text_detection_target import TextDetectionTarget
 from sc_logging import logger
 
 
+data_subscribers = {}
+
+
+def subscribe_to_data(file_path, document_name, callback):
+    # Subscribe to data changes in a JSON file
+    # prepend the user data directory
+    file_path = os.path.join(user_data_dir("scoresight"), file_path)
+
+    if file_path not in data_subscribers:
+        data_subscribers[file_path] = {}
+    if document_name not in data_subscribers[file_path]:
+        data_subscribers[file_path][document_name] = []
+    data_subscribers[file_path][document_name].append(callback)
+
+
 def store_data(file_path, document_name, data):
     # Store data into a JSON file
     # get the user data directory
@@ -29,6 +44,11 @@ def store_data(file_path, document_name, data):
 
     documents[document_name] = data
 
+    # notify subscribers
+    if file_path in data_subscribers and document_name in data_subscribers[file_path]:
+        for callback in data_subscribers[file_path][document_name]:
+            callback(data)
+
     with open(file_path, "w") as f:
         json.dump(documents, f, indent=2)
 
@@ -46,6 +66,11 @@ def remove_data(file_path, document_name):
 
     if document_name in documents:
         del documents[document_name]
+
+    # notify subscribers
+    if file_path in data_subscribers and document_name in data_subscribers[file_path]:
+        for callback in data_subscribers[file_path][document_name]:
+            callback(None)
 
     with open(file_path, "w") as f:
         json.dump(documents, f, indent=2)
