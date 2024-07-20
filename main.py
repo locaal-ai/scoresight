@@ -35,7 +35,7 @@ from screen_capture_source import ScreenCapture
 from source_view import ImageViewer
 from defaults import (
     default_boxes,
-    info_for_box_name,
+    default_info_for_box_name,
     normalize_settings_dict,
     format_prefixes,
 )
@@ -543,7 +543,7 @@ class MainWindow(QMainWindow):
     def restoreDefaults(self):
         # restore the default settings for the selected item
         def restoreDefaultsSettings(item_obj):
-            info = info_for_box_name(item_obj.name)
+            info = default_info_for_box_name(item_obj.name)
             item_obj.settings = normalize_settings_dict({}, info)
             return item_obj
 
@@ -684,15 +684,25 @@ class MainWindow(QMainWindow):
 
     def detectionTargetsChanged(self, detectionTargets):
         for box in detectionTargets:
+            logger.debug(f"Change: Detection target: {box.name}")
             # change the list icon to green checkmark
             items = self.ui.tableWidget_boxes.findItems(
                 box.name, Qt.MatchFlag.MatchExactly
             )
             if len(items) == 0:
+                logger.warning(f"Item not found: {box.name}. Adding it to the list.")
                 # add the item to the list
+                self.ui.tableWidget_boxes.insertRow(
+                    self.ui.tableWidget_boxes.rowCount()
+                )
                 item = QTableWidgetItem(box.name)
                 self.ui.tableWidget_boxes.setItem(
-                    self.ui.tableWidget_boxes.rowCount(), 0, item
+                    self.ui.tableWidget_boxes.rowCount() - 1, 0, item
+                )
+                disabledItem = QTableWidgetItem()
+                disabledItem.setFlags(Qt.ItemFlag.NoItemFlags)
+                self.ui.tableWidget_boxes.setItem(
+                    self.ui.tableWidget_boxes.rowCount() - 1, 1, disabledItem
                 )
             else:
                 item = items[0]
@@ -763,7 +773,7 @@ class MainWindow(QMainWindow):
             self.ui.comboBox_binarizationMethod.setCurrentIndex(0)
         else:
             item_obj.settings = normalize_settings_dict(
-                item_obj.settings, info_for_box_name(item_obj.name)
+                item_obj.settings, default_info_for_box_name(item_obj.name)
             )
             self.ui.label_selectedInfo.setText(f"{item_obj.name}")
             self.ui.lineEdit_format.setText(item_obj.settings["format_regex"])
@@ -1254,12 +1264,20 @@ class MainWindow(QMainWindow):
             if item.text() not in [o["name"] for o in default_boxes]:
                 custom_boxes.append(item.text())
 
-        store_custom_box_name("Custom")
+        i = len(custom_boxes)
+        new_box_name = f"Custom {i + 1}"
+        custom_boxes_names = fetch_data("scoresight.json", "custom_boxes_names", [])
+        # find if the name already exists
+        while new_box_name in custom_boxes or new_box_name in custom_boxes_names:
+            i += 1
+            new_box_name = f"Custom {i + 1}"
+
+        store_custom_box_name(new_box_name)
         item = QTableWidgetItem(
             QIcon(
                 path.abspath(path.join(path.dirname(__file__), "icons/circle-x.svg"))
             ),
-            "Custom",
+            new_box_name,
         )
         item.setData(Qt.ItemDataRole.UserRole, "unchecked")
         self.ui.tableWidget_boxes.insertRow(self.ui.tableWidget_boxes.rowCount())
@@ -1325,7 +1343,7 @@ class MainWindow(QMainWindow):
         self.listItemClicked(item)
 
         # get the size of the box from the name
-        info = info_for_box_name(item.text())
+        info = default_info_for_box_name(item.text())
 
         self.detectionTargetsStorage.add_item(
             TextDetectionTarget(

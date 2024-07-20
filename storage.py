@@ -2,7 +2,7 @@ import json
 import os
 from PySide6.QtCore import QObject, Signal
 from platformdirs import user_data_dir
-from defaults import info_for_box_name, normalize_settings_dict
+from defaults import default_info_for_box_name, normalize_settings_dict
 
 from text_detection_target import TextDetectionTarget
 from sc_logging import logger
@@ -203,9 +203,11 @@ class TextDetectionTargetMemoryStorage(QObject):
         self._data.clear()
         try:
             for box in boxes:
-                box_info = info_for_box_name(box["name"])
+                logger.debug("loading box: " + box["name"])
                 if "settings" not in box:
                     box["settings"] = {}
+
+                default_box_info = default_info_for_box_name(box["name"])
                 # set the position of the box
                 self._data.append(
                     TextDetectionTarget(
@@ -214,9 +216,11 @@ class TextDetectionTargetMemoryStorage(QObject):
                         box["rect"]["width"],
                         box["rect"]["height"],
                         box["name"],
-                        normalize_settings_dict(box["settings"], box_info),
+                        normalize_settings_dict(box["settings"], default_box_info),
                     )
                 )
+                if "is_custom" in box["settings"] and box["settings"]["is_custom"]:
+                    store_custom_box_name(box["name"])
             logger.debug("loaded boxes")
             self.data_changed.emit(self._data)
         except Exception as e:
@@ -230,7 +234,8 @@ class TextDetectionTargetMemoryStorage(QObject):
         boxes = []
         for detectionTarget in self._data:
             detectionTarget.settings = normalize_settings_dict(
-                detectionTarget.settings, info_for_box_name(detectionTarget.name)
+                detectionTarget.settings,
+                default_info_for_box_name(detectionTarget.name),
             )
             boxes.append(
                 {
@@ -242,6 +247,7 @@ class TextDetectionTargetMemoryStorage(QObject):
                         "height": detectionTarget.height(),
                     },
                     "settings": {
+                        "is_custom": detectionTarget.settings.get("is_custom"),
                         "obs_source_name": detectionTarget.settings.get(
                             "obs_source_name"
                         ),
