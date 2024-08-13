@@ -13,8 +13,7 @@ from PySide6.QtWidgets import (
     QInputDialog,
     QTableWidgetItem,
 )
-from PySide6.QtUiTools import QUiLoader
-from PySide6.QtGui import QIcon, QStandardItemModel, QStandardItem
+from PySide6.QtGui import QIcon, QStandardItemModel, QStandardItem, QDesktopServices
 from PySide6.QtCore import (
     Qt,
     Signal,
@@ -25,9 +24,11 @@ from PySide6.QtCore import (
     QCoreApplication,
     QEvent,
     QMetaMethod,
+    QUrl,
 )
 from dotenv import load_dotenv
 from os import path
+from platformdirs import user_data_dir
 
 from camera_info import CameraInfo
 from get_camera_info import get_camera_info
@@ -116,6 +117,7 @@ class MainWindow(QMainWindow):
         file_menu.addAction("View Current Log", self.openLogsDialog)
         file_menu.addAction("Import Configuration", self.importConfiguration)
         file_menu.addAction("Export Configuration", self.exportConfiguration)
+        file_menu.addAction("Open Configuration Folder", self.openConfigurationFolder)
 
         # Add "Language" menu
         languageMenu = file_menu.addMenu("Language")
@@ -352,6 +354,12 @@ class MainWindow(QMainWindow):
         self.ui.checkBox_updateOnchange.setChecked(
             fetch_data("scoresight.json", "update_on_change", True)
         )
+        self.ui.checkBox_vmix_send_same.setChecked(
+            fetch_data("scoresight.json", "vmix_send_same", False)
+        )
+        self.ui.checkBox_vmix_send_same.toggled.connect(
+            partial(self.globalSettingsChanged, "vmix_send_same")
+        )
 
         self.update_sources.connect(self.updateSources)
         self.get_sources.connect(self.getSources)
@@ -440,6 +448,14 @@ class MainWindow(QMainWindow):
             return
         # save the configuration to the file
         self.detectionTargetsStorage.saveBoxesToFile(file)
+
+    def openConfigurationFolder(self):
+        # open the configuration folder in the file explorer
+        QDesktopServices.openUrl(
+            QUrl(
+                "file:///" + user_data_dir("scoresight"), QUrl.ParsingMode.TolerantMode
+            )
+        )
 
     def toggleOSD(self, value):
         if self.image_viewer:
@@ -599,6 +615,8 @@ class MainWindow(QMainWindow):
                     mapping[item.text()] = value.text()
             self.globalSettingsChanged("vmix_mapping", mapping)
             self.vmixUpdater.set_field_mapping(mapping)
+        else:
+            logger.error("vmixMappingChanged: model is not a QStandardItemModel")
 
     def vmixUiSetup(self):
         # populate the vmix connection from storage
@@ -646,7 +664,7 @@ class MainWindow(QMainWindow):
             self.vmixUpdater.running = False
 
     def updatevMixTable(self, detectionTargets):
-        mapping_storage = fetch_data("scoresight.json", f"vmix_mapping")
+        mapping_storage = fetch_data("scoresight.json", "vmix_mapping")
         model = QStandardItemModel()
         model.blockSignals(True)
 
@@ -661,19 +679,16 @@ class MainWindow(QMainWindow):
                 model.setItem(row, 0, QStandardItem(box.name))
                 # the first item shouldn't be editable
                 model.item(row, 0).setFlags(Qt.ItemFlag.NoItemFlags)
-                if mapping_storage and box.name in mapping_storage:
-                    model.setItem(row, 1, QStandardItem(mapping_storage[box.name]))
-                else:
-                    model.setItem(row, 1, QStandardItem(box.name))
             else:
                 # update the item in the list
                 item = items[0]
                 row = item.row()
-                # get value from storage
-                if mapping_storage and box.name in mapping_storage:
-                    model.setItem(row, 1, QStandardItem(mapping_storage[box.name]))
-                else:
-                    model.setItem(row, 1, QStandardItem(box.name))
+
+            # get value from storage or use the box name
+            if mapping_storage and box.name in mapping_storage:
+                model.setItem(row, 1, QStandardItem(mapping_storage[box.name]))
+            else:
+                model.setItem(row, 1, QStandardItem(box.name))
         # remove the items that are not in the detectionTargets
         for i in range(model.rowCount()):
             item = model.item(i, 0)
@@ -682,6 +697,9 @@ class MainWindow(QMainWindow):
 
         model.blockSignals(False)
         self.ui.tableView_vmixMapping.setModel(model)
+        self.ui.tableView_vmixMapping.model().dataChanged.connect(
+            self.vmixMappingChanged
+        )
 
     def detectionTargetsChanged(self, detectionTargets):
         for box in detectionTargets:
