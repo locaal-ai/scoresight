@@ -2,6 +2,8 @@ import requests
 
 from text_detection_target import TextDetectionTargetWithResult
 from sc_logging import logger
+from storage import subscribe_to_data, fetch_data
+from urllib.parse import urlencode
 
 
 class VMixAPI:
@@ -11,6 +13,11 @@ class VMixAPI:
         self.input_number = input_number
         self.field_mapping = field_mapping
         self.running = False
+        self.update_same = fetch_data("scoresight.json", "vmix_send_same", False)
+        subscribe_to_data("scoresight.json", "vmix_send_same", self.set_update_same)
+
+    def set_update_same(self, update_same):
+        self.update_same = update_same
 
     def set_field_mapping(self, field_mapping):
         self.field_mapping = field_mapping
@@ -23,23 +30,31 @@ class VMixAPI:
             logger.debug("Field mapping is not set")
             return
 
+        look_in = [TextDetectionTargetWithResult.ResultState.Success]
+        if self.update_same:
+            # If we want to send the same values as well
+            look_in.append(TextDetectionTargetWithResult.ResultState.SameNoChange)
+
         # Prepare the data to send
         data = {}
         for target in detection:
-            if target.result_state == TextDetectionTargetWithResult.ResultState.Success:
+            if target.result_state in look_in:
                 if target.name in self.field_mapping:
                     data[self.field_mapping[target.name]] = target.result
 
-        if not data:
+        if data == {}:
             logger.debug("No data to send")
             return
 
         for key, value in data.items():
             # Prepare the URL
-            url = (
-                f"http://{self.host}:{self.port}/api/?Input={self.input_number}&"
-                + f"Function=SetText&SelectedName={key}&Value={value}"
-            )
+            query = {
+                "Function": "SetText",
+                "Input": self.input_number,
+                "SelectedName": key,
+                "Value": value,
+            }
+            url = f"http://{self.host}:{self.port}/api/?{urlencode(query)}"
             try:
                 # Send the request
                 response = requests.post(url, data=data)
