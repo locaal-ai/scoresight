@@ -451,8 +451,12 @@ class MainWindow(QMainWindow):
 
     def openConfigurationFolder(self):
         # open the configuration folder in the file explorer
-        QDesktopServices.openUrl(QUrl("file:///" + user_data_dir("scoresight"), QUrl.ParsingMode.TolerantMode))
-    
+        QDesktopServices.openUrl(
+            QUrl(
+                "file:///" + user_data_dir("scoresight"), QUrl.ParsingMode.TolerantMode
+            )
+        )
+
     def toggleOSD(self, value):
         if self.image_viewer:
             self.image_viewer.toggleOSD(value)
