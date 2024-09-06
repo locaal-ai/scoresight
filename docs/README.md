@@ -1,9 +1,9 @@
 # ScoreSight - Real-time OCR For Scoreboards, Apps, Games and more
 
-[![GitHub](https://img.shields.io/github/license/occ-ai/scoresight)](https://github.com/occ-ai/scoresight/blob/main/LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/occ-ai/scoresight/build.yaml)](https://github.com/occ-ai/scoresight/actions/workflows/build.yaml)
-[![Total downloads](https://img.shields.io/github/downloads/occ-ai/scoresight/total)](https://github.com/occ-ai/scoresight/releases)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/occ-ai/scoresight)](https://github.com/occ-ai/scoresight/releases)
+[![GitHub](https://img.shields.io/github/license/locaal-ai/scoresight)](https://github.com/locaal-ai/scoresight/blob/main/LICENSE)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/locaal-ai/scoresight/build.yaml)](https://github.com/locaal-ai/scoresight/actions/workflows/build.yaml)
+[![Total downloads](https://img.shields.io/github/downloads/locaal-ai/scoresight/total)](https://github.com/locaal-ai/scoresight/releases)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/locaal-ai/scoresight)](https://github.com/locaal-ai/scoresight/releases)
 [![Discord](https://img.shields.io/discord/1200229425141252116)](https://discord.gg/8pG2tC923N)
 
 ScoreSight is an OCR (Optical Character Recognition) application designed to extract text from real-time updating streams like scoreboards, applications, videos and games.
@@ -49,7 +49,7 @@ Additional guides:
 
 ## Installation
 
-See the [releases](https://github.com/occ-ai/scoresight/releases) page for downloadable executables and installers.
+See the [releases](https://github.com/locaal-ai/scoresight/releases) page for downloadable executables and installers.
 
 See the [Install Guide](INSTALL.md) for help with installation.
 
