@@ -1,6 +1,6 @@
 theme: jekyll-theme-minimal
 title: ScoreSight
 description: ScoreSight is a powerful real-time OCR application for scoreboards, videos and games
-show_downloads: true
+show_downloads: false
 email: info@scoresight.live
 logo: logo.png
