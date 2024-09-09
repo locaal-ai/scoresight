@@ -1384,6 +1384,7 @@ class MainWindow(QMainWindow):
 
     def editBoxName(self, item):
         if item.text() in [o["name"] for o in default_boxes]:
+            # dont allow editing default boxes
             return
         new_name, ok = QInputDialog.getText(
             self, "Edit Box Name", "New Name:", text=item.text()
@@ -1395,13 +1396,18 @@ class MainWindow(QMainWindow):
                 if new_name == self.ui.tableWidget_boxes.item(i, 0).text():
                     logger.info("Name '%s' already exists", new_name)
                     return
+            # rename the item in the tableWidget_boxes
+            rename_custom_box_name_in_storage(old_name, new_name)
+            item.setText(new_name)
             # rename the item in the detectionTargetsStorage
             if not self.detectionTargetsStorage.rename_item(old_name, new_name):
                 logger.info("Error renaming item in application storage")
                 return
-            # rename the item in the tableWidget_boxes
-            rename_custom_box_name_in_storage(old_name, new_name)
-            item.setText(new_name)
+            else:
+                # check if the item role isn't "templatefield"
+                if item.data(Qt.ItemDataRole.UserRole) != "templatefield":
+                    # remove the item from the tableWidget_boxes
+                    self.ui.tableWidget_boxes.removeRow(item.row())
 
     def makeBox(self):
         item = self.ui.tableWidget_boxes.currentItem()
