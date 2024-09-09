@@ -1388,19 +1388,20 @@ class MainWindow(QMainWindow):
         new_name, ok = QInputDialog.getText(
             self, "Edit Box Name", "New Name:", text=item.text()
         )
-        if ok and new_name != "" and new_name != item.text():
+        old_name = item.text()
+        if ok and new_name != "" and new_name != old_name:
             # check if name doesn't exist already
             for i in range(self.ui.tableWidget_boxes.rowCount()):
                 if new_name == self.ui.tableWidget_boxes.item(i, 0).text():
                     logger.info("Name '%s' already exists", new_name)
                     return
             # rename the item in the detectionTargetsStorage
-            if not self.detectionTargetsStorage.rename_item(item.text(), new_name):
+            if not self.detectionTargetsStorage.rename_item(old_name, new_name):
                 logger.info("Error renaming item in application storage")
                 return
             # rename the item in the tableWidget_boxes
+            rename_custom_box_name_in_storage(old_name, new_name)
             item.setText(new_name)
-            rename_custom_box_name_in_storage(item.text(), new_name)
 
     def makeBox(self):
         item = self.ui.tableWidget_boxes.currentItem()
