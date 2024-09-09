@@ -280,6 +280,10 @@ class TextDetectionTargetMemoryStorage(QObject):
                         "binarization_method": detectionTarget.settings.get(
                             "binarization_method"
                         ),
+                        "templatefield": detectionTarget.settings.get("templatefield"),
+                        "templatefield_text": detectionTarget.settings.get(
+                            "templatefield_text"
+                        ),
                     },
                 }
             )

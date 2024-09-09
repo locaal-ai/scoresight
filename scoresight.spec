@@ -15,6 +15,7 @@ datas = [
     ('.env', '.'),
     ('icons/circle-check.svg', './icons'),
     ('icons/circle-x.svg', './icons'),
+    ('icons/template-field.svg', './icons'),
     ('icons/MacOS_icon.png', './icons'),
     ('icons/plus.svg', './icons'),
     ('icons/splash.png', './icons'),

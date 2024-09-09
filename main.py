@@ -58,6 +58,7 @@ from obs_websocket import (
     update_text_source,
 )
 
+from template_fields import evaluate_template_field
 from text_detection_target import TextDetectionTarget, TextDetectionTargetWithResult
 from sc_logging import logger
 from update_check import check_for_updates
@@ -276,6 +277,10 @@ class MainWindow(QMainWindow):
         )
         self.ui.comboBox_binarizationMethod.currentIndexChanged.connect(
             partial(self.genericSettingsChanged, "binarization_method")
+        )
+        self.ui.checkBox_templatefield.toggled.connect(self.makeTemplateField)
+        self.ui.lineEdit_templatefield.textChanged.connect(
+            partial(self.genericSettingsChanged, "templatefield_text")
         )
         self.ui.comboBox_formatPrefix.currentIndexChanged.connect(
             self.formatPrefixChanged
@@ -546,12 +551,12 @@ class MainWindow(QMainWindow):
     def editSettings(self, settingsMutatorCallback):
         # update the selected item's settings in the detectionTargetsStorage
         item = self.ui.tableWidget_boxes.currentItem()
-        if not item:
+        if item is None:
             logger.info("no item selected")
             return
         item_name = item.text()
         item_obj = self.detectionTargetsStorage.find_item_by_name(item_name)
-        if not item_obj:
+        if item_obj is None:
             logger.info("item not found: %s", item_name)
             return
         item_obj = settingsMutatorCallback(item_obj)
@@ -725,14 +730,29 @@ class MainWindow(QMainWindow):
                 )
             else:
                 item = items[0]
-            item.setIcon(
-                QIcon(
-                    path.abspath(
-                        path.join(path.dirname(__file__), "icons/circle-check.svg")
+
+            if not box.settings["templatefield"]:
+                # this is a detection target
+                item.setIcon(
+                    QIcon(
+                        path.abspath(
+                            path.join(path.dirname(__file__), "icons/circle-check.svg")
+                        )
                     )
                 )
-            )
-            item.setData(Qt.ItemDataRole.UserRole, "checked")
+                item.setData(Qt.ItemDataRole.UserRole, "checked")
+            else:
+                # this is a template field
+                item.setIcon(
+                    QIcon(
+                        path.abspath(
+                            path.join(
+                                path.dirname(__file__), "icons/template-field.svg"
+                            )
+                        )
+                    )
+                )
+                item.setData(Qt.ItemDataRole.UserRole, "templatefield")
 
         self.updatevMixTable(detectionTargets)
 
@@ -768,10 +788,12 @@ class MainWindow(QMainWindow):
         self.ui.checkBox_ordinalIndicator.blockSignals(True)
         self.ui.comboBox_binarizationMethod.blockSignals(True)
         self.ui.comboBox_formatPrefix.blockSignals(True)
+        self.ui.checkBox_templatefield.blockSignals(True)
+        self.ui.lineEdit_templatefield.blockSignals(True)
 
         # populate the settings from the detectionTargetsStorage
         item_obj = self.detectionTargetsStorage.find_item_by_name(name)
-        if not item_obj:
+        if item_obj is None:
             self.ui.lineEdit_format.setText("")
             self.ui.comboBox_fieldType.setCurrentIndex(0)
             self.ui.checkBox_smoothing.setChecked(True)
@@ -790,6 +812,8 @@ class MainWindow(QMainWindow):
             self.ui.checkBox_invertPatch.setChecked(False)
             self.ui.checkBox_ordinalIndicator.setChecked(False)
             self.ui.comboBox_binarizationMethod.setCurrentIndex(0)
+            self.ui.checkBox_templatefield.setChecked(False)
+            self.ui.lineEdit_templatefield.setText("")
         else:
             item_obj.settings = normalize_settings_dict(
                 item_obj.settings, default_info_for_box_name(item_obj.name)
@@ -827,6 +851,12 @@ class MainWindow(QMainWindow):
             self.ui.comboBox_binarizationMethod.setCurrentIndex(
                 item_obj.settings["binarization_method"]
             )
+            self.ui.checkBox_templatefield.setChecked(
+                item_obj.settings["templatefield"]
+            )
+            self.ui.lineEdit_templatefield.setText(
+                item_obj.settings["templatefield_text"]
+            )
 
         self.ui.comboBox_formatPrefix.setCurrentIndex(12)
 
@@ -848,20 +878,32 @@ class MainWindow(QMainWindow):
         self.ui.checkBox_ordinalIndicator.blockSignals(False)
         self.ui.comboBox_binarizationMethod.blockSignals(False)
         self.ui.comboBox_formatPrefix.blockSignals(False)
+        self.ui.checkBox_templatefield.blockSignals(False)
+        self.ui.lineEdit_templatefield.blockSignals(False)
 
     def listItemClicked(self, item):
-        if item.data(Qt.ItemDataRole.UserRole) == "checked":
+        user_role = item.data(Qt.ItemDataRole.UserRole)
+        if user_role in ["checked", "templatefield"] and item.column() == 0:
             # enable the remove box button and disable the make box button
-            self.ui.pushButton_removeBox.setEnabled(True)
             self.ui.pushButton_makeBox.setEnabled(False)
-            self.ui.groupBox_target_settings.setEnabled(True)
+            self.ui.pushButton_removeBox.setEnabled(user_role == "checked")
+            self.ui.groupBox_target_settings.setEnabled(user_role == "checked")
             self.populateSettings(item.text())
         else:
             # enable the make box button and disable the remove box button
             self.ui.pushButton_removeBox.setEnabled(False)
-            self.ui.pushButton_makeBox.setEnabled(True)
+            self.ui.pushButton_makeBox.setEnabled(item.column() == 0)
             self.ui.groupBox_target_settings.setEnabled(False)
             self.populateSettings("")
+
+        if item.column() == 0:
+            # if this is not a default box - enable the template field checkbox
+            if item.text() not in [box["name"] for box in default_boxes]:
+                self.ui.checkBox_templatefield.setEnabled(True)
+                self.ui.lineEdit_templatefield.setEnabled(True)
+            else:
+                self.ui.checkBox_templatefield.setEnabled(False)
+                self.ui.lineEdit_templatefield.setEnabled(False)
 
     def openOBSConnectModal(self):
         # disable OBS options
@@ -1187,14 +1229,16 @@ class MainWindow(QMainWindow):
         self.ui.widget_viewTools.setEnabled(False)
 
     def ocrResult(self, results: list[TextDetectionTargetWithResult]):
-        if not self.updateOCRResults:
-            # don't update the results, the user has disabled updates
-            return
-
-        update_http_server(results)
-
-        # update vmix
-        self.vmixUpdater.update_vmix(results)
+        # update template fields
+        for targetWithResult in results:
+            if not targetWithResult.settings["templatefield"]:
+                continue
+            targetWithResult.result = evaluate_template_field(results, targetWithResult)
+            targetWithResult.result_state = (
+                TextDetectionTargetWithResult.ResultState.Success
+                if targetWithResult.result is not None
+                else TextDetectionTargetWithResult.ResultState.Empty
+            )
 
         # update the table widget value items
         for targetWithResult in results:
@@ -1211,6 +1255,15 @@ class MainWindow(QMainWindow):
                 # get the value (1 column) of the item
                 item = self.ui.tableWidget_boxes.item(item.row(), 1)
                 item.setText(targetWithResult.result)
+
+        if not self.updateOCRResults:
+            # don't update the results, the user has disabled updates
+            return
+
+        update_http_server(results)
+
+        # update vmix
+        self.vmixUpdater.update_vmix(results)
 
         if self.out_folder is None:
             return
@@ -1390,6 +1443,39 @@ class MainWindow(QMainWindow):
         item.setData(Qt.ItemDataRole.UserRole, "unchecked")
         self.listItemClicked(item)
         self.detectionTargetsStorage.remove_item(item.text())
+
+    def makeTemplateField(self, toggled: bool):
+        item = self.ui.tableWidget_boxes.currentItem()
+        if not item:
+            return
+
+        if not toggled:
+            self.removeBox()
+            return
+
+        # create a new box on self.image_viewer with the name of the selected item from the tableWidget_boxes
+        # change the list icon to green checkmark
+        item.setIcon(
+            QIcon(
+                path.abspath(
+                    path.join(path.dirname(__file__), "icons/template-field.svg")
+                )
+            )
+        )
+        item.setData(Qt.ItemDataRole.UserRole, "templatefield")
+
+        self.detectionTargetsStorage.add_item(
+            TextDetectionTarget(
+                0,
+                0,
+                0,
+                0,
+                item.text(),
+                normalize_settings_dict({"templatefield": True}, None),
+            )
+        )
+
+        self.listItemClicked(item)
 
     def createOBSScene(self):
         self.ui.statusbar.showMessage("Creating OBS scene")

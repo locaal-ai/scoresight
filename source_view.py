@@ -390,6 +390,9 @@ class ImageViewer(CameraView):
         )
         # add the boxes to the scene
         for detectionTarget in detectionTargets:
+            if detectionTarget.settings["templatefield"]:
+                # do not show the template fields
+                continue
             self.scene.addItem(
                 ResizableRectWithNameTypeAndResult(
                     detectionTarget.x(),
@@ -515,6 +518,9 @@ class ImageViewer(CameraView):
             return
         # update the rect with the result
         for targetWithResult in results:
+            if targetWithResult.settings["templatefield"]:
+                # do not update template fields
+                continue
             item = self.findBox(targetWithResult.name)
             if item:
                 item.updateResult(targetWithResult)
