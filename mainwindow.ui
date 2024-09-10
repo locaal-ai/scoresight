@@ -7,18 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>961</width>
-    <height>720</height>
+    <height>734</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ScoreSight</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <property name="spacing">
-     <number>0</number>
-    </property>
-    <item>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
      <widget class="QFrame" name="frame">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -909,6 +906,44 @@
            </widget>
           </item>
           <item>
+           <widget class="QWidget" name="widget_23" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QCheckBox" name="checkBox_templatefield">
+               <property name="toolTip">
+                <string>This field is a combination of exising fields in a template</string>
+               </property>
+               <property name="text">
+                <string>Template Field</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_templatefield">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>{{template}}</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
            <widget class="QWidget" name="widget_6" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <property name="leftMargin">
@@ -957,12 +992,6 @@
        </item>
        <item alignment="Qt::AlignTop">
         <widget class="QTabWidget" name="tabWidget_outputs">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="tabShape">
           <enum>QTabWidget::Rounded</enum>
          </property>
@@ -1402,6 +1431,95 @@
            </item>
           </layout>
          </widget>
+         <widget class="QWidget" name="tab_api">
+          <attribute name="title">
+           <string>API</string>
+          </attribute>
+          <layout class="QFormLayout" name="formLayout_3">
+           <property name="fieldGrowthPolicy">
+            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+           </property>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string>URL</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEdit_api_url">
+             <property name="placeholderText">
+              <string>http://</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_21">
+             <property name="text">
+              <string>Encode</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QComboBox" name="comboBox_api_encode">
+             <item>
+              <property name="text">
+               <string>JSON</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>XML</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Key-Value</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Plain Text</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QCheckBox" name="checkBox_is_websocket">
+             <property name="text">
+              <string>Websocket?</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="4" column="1">
+            <widget class="QPushButton" name="pushButton_api_start">
+             <property name="text">
+              <string>Start</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_22">
+             <property name="text">
+              <string>Send out API requests to external services.</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
        <item>
@@ -1492,7 +1610,7 @@
       </layout>
      </widget>
     </item>
-    <item>
+    <item row="0" column="1">
      <widget class="QFrame" name="frame_source_view">
       <property name="enabled">
        <bool>true</bool>

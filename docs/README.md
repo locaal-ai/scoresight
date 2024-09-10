@@ -24,6 +24,7 @@ If you'd like to donate to help support the project, you can do so on [GitHub](h
 - Integrations: OBS (websocket), vMix (API), NewBlue FX Titler (API)
 - Up to 30 updates/s
 - Unlimited detection boxes
+- Template fields: Derived from other fields and optional extra text
 - Camera bump and drift correction with stabilization algorithm
 - Unlimited devices or open instances on the same device
 - Detect any scoreboard fonts, general fonts and even "dot" indicators

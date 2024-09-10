@@ -28,12 +28,11 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(961, 720)
+        MainWindow.resize(961, 734)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.horizontalLayout = QHBoxLayout(self.centralwidget)
-        self.horizontalLayout.setSpacing(0)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.formLayout = QFormLayout(self.centralwidget)
+        self.formLayout.setObjectName(u"formLayout")
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
@@ -470,6 +469,24 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.groupBox_target_settings)
 
+        self.widget_23 = QWidget(self.groupBox_sb_info)
+        self.widget_23.setObjectName(u"widget_23")
+        self.horizontalLayout = QHBoxLayout(self.widget_23)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.checkBox_templatefield = QCheckBox(self.widget_23)
+        self.checkBox_templatefield.setObjectName(u"checkBox_templatefield")
+
+        self.horizontalLayout.addWidget(self.checkBox_templatefield)
+
+        self.lineEdit_templatefield = QLineEdit(self.widget_23)
+        self.lineEdit_templatefield.setObjectName(u"lineEdit_templatefield")
+
+        self.horizontalLayout.addWidget(self.lineEdit_templatefield)
+
+
+        self.verticalLayout_3.addWidget(self.widget_23)
+
         self.widget_6 = QWidget(self.groupBox_sb_info)
         self.widget_6.setObjectName(u"widget_6")
         self.horizontalLayout_7 = QHBoxLayout(self.widget_6)
@@ -503,8 +520,6 @@ class Ui_MainWindow(object):
 
         self.tabWidget_outputs = QTabWidget(self.frame)
         self.tabWidget_outputs.setObjectName(u"tabWidget_outputs")
-        sizePolicy3.setHeightForWidth(self.tabWidget_outputs.sizePolicy().hasHeightForWidth())
-        self.tabWidget_outputs.setSizePolicy(sizePolicy3)
         self.tabWidget_outputs.setTabShape(QTabWidget.Rounded)
         self.tab_textFiles = QWidget()
         self.tab_textFiles.setObjectName(u"tab_textFiles")
@@ -741,6 +756,55 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addLayout(self.verticalLayout_6, 0, 0, 1, 1)
 
         self.tabWidget_outputs.addTab(self.tab_vmix, "")
+        self.tab_api = QWidget()
+        self.tab_api.setObjectName(u"tab_api")
+        self.formLayout_3 = QFormLayout(self.tab_api)
+        self.formLayout_3.setObjectName(u"formLayout_3")
+        self.formLayout_3.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
+        self.label_20 = QLabel(self.tab_api)
+        self.label_20.setObjectName(u"label_20")
+
+        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.label_20)
+
+        self.lineEdit_api_url = QLineEdit(self.tab_api)
+        self.lineEdit_api_url.setObjectName(u"lineEdit_api_url")
+
+        self.formLayout_3.setWidget(1, QFormLayout.FieldRole, self.lineEdit_api_url)
+
+        self.label_21 = QLabel(self.tab_api)
+        self.label_21.setObjectName(u"label_21")
+
+        self.formLayout_3.setWidget(3, QFormLayout.LabelRole, self.label_21)
+
+        self.comboBox_api_encode = QComboBox(self.tab_api)
+        self.comboBox_api_encode.addItem("")
+        self.comboBox_api_encode.addItem("")
+        self.comboBox_api_encode.addItem("")
+        self.comboBox_api_encode.addItem("")
+        self.comboBox_api_encode.setObjectName(u"comboBox_api_encode")
+
+        self.formLayout_3.setWidget(3, QFormLayout.FieldRole, self.comboBox_api_encode)
+
+        self.checkBox_is_websocket = QCheckBox(self.tab_api)
+        self.checkBox_is_websocket.setObjectName(u"checkBox_is_websocket")
+
+        self.formLayout_3.setWidget(2, QFormLayout.FieldRole, self.checkBox_is_websocket)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.formLayout_3.setItem(5, QFormLayout.FieldRole, self.verticalSpacer)
+
+        self.pushButton_api_start = QPushButton(self.tab_api)
+        self.pushButton_api_start.setObjectName(u"pushButton_api_start")
+
+        self.formLayout_3.setWidget(4, QFormLayout.FieldRole, self.pushButton_api_start)
+
+        self.label_22 = QLabel(self.tab_api)
+        self.label_22.setObjectName(u"label_22")
+
+        self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.label_22)
+
+        self.tabWidget_outputs.addTab(self.tab_api, "")
 
         self.verticalLayout.addWidget(self.tabWidget_outputs, 0, Qt.AlignTop)
 
@@ -785,7 +849,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.widget_detectionCadence)
 
 
-        self.horizontalLayout.addWidget(self.frame)
+        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.frame)
 
         self.frame_source_view = QFrame(self.centralwidget)
         self.frame_source_view.setObjectName(u"frame_source_view")
@@ -1005,7 +1069,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.frame_for_source_view_label)
 
 
-        self.horizontalLayout.addWidget(self.frame_source_view)
+        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.frame_source_view)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -1088,6 +1152,12 @@ class Ui_MainWindow(object):
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Dilate", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Skew", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Conf. Th", None))
+#if QT_CONFIG(tooltip)
+        self.checkBox_templatefield.setToolTip(QCoreApplication.translate("MainWindow", u"This field is a combination of exising fields in a template", None))
+#endif // QT_CONFIG(tooltip)
+        self.checkBox_templatefield.setText(QCoreApplication.translate("MainWindow", u"Template Field", None))
+        self.lineEdit_templatefield.setText("")
+        self.lineEdit_templatefield.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{{template}}", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"OCR Model", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Folder", None))
         self.pushButton_selectFolder.setText(QCoreApplication.translate("MainWindow", u"Open", None))
@@ -1124,6 +1194,18 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.checkBox_vmix_send_same.setText(QCoreApplication.translate("MainWindow", u"Send Same?", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_vmix), QCoreApplication.translate("MainWindow", u"VMix", None))
+        self.label_20.setText(QCoreApplication.translate("MainWindow", u"URL", None))
+        self.lineEdit_api_url.setPlaceholderText(QCoreApplication.translate("MainWindow", u"http://", None))
+        self.label_21.setText(QCoreApplication.translate("MainWindow", u"Encode", None))
+        self.comboBox_api_encode.setItemText(0, QCoreApplication.translate("MainWindow", u"JSON", None))
+        self.comboBox_api_encode.setItemText(1, QCoreApplication.translate("MainWindow", u"XML", None))
+        self.comboBox_api_encode.setItemText(2, QCoreApplication.translate("MainWindow", u"Key-Value", None))
+        self.comboBox_api_encode.setItemText(3, QCoreApplication.translate("MainWindow", u"Plain Text", None))
+
+        self.checkBox_is_websocket.setText(QCoreApplication.translate("MainWindow", u"Websocket?", None))
+        self.pushButton_api_start.setText(QCoreApplication.translate("MainWindow", u"Start", None))
+        self.label_22.setText(QCoreApplication.translate("MainWindow", u"Send out API requests to external services.", None))
+        self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_api), QCoreApplication.translate("MainWindow", u"API", None))
         self.pushButton_stopUpdates.setText(QCoreApplication.translate("MainWindow", u"Stop Updates", None))
         self.label_detectionCadence.setText(QCoreApplication.translate("MainWindow", u"Detections / s", None))
 #if QT_CONFIG(tooltip)

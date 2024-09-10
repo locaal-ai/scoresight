@@ -212,4 +212,10 @@ def normalize_settings_dict(settings, box_info):
             if "ordinal_indicator" in settings
             else box_info["ordinal_indicator"]
         ),
+        "templatefield": (
+            settings["templatefield"] if "templatefield" in settings else False
+        ),
+        "templatefield_text": (
+            settings["templatefield_text"] if "templatefield_text" in settings else ""
+        ),
     }
