@@ -59,6 +59,7 @@ sources = [
     'main.py',
     'ndi.py',
     'obs_websocket.py',
+    'resizable_rect.py',
     'sc_logging.py',
     'screen_capture_source.py',
     'source_view.py',
