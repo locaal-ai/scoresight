@@ -158,6 +158,7 @@ class TimerThread(QThread):
             if (
                 os_name == "Windows"
                 and self.camera_info.type != CameraInfo.CameraType.FILE
+                and self.camera_info.type != CameraInfo.CameraType.URL
             ):
                 # on windows use the dshow backend
                 self.video_capture = cv2.VideoCapture(
