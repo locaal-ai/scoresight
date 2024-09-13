@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>961</width>
-    <height>734</height>
+    <height>761</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1799,6 +1799,13 @@
             </property>
             <property name="checkable">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_rotate">
+            <property name="text">
+             <string>Rotate</string>
             </property>
            </widget>
           </item>

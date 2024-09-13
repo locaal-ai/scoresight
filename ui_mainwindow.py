@@ -28,7 +28,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(961, 734)
+        MainWindow.resize(961, 761)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.formLayout = QFormLayout(self.centralwidget)
@@ -937,6 +937,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_10.addWidget(self.toolButton_topCrop)
 
+        self.toolButton_rotate = QToolButton(self.widget_viewTools)
+        self.toolButton_rotate.setObjectName(u"toolButton_rotate")
+
+        self.horizontalLayout_10.addWidget(self.toolButton_rotate)
+
         self.pushButton_stabilize = QToolButton(self.widget_viewTools)
         self.pushButton_stabilize.setObjectName(u"pushButton_stabilize")
         self.pushButton_stabilize.setEnabled(False)
@@ -1228,6 +1233,7 @@ class Ui_MainWindow(object):
         self.toolButton_topCrop.setToolTip(QCoreApplication.translate("MainWindow", u"Apply cropping to the entire image", None))
 #endif // QT_CONFIG(tooltip)
         self.toolButton_topCrop.setText(QCoreApplication.translate("MainWindow", u"Crop", None))
+        self.toolButton_rotate.setText(QCoreApplication.translate("MainWindow", u"Rotate", None))
         self.pushButton_stabilize.setText(QCoreApplication.translate("MainWindow", u"Stabilize", None))
 #if QT_CONFIG(tooltip)
         self.toolButton_osd.setToolTip(QCoreApplication.translate("MainWindow", u"Show Statistics", None))

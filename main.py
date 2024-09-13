@@ -182,6 +182,9 @@ class MainWindow(QMainWindow):
             fetch_data("scoresight.json", "bottom_crop", 0)
         )
 
+        # connect toolButton_rotate
+        self.ui.toolButton_rotate.clicked.connect(self.rotateImage)
+
         self.ui.widget_detectionCadence.setVisible(True)
         self.ui.horizontalSlider_detectionCadence.setValue(
             fetch_data("scoresight.json", "detection_cadence", 5)
@@ -369,6 +372,14 @@ class MainWindow(QMainWindow):
         self.update_sources.connect(self.updateSources)
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
+
+    def rotateImage(self):
+        # store the rotation in the scoresight.json
+        rotation = fetch_data("scoresight.json", "rotation", 0)
+        rotation += 90
+        if rotation >= 360:
+            rotation = 0
+        self.globalSettingsChanged("rotation", rotation)
 
     def cropMode(self):
         # if the toolButton_topCrop is unchecked, go to crop mode
