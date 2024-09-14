@@ -139,7 +139,12 @@ class TimerThread(QThread):
         self.video_capture = None
         self.should_stop = False
         self.frame_interval = 30
-        self.update_frame_interval = 200
+        self.update_frame_interval = 1000 / fetch_data(
+            "scoresight.json", "detection_cadence", 5
+        )
+        subscribe_to_data(
+            "scoresight.json", "detection_cadence", self.setUpdateFrameInterval
+        )
         self.preview_frame_interval = 1000
         self.fps = 1000 / self.frame_interval  # frames per second
         self.pps = 1000 / self.preview_frame_interval  # previews per second
@@ -147,6 +152,9 @@ class TimerThread(QThread):
         self.fps_alpha = 0.1  # Smoothing factor
         self.updateOnChange = True
         self.crop = FrameCropAndRotation()
+
+    def setUpdateFrameInterval(self, cadence):
+        self.update_frame_interval = 1000 / cadence
 
     def connect_video_capture(self) -> bool:
         if self.camera_info.type == CameraInfo.CameraType.NDI:
