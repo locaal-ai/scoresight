@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>961</width>
-    <height>761</height>
+    <height>725</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1439,28 +1439,21 @@
            <property name="fieldGrowthPolicy">
             <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
            </property>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_20">
+           <item row="0" column="1">
+            <widget class="QCheckBox" name="checkBox_enableOutAPI">
              <property name="text">
-              <string>URL</string>
+              <string>Send out API requests to external services.</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_api_url">
-             <property name="placeholderText">
-              <string>http://</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
+           <item row="4" column="0">
             <widget class="QLabel" name="label_21">
              <property name="text">
               <string>Encode</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
+           <item row="4" column="1">
             <widget class="QComboBox" name="comboBox_api_encode">
              <item>
               <property name="text">
@@ -1484,13 +1477,6 @@
              </item>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QCheckBox" name="checkBox_is_websocket">
-             <property name="text">
-              <string>Websocket?</string>
-             </property>
-            </widget>
-           </item>
            <item row="5" column="1">
             <spacer name="verticalSpacer">
              <property name="orientation">
@@ -1504,17 +1490,45 @@
              </property>
             </spacer>
            </item>
-           <item row="4" column="1">
-            <widget class="QPushButton" name="pushButton_api_start">
-             <property name="text">
-              <string>Start</string>
-             </property>
+           <item row="1" column="1">
+            <widget class="QWidget" name="widget_24" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_27">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_api_url">
+                <property name="placeholderText">
+                 <string>http://</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkBox_is_websocket">
+                <property name="text">
+                 <string>Websocket</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_22">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_20">
              <property name="text">
-              <string>Send out API requests to external services.</string>
+              <string>URL</string>
              </property>
             </widget>
            </item>
@@ -2100,7 +2114,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
