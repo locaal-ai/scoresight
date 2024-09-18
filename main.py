@@ -5,12 +5,13 @@ import sys
 import datetime
 from PySide6.QtWidgets import (
     QApplication,
-    QMainWindow,
-    QFileDialog,
-    QLabel,
-    QMenu,
     QDialog,
+    QFileDialog,
     QInputDialog,
+    QLabel,
+    QMainWindow,
+    QMenu,
+    QMessageBox,
     QTableWidgetItem,
 )
 from PySide6.QtGui import QIcon, QStandardItemModel, QStandardItem, QDesktopServices
@@ -145,7 +146,6 @@ class MainWindow(QMainWindow):
         self.installEventFilter(self)
 
         self.ui.pushButton_connectObs.clicked.connect(self.openOBSConnectModal)
-        self.ui.statusbar.showMessage("OBS: Not Connected")
 
         self.vmixUiSetup()
 
@@ -181,6 +181,15 @@ class MainWindow(QMainWindow):
         self.ui.spinBox_bottomCrop.setValue(
             fetch_data("scoresight.json", "bottom_crop", 0)
         )
+        self.ui.checkBox_enableOutAPI.toggled.connect(
+            partial(self.globalSettingsChanged, "enable_out_api")
+        )
+        self.ui.checkBox_enableOutAPI.setChecked(
+            fetch_data("scoresight.json", "enable_out_api", False)
+        )
+
+        # connect toolButton_rotate
+        self.ui.toolButton_rotate.clicked.connect(self.rotateImage)
 
         self.ui.widget_detectionCadence.setVisible(True)
         self.ui.horizontalSlider_detectionCadence.setValue(
@@ -370,6 +379,14 @@ class MainWindow(QMainWindow):
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
 
+    def rotateImage(self):
+        # store the rotation in the scoresight.json
+        rotation = fetch_data("scoresight.json", "rotation", 0)
+        rotation += 90
+        if rotation >= 360:
+            rotation = 0
+        self.globalSettingsChanged("rotation", rotation)
+
     def cropMode(self):
         # if the toolButton_topCrop is unchecked, go to crop mode
         if self.ui.toolButton_topCrop.isChecked():
@@ -441,8 +458,15 @@ class MainWindow(QMainWindow):
             return
         # load the configuration from the file
         if not self.detectionTargetsStorage.loadBoxesFromFile(file):
-            # show an error message
-            self.ui.statusbar.showMessage("Error loading configuration file")
+            # show an error qmessagebox
+            logger.error("Error loading configuration file")
+            QMessageBox.critical(
+                self,
+                "Error",
+                "Error loading configuration file",
+                QMessageBox.StandardButton.Ok,
+            )
+            return
 
     def exportConfiguration(self):
         # open a file dialog to select the output file
@@ -516,11 +540,6 @@ class MainWindow(QMainWindow):
         self.image_viewer.toggleStabilization(self.ui.pushButton_stabilize.isChecked())
 
     def toggleStopUpdates(self, value):
-        self.ui.statusbar.showMessage(
-            self.translator.translate("main", "Stopped updates")
-            if value
-            else self.translator.translate("main", "Resumed updates")
-        )
         self.updateOCRResults = not value
         # change the text on the button
         self.ui.pushButton_stopUpdates.setText(
@@ -969,8 +988,7 @@ class MainWindow(QMainWindow):
         self.ui.checkBox_recreate.setEnabled(True)
         self.ui.pushButton_createOBSScene.setEnabled(True)
 
-        # set OBS status to connected in the status bar
-        self.ui.statusbar.showMessage("OBS: Connected")
+        logger.info("OBS: Connected")
 
     @Slot()
     def getSources(self):
@@ -1221,10 +1239,8 @@ class MainWindow(QMainWindow):
 
     def updateError(self, error):
         if not error:
-            self.ui.statusbar.clearMessage()
             return
-        # show the error in the status bar
-        self.ui.statusbar.showMessage(error)
+        logger.error(error)
         self.ui.frame_source_view.setEnabled(True)
         self.ui.widget_viewTools.setEnabled(False)
 
@@ -1485,12 +1501,10 @@ class MainWindow(QMainWindow):
         self.listItemClicked(item)
 
     def createOBSScene(self):
-        self.ui.statusbar.showMessage("Creating OBS scene")
         # get the scene name from the lineEdit_sceneName
         scene_name = self.ui.lineEdit_sceneName.text()
         # clear or create a new scene
         create_obs_scene_from_export(self.obs_websocket_client, scene_name)
-        self.ui.statusbar.showMessage("Finished creating scene")
 
     # on destroy, close the OBS connection
     def closeEvent(self, event):

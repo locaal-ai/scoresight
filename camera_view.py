@@ -81,18 +81,20 @@ def set_camera_highest_resolution(cap):
     set_resolution(cap, *highest_res)
 
 
-class FrameCrop:
+class FrameCropAndRotation:
     def __init__(self):
         self.isCropSet = fetch_data("scoresight.json", "crop_mode", False)
         self.cropTop = fetch_data("scoresight.json", "top_crop", 0)
         self.cropBottom = fetch_data("scoresight.json", "bottom_crop", 0)
         self.cropLeft = fetch_data("scoresight.json", "left_crop", 0)
         self.cropRight = fetch_data("scoresight.json", "right_crop", 0)
+        self.rotation = fetch_data("scoresight.json", "rotation", 0)
         subscribe_to_data("scoresight.json", "crop_mode", self.setCropMode)
         subscribe_to_data("scoresight.json", "top_crop", self.setCropTop)
         subscribe_to_data("scoresight.json", "bottom_crop", self.setCropBottom)
         subscribe_to_data("scoresight.json", "left_crop", self.setCropLeft)
         subscribe_to_data("scoresight.json", "right_crop", self.setCropRight)
+        subscribe_to_data("scoresight.json", "rotation", self.setRotation)
 
     def setCropMode(self, crop_mode):
         self.isCropSet = crop_mode
@@ -108,6 +110,9 @@ class FrameCrop:
 
     def setCropRight(self, crop_right):
         self.cropRight = crop_right
+
+    def setRotation(self, rotation):
+        self.rotation = rotation
 
 
 class TimerThread(QThread):
@@ -134,14 +139,22 @@ class TimerThread(QThread):
         self.video_capture = None
         self.should_stop = False
         self.frame_interval = 30
-        self.update_frame_interval = 200
+        self.update_frame_interval = 1000 / fetch_data(
+            "scoresight.json", "detection_cadence", 5
+        )
+        subscribe_to_data(
+            "scoresight.json", "detection_cadence", self.setUpdateFrameInterval
+        )
         self.preview_frame_interval = 1000
         self.fps = 1000 / self.frame_interval  # frames per second
         self.pps = 1000 / self.preview_frame_interval  # previews per second
         self.ups = 1000 / self.update_frame_interval  # updates per second
         self.fps_alpha = 0.1  # Smoothing factor
         self.updateOnChange = True
-        self.crop = FrameCrop()
+        self.crop = FrameCropAndRotation()
+
+    def setUpdateFrameInterval(self, cadence):
+        self.update_frame_interval = 1000 / cadence
 
     def connect_video_capture(self) -> bool:
         if self.camera_info.type == CameraInfo.CameraType.NDI:
@@ -153,6 +166,7 @@ class TimerThread(QThread):
             if (
                 os_name == "Windows"
                 and self.camera_info.type != CameraInfo.CameraType.FILE
+                and self.camera_info.type != CameraInfo.CameraType.URL
             ):
                 # on windows use the dshow backend
                 self.video_capture = cv2.VideoCapture(
@@ -277,6 +291,20 @@ class TimerThread(QThread):
                 self.fps_alpha * (1000 / time_diff_ms)
                 + (1.0 - self.fps_alpha) * self.ups
             )
+
+            # apply rotation if set
+            if self.crop.rotation != 0:
+                # use cv2.rotate to rotate the frame
+                rotateCode = (
+                    cv2.ROTATE_90_CLOCKWISE
+                    if self.crop.rotation == 90
+                    else (
+                        cv2.ROTATE_90_COUNTERCLOCKWISE
+                        if self.crop.rotation == 270
+                        else cv2.ROTATE_180
+                    )
+                )
+                frame_rgb = cv2.rotate(frame_rgb, rotateCode)
 
             # apply top-level crop if set
             if self.crop.isCropSet:
