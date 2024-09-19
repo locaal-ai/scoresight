@@ -11,7 +11,7 @@ from sc_logging import logger
 data_subscribers = {}
 
 
-def subscribe_to_data(file_path, document_name, callback):
+def subscribe_to_data(file_path: str, document_name: str, callback: callable):
     # Subscribe to data changes in a JSON file
     # prepend the user data directory
     file_path = os.path.join(user_data_dir("scoresight"), file_path)

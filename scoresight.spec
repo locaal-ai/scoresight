@@ -50,6 +50,7 @@ datas = [
 sources = [
     'camera_info.py',
     'camera_view.py',
+    'camera_thread.py',
     'defaults.py',
     'file_output.py',
     'frame_stabilizer.py',
@@ -57,6 +58,7 @@ sources = [
     'http_server.py',
     'log_view.py',
     'main.py',
+    'mainwindow.py',
     'ndi.py',
     'obs_websocket.py',
     'resizable_rect.py',
