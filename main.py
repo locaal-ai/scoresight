@@ -65,6 +65,7 @@ from sc_logging import logger
 from update_check import check_for_updates
 from log_view import LogViewerDialog
 import file_output
+from video_settings import VideoSettingsDialog
 from vmix_output import VMixAPI
 from ui_mainwindow import Ui_MainWindow
 from ui_about import Ui_Dialog as Ui_About
@@ -200,6 +201,9 @@ class MainWindow(QMainWindow):
         )
         self.ui.toolButton_addBox.clicked.connect(self.addBox)
         self.ui.toolButton_removeBox.clicked.connect(self.removeCustomBox)
+
+        self.video_settings_dialog = None
+        self.ui.toolButton_videoSettings.clicked.connect(self.openVideoSettings)
 
         self.obs_websocket_client = None
 
@@ -378,6 +382,24 @@ class MainWindow(QMainWindow):
         self.update_sources.connect(self.updateSources)
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
+
+    def openVideoSettings(self):
+        # only allow opening the video settings for an OpenCV type source
+        if not self.image_viewer or not self.image_viewer.getCameraCapture():
+            return
+
+        if self.image_viewer.getCameraInfo().type != CameraInfo.CameraType.OPENCV:
+            return
+
+        if self.video_settings_dialog is None:
+            # open the logs dialog
+            self.video_settings_dialog = VideoSettingsDialog()
+            self.video_settings_dialog.setWindowTitle("Video Settings")
+
+        self.video_settings_dialog.init_ui(self.image_viewer.getCameraCapture())
+
+        # show the dialog, non modal
+        self.video_settings_dialog.show()
 
     def rotateImage(self):
         # store the rotation in the scoresight.json
@@ -1208,6 +1230,9 @@ class MainWindow(QMainWindow):
             self.fourCornersApplied,
             self.detectionTargetsStorage,
             self.itemSelected,
+        )
+        self.ui.toolButton_videoSettings.setEnabled(
+            camera_info.type == CameraInfo.CameraType.OPENCV
         )
         self.ui.pushButton_fourCorner.setEnabled(True)
         self.ui.pushButton_binary.setEnabled(True)

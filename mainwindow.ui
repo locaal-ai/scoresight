@@ -1728,6 +1728,16 @@
               </widget>
              </item>
              <item>
+              <widget class="QToolButton" name="toolButton_videoSettings">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Video Settings</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QToolButton" name="pushButton_refresh_sources">
                <property name="toolTip">
                 <string>Refresh Sources</string>

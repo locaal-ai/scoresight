@@ -66,6 +66,7 @@ sources = [
     'storage.py',
     'tesseract.py',
     'text_detection_target.py',
+    'video_settings.py',
     'ui_about.py',
     'ui_connect_obs.py',
     'ui_log_view.py',
@@ -73,6 +74,7 @@ sources = [
     'ui_screen_capture.py',
     'ui_update_available.py',
     'ui_url_source.py',
+    'ui_video_settings.py',
     'update_check.py',
     'vmix_output.py',
 ]

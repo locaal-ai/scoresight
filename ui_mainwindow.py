@@ -898,6 +898,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.comboBox_camera_source)
 
+        self.toolButton_videoSettings = QToolButton(self.widget_3)
+        self.toolButton_videoSettings.setObjectName(u"toolButton_videoSettings")
+        self.toolButton_videoSettings.setEnabled(False)
+
+        self.horizontalLayout_3.addWidget(self.toolButton_videoSettings)
+
         self.pushButton_refresh_sources = QToolButton(self.widget_3)
         self.pushButton_refresh_sources.setObjectName(u"pushButton_refresh_sources")
 
@@ -1222,6 +1228,7 @@ class Ui_MainWindow(object):
         self.comboBox_camera_source.setItemText(2, QCoreApplication.translate("MainWindow", u"URL Source (HTTP, RTSP)", None))
         self.comboBox_camera_source.setItemText(3, QCoreApplication.translate("MainWindow", u"Screen Capture", None))
 
+        self.toolButton_videoSettings.setText(QCoreApplication.translate("MainWindow", u"Video Settings", None))
 #if QT_CONFIG(tooltip)
         self.pushButton_refresh_sources.setToolTip(QCoreApplication.translate("MainWindow", u"Refresh Sources", None))
 #endif // QT_CONFIG(tooltip)

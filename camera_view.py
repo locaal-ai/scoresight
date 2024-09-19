@@ -190,9 +190,9 @@ class TimerThread(QThread):
 
         # attempt to set the highest resolution
         # check if camera index is a OpenCV camera index
-        if self.camera_info.type == CameraInfo.CameraType.OPENCV:
-            # make sure to open the camera at the highest resolution
-            set_camera_highest_resolution(self.video_capture)
+        # if self.camera_info.type == CameraInfo.CameraType.OPENCV:
+        #     # make sure to open the camera at the highest resolution
+        #     set_camera_highest_resolution(self.video_capture)
 
         return True
 
@@ -400,7 +400,11 @@ class TimerThread(QThread):
 class CameraView(QGraphicsView):
     first_frame_received_signal = Signal()
 
-    def __init__(self, camera_index, detectionTargetsStorage=None):
+    def __init__(
+        self,
+        camera_index: CameraInfo,
+        detectionTargetsStorage: TextDetectionTargetMemoryStorage | None = None,
+    ):
         super().__init__()
         self.scene = QGraphicsScene(self)
         self.setScene(self.scene)
@@ -415,6 +419,14 @@ class CameraView(QGraphicsView):
         self.fps_text = None
         self.error_text = None
         self.showOSD = True
+        self.camera_width = 0
+        self.camera_height = 0
+
+    def getCameraCapture(self):
+        return self.timerThread.video_capture
+
+    def getCameraInfo(self):
+        return self.timerThread.camera_info
 
     def setUpdateOnChange(self, updateOnChange):
         self.timerThread.updateOnChange = updateOnChange
@@ -473,18 +485,24 @@ class CameraView(QGraphicsView):
 
         if not self.firstFrameReceived:
             self.firstFrameReceived = True
+            self.camera_width = self.timerThread.video_capture.get(
+                cv2.CAP_PROP_FRAME_WIDTH
+            )
+            self.camera_height = self.timerThread.video_capture.get(
+                cv2.CAP_PROP_FRAME_HEIGHT
+            )
             self.first_frame_received_signal.emit()
 
         # update the fps text
-        fps_text = f"Frames/s: {self.timerThread.fps:.2f}\nUpdates/s: {self.timerThread.ups:.2f}\nPreviews/s: {self.timerThread.pps:.2f}"
+        fps_text = f"Frames/s: {self.timerThread.fps:.2f}\nUpdates/s: {self.timerThread.ups:.2f}\nPreviews/s: {self.timerThread.pps:.2f}\nResolution: {int(self.camera_width)}x{int(self.camera_height)}"
         if self.fps_text is None:
             self.fps_text = self.scene.addText(fps_text)
             self.fps_text.setPos(0, 0)
             self.fps_text.setZValue(2)
             self.fps_text.setDefaultTextColor(Qt.GlobalColor.white)
-            # scale the text according to the view size so its always the same size
         else:
             self.fps_text.setPlainText(fps_text)
+        # scale the text according to the view size so its always the same size
         self.fps_text.setScale(0.002 * self.scenePixmapItem.boundingRect().width())
 
     def error_event(self, error):
