@@ -13,8 +13,6 @@ def fourcc_to_str(fourcc):
         return "NULL"
     if type(fourcc) == str:
         return fourcc
-    if type(fourcc) == bytes:
-        return fourcc.decode()
     if type(fourcc) != int:
         fourcc = int(fourcc)
     return "".join([chr((fourcc >> 8 * i) & 0xFF) for i in range(4)])

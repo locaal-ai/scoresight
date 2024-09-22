@@ -143,7 +143,6 @@ class OpenCVVideoCaptureWithSettings:
         self.backend = backend
         self.release()
         with self.video_capture_mutex:
-            print("Setting backend to", backend)
             self.video_capture = cv2.VideoCapture(self.capture_id, self.backend)
 
     def isOpened(self):
