@@ -519,9 +519,14 @@
         <translation>1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1372"/>
+        <location filename="../mainwindow.ui" line="1549"/>
         <source>Stop Updates</source>
         <translation>Stop Updates</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1549"/>
+        <source>Resume Updates</source>
+        <translation>Resume Updates</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1397"/>

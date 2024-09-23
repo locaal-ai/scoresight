@@ -48,6 +48,7 @@ datas = [
 ]
 
 sources = [
+    'api_output.py',
     'camera_info.py',
     'camera_view.py',
     'camera_thread.py',

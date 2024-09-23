@@ -306,8 +306,7 @@ class TimerThread(QThread):
                 self.retry_count += 1
                 if self.camera_info.type == CameraInfo.CameraType.FILE:
                     logger.debug("Restarting video file")
-                    with self.video_capture_mutex:
-                        self.video_capture.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    self.video_capture.set(cv2.CAP_PROP_POS_FRAMES, 0)
                     self.sleep_fps_target()
                     continue
                 logger.warn(

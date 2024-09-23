@@ -1467,12 +1467,7 @@
              </item>
              <item>
               <property name="text">
-               <string>Key-Value</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Plain Text</string>
+               <string>CSV</string>
               </property>
              </item>
             </widget>
@@ -1517,6 +1512,12 @@
               </item>
               <item>
                <widget class="QCheckBox" name="checkBox_is_websocket">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="toolTip">
+                 <string>Not implemented yet.</string>
+                </property>
                 <property name="text">
                  <string>Websocket</string>
                 </property>

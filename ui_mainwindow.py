@@ -774,7 +774,6 @@ class Ui_MainWindow(object):
         self.comboBox_api_encode.addItem("")
         self.comboBox_api_encode.addItem("")
         self.comboBox_api_encode.addItem("")
-        self.comboBox_api_encode.addItem("")
         self.comboBox_api_encode.setObjectName(u"comboBox_api_encode")
 
         self.formLayout_3.setWidget(4, QFormLayout.FieldRole, self.comboBox_api_encode)
@@ -796,6 +795,7 @@ class Ui_MainWindow(object):
 
         self.checkBox_is_websocket = QCheckBox(self.widget_24)
         self.checkBox_is_websocket.setObjectName(u"checkBox_is_websocket")
+        self.checkBox_is_websocket.setEnabled(False)
 
         self.horizontalLayout_27.addWidget(self.checkBox_is_websocket)
 
@@ -1209,10 +1209,12 @@ class Ui_MainWindow(object):
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Encode", None))
         self.comboBox_api_encode.setItemText(0, QCoreApplication.translate("MainWindow", u"JSON", None))
         self.comboBox_api_encode.setItemText(1, QCoreApplication.translate("MainWindow", u"XML", None))
-        self.comboBox_api_encode.setItemText(2, QCoreApplication.translate("MainWindow", u"Key-Value", None))
-        self.comboBox_api_encode.setItemText(3, QCoreApplication.translate("MainWindow", u"Plain Text", None))
+        self.comboBox_api_encode.setItemText(2, QCoreApplication.translate("MainWindow", u"CSV", None))
 
         self.lineEdit_api_url.setPlaceholderText(QCoreApplication.translate("MainWindow", u"http://", None))
+#if QT_CONFIG(tooltip)
+        self.checkBox_is_websocket.setToolTip(QCoreApplication.translate("MainWindow", u"Not implemented yet.", None))
+#endif // QT_CONFIG(tooltip)
         self.checkBox_is_websocket.setText(QCoreApplication.translate("MainWindow", u"Websocket", None))
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"URL", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_api), QCoreApplication.translate("MainWindow", u"API", None))

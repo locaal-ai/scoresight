@@ -29,6 +29,7 @@ from dotenv import load_dotenv
 from os import path
 from platformdirs import user_data_dir
 
+from api_output import update_out_api
 from camera_info import CameraInfo
 from get_camera_info import get_camera_info
 from http_server import start_http_server, update_http_server
@@ -202,6 +203,28 @@ class MainWindow(QMainWindow):
 
         self.video_settings_dialog = None
         self.ui.toolButton_videoSettings.clicked.connect(self.openVideoSettings)
+
+        self.ui.lineEdit_api_url.textChanged.connect(
+            partial(self.globalSettingsChanged, "out_api_url")
+        )
+        self.ui.lineEdit_api_url.setText(
+            fetch_data("scoresight.json", "out_api_url", "")
+        )
+
+        self.ui.checkBox_enableOutAPI.toggled.connect(
+            partial(self.globalSettingsChanged, "enable_out_api")
+        )
+        self.ui.checkBox_enableOutAPI.setChecked(
+            fetch_data("scoresight.json", "enable_out_api", False)
+        )
+        self.ui.comboBox_api_encode.currentTextChanged.connect(
+            partial(self.globalSettingsChanged, "out_api_encoding")
+        )
+        self.ui.comboBox_api_encode.setCurrentIndex(
+            self.ui.comboBox_api_encode.findText(
+                fetch_data("scoresight.json", "out_api_encoding", "JSON")
+            )
+        )
 
         self.obs_websocket_client = None
 
@@ -563,9 +586,9 @@ class MainWindow(QMainWindow):
         self.updateOCRResults = not value
         # change the text on the button
         self.ui.pushButton_stopUpdates.setText(
-            self.translator.translate("main", "Resume updates")
+            self.translator.translate("MainWindow", "Resume Updates")
             if value
-            else self.translator.translate("main", "Stop updates")
+            else self.translator.translate("MainWindow", "Stop Updates")
         )
 
     def selectOutputFolder(self):
@@ -1300,6 +1323,9 @@ class MainWindow(QMainWindow):
             return
 
         update_http_server(results)
+
+        if self.ui.checkBox_enableOutAPI.isChecked():
+            update_out_api(results)
 
         # update vmix
         self.vmixUpdater.update_vmix(results)
