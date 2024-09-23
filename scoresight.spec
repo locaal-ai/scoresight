@@ -1,5 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
 import os
+from PyInstaller.utils.hooks import collect_all
 
 # parse command line arguments
 import argparse
@@ -90,12 +91,14 @@ if args.win:
 if args.mac_osx:
     sources += ['screen_capture_source_mac.py']
 
+numpy_datas, numpy_binaries, numpy_hiddenimports = collect_all('numpy')
+
 a = Analysis(
     sources,
     pathex=[],
-    binaries=[],
-    datas=datas,
-    hiddenimports=['numpy.core.multiarray'],
+    binaries=numpy_binaries,
+    datas=datas + numpy_datas,
+    hiddenimports=numpy_hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
