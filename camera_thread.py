@@ -14,6 +14,7 @@ from tesseract import TextDetector
 from text_detection_target import TextDetectionTargetWithResult
 from sc_logging import logger
 from frame_stabilizer import FrameStabilizer
+from ocr_training_data import ocr_training_data_options
 
 
 # Function to set the resolution
@@ -411,6 +412,12 @@ class TimerThread(QThread):
 
                     # emit the results
                     self.ocr_result_signal.emit(results)
+
+                    if ocr_training_data_options.save_ocr_training_data:
+                        # save the image and the text
+                        ocr_training_data_options.save_ocr_results_to_folder(
+                            binary, gray, results
+                        )
 
             # Emit the signal to update the pixmap once per second
             time_diff_prev = (current_time - self.last_emit_time).total_seconds() * 1000

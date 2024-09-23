@@ -8,7 +8,6 @@ import cv2
 import numpy as np
 import re
 
-from ocr_training_data import ocr_training_data_options
 from storage import fetch_data
 from text_detection_target import (
     TextDetectionResult,
@@ -568,17 +567,6 @@ class TextDetector:
                 textstate = TextDetectionTargetWithResult.ResultState.Empty
 
             result = TextDetectionResult(text, textstate, effectiveRect, extras)
-
-            if ocr_training_data_options.save_ocr_training_data:
-                # crop the image from the grayscale image
-                imagecrop_gray = gray[
-                    int(rect.y()) : int(rect.y() + rect.height()),
-                    int(rect.x()) : int(rect.x() + rect.width()),
-                ]
-                # save the image and the text
-                ocr_training_data_options.save_ocr_result_to_folder(
-                    imagecrop, imagecrop_gray, result
-                )
 
             texts.append(result)
         return texts

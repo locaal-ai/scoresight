@@ -49,38 +49,62 @@ class OCRTrainingDataOptions:
     def set_ocr_training_data_max_size(self, value):
         self.ocr_training_data_max_size = value
 
-    def save_ocr_result_to_folder(
-        self, image: ndarray, image_gray: ndarray, result: TextDetectionResult
+    def save_ocr_results_to_folder(
+        self,
+        binary: ndarray,
+        gray: ndarray,
+        result: list[TextDetectionTargetWithResult],
     ):
         if self.save_ocr_training_data:
             # create the folder if it doesn't exist
             if not os.path.exists(self.ocr_training_data_folder):
                 os.makedirs(self.ocr_training_data_folder)
 
-        if (
-            result.state == TextDetectionTargetWithResult.ResultState.SameNoChange
-            or result.state == TextDetectionTargetWithResult.ResultState.Empty
-            or result.text == ""
-        ):
+        # calculate the size of the folder
+        folder_size = 0
+        for root, _, files in os.walk(self.ocr_training_data_folder):
+            for file in files:
+                folder_size += os.path.getsize(os.path.join(root, file))
+
+        # check if the folder size is greater than the max size
+        if folder_size > self.ocr_training_data_max_size * 1024 * 1024:
+            logger.error(
+                f"OCR training data folder size exceeds maximum size of {self.ocr_training_data_max_size} MB"
+            )
             return
 
-        # generate a name for the image and text file using uuid
-        uuid_for_image = uuid.uuid4()
-        image_name = f"{uuid_for_image}.png"
-        image_gray_name = f"{uuid_for_image}_gray.png"
-        text_name = f"{uuid_for_image}.txt"
+        for r in result:
+            if (
+                r.result_state == TextDetectionTargetWithResult.ResultState.SameNoChange
+                or r.result_state == TextDetectionTargetWithResult.ResultState.Empty
+                or r.result == ""
+            ):
+                continue
 
-        # write the image to the folder
-        cv2.imwrite(os.path.join(self.ocr_training_data_folder, image_name), image)
-        cv2.imwrite(
-            os.path.join(self.ocr_training_data_folder, image_gray_name), image_gray
-        )
+            # generate a name for the image and text file using uuid
+            uuid_for_image = uuid.uuid4()
+            image_name = f"{uuid_for_image}.png"
+            image_gray_name = f"{uuid_for_image}_gray.png"
+            text_name = f"{uuid_for_image}.txt"
 
-        # write the text to the folder
-        with open(
-            os.path.join(self.ocr_training_data_folder, text_name), "w"
-        ) as text_file:
-            text_file.write(result.text)
+            # crop the patch from the image
+            x, y, w, h = int(r.x()), int(r.y()), int(r.width()), int(r.height())
+            binary_patch = binary[y : y + h, x : x + w]
+            gray_patch = gray[y : y + h, x : x + w]
+
+            # write the image to the folder
+            cv2.imwrite(
+                os.path.join(self.ocr_training_data_folder, image_name), binary_patch
+            )
+            cv2.imwrite(
+                os.path.join(self.ocr_training_data_folder, image_gray_name), gray_patch
+            )
+
+            # write the text to the folder
+            with open(
+                os.path.join(self.ocr_training_data_folder, text_name), "w"
+            ) as text_file:
+                text_file.write(r.result)
 
 
 ocr_training_data_options = OCRTrainingDataOptions()
