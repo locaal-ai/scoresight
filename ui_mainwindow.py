@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(961, 725)
+        MainWindow.resize(901, 725)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.formLayout = QFormLayout(self.centralwidget)
@@ -916,6 +916,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_4.addItem(self.horizontalSpacer)
 
+        self.pushButton_saveOCRTrainingData = QPushButton(self.widget_4)
+        self.pushButton_saveOCRTrainingData.setObjectName(u"pushButton_saveOCRTrainingData")
+        self.pushButton_saveOCRTrainingData.setCheckable(True)
+
+        self.horizontalLayout_4.addWidget(self.pushButton_saveOCRTrainingData)
+
 
         self.verticalLayout_2.addWidget(self.widget_4)
 
@@ -1088,7 +1094,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 961, 20))
+        self.menubar.setGeometry(QRect(0, 0, 901, 20))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
@@ -1235,6 +1241,7 @@ class Ui_MainWindow(object):
         self.pushButton_refresh_sources.setToolTip(QCoreApplication.translate("MainWindow", u"Refresh Sources", None))
 #endif // QT_CONFIG(tooltip)
         self.pushButton_refresh_sources.setText(QCoreApplication.translate("MainWindow", u"Reload", None))
+        self.pushButton_saveOCRTrainingData.setText(QCoreApplication.translate("MainWindow", u"Save OCR Training Data", None))
         self.pushButton_binary.setText(QCoreApplication.translate("MainWindow", u"Binary View", None))
         self.pushButton_fourCorner.setText(QCoreApplication.translate("MainWindow", u"4-corner Correction", None))
 #if QT_CONFIG(tooltip)

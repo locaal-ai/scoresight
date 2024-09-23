@@ -88,3 +88,17 @@ class TextDetectionTargetWithResult(TextDetectionTarget):
                 "height": self.height(),
             },
         }
+
+
+class TextDetectionResult:
+    def __init__(
+        self,
+        text: str,
+        state: TextDetectionTargetWithResult.ResultState,
+        rect: QRectF | None = None,
+        extra=None,
+    ):
+        self.text = text
+        self.state = state
+        self.rect = rect
+        self.extra = extra

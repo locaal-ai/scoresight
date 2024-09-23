@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>961</width>
+    <width>901</width>
     <height>725</height>
    </rect>
   </property>
@@ -1764,6 +1764,16 @@
             </property>
            </spacer>
           </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_saveOCRTrainingData">
+            <property name="text">
+             <string>Save OCR Training Data</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -2120,7 +2130,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>961</width>
+     <width>901</width>
      <height>20</height>
     </rect>
    </property>

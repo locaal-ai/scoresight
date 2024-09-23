@@ -33,6 +33,7 @@ from api_output import update_out_api
 from camera_info import CameraInfo
 from get_camera_info import get_camera_info
 from http_server import start_http_server, update_http_server
+from ocr_training_data import OCRTrainingDataDialog
 from screen_capture_source import ScreenCapture
 from source_view import ImageViewer
 from defaults import (
@@ -120,6 +121,7 @@ class MainWindow(QMainWindow):
         file_menu.addAction("Import Configuration", self.importConfiguration)
         file_menu.addAction("Export Configuration", self.exportConfiguration)
         file_menu.addAction("Open Configuration Folder", self.openConfigurationFolder)
+        file_menu.addAction("OCR Training Data Setup", self.openOCRTrainingDataDialog)
 
         # Add "Language" menu
         languageMenu = file_menu.addMenu("Language")
@@ -400,9 +402,19 @@ class MainWindow(QMainWindow):
             partial(self.globalSettingsChanged, "vmix_send_same")
         )
 
+        self.ui.pushButton_saveOCRTrainingData.clicked.connect(self.saveOCRTrainingData)
+        self.ui.pushButton_saveOCRTrainingData.setChecked(
+            fetch_data("scoresight.json", "save_ocr_training_data", False)
+        )
+
         self.update_sources.connect(self.updateSources)
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
+
+    def saveOCRTrainingData(self):
+        self.globalSettingsChanged(
+            "save_ocr_training_data", self.ui.pushButton_saveOCRTrainingData.isChecked()
+        )
 
     def openVideoSettings(self):
         # only allow opening the video settings for an OpenCV type source
@@ -475,7 +487,10 @@ class MainWindow(QMainWindow):
         if appInstance:
             logger.info(f"installing translator for {locale}")
             appInstance.installTranslator(self.translator)
-            self.ui.retranslateUi(self)
+            try:
+                self.ui.retranslateUi(self)
+            except Exception as e:
+                logger.error(f"Error retranslating UI: {e}")
 
     def addLanguageOption(self, menu: QMenu, language_name: str, locale: str):
         menu.addAction(language_name, lambda: self.changeLanguage(locale))
@@ -520,6 +535,12 @@ class MainWindow(QMainWindow):
             return
         # save the configuration to the file
         self.detectionTargetsStorage.saveBoxesToFile(file)
+
+    def openOCRTrainingDataDialog(self):
+        # open the OCR training data dialog
+        dialog = OCRTrainingDataDialog()
+        dialog.setWindowTitle("OCR Training Data Setup")
+        dialog.exec()
 
     def openConfigurationFolder(self):
         # open the configuration folder in the file explorer
