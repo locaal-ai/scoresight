@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(961, 725)
+        MainWindow.resize(901, 725)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.formLayout = QFormLayout(self.centralwidget)
@@ -774,7 +774,6 @@ class Ui_MainWindow(object):
         self.comboBox_api_encode.addItem("")
         self.comboBox_api_encode.addItem("")
         self.comboBox_api_encode.addItem("")
-        self.comboBox_api_encode.addItem("")
         self.comboBox_api_encode.setObjectName(u"comboBox_api_encode")
 
         self.formLayout_3.setWidget(4, QFormLayout.FieldRole, self.comboBox_api_encode)
@@ -796,6 +795,7 @@ class Ui_MainWindow(object):
 
         self.checkBox_is_websocket = QCheckBox(self.widget_24)
         self.checkBox_is_websocket.setObjectName(u"checkBox_is_websocket")
+        self.checkBox_is_websocket.setEnabled(False)
 
         self.horizontalLayout_27.addWidget(self.checkBox_is_websocket)
 
@@ -898,6 +898,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.comboBox_camera_source)
 
+        self.toolButton_videoSettings = QToolButton(self.widget_3)
+        self.toolButton_videoSettings.setObjectName(u"toolButton_videoSettings")
+        self.toolButton_videoSettings.setEnabled(False)
+
+        self.horizontalLayout_3.addWidget(self.toolButton_videoSettings)
+
         self.pushButton_refresh_sources = QToolButton(self.widget_3)
         self.pushButton_refresh_sources.setObjectName(u"pushButton_refresh_sources")
 
@@ -909,6 +915,12 @@ class Ui_MainWindow(object):
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_4.addItem(self.horizontalSpacer)
+
+        self.pushButton_saveOCRTrainingData = QPushButton(self.widget_4)
+        self.pushButton_saveOCRTrainingData.setObjectName(u"pushButton_saveOCRTrainingData")
+        self.pushButton_saveOCRTrainingData.setCheckable(True)
+
+        self.horizontalLayout_4.addWidget(self.pushButton_saveOCRTrainingData)
 
 
         self.verticalLayout_2.addWidget(self.widget_4)
@@ -1082,7 +1094,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 961, 20))
+        self.menubar.setGeometry(QRect(0, 0, 901, 20))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
@@ -1203,10 +1215,12 @@ class Ui_MainWindow(object):
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Encode", None))
         self.comboBox_api_encode.setItemText(0, QCoreApplication.translate("MainWindow", u"JSON", None))
         self.comboBox_api_encode.setItemText(1, QCoreApplication.translate("MainWindow", u"XML", None))
-        self.comboBox_api_encode.setItemText(2, QCoreApplication.translate("MainWindow", u"Key-Value", None))
-        self.comboBox_api_encode.setItemText(3, QCoreApplication.translate("MainWindow", u"Plain Text", None))
+        self.comboBox_api_encode.setItemText(2, QCoreApplication.translate("MainWindow", u"CSV", None))
 
         self.lineEdit_api_url.setPlaceholderText(QCoreApplication.translate("MainWindow", u"http://", None))
+#if QT_CONFIG(tooltip)
+        self.checkBox_is_websocket.setToolTip(QCoreApplication.translate("MainWindow", u"Not implemented yet.", None))
+#endif // QT_CONFIG(tooltip)
         self.checkBox_is_websocket.setText(QCoreApplication.translate("MainWindow", u"Websocket", None))
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"URL", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_api), QCoreApplication.translate("MainWindow", u"API", None))
@@ -1222,10 +1236,12 @@ class Ui_MainWindow(object):
         self.comboBox_camera_source.setItemText(2, QCoreApplication.translate("MainWindow", u"URL Source (HTTP, RTSP)", None))
         self.comboBox_camera_source.setItemText(3, QCoreApplication.translate("MainWindow", u"Screen Capture", None))
 
+        self.toolButton_videoSettings.setText(QCoreApplication.translate("MainWindow", u"Video Settings", None))
 #if QT_CONFIG(tooltip)
         self.pushButton_refresh_sources.setToolTip(QCoreApplication.translate("MainWindow", u"Refresh Sources", None))
 #endif // QT_CONFIG(tooltip)
         self.pushButton_refresh_sources.setText(QCoreApplication.translate("MainWindow", u"Reload", None))
+        self.pushButton_saveOCRTrainingData.setText(QCoreApplication.translate("MainWindow", u"Save OCR Training Data", None))
         self.pushButton_binary.setText(QCoreApplication.translate("MainWindow", u"Binary View", None))
         self.pushButton_fourCorner.setText(QCoreApplication.translate("MainWindow", u"4-corner Correction", None))
 #if QT_CONFIG(tooltip)

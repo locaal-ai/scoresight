@@ -48,8 +48,10 @@ datas = [
 ]
 
 sources = [
+    'api_output.py',
     'camera_info.py',
     'camera_view.py',
+    'camera_thread.py',
     'defaults.py',
     'file_output.py',
     'frame_stabilizer.py',
@@ -57,7 +59,9 @@ sources = [
     'http_server.py',
     'log_view.py',
     'main.py',
+    'mainwindow.py',
     'ndi.py',
+    'ocr_training_data.py',
     'obs_websocket.py',
     'resizable_rect.py',
     'sc_logging.py',
@@ -66,13 +70,16 @@ sources = [
     'storage.py',
     'tesseract.py',
     'text_detection_target.py',
+    'video_settings.py',
     'ui_about.py',
     'ui_connect_obs.py',
     'ui_log_view.py',
     'ui_mainwindow.py',
+    'ui_ocr_training_data_dialog.py',
     'ui_screen_capture.py',
     'ui_update_available.py',
     'ui_url_source.py',
+    'ui_video_settings.py',
     'update_check.py',
     'vmix_output.py',
 ]

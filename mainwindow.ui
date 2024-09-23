@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>961</width>
+    <width>901</width>
     <height>725</height>
    </rect>
   </property>
@@ -1467,12 +1467,7 @@
              </item>
              <item>
               <property name="text">
-               <string>Key-Value</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Plain Text</string>
+               <string>CSV</string>
               </property>
              </item>
             </widget>
@@ -1517,6 +1512,12 @@
               </item>
               <item>
                <widget class="QCheckBox" name="checkBox_is_websocket">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="toolTip">
+                 <string>Not implemented yet.</string>
+                </property>
                 <property name="text">
                  <string>Websocket</string>
                 </property>
@@ -1728,6 +1729,16 @@
               </widget>
              </item>
              <item>
+              <widget class="QToolButton" name="toolButton_videoSettings">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Video Settings</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QToolButton" name="pushButton_refresh_sources">
                <property name="toolTip">
                 <string>Refresh Sources</string>
@@ -1752,6 +1763,16 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_saveOCRTrainingData">
+            <property name="text">
+             <string>Save OCR Training Data</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -2109,7 +2130,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>961</width>
+     <width>901</width>
      <height>20</height>
     </rect>
    </property>

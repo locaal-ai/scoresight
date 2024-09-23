@@ -39,7 +39,7 @@ class OCRResultPerCharacterSmoother:
 
 
 class TextDetectionTarget(QRectF):
-    def __init__(self, x, y, width, height, name, settings: dict | None = None):
+    def __init__(self, x, y, width, height, name: str, settings: dict | None = None):
         super().__init__(x, y, width, height)
         self.name = name
         self.settings = settings
@@ -58,8 +58,8 @@ class TextDetectionTargetWithResult(TextDetectionTarget):
     def __init__(
         self,
         detection_target: TextDetectionTarget,
-        result,
-        result_state,
+        result: str,
+        result_state: ResultState,
         effectiveRect=None,
         extras=None,
     ):
@@ -88,3 +88,17 @@ class TextDetectionTargetWithResult(TextDetectionTarget):
                 "height": self.height(),
             },
         }
+
+
+class TextDetectionResult:
+    def __init__(
+        self,
+        text: str,
+        state: TextDetectionTargetWithResult.ResultState,
+        rect: QRectF | None = None,
+        extra=None,
+    ):
+        self.text = text
+        self.state = state
+        self.rect = rect
+        self.extra = extra

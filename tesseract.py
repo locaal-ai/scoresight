@@ -1,15 +1,19 @@
-from os import path
-import cv2
-from tesserocr import PyTessBaseAPI, RIL, iterate_level
-import numpy as np
-from PIL import Image
 from defaults import FieldType
-from storage import fetch_data
-from text_detection_target import TextDetectionTarget, TextDetectionTargetWithResult
-import re
+from os import path
+from PIL import Image
 from PySide6.QtCore import QRectF
+from tesserocr import PyTessBaseAPI, RIL, iterate_level
 from threading import Lock
-from sc_logging import logger
+import cv2
+import numpy as np
+import re
+
+from storage import fetch_data
+from text_detection_target import (
+    TextDetectionResult,
+    TextDetectionTarget,
+    TextDetectionTargetWithResult,
+)
 
 
 def autocrop(image_in):
@@ -76,14 +80,6 @@ def is_valid_regex(pattern):
         return True
     except re.error:
         return False
-
-
-class TextDetectionResult:
-    def __init__(self, text, state, rect=None, extra=None):
-        self.text = text
-        self.state = state
-        self.rect = rect
-        self.extra = extra
 
 
 class TextDetector:
@@ -570,5 +566,7 @@ class TextDetector:
             if text == "":
                 textstate = TextDetectionTargetWithResult.ResultState.Empty
 
-            texts.append(TextDetectionResult(text, textstate, effectiveRect, extras))
+            result = TextDetectionResult(text, textstate, effectiveRect, extras)
+
+            texts.append(result)
         return texts

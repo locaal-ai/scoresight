@@ -6,8 +6,14 @@ from PySide6.QtWidgets import (
     QGraphicsRectItem,
 )
 
+from camera_info import CameraInfo
 from camera_view import CameraView
-from storage import fetch_data, remove_data, store_data
+from storage import (
+    TextDetectionTargetMemoryStorage,
+    fetch_data,
+    remove_data,
+    store_data,
+)
 from text_detection_target import TextDetectionTarget, TextDetectionTargetWithResult
 from sc_logging import logger
 from resizable_rect import ResizableRectWithNameTypeAndResult
@@ -37,10 +43,10 @@ def sort_points_clockwise(points: list[QGraphicsRectItem]) -> list[QGraphicsRect
 class ImageViewer(CameraView):
     def __init__(
         self,
-        camera_index,
-        fourCornersAppliedCallback,
-        detectionTargetsStorage,
-        itemSelectedCallback,
+        camera_index: CameraInfo,
+        fourCornersAppliedCallback: callable,
+        detectionTargetsStorage: TextDetectionTargetMemoryStorage | None,
+        itemSelectedCallback: callable,
     ):
         super().__init__(camera_index, detectionTargetsStorage)
         self.setMouseTracking(True)
