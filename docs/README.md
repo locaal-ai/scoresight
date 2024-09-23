@@ -20,6 +20,7 @@ If you'd like to donate to help support the project, you can do so on [GitHub](h
 - Image processing and binarization techniques, local, global etc.
 - Output to text files (.txt, .csv, .xml)
 - HTTP output via local server: HTML, JSON, XML and CSV endpoints
+- Call external HTTP services with the OCR data
 - Import & Export configuration profiles
 - Integrations: OBS (websocket), vMix (API), NewBlue FX Titler (API)
 - Up to 30 updates/s
@@ -41,12 +42,14 @@ Very short video tutorials:
 <a href="https://youtu.be/ACY4-yT3x84" target="_blank"><img src="./image-17.png" width="30%"/></a>
 <a href="https://youtu.be/yowoYzBWrps" target="_blank"><img src="./image-18.png" width="30%"/></a>
 <a href="https://youtu.be/ptR-Yh5FSPg" target="_blank"><img src="./image-19.png" width="30%"/></a>
+<a href="https://youtu.be/QO76EFmJ7Ig" target="_blank"><img src="./image-23.png" width="30%"/></a>
 </div>
 
 Additional guides:
 
 - [How to use the internal HTTP server](http_server.md)
 - [How to connect to vMix](vmix.md)
+- [How to send API requests to external services](out_api.md)
 
 ## Installation
 
