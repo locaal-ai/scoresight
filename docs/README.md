@@ -10,6 +10,10 @@ ScoreSight is an OCR (Optical Character Recognition) application designed to ext
 
 It is the best **free** real-time OCR tool on planet Earth for scoreboards and games.
 
+<center>
+<a href="https://youtu.be/wMNolI0w0tE" target="_blank"><img src="./scoresight_getting_started.png" width="50%"/></a>
+</center>
+
 If you'd like to donate to help support the project, you can do so on [GitHub](https://github.com/sponsors/royshil) or [Patreon](https://www.patreon.com/RoyShilkrot) or [OpenCollective](https://opencollective.com/occ-ai).
 
 ## Features

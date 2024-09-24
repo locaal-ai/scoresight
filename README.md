@@ -11,6 +11,11 @@
 </div>
 
 ScoreSight is an OCR (Optical Character Recognition) application designed to extract text from real-time updating streams like scoreboards, applications, videos and games.
+
+<center>
+<a href="https://youtu.be/wMNolI0w0tE" target="_blank"><img src="./docs/scoresight_getting_started.png" width="50%"/></a>
+</center>
+
 It is written in Python and utilizes the following technologies:
 
 - Qt6: A cross-platform GUI toolkit for creating graphical user interfaces.
