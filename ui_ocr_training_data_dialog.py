@@ -17,27 +17,25 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractButton, QApplication, QDialog, QDialogButtonBox,
     QFormLayout, QGridLayout, QHBoxLayout, QLabel,
-    QLineEdit, QPushButton, QSizePolicy, QSpinBox,
-    QToolButton, QWidget)
+    QLineEdit, QPushButton, QSizePolicy, QSpacerItem,
+    QSpinBox, QToolButton, QWidget)
 
 class Ui_OCRTrainingDataDialog(object):
     def setupUi(self, OCRTrainingDataDialog):
         if not OCRTrainingDataDialog.objectName():
             OCRTrainingDataDialog.setObjectName(u"OCRTrainingDataDialog")
-        OCRTrainingDataDialog.resize(267, 132)
+        OCRTrainingDataDialog.resize(377, 164)
         OCRTrainingDataDialog.setMinimumSize(QSize(267, 0))
-        OCRTrainingDataDialog.setMaximumSize(QSize(650, 16777215))
+        OCRTrainingDataDialog.setMaximumSize(QSize(650, 300))
         self.gridLayout = QGridLayout(OCRTrainingDataDialog)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.buttonBox = QDialogButtonBox(OCRTrainingDataDialog)
-        self.buttonBox.setObjectName(u"buttonBox")
-        self.buttonBox.setOrientation(Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
-
-        self.gridLayout.addWidget(self.buttonBox, 2, 0, 1, 1)
-
         self.widget = QWidget(OCRTrainingDataDialog)
         self.widget.setObjectName(u"widget")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
+        self.widget.setSizePolicy(sizePolicy)
         self.formLayout = QFormLayout(self.widget)
         self.formLayout.setObjectName(u"formLayout")
         self.label = QLabel(self.widget)
@@ -47,9 +45,6 @@ class Ui_OCRTrainingDataDialog(object):
 
         self.widget_2 = QWidget(self.widget)
         self.widget_2.setObjectName(u"widget_2")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.widget_2.sizePolicy().hasHeightForWidth())
         self.widget_2.setSizePolicy(sizePolicy)
         self.horizontalLayout = QHBoxLayout(self.widget_2)
@@ -98,8 +93,24 @@ class Ui_OCRTrainingDataDialog(object):
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.spinBox_maxSize)
 
+        self.pushButton_openTrainingDojo = QPushButton(self.widget)
+        self.pushButton_openTrainingDojo.setObjectName(u"pushButton_openTrainingDojo")
+
+        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.pushButton_openTrainingDojo)
+
 
         self.gridLayout.addWidget(self.widget, 1, 0, 1, 1)
+
+        self.buttonBox = QDialogButtonBox(OCRTrainingDataDialog)
+        self.buttonBox.setObjectName(u"buttonBox")
+        self.buttonBox.setOrientation(Qt.Horizontal)
+        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
+
+        self.gridLayout.addWidget(self.buttonBox, 3, 0, 1, 1)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer, 2, 0, 1, 1)
 
 
         self.retranslateUi(OCRTrainingDataDialog)
@@ -117,5 +128,6 @@ class Ui_OCRTrainingDataDialog(object):
         self.pushButton_saveZipFile.setText(QCoreApplication.translate("OCRTrainingDataDialog", u"Save Zip File", None))
         self.label_2.setText(QCoreApplication.translate("OCRTrainingDataDialog", u"Max Size", None))
         self.spinBox_maxSize.setSuffix(QCoreApplication.translate("OCRTrainingDataDialog", u"Mb", None))
+        self.pushButton_openTrainingDojo.setText(QCoreApplication.translate("OCRTrainingDataDialog", u"Open OCR Training Dojo", None))
     # retranslateUi
 

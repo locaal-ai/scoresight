@@ -206,6 +206,13 @@ class TimerThread(QThread):
         self.fps_alpha = 0.1  # Smoothing factor
         self.updateOnChange = True
         self.crop = FrameCropAndRotation()
+        self.speed = 1
+
+    def getSpeed(self):
+        return self.speed
+
+    def setSpeed(self, speed):
+        self.speed = speed
 
     def setUpdateFrameInterval(self, cadence):
         self.update_frame_interval = 1000 / cadence
@@ -302,6 +309,13 @@ class TimerThread(QThread):
                 )
                 self.sleep_fps_target()
                 continue
+
+            if self.camera_info.type == CameraInfo.CameraType.FILE:
+                if self.speed != 1:
+                    self.video_capture.set(
+                        cv2.CAP_PROP_POS_FRAMES,
+                        self.video_capture.get(cv2.CAP_PROP_POS_FRAMES) + self.speed,
+                    )
 
             if not ret:
                 self.retry_count += 1

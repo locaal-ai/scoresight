@@ -1058,6 +1058,16 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_26.addWidget(self.spinBox_bottomCrop)
 
+        self.label_22 = QLabel(self.widget_cropPanel)
+        self.label_22.setObjectName(u"label_22")
+
+        self.horizontalLayout_26.addWidget(self.label_22)
+
+        self.toolButton_speed = QToolButton(self.widget_cropPanel)
+        self.toolButton_speed.setObjectName(u"toolButton_speed")
+
+        self.horizontalLayout_26.addWidget(self.toolButton_speed)
+
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_26.addItem(self.horizontalSpacer_4)
@@ -1271,6 +1281,8 @@ class Ui_MainWindow(object):
         self.spinBox_rightCrop.setSuffix(QCoreApplication.translate("MainWindow", u"px", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"Bottom", None))
         self.spinBox_bottomCrop.setSuffix(QCoreApplication.translate("MainWindow", u"px", None))
+        self.label_22.setText(QCoreApplication.translate("MainWindow", u"Speed", None))
+        self.toolButton_speed.setText(QCoreApplication.translate("MainWindow", u"x1", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"### Open a Camera or Load a File", None))
     # retranslateUi
 
