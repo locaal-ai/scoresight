@@ -43,6 +43,7 @@ If you'd like to donate to help support the project, you can do so on [GitHub](h
 - Unlimited devices or open instances on the same device
 - Detect any scoreboard fonts, general fonts and even "dot" indicators
 - Translated to 12 languages (English, German, Spanish, French, Italian, Japanese, Korean, Dutch, Polish, Portugese, Russian, Chinese)
+- Collect OCR training data and annotate it with a built-in tool
 
 Price: FREE.
 
@@ -63,6 +64,7 @@ Additional guides:
 - [How to use the internal HTTP server](docs/http_server.md)
 - [How to connect to vMix](docs/vmix.md)
 - [How to send API requests to external services](docs/out_api.md)
+- [How to collect and annotate OCR training data](docs/data_annotation.md)
 
 ## Installation
 
