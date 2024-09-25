@@ -407,9 +407,33 @@ class MainWindow(QMainWindow):
             fetch_data("scoresight.json", "save_ocr_training_data", False)
         )
 
+        self.ui.toolButton_speed.clicked.connect(self.toggleSpeed)
+
         self.update_sources.connect(self.updateSources)
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
+
+    def toggleSpeed(self):
+        # check the current speed and toggle it
+        # possible speeds are x2, x4, x8, x16, x32 and back to x1
+        # change the button text to the current speed
+        # change the speed of the image viewer
+        if self.image_viewer:
+            speed = self.image_viewer.timerThread.getSpeed()
+            if speed == 1:
+                speed = 2
+            elif speed == 2:
+                speed = 4
+            elif speed == 4:
+                speed = 8
+            elif speed == 8:
+                speed = 16
+            elif speed == 16:
+                speed = 32
+            else:
+                speed = 1
+            self.image_viewer.timerThread.setSpeed(speed)
+            self.ui.toolButton_speed.setText(f"x{speed}")
 
     def saveOCRTrainingData(self):
         self.globalSettingsChanged(

@@ -135,6 +135,18 @@ class OCRTrainingDataDialog(QDialog):
         )
         self.ui.pushButton_openFolder.clicked.connect(self.open_folder)
         self.ui.pushButton_saveZipFile.clicked.connect(self.save_zip_file)
+        self.ui.pushButton_openTrainingDojo.clicked.connect(self.open_training_dojo)
+
+    def open_training_dojo(self):
+        logger.debug("Opening OCR training dojo")
+        folder = self.ui.lineEdit_saveFolder.text()
+        if folder:
+            from training_dojo import TrainingDojo
+
+            training_dojo = TrainingDojo(folder)
+            training_dojo.exec_()
+        else:
+            logger.error("No OCR training data folder set")
 
     def save_zip_file(self):
         logger.debug("Saving OCR training data zip file")
