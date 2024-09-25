@@ -41,6 +41,8 @@ class ScreenCaptureMacOS:
     def __init__(self, windowId=None):
         self.windowId = windowId
         self.window = None
+        self.width = 0
+        self.height = 0
         if self.windowId is not None and self.windowId >= 0:
             # Capture a specific window by ID
             window_list = Quartz.CGWindowListCopyWindowInfo(
@@ -77,20 +79,30 @@ class ScreenCaptureMacOS:
             logger.warn(f"Failed to create image from window {self.windowId}")
             return False, None
 
-        width = CGImageGetWidth(cgimage)
-        height = CGImageGetHeight(cgimage)
-        if width == 0 or height == 0:
-            logger.warn(f"Invalid image size: {width}x{height}")
+        self.width = CGImageGetWidth(cgimage)
+        self.height = CGImageGetHeight(cgimage)
+        if self.width == 0 or self.height == 0:
+            logger.warn(f"Invalid image size: {self.width}x{self.height}")
             return False, None
 
         data_provider = CGImageGetDataProvider(cgimage)
         data = CGDataProviderCopyData(data_provider)
         np_data = np.frombuffer(data, dtype=np.uint8)
         # calculate the width from the buffer size
-        width = len(np_data) // height // 4
-        image = np_data.reshape((height, width, 4))  # Assuming 4 channels (RGBA)
+        self.width = len(np_data) // self.height // 4
+        image = np_data.reshape(
+            (self.height, self.width, 4)
+        )  # Assuming 4 channels (RGBA)
         image = cv2.cvtColor(image, cv2.COLOR_RGBA2RGB)
         return True, image  # Convert to RGB
 
     def release(self):
         pass
+
+    def get(self, prop) -> float:
+        if prop == cv2.CAP_PROP_FRAME_WIDTH:
+            return self.width
+        elif prop == cv2.CAP_PROP_FRAME_HEIGHT:
+            return self.height
+        else:
+            return 0.0

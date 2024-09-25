@@ -116,3 +116,14 @@ class ScreenCaptureWindows:
         image = np.ascontiguousarray(img)  # Ensure array is contiguous
         image = cv2.cvtColor(image, cv2.COLOR_RGBA2RGB)
         return True, image
+
+    def get(self, prop) -> float:
+        if self.hwnd == 0:
+            return 0.0
+
+        if prop == cv2.CAP_PROP_FRAME_WIDTH:
+            return win32api.GetSystemMetrics(win32con.SM_CXVIRTUALSCREEN)
+        elif prop == cv2.CAP_PROP_FRAME_HEIGHT:
+            return win32api.GetSystemMetrics(win32con.SM_CYVIRTUALSCREEN)
+        else:
+            return 0.0
