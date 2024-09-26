@@ -1,8 +1,15 @@
 import os
 import json
-from PySide6.QtWidgets import QDialog, QListWidgetItem, QLabel, QVBoxLayout, QLineEdit
+from PySide6.QtWidgets import (
+    QDialog,
+    QListWidgetItem,
+    QLabel,
+    QVBoxLayout,
+    QLineEdit,
+    QSizePolicy,
+)
 from PySide6.QtGui import QPixmap, QKeyEvent, QColor, QBrush, QPainter
-from PySide6.QtCore import Qt, QSize
+from PySide6.QtCore import Qt
 from ui_training_dojo import Ui_TrainingDojo
 
 
@@ -53,18 +60,18 @@ class TrainingDojo(QDialog):
         # Replace the default QLineEdit with our CustomLineEdit
         self.custom_line_edit = CustomLineEdit(self)
         self.custom_line_edit.setObjectName("lineEdit_text")
+        self.custom_line_edit.setFont(self.ui.lineEdit_text.font())
         self.ui.lineEdit_text.setParent(None)
         self.ui.lineEdit_text = self.custom_line_edit
         self.ui.verticalLayout.insertWidget(1, self.custom_line_edit)
 
         # Create an AspectRatioPixmapLabel for displaying the image
-        self.image_label = AspectRatioPixmapLabel()
-        self.image_label.setAlignment(Qt.AlignCenter)
-
-        # Set up layout for the image widget
-        layout = QVBoxLayout(self.ui.widget_image)
-        layout.addWidget(self.image_label)
-        self.ui.widget_image.setLayout(layout)
+        # self.image_label = self.ui.label_imagePlaceholder
+        self.image_label = AspectRatioPixmapLabel(self)
+        self.image_label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        self.ui.label_imagePlaceholder.setParent(None)
+        self.ui.label_imagePlaceholder = self.image_label
+        self.ui.widget_image.layout().addWidget(self.image_label)
 
         self.load_files()
         self.setup_connections()
@@ -333,7 +340,7 @@ class TrainingDojo(QDialog):
         if not self.handle_key_event(event):
             super().keyPressEvent(event)
 
-    def resizeEvent(self, event):
-        super().resizeEvent(event)
-        if hasattr(self, "image_label"):
-            self.image_label.setFixedSize(self.ui.widget_image.size())
+    # def resizeEvent(self, event):
+    #     super().resizeEvent(event)
+    #     if hasattr(self, "image_label"):
+    #         self.image_label.setFixedSize(self.ui.widget_image.size())
