@@ -1511,16 +1511,28 @@
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_is_websocket">
-                <property name="enabled">
-                 <bool>false</bool>
+               <widget class="QComboBox" name="comboBox_outApiMethod">
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>16777215</height>
+                 </size>
                 </property>
-                <property name="toolTip">
-                 <string>Not implemented yet.</string>
-                </property>
-                <property name="text">
-                 <string>Websocket</string>
-                </property>
+                <item>
+                 <property name="text">
+                  <string>POST</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>PUT</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>GET</string>
+                 </property>
+                </item>
                </widget>
               </item>
              </layout>

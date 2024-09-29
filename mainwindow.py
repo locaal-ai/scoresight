@@ -227,6 +227,14 @@ class MainWindow(QMainWindow):
                 fetch_data("scoresight.json", "out_api_encoding", "JSON")
             )
         )
+        self.ui.comboBox_outApiMethod.currentTextChanged.connect(
+            partial(self.globalSettingsChanged, "out_api_method")
+        )
+        self.ui.comboBox_outApiMethod.setCurrentIndex(
+            self.ui.comboBox_outApiMethod.findText(
+                fetch_data("scoresight.json", "out_api_method", "POST")
+            )
+        )
 
         self.obs_websocket_client = None
 
