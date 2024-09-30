@@ -4,7 +4,7 @@ import csv
 import io
 from functools import partial
 import xml.etree.ElementTree as ET
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlencode
 import threading
 
 from sc_logging import logger
@@ -12,7 +12,7 @@ from text_detection_target import TextDetectionTargetWithResult
 from storage import fetch_data, subscribe_to_data
 
 out_api_url = fetch_data("scoresight.json", "out_api_url", None)
-out_api_encoding = fetch_data("scoresight.json", "out_api_encoding", "JSON")
+out_api_encoding = fetch_data("scoresight.json", "out_api_encoding", "JSON (Full)")
 out_api_method = fetch_data("scoresight.json", "out_api_method", "POST")
 
 
@@ -63,8 +63,8 @@ def update_out_api(data: list[TextDetectionTargetWithResult]):
             if out_api_method == "GET":
                 response = send_get(data)
             else:
-                if out_api_encoding == "JSON":
-                    response = send_json(data)
+                if out_api_encoding.startswith("JSON"):
+                    response = send_json(data, out_api_encoding)
                 elif out_api_encoding == "XML":
                     response = send_xml(data)
                 elif out_api_encoding == "CSV":
@@ -95,15 +95,18 @@ def send_get(data: list[TextDetectionTargetWithResult]):
         out_api_url_copy += "&"
     else:
         out_api_url_copy += "?"
-    for i, result in enumerate(data):
-        out_api_url_copy += f"{urlencode(result.name)}={urlencode(result.result)}&"
+    out_api_url_copy += urlencode({result.name: result.result for result in data})
+    logger.debug(f"GET URL: {out_api_url_copy}")
     response = requests.get(out_api_url_copy)
     return response
 
 
-def send_json(data: list[TextDetectionTargetWithResult]):
+def send_json(data: list[TextDetectionTargetWithResult], encoding: str):
     headers = {"Content-Type": "application/json"}
-    json_data_dump = json.dumps([result.to_dict() for result in data])
+    if encoding == "JSON (Full)":
+        json_data_dump = json.dumps([result.to_dict() for result in data])
+    elif encoding == "JSON (Simple key-value)":
+        json_data_dump = json.dumps({result.name: result.result for result in data})
     if out_api_method == "POST":
         response = requests.post(
             out_api_url,

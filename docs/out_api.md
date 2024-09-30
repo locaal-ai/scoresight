@@ -10,7 +10,7 @@ ScoreSight now offers the ability to send OCR-extracted scoreboard data to exter
 
 2. Check the box labeled "Send out API requests to external services".
 3. Enter the URL where you want to send the data in the provided box.
-4. Select the encoding format for the data: JSON, XML, or CSV.
+4. Select the encoding format for the data: JSON (Full), Json (Simple key-value) XML, or CSV.
 
 ![alt text](image-30.png)
 

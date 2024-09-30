@@ -774,6 +774,7 @@ class Ui_MainWindow(object):
         self.comboBox_api_encode.addItem("")
         self.comboBox_api_encode.addItem("")
         self.comboBox_api_encode.addItem("")
+        self.comboBox_api_encode.addItem("")
         self.comboBox_api_encode.setObjectName(u"comboBox_api_encode")
 
         self.formLayout_3.setWidget(4, QFormLayout.FieldRole, self.comboBox_api_encode)
@@ -1226,9 +1227,10 @@ class Ui_MainWindow(object):
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_vmix), QCoreApplication.translate("MainWindow", u"VMix", None))
         self.checkBox_enableOutAPI.setText(QCoreApplication.translate("MainWindow", u"Send out API requests to external services.", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Encode", None))
-        self.comboBox_api_encode.setItemText(0, QCoreApplication.translate("MainWindow", u"JSON", None))
-        self.comboBox_api_encode.setItemText(1, QCoreApplication.translate("MainWindow", u"XML", None))
-        self.comboBox_api_encode.setItemText(2, QCoreApplication.translate("MainWindow", u"CSV", None))
+        self.comboBox_api_encode.setItemText(0, QCoreApplication.translate("MainWindow", u"JSON (Full)", None))
+        self.comboBox_api_encode.setItemText(1, QCoreApplication.translate("MainWindow", u"JSON (Simple key-value)", None))
+        self.comboBox_api_encode.setItemText(2, QCoreApplication.translate("MainWindow", u"XML", None))
+        self.comboBox_api_encode.setItemText(3, QCoreApplication.translate("MainWindow", u"CSV", None))
 
         self.lineEdit_api_url.setPlaceholderText(QCoreApplication.translate("MainWindow", u"http://", None))
         self.comboBox_outApiMethod.setItemText(0, QCoreApplication.translate("MainWindow", u"POST", None))

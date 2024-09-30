@@ -1457,7 +1457,12 @@
             <widget class="QComboBox" name="comboBox_api_encode">
              <item>
               <property name="text">
-               <string>JSON</string>
+               <string>JSON (Full)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>JSON (Simple key-value)</string>
               </property>
              </item>
              <item>
