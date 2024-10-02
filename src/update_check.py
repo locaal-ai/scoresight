@@ -63,7 +63,7 @@ def check_for_updates(override_settings: bool) -> bool:
     #         return False
 
     # # Read the current release version from the .env file
-    # load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), ".env")))
+    # load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env")))
     # current_release_version = os.getenv("LOCAL_RELEASE_TAG")
     # current_release_date = os.getenv("LOCAL_RELEASE_DATE")
 
@@ -111,7 +111,7 @@ def check_for_updates_dialog(new_version_available: bool, error: bool = False):
     update_dialog = QDialog()
     loader = QUiLoader()
     ui = loader.load(
-        path.abspath(path.join(path.dirname(__file__), "update_available.ui")),
+        path.abspath(path.join(path.dirname(__file__), "..", "update_available.ui")),
     )
     update_dialog.setLayout(ui.layout())
     update_dialog.setWindowTitle("ScoreSight Update Available")

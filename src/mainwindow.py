@@ -105,7 +105,7 @@ class MainWindow(QMainWindow):
             self.setWindowIcon(
                 QIcon(
                     path.abspath(
-                        path.join(path.dirname(__file__), "icons/Windows-icon-open.ico")
+                        path.join(path.dirname(__file__), "..", "icons/Windows-icon-open.ico")
                     )
                 )
             )
@@ -338,7 +338,7 @@ class MainWindow(QMainWindow):
             item = QTableWidgetItem(
                 QIcon(
                     path.abspath(
-                        path.join(path.dirname(__file__), "icons/circle-x.svg")
+                        path.join(path.dirname(__file__), "..", "icons/circle-x.svg")
                     )
                 ),
                 box_name,
@@ -509,7 +509,7 @@ class MainWindow(QMainWindow):
 
     def changeLanguage(self, locale):
         locale_file = path.abspath(
-            path.join(path.dirname(__file__), "translations", f"scoresight_{locale}.qm")
+            path.join(path.dirname(__file__), "..", "translations", f"scoresight_{locale}.qm")
         )
         logger.info(f"Changing language to {locale_file}")
         if not self.translator.load(locale_file):
@@ -851,7 +851,7 @@ class MainWindow(QMainWindow):
                 item.setIcon(
                     QIcon(
                         path.abspath(
-                            path.join(path.dirname(__file__), "icons/circle-check.svg")
+                            path.join(path.dirname(__file__), "..", "icons/circle-check.svg")
                         )
                     )
                 )
@@ -862,7 +862,7 @@ class MainWindow(QMainWindow):
                     QIcon(
                         path.abspath(
                             path.join(
-                                path.dirname(__file__), "icons/template-field.svg"
+                                path.dirname(__file__), "..", "icons/template-field.svg"
                             )
                         )
                     )
@@ -1469,7 +1469,7 @@ class MainWindow(QMainWindow):
         store_custom_box_name(new_box_name)
         item = QTableWidgetItem(
             QIcon(
-                path.abspath(path.join(path.dirname(__file__), "icons/circle-x.svg"))
+                path.abspath(path.join(path.dirname(__file__), "..", "icons/circle-x.svg"))
             ),
             new_box_name,
         )
@@ -1536,7 +1536,7 @@ class MainWindow(QMainWindow):
         item.setIcon(
             QIcon(
                 path.abspath(
-                    path.join(path.dirname(__file__), "icons/circle-check.svg")
+                    path.join(path.dirname(__file__), "..", "icons/circle-check.svg")
                 )
             )
         )
@@ -1563,7 +1563,7 @@ class MainWindow(QMainWindow):
             return
         # change the list icon to red x
         item.setIcon(
-            QIcon(path.abspath(path.join(path.dirname(__file__), "icons/circle-x.svg")))
+            QIcon(path.abspath(path.join(path.dirname(__file__), "..", "icons/circle-x.svg")))
         )
         item.setData(Qt.ItemDataRole.UserRole, "unchecked")
         self.listItemClicked(item)
@@ -1583,7 +1583,7 @@ class MainWindow(QMainWindow):
         item.setIcon(
             QIcon(
                 path.abspath(
-                    path.join(path.dirname(__file__), "icons/template-field.svg")
+                    path.join(path.dirname(__file__), "..", "icons/template-field.svg")
                 )
             )
         )

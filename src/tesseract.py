@@ -130,7 +130,7 @@ class TextDetector:
                 self.api = None
             self.api = PyTessBaseAPI(
                 path=path.abspath(
-                    path.join(path.dirname(__file__), "tesseract/tessdata")
+                    path.join(path.dirname(__file__), "..", "tesseract/tessdata")
                 ),
                 lang=ocr_model,
             )

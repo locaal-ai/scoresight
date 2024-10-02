@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 def setup_logging():
     # Load the environment variables from the .env file
-    load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), ".env")))
+    load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env")))
 
     # Create a logger
     logger = logging.getLogger(__name__)

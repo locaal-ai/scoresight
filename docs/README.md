@@ -6,9 +6,18 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/locaal-ai/scoresight)](https://github.com/locaal-ai/scoresight/releases)
 [![Discord](https://img.shields.io/discord/1200229425141252116)](https://discord.gg/8pG2tC923N)
 
-ScoreSight is an OCR (Optical Character Recognition) application designed to extract text from real-time updating streams like scoreboards, applications, videos and games.
+ScoreSight is an OCR (Optical Character Recognition) application designed to extract text from real-time updating streams like scoreboards, applications, videos and games. It is the best **free** real-time OCR tool on planet Earth for scoreboards and games.
 
-It is the best **free** real-time OCR tool on planet Earth for scoreboards and games.
+<center>
+
+**Download**
+
+[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-windows-0.0.14.zip)
+[![macOS](https://img.shields.io/badge/mac%20x86-000000?style=for-the-badge&)](https://github.com/locaal-ai/scoresight/releases/download/0.0.14/scoresight-macos-x86-0.0.14.dmg)
+[![macOS](https://img.shields.io/badge/mac%20M1/2/3-0a0a0a?style=for-the-badge&)](https://github.com/locaal-ai/scoresight/releases/download/0.0.14/scoresight-macos-arm64-0.0.14.dmg)
+[![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-linux-0.0.14.tar)
+
+</center>
 
 <center>
 <a href="https://youtu.be/wMNolI0w0tE" target="_blank"><img src="./scoresight_getting_started.png" width="50%"/></a>

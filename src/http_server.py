@@ -18,7 +18,7 @@ import uvicorn
 from text_detection_target import TextDetectionTargetWithResult
 from sc_logging import logger, file_handler
 
-load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), ".env")))
+load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env")))
 
 PORT = 18099
 http_results = []
