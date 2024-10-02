@@ -18,6 +18,7 @@ from camera_thread import TimerThread
 
 class CameraView(QGraphicsView):
     first_frame_received_signal = Signal()
+    error_signal = Signal(str)
 
     def __init__(
         self,
@@ -141,6 +142,7 @@ class CameraView(QGraphicsView):
             self.error_text.setPos(
                 0, self.height() - self.error_text.boundingRect().height() - 10
             )
+            self.error_signal.emit(error)
 
     def setFourCornersForHomography(self, corners: list[tuple[int]]):
         if corners is None or len(corners) != 4:

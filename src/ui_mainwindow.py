@@ -938,14 +938,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.setContentsMargins(0, 0, 0, 3)
         self.pushButton_binary = QToolButton(self.widget_viewTools)
         self.pushButton_binary.setObjectName(u"pushButton_binary")
-        self.pushButton_binary.setEnabled(False)
         self.pushButton_binary.setCheckable(True)
 
         self.horizontalLayout_10.addWidget(self.pushButton_binary)
 
         self.pushButton_fourCorner = QToolButton(self.widget_viewTools)
         self.pushButton_fourCorner.setObjectName(u"pushButton_fourCorner")
-        self.pushButton_fourCorner.setEnabled(False)
         self.pushButton_fourCorner.setCheckable(True)
 
         self.horizontalLayout_10.addWidget(self.pushButton_fourCorner)
@@ -963,7 +961,6 @@ class Ui_MainWindow(object):
 
         self.pushButton_stabilize = QToolButton(self.widget_viewTools)
         self.pushButton_stabilize.setObjectName(u"pushButton_stabilize")
-        self.pushButton_stabilize.setEnabled(False)
         self.pushButton_stabilize.setCheckable(True)
 
         self.horizontalLayout_10.addWidget(self.pushButton_stabilize)

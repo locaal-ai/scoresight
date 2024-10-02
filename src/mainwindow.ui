@@ -1817,9 +1817,6 @@
           </property>
           <item>
            <widget class="QToolButton" name="pushButton_binary">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
             <property name="text">
              <string>Binary View</string>
             </property>
@@ -1830,9 +1827,6 @@
           </item>
           <item>
            <widget class="QToolButton" name="pushButton_fourCorner">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
             <property name="text">
              <string>4-corner Correction</string>
             </property>
@@ -1863,9 +1857,6 @@
           </item>
           <item>
            <widget class="QToolButton" name="pushButton_stabilize">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
             <property name="text">
              <string>Stabilize</string>
             </property>

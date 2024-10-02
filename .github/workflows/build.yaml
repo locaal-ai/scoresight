@@ -131,9 +131,9 @@ jobs:
       - name: Build device enumeration module on Windows
         if: matrix.os == 'windows-latest'
         run: |
-          cd win32DeviceEnum
+          cd src/win32DeviceEnum
           python setup.py build_ext --inplace
-          cd ..
+          cd ../..
 
       - name: Build with PyInstaller (MacOS)
         if: matrix.os == 'macos-x86' || matrix.os == 'macos-arm64'

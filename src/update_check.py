@@ -3,6 +3,7 @@ import datetime
 import os
 from dotenv import load_dotenv
 from io import StringIO
+from resource_path import resource_path
 from sc_logging import logger
 from storage import fetch_data, store_data
 from os import path
@@ -63,7 +64,7 @@ def check_for_updates(override_settings: bool) -> bool:
     #         return False
 
     # # Read the current release version from the .env file
-    # load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), ".env")))
+    # load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env")))
     # current_release_version = os.getenv("LOCAL_RELEASE_TAG")
     # current_release_date = os.getenv("LOCAL_RELEASE_DATE")
 
@@ -110,9 +111,7 @@ def check_for_updates_dialog(new_version_available: bool, error: bool = False):
     # popup a qdialog with the update info
     update_dialog = QDialog()
     loader = QUiLoader()
-    ui = loader.load(
-        path.abspath(path.join(path.dirname(__file__), "update_available.ui")),
-    )
+    ui = loader.load(resource_path("update_available.ui"))
     update_dialog.setLayout(ui.layout())
     update_dialog.setWindowTitle("ScoreSight Update Available")
     update_dialog.checkBox_disableUpdateChecks.toggled.connect(
