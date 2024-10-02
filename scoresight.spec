@@ -95,13 +95,14 @@ if args.mac_osx:
     sources += ['src/screen_capture_source_mac.py']
 
 numpy_datas, numpy_binaries, numpy_hiddenimports = collect_all('numpy')
+ws_hiddenimports=['websockets', 'websockets.legacy']
 
 a = Analysis(
     sources,
     pathex=[],
     binaries=numpy_binaries,
     datas=datas + numpy_datas,
-    hiddenimports=numpy_hiddenimports,
+    hiddenimports=numpy_hiddenimports + ws_hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
