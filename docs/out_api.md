@@ -1,4 +1,4 @@
-# ScoreSight Outboud API Integration Tutorial
+# ScoreSight Outbound API Integration Tutorial
 
 ScoreSight now offers the ability to send OCR-extracted scoreboard data to external APIs. This tutorial will guide you through setting up the feature and provide a simple Python script to receive the data.
 
@@ -6,13 +6,15 @@ ScoreSight now offers the ability to send OCR-extracted scoreboard data to exter
 
 1. Open ScoreSight and navigate to the "API" tab in the bottom left corner.
 
-![alt text](image-21.png)
+![alt text](image-29.png)
 
 2. Check the box labeled "Send out API requests to external services".
 3. Enter the URL where you want to send the data in the provided box.
-4. Select the encoding format for the data: JSON, XML, or CSV.
+4. Select the encoding format for the data: JSON (Full), Json (Simple key-value) XML, or CSV.
 
-![alt text](image-22.png)
+![alt text](image-30.png)
+
+5. Choose the HTTP method for the API request: POST, PUT, or GET.
 
 ## Troubleshooting
 
@@ -35,13 +37,17 @@ If you encounter issues with the API integration, follow these steps to troubles
 3. Encoding Format:
    - Verify that the encoding format selected in ScoreSight (JSON, XML, or CSV) matches the format your receiving script or API expects.
 
-4. Server Availability and Authentication:
+4. HTTP Method:
+   - Ensure that the selected HTTP method (POST, PUT, or GET) is supported by your receiving API.
+   - Verify that your API is configured to handle the chosen method correctly.
+
+5. Server Availability and Authentication:
    - If using the provided Python script, make sure it's running before attempting to send data from ScoreSight.
    - For external APIs, check if the service is up and accessible.
    - If your external API requires an API key or authentication, ensure these details are correctly included in the URL or headers.
    - If testing locally, check that your firewall isn't blocking the connection.
 
-5. Test with a Simple Server:
+6. Test with a Simple Server:
    - Use the provided Python script below as a test server to isolate whether the issue is with ScoreSight or the receiving end.
 
 If problems persist after trying these steps, consider reaching out to ScoreSight support for further assistance.
@@ -56,16 +62,30 @@ import json
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length)
-        
-        print("Received data:")
-        try:
-            # Assuming JSON format, adjust if using XML or CSV
-            data = json.loads(post_data.decode('utf-8'))
-            print(json.dumps(data, indent=2))
-        except json.JSONDecodeError:
-            print(post_data.decode('utf-8'))
+        self.handle_request()
+
+    def do_PUT(self):
+        self.handle_request()
+
+    def do_GET(self):
+        self.handle_request()
+
+    def handle_request(self):
+        if self.command in ['POST', 'PUT']:
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            
+            print(f"Received {self.command} data:")
+            try:
+                # Assuming JSON format, adjust if using XML or CSV
+                data = json.loads(post_data.decode('utf-8'))
+                print(json.dumps(data, indent=2))
+            except json.JSONDecodeError:
+                print(post_data.decode('utf-8'))
+        elif self.command == 'GET':
+            print("Received GET request")
+            print(f"Path: {self.path}")
+            print(f"Headers: {self.headers}")
         
         self.send_response(200)
         self.end_headers()
@@ -100,7 +120,7 @@ You may see in the console an output similar to:
 
 ```
 127.0.0.1 - - [nn/nn/nnnn 10:57:03] "POST / HTTP/1.1" 200 -
-Received data: Name,Text,State,X,Y,Width,Height
+Received POST data: Name,Text,State,X,Y,Width,Height
 Time,0:52,SameNoChange,843.656319861826,663.0215827338131,359.13669064748206,207.19424460431662
 Home Score,35,SameNoChange,525.969716884406,638.4370727628325,214.62426933453253,175.27648662320166
 ```
