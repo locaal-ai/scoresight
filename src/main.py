@@ -29,13 +29,17 @@ if __name__ == "__main__":
     # Load the translation file based on the locale
     translator = QTranslator()
     locale_file = path.abspath(
-        path.join(path.dirname(__file__), "..", "translations", f"scoresight_{locale}.qm")
+        path.join(
+            path.dirname(__file__), "..", "translations", f"scoresight_{locale}.qm"
+        )
     )
     # check if the file exists
     if not path.exists(locale_file):
         # load the default translation file
         locale_file = path.abspath(
-            path.join(path.dirname(__file__), "..", "translations", "scoresight_en_US.qm")
+            path.join(
+                path.dirname(__file__), "..", "translations", "scoresight_en_US.qm"
+            )
         )
     if translator.load(locale_file):
         app.installTranslator(translator)

@@ -153,7 +153,9 @@ def create_obs_scene_from_export(obs_client, scene_name):
     # load the scene from obs_data/test.json
     obs_data_path = path.abspath(
         path.join(
-            path.dirname(__file__), "..", "obs_data/Scoresight_OBS_scene_collection.json"
+            path.dirname(__file__),
+            "..",
+            "obs_data/Scoresight_OBS_scene_collection.json",
         )
     )
     logger.debug(f"loading scene from '{obs_data_path}'")
