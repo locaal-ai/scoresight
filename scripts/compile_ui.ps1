@@ -1,4 +1,4 @@
-Get-ChildItem -Filter *.ui | ForEach-Object {
+Get-ChildItem -Filter src/*.ui | ForEach-Object {
     $uiFile = $_.FullName
     $pyFile = [System.IO.Path]::ChangeExtension($uiFile, ".py")
     # add "ui_" prefix to the file name

@@ -1125,8 +1125,8 @@ class MainWindow(QMainWindow):
         self.source_name = None
         self.ui.groupBox_sb_info.setEnabled(False)
         self.ui.tableWidget_boxes.setEnabled(False)
-        self.ui.pushButton_fourCorner.setEnabled(False)
-        self.ui.pushButton_binary.setEnabled(False)
+        self.ui.widget_viewTools.setEnabled(False)
+        self.ui.widget_cropPanel.setEnabled(False)
         if self.ui.comboBox_camera_source.currentIndex() == 0:
             self.reset_playing_source()
             return
@@ -1283,8 +1283,16 @@ class MainWindow(QMainWindow):
         self.ui.toolButton_videoSettings.setEnabled(
             camera_info.type == CameraInfo.CameraType.OPENCV
         )
-        self.ui.pushButton_fourCorner.setEnabled(True)
-        self.ui.pushButton_binary.setEnabled(True)
+        self.image_viewer.first_frame_received_signal.connect(
+            self.cameraConnectedEnableUI
+        )
+        self.image_viewer.error_signal.connect(self.updateError)
+        self.ocrModelChanged(fetch_data("scoresight.json", "ocr_model", 1))
+
+        # set the image viewer to the layout frame_for_source_view_label
+        self.ui.frame_for_source_view_label.layout().addWidget(self.image_viewer)
+
+    def cameraConnectedEnableUI(self):
         self.ui.pushButton_fourCorner.toggled.connect(
             self.image_viewer.toggleFourCorner
         )
@@ -1292,20 +1300,13 @@ class MainWindow(QMainWindow):
         if self.image_viewer.timerThread:
             self.image_viewer.timerThread.ocr_result_signal.connect(self.ocrResult)
             self.image_viewer.timerThread.update_error.connect(self.updateError)
-        self.image_viewer.first_frame_received_signal.connect(
-            self.cameraConnectedEnableUI
-        )
-        self.ocrModelChanged(fetch_data("scoresight.json", "ocr_model", 1))
 
-        # set the image viewer to the layout frame_for_source_view_label
-        self.ui.frame_for_source_view_label.layout().addWidget(self.image_viewer)
-
-    def cameraConnectedEnableUI(self):
         # enable groupBox_sb_info
         self.ui.groupBox_sb_info.setEnabled(True)
         self.ui.tableWidget_boxes.setEnabled(True)
         self.ui.frame_source_view.setEnabled(True)
         self.ui.widget_viewTools.setEnabled(True)
+        self.ui.widget_cropPanel.setEnabled(True)
 
         # load the boxes from scoresight.json
         self.detectionTargetsStorage.loadBoxesFromStorage()
@@ -1317,6 +1318,7 @@ class MainWindow(QMainWindow):
         logger.error(error)
         self.ui.frame_source_view.setEnabled(True)
         self.ui.widget_viewTools.setEnabled(False)
+        self.ui.widget_cropPanel.setEnabled(False)
 
     def ocrResult(self, results: list[TextDetectionTargetWithResult]):
         # update template fields
