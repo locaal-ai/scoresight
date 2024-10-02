@@ -10,16 +10,14 @@ ScoreSight is an OCR (Optical Character Recognition) application designed to ext
 
 <center>
 
-**Download**
+<strong>Download</strong>
 
-[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-windows-0.0.14.zip)
-[![macOS](https://img.shields.io/badge/mac%20x86-000000?style=for-the-badge&)](https://github.com/locaal-ai/scoresight/releases/download/0.0.14/scoresight-macos-x86-0.0.14.dmg)
-[![macOS](https://img.shields.io/badge/mac%20M1/2/3-0a0a0a?style=for-the-badge&)](https://github.com/locaal-ai/scoresight/releases/download/0.0.14/scoresight-macos-arm64-0.0.14.dmg)
-[![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-linux-0.0.14.tar)
+<a href="https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-windows-0.0.14.zip"><img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" /></a>
+<a href="https://github.com/locaal-ai/scoresight/releases/download/0.0.14/scoresight-macos-x86-0.0.14.dmg"><img src="https://img.shields.io/badge/mac%20Intel-000000?style=for-the-badge" /></a>
+<a href="https://github.com/locaal-ai/scoresight/releases/download/0.0.14/scoresight-macos-arm64-0.0.14.dmg"><img src="https://img.shields.io/badge/mac%20M1/2/3-0a0a0a?style=for-the-badge&"/></a>
+<a href="https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-linux-0.0.14.tar"><img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black"/></a>
 
-</center>
 
-<center>
 <a href="https://youtu.be/wMNolI0w0tE" target="_blank"><img src="./scoresight_getting_started.png" width="50%"/></a>
 </center>
 
