@@ -65,6 +65,7 @@ sources = [
     'src/ocr_training_data.py',
     'src/obs_websocket.py',
     'src/resizable_rect.py',
+    'src/resource_path.py',
     'src/sc_logging.py',
     'src/screen_capture_source.py',
     'src/source_view.py',
