@@ -11,3 +11,4 @@ python-dotenv
 requests
 tesserocr
 uvicorn
+websockets==9.1
