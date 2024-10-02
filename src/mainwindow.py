@@ -34,6 +34,7 @@ from camera_info import CameraInfo
 from get_camera_info import get_camera_info
 from http_server import start_http_server, update_http_server
 from ocr_training_data import OCRTrainingDataDialog
+from resource_path import resource_path
 from screen_capture_source import ScreenCapture
 from source_view import ImageViewer
 from defaults import (
@@ -102,15 +103,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(f"ScoreSight - v{os.getenv('LOCAL_RELEASE_TAG')}")
         if platform.system() == "Windows":
             # set the icon
-            self.setWindowIcon(
-                QIcon(
-                    path.abspath(
-                        path.join(
-                            path.dirname(__file__), "..", "icons/Windows-icon-open.ico"
-                        )
-                    )
-                )
-            )
+            self.setWindowIcon(QIcon(resource_path("icons", "Windows-icon-open.ico")))
 
         self.menubar = self.menuBar()
         file_menu = self.menubar.addMenu("File")
@@ -338,11 +331,7 @@ class MainWindow(QMainWindow):
 
         for box_name in [box["name"] for box in default_boxes] + custom_boxes_names:
             item = QTableWidgetItem(
-                QIcon(
-                    path.abspath(
-                        path.join(path.dirname(__file__), "..", "icons/circle-x.svg")
-                    )
-                ),
+                QIcon(resource_path("icons", "circle-x.svg")),
                 box_name,
             )
             item.setData(Qt.ItemDataRole.UserRole, "unchecked")
@@ -510,11 +499,7 @@ class MainWindow(QMainWindow):
         super().changeEvent(event)
 
     def changeLanguage(self, locale):
-        locale_file = path.abspath(
-            path.join(
-                path.dirname(__file__), "..", "translations", f"scoresight_{locale}.qm"
-            )
-        )
+        locale_file = resource_path("translations", f"scoresight_{locale}.qm")
         logger.info(f"Changing language to {locale_file}")
         if not self.translator.load(locale_file):
             logger.error(f"Could not load translation for {locale_file}")
@@ -852,27 +837,11 @@ class MainWindow(QMainWindow):
 
             if not box.settings["templatefield"]:
                 # this is a detection target
-                item.setIcon(
-                    QIcon(
-                        path.abspath(
-                            path.join(
-                                path.dirname(__file__), "..", "icons/circle-check.svg"
-                            )
-                        )
-                    )
-                )
+                item.setIcon(QIcon(resource_path("icons", "circle-check.svg")))
                 item.setData(Qt.ItemDataRole.UserRole, "checked")
             else:
                 # this is a template field
-                item.setIcon(
-                    QIcon(
-                        path.abspath(
-                            path.join(
-                                path.dirname(__file__), "..", "icons/template-field.svg"
-                            )
-                        )
-                    )
-                )
+                item.setIcon(QIcon(resource_path("icons", "template-field.svg")))
                 item.setData(Qt.ItemDataRole.UserRole, "templatefield")
 
         self.updatevMixTable(detectionTargets)
@@ -1474,11 +1443,7 @@ class MainWindow(QMainWindow):
 
         store_custom_box_name(new_box_name)
         item = QTableWidgetItem(
-            QIcon(
-                path.abspath(
-                    path.join(path.dirname(__file__), "..", "icons/circle-x.svg")
-                )
-            ),
+            QIcon(resource_path("icons", "circle-x.svg")),
             new_box_name,
         )
         item.setData(Qt.ItemDataRole.UserRole, "unchecked")
@@ -1541,13 +1506,7 @@ class MainWindow(QMainWindow):
             return
         # create a new box on self.image_viewer with the name of the selected item from the tableWidget_boxes
         # change the list icon to green checkmark
-        item.setIcon(
-            QIcon(
-                path.abspath(
-                    path.join(path.dirname(__file__), "..", "icons/circle-check.svg")
-                )
-            )
-        )
+        item.setIcon(QIcon(resource_path("icons/circle-check.svg")))
         item.setData(Qt.ItemDataRole.UserRole, "checked")
         self.listItemClicked(item)
 
@@ -1570,13 +1529,7 @@ class MainWindow(QMainWindow):
         if not item:
             return
         # change the list icon to red x
-        item.setIcon(
-            QIcon(
-                path.abspath(
-                    path.join(path.dirname(__file__), "..", "icons/circle-x.svg")
-                )
-            )
-        )
+        item.setIcon(QIcon(resource_path("icons", "circle-x.svg")))
         item.setData(Qt.ItemDataRole.UserRole, "unchecked")
         self.listItemClicked(item)
         self.detectionTargetsStorage.remove_item(item.text())
@@ -1592,13 +1545,7 @@ class MainWindow(QMainWindow):
 
         # create a new box on self.image_viewer with the name of the selected item from the tableWidget_boxes
         # change the list icon to green checkmark
-        item.setIcon(
-            QIcon(
-                path.abspath(
-                    path.join(path.dirname(__file__), "..", "icons/template-field.svg")
-                )
-            )
-        )
+        item.setIcon(QIcon(resource_path("icons", "template-field.svg")))
         item.setData(Qt.ItemDataRole.UserRole, "templatefield")
 
         self.detectionTargetsStorage.add_item(

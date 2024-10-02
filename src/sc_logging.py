@@ -4,10 +4,12 @@ from platformdirs import user_log_dir
 from datetime import datetime
 from dotenv import load_dotenv
 
+from resource_path import resource_path
+
 
 def setup_logging():
     # Load the environment variables from the .env file
-    load_dotenv(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env")))
+    load_dotenv(resource_path(".env"))
 
     # Create a logger
     logger = logging.getLogger(__name__)

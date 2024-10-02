@@ -8,6 +8,7 @@ import cv2
 import numpy as np
 import re
 
+from resource_path import resource_path
 from storage import fetch_data
 from text_detection_target import (
     TextDetectionResult,
@@ -129,9 +130,7 @@ class TextDetector:
                 self.api.End()
                 self.api = None
             self.api = PyTessBaseAPI(
-                path=path.abspath(
-                    path.join(path.dirname(__file__), "..", "tesseract/tessdata")
-                ),
+                path=resource_path("tesseract", "tessdata"),
                 lang=ocr_model,
             )
             # single word PSM

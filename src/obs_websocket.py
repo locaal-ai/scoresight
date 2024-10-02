@@ -1,6 +1,7 @@
 import json
 from os import path
 import obsws_python as obs
+from resource_path import resource_path
 from sc_logging import logger
 
 
@@ -151,13 +152,7 @@ def create_obs_scene_from_export(obs_client, scene_name):
     clear_or_create_new_scene(obs_client, scene_name)
 
     # load the scene from obs_data/test.json
-    obs_data_path = path.abspath(
-        path.join(
-            path.dirname(__file__),
-            "..",
-            "obs_data/Scoresight_OBS_scene_collection.json",
-        )
-    )
+    obs_data_path = resource_path("obs_data", "Scoresight_OBS_scene_collection.json")
     logger.debug(f"loading scene from '{obs_data_path}'")
     with open(obs_data_path, "r") as f:
         scene = json.load(f)
@@ -189,12 +184,7 @@ def create_obs_scene_from_export(obs_client, scene_name):
             # get the base name of the image path
             base_name = path.basename(source_settings_to_set["file"])
             # get the absolute path to the image
-            abs_path = path.abspath(
-                path.join(
-                    path.dirname(__file__),
-                    f"obs_data/Scoreboard parts/{base_name}",
-                )
-            )
+            abs_path = resource_path("obs_data", "Scoreboard parts", "{base_name}")
             source_settings_to_set["file"] = abs_path
 
         try:
@@ -239,11 +229,8 @@ def create_obs_scene_from_export(obs_client, scene_name):
                         # get the base name of the image path
                         base_name = path.basename(filter["settings"]["image_path"])
                         # get the absolute path to the image
-                        abs_path = path.abspath(
-                            path.join(
-                                path.dirname(__file__),
-                                f"obs_data/Scoreboard parts/{base_name}",
-                            )
+                        abs_path = resource_path(
+                            "obs_data", "Scoreboard parts", base_name
                         )
                         filter["settings"]["image_path"] = abs_path
                     obs_client.create_source_filter(
