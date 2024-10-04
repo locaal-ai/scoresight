@@ -6,6 +6,7 @@ import cv2
 from datetime import datetime
 import threading
 
+from base_video_capture import BaseVideoCapture
 from camera_info import CameraInfo
 from ndi import NDICapture
 from screen_capture_source import ScreenCapture, ScreenCaptureType
@@ -108,11 +109,11 @@ class FrameCropAndRotation:
         self.rotation = rotation
 
 
-class OpenCVVideoCaptureWithSettings:
+class OpenCVVideoCaptureWithSettings(BaseVideoCapture):
     def __init__(self, capture_id: int | str, capture_backend: int = cv2.CAP_ANY):
+        super().__init__(capture_id, capture_backend)
         self.video_capture = cv2.VideoCapture(capture_id, capture_backend)
         self.video_capture_mutex = threading.Lock()
-        self.capture_id = capture_id
         self.fps = fetch_data("scoresight.json", "fps", 30)
         self.width = fetch_data("scoresight.json", "width", 0)
         self.height = fetch_data("scoresight.json", "height", 0)
@@ -188,9 +189,7 @@ class TimerThread(QThread):
         self.retry_high_water_mark = 25
         self.stabilizationEnabled = False
         self.framestabilizer = FrameStabilizer()
-        self.video_capture: (
-            OpenCVVideoCaptureWithSettings | NDICapture | ScreenCaptureType | None
-        ) = None
+        self.video_capture: BaseVideoCapture | None = None
         self.should_stop = False
         self.frame_interval = 30
         self.update_frame_interval = 1000 / fetch_data(

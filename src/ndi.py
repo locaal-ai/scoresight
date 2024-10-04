@@ -12,6 +12,7 @@ from cyndilib.callback import *
 from cyndilib.wrapper.ndi_send import *
 import numpy as np
 
+from base_video_capture import BaseVideoCapture
 from camera_info import CameraInfo
 from sc_logging import logger
 
@@ -34,7 +35,7 @@ def ReceiveFrameTypeToString(frame_type: ReceiveFrameType) -> str:
     return "recv_unknown"
 
 
-class NDICapture:
+class NDICapture(BaseVideoCapture):
     finder = Finder()
 
     def get_camera_info_ndi():
@@ -134,3 +135,9 @@ class NDICapture:
             self.receiver.reconnect()
 
         return False, None
+
+    def set(self, propId, value):
+        pass
+
+    def get(self, propId):
+        return 0.0
