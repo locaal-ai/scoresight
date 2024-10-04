@@ -27,842 +27,19 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(901, 725)
+        MainWindow.resize(901, 835)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.formLayout = QFormLayout(self.centralwidget)
-        self.formLayout.setObjectName(u"formLayout")
-        self.frame = QFrame(self.centralwidget)
-        self.frame.setObjectName(u"frame")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy)
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Plain)
-        self.frame.setLineWidth(0)
-        self.verticalLayout = QVBoxLayout(self.frame)
-        self.verticalLayout.setSpacing(3)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.groupBox_sb_info = QWidget(self.frame)
-        self.groupBox_sb_info.setObjectName(u"groupBox_sb_info")
-        self.groupBox_sb_info.setEnabled(False)
-        self.verticalLayout_3 = QVBoxLayout(self.groupBox_sb_info)
-        self.verticalLayout_3.setSpacing(4)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.widget = QWidget(self.groupBox_sb_info)
-        self.widget.setObjectName(u"widget")
-        self.horizontalLayout_2 = QHBoxLayout(self.widget)
-        self.horizontalLayout_2.setSpacing(1)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.tableWidget_boxes = QTableWidget(self.widget)
-        if (self.tableWidget_boxes.columnCount() < 2):
-            self.tableWidget_boxes.setColumnCount(2)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.tableWidget_boxes.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.tableWidget_boxes.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        self.tableWidget_boxes.setObjectName(u"tableWidget_boxes")
-        self.tableWidget_boxes.setMinimumSize(QSize(0, 100))
-        self.tableWidget_boxes.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.tableWidget_boxes.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.tableWidget_boxes.setTabKeyNavigation(False)
-        self.tableWidget_boxes.setDragDropOverwriteMode(False)
-        self.tableWidget_boxes.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.tableWidget_boxes.setShowGrid(False)
-        self.tableWidget_boxes.horizontalHeader().setCascadingSectionResizes(True)
-        self.tableWidget_boxes.verticalHeader().setVisible(False)
-
-        self.horizontalLayout_2.addWidget(self.tableWidget_boxes)
-
-        self.widget_8 = QWidget(self.widget)
-        self.widget_8.setObjectName(u"widget_8")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.widget_8.sizePolicy().hasHeightForWidth())
-        self.widget_8.setSizePolicy(sizePolicy1)
-        self.gridLayout_4 = QGridLayout(self.widget_8)
-        self.gridLayout_4.setSpacing(0)
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.gridLayout_4.setSizeConstraint(QLayout.SetMinimumSize)
-        self.gridLayout_4.setContentsMargins(3, 0, 0, 0)
-        self.toolButton_addBox = QToolButton(self.widget_8)
-        self.toolButton_addBox.setObjectName(u"toolButton_addBox")
-        self.toolButton_addBox.setMinimumSize(QSize(27, 0))
-        font = QFont()
-        font.setPointSize(14)
-        font.setBold(True)
-        self.toolButton_addBox.setFont(font)
-
-        self.gridLayout_4.addWidget(self.toolButton_addBox, 0, 0, 1, 1)
-
-        self.toolButton_removeBox = QToolButton(self.widget_8)
-        self.toolButton_removeBox.setObjectName(u"toolButton_removeBox")
-        self.toolButton_removeBox.setMinimumSize(QSize(27, 0))
-        self.toolButton_removeBox.setFont(font)
-
-        self.gridLayout_4.addWidget(self.toolButton_removeBox, 1, 0, 1, 1)
-
-
-        self.horizontalLayout_2.addWidget(self.widget_8, 0, Qt.AlignHCenter)
-
-
-        self.verticalLayout_3.addWidget(self.widget)
-
-        self.widget_2 = QWidget(self.groupBox_sb_info)
-        self.widget_2.setObjectName(u"widget_2")
-        self.horizontalLayout_5 = QHBoxLayout(self.widget_2)
-        self.horizontalLayout_5.setSpacing(3)
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_makeBox = QPushButton(self.widget_2)
-        self.pushButton_makeBox.setObjectName(u"pushButton_makeBox")
-        self.pushButton_makeBox.setEnabled(False)
-
-        self.horizontalLayout_5.addWidget(self.pushButton_makeBox)
-
-        self.pushButton_removeBox = QPushButton(self.widget_2)
-        self.pushButton_removeBox.setObjectName(u"pushButton_removeBox")
-        self.pushButton_removeBox.setEnabled(False)
-
-        self.horizontalLayout_5.addWidget(self.pushButton_removeBox)
-
-
-        self.verticalLayout_3.addWidget(self.widget_2)
-
-        self.groupBox_target_settings = QGroupBox(self.groupBox_sb_info)
-        self.groupBox_target_settings.setObjectName(u"groupBox_target_settings")
-        self.verticalLayout_5 = QVBoxLayout(self.groupBox_target_settings)
-        self.verticalLayout_5.setSpacing(2)
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.verticalLayout_5.setContentsMargins(3, 0, 3, 3)
-        self.widget_10 = QWidget(self.groupBox_target_settings)
-        self.widget_10.setObjectName(u"widget_10")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.widget_10.sizePolicy().hasHeightForWidth())
-        self.widget_10.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_12 = QHBoxLayout(self.widget_10)
-        self.horizontalLayout_12.setSpacing(3)
-        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
-        self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
-        self.label_6 = QLabel(self.widget_10)
-        self.label_6.setObjectName(u"label_6")
-
-        self.horizontalLayout_12.addWidget(self.label_6)
-
-        self.label_selectedInfo = QLabel(self.widget_10)
-        self.label_selectedInfo.setObjectName(u"label_selectedInfo")
-
-        self.horizontalLayout_12.addWidget(self.label_selectedInfo)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_12.addItem(self.horizontalSpacer_3)
-
-        self.pushButton_restoreDefaults = QPushButton(self.widget_10)
-        self.pushButton_restoreDefaults.setObjectName(u"pushButton_restoreDefaults")
-
-        self.horizontalLayout_12.addWidget(self.pushButton_restoreDefaults)
-
-
-        self.verticalLayout_5.addWidget(self.widget_10)
-
-        self.widget_7 = QWidget(self.groupBox_target_settings)
-        self.widget_7.setObjectName(u"widget_7")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.widget_7.sizePolicy().hasHeightForWidth())
-        self.widget_7.setSizePolicy(sizePolicy3)
-        self.horizontalLayout_8 = QHBoxLayout(self.widget_7)
-        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
-        self.label_2 = QLabel(self.widget_7)
-        self.label_2.setObjectName(u"label_2")
-
-        self.horizontalLayout_8.addWidget(self.label_2)
-
-        self.lineEdit_format = QLineEdit(self.widget_7)
-        self.lineEdit_format.setObjectName(u"lineEdit_format")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.lineEdit_format.sizePolicy().hasHeightForWidth())
-        self.lineEdit_format.setSizePolicy(sizePolicy4)
-
-        self.horizontalLayout_8.addWidget(self.lineEdit_format)
-
-        self.comboBox_formatPrefix = QComboBox(self.widget_7)
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.setObjectName(u"comboBox_formatPrefix")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.comboBox_formatPrefix.sizePolicy().hasHeightForWidth())
-        self.comboBox_formatPrefix.setSizePolicy(sizePolicy5)
-
-        self.horizontalLayout_8.addWidget(self.comboBox_formatPrefix)
-
-
-        self.verticalLayout_5.addWidget(self.widget_7)
-
-        self.widget_19 = QWidget(self.groupBox_target_settings)
-        self.widget_19.setObjectName(u"widget_19")
-        self.horizontalLayout_21 = QHBoxLayout(self.widget_19)
-        self.horizontalLayout_21.setSpacing(3)
-        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
-        self.horizontalLayout_21.setContentsMargins(0, 0, 0, 0)
-        self.label_13 = QLabel(self.widget_19)
-        self.label_13.setObjectName(u"label_13")
-
-        self.horizontalLayout_21.addWidget(self.label_13)
-
-        self.comboBox_fieldType = QComboBox(self.widget_19)
-        self.comboBox_fieldType.addItem("")
-        self.comboBox_fieldType.addItem("")
-        self.comboBox_fieldType.addItem("")
-        self.comboBox_fieldType.setObjectName(u"comboBox_fieldType")
-
-        self.horizontalLayout_21.addWidget(self.comboBox_fieldType)
-
-
-        self.verticalLayout_5.addWidget(self.widget_19)
-
-        self.widget_14 = QWidget(self.groupBox_target_settings)
-        self.widget_14.setObjectName(u"widget_14")
-        sizePolicy2.setHeightForWidth(self.widget_14.sizePolicy().hasHeightForWidth())
-        self.widget_14.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_16 = QHBoxLayout(self.widget_14)
-        self.horizontalLayout_16.setSpacing(3)
-        self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
-        self.horizontalLayout_16.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_smoothing = QCheckBox(self.widget_14)
-        self.checkBox_smoothing.setObjectName(u"checkBox_smoothing")
-
-        self.horizontalLayout_16.addWidget(self.checkBox_smoothing)
-
-        self.checkBox_ordinalIndicator = QCheckBox(self.widget_14)
-        self.checkBox_ordinalIndicator.setObjectName(u"checkBox_ordinalIndicator")
-
-        self.horizontalLayout_16.addWidget(self.checkBox_ordinalIndicator)
-
-
-        self.verticalLayout_5.addWidget(self.widget_14)
-
-        self.widget_11 = QWidget(self.groupBox_target_settings)
-        self.widget_11.setObjectName(u"widget_11")
-        sizePolicy2.setHeightForWidth(self.widget_11.sizePolicy().hasHeightForWidth())
-        self.widget_11.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_13 = QHBoxLayout(self.widget_11)
-        self.horizontalLayout_13.setSpacing(3)
-        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
-        self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_skip_empty = QCheckBox(self.widget_11)
-        self.checkBox_skip_empty.setObjectName(u"checkBox_skip_empty")
-
-        self.horizontalLayout_13.addWidget(self.checkBox_skip_empty)
-
-        self.checkBox_skip_similar_image = QCheckBox(self.widget_11)
-        self.checkBox_skip_similar_image.setObjectName(u"checkBox_skip_similar_image")
-
-        self.horizontalLayout_13.addWidget(self.checkBox_skip_similar_image)
-
-
-        self.verticalLayout_5.addWidget(self.widget_11)
-
-        self.widget_15 = QWidget(self.groupBox_target_settings)
-        self.widget_15.setObjectName(u"widget_15")
-        sizePolicy2.setHeightForWidth(self.widget_15.sizePolicy().hasHeightForWidth())
-        self.widget_15.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_17 = QHBoxLayout(self.widget_15)
-        self.horizontalLayout_17.setSpacing(3)
-        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
-        self.horizontalLayout_17.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_autocrop = QCheckBox(self.widget_15)
-        self.checkBox_autocrop.setObjectName(u"checkBox_autocrop")
-
-        self.horizontalLayout_17.addWidget(self.checkBox_autocrop)
-
-        self.checkBox_invertPatch = QCheckBox(self.widget_15)
-        self.checkBox_invertPatch.setObjectName(u"checkBox_invertPatch")
-
-        self.horizontalLayout_17.addWidget(self.checkBox_invertPatch)
-
-
-        self.verticalLayout_5.addWidget(self.widget_15)
-
-        self.widget_22 = QWidget(self.groupBox_target_settings)
-        self.widget_22.setObjectName(u"widget_22")
-        self.horizontalLayout_25 = QHBoxLayout(self.widget_22)
-        self.horizontalLayout_25.setSpacing(3)
-        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
-        self.horizontalLayout_25.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_removeLeadingZeros = QCheckBox(self.widget_22)
-        self.checkBox_removeLeadingZeros.setObjectName(u"checkBox_removeLeadingZeros")
-
-        self.horizontalLayout_25.addWidget(self.checkBox_removeLeadingZeros)
-
-        self.checkBox_dotDetector = QCheckBox(self.widget_22)
-        self.checkBox_dotDetector.setObjectName(u"checkBox_dotDetector")
-
-        self.horizontalLayout_25.addWidget(self.checkBox_dotDetector)
-
-
-        self.verticalLayout_5.addWidget(self.widget_22)
-
-        self.widget_9 = QWidget(self.groupBox_target_settings)
-        self.widget_9.setObjectName(u"widget_9")
-        self.horizontalLayout_11 = QHBoxLayout(self.widget_9)
-        self.horizontalLayout_11.setSpacing(3)
-        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
-        self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_rescalePatch = QCheckBox(self.widget_9)
-        self.checkBox_rescalePatch.setObjectName(u"checkBox_rescalePatch")
-
-        self.horizontalLayout_11.addWidget(self.checkBox_rescalePatch)
-
-        self.checkBox_normWHRatio = QCheckBox(self.widget_9)
-        self.checkBox_normWHRatio.setObjectName(u"checkBox_normWHRatio")
-
-        self.horizontalLayout_11.addWidget(self.checkBox_normWHRatio)
-
-
-        self.verticalLayout_5.addWidget(self.widget_9)
-
-        self.widget_20 = QWidget(self.groupBox_target_settings)
-        self.widget_20.setObjectName(u"widget_20")
-        self.horizontalLayout_23 = QHBoxLayout(self.widget_20)
-        self.horizontalLayout_23.setSpacing(3)
-        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
-        self.horizontalLayout_23.setContentsMargins(0, 0, 0, 0)
-        self.label_binarizationMethod = QLabel(self.widget_20)
-        self.label_binarizationMethod.setObjectName(u"label_binarizationMethod")
-
-        self.horizontalLayout_23.addWidget(self.label_binarizationMethod)
-
-        self.comboBox_binarizationMethod = QComboBox(self.widget_20)
-        self.comboBox_binarizationMethod.addItem("")
-        self.comboBox_binarizationMethod.addItem("")
-        self.comboBox_binarizationMethod.addItem("")
-        self.comboBox_binarizationMethod.addItem("")
-        self.comboBox_binarizationMethod.setObjectName(u"comboBox_binarizationMethod")
-
-        self.horizontalLayout_23.addWidget(self.comboBox_binarizationMethod)
-
-
-        self.verticalLayout_5.addWidget(self.widget_20)
-
-        self.widget_17 = QWidget(self.groupBox_target_settings)
-        self.widget_17.setObjectName(u"widget_17")
-        sizePolicy3.setHeightForWidth(self.widget_17.sizePolicy().hasHeightForWidth())
-        self.widget_17.setSizePolicy(sizePolicy3)
-        self.horizontalLayout_20 = QHBoxLayout(self.widget_17)
-        self.horizontalLayout_20.setSpacing(3)
-        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
-        self.horizontalLayout_20.setContentsMargins(0, 0, 0, 0)
-        self.label_4 = QLabel(self.widget_17)
-        self.label_4.setObjectName(u"label_4")
-
-        self.horizontalLayout_20.addWidget(self.label_4)
-
-        self.horizontalSlider_cleanup = QSlider(self.widget_17)
-        self.horizontalSlider_cleanup.setObjectName(u"horizontalSlider_cleanup")
-        self.horizontalSlider_cleanup.setOrientation(Qt.Horizontal)
-
-        self.horizontalLayout_20.addWidget(self.horizontalSlider_cleanup)
-
-        self.label_15 = QLabel(self.widget_17)
-        self.label_15.setObjectName(u"label_15")
-
-        self.horizontalLayout_20.addWidget(self.label_15)
-
-        self.horizontalSlider_vscale = QSlider(self.widget_17)
-        self.horizontalSlider_vscale.setObjectName(u"horizontalSlider_vscale")
-        self.horizontalSlider_vscale.setMinimum(1)
-        self.horizontalSlider_vscale.setMaximum(10)
-        self.horizontalSlider_vscale.setPageStep(5)
-        self.horizontalSlider_vscale.setValue(10)
-        self.horizontalSlider_vscale.setOrientation(Qt.Horizontal)
-
-        self.horizontalLayout_20.addWidget(self.horizontalSlider_vscale)
-
-
-        self.verticalLayout_5.addWidget(self.widget_17)
-
-        self.widget_13 = QWidget(self.groupBox_target_settings)
-        self.widget_13.setObjectName(u"widget_13")
-        sizePolicy2.setHeightForWidth(self.widget_13.sizePolicy().hasHeightForWidth())
-        self.widget_13.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_15 = QHBoxLayout(self.widget_13)
-        self.horizontalLayout_15.setSpacing(3)
-        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
-        self.horizontalLayout_15.setContentsMargins(0, 0, 0, 0)
-        self.label_9 = QLabel(self.widget_13)
-        self.label_9.setObjectName(u"label_9")
-
-        self.horizontalLayout_15.addWidget(self.label_9)
-
-        self.horizontalSlider_dilate = QSlider(self.widget_13)
-        self.horizontalSlider_dilate.setObjectName(u"horizontalSlider_dilate")
-        self.horizontalSlider_dilate.setMaximum(5)
-        self.horizontalSlider_dilate.setPageStep(1)
-        self.horizontalSlider_dilate.setOrientation(Qt.Horizontal)
-
-        self.horizontalLayout_15.addWidget(self.horizontalSlider_dilate)
-
-        self.label_14 = QLabel(self.widget_13)
-        self.label_14.setObjectName(u"label_14")
-
-        self.horizontalLayout_15.addWidget(self.label_14)
-
-        self.horizontalSlider_skew = QSlider(self.widget_13)
-        self.horizontalSlider_skew.setObjectName(u"horizontalSlider_skew")
-        self.horizontalSlider_skew.setMinimum(-10)
-        self.horizontalSlider_skew.setMaximum(10)
-        self.horizontalSlider_skew.setOrientation(Qt.Horizontal)
-
-        self.horizontalLayout_15.addWidget(self.horizontalSlider_skew)
-
-
-        self.verticalLayout_5.addWidget(self.widget_13)
-
-        self.widget_21 = QWidget(self.groupBox_target_settings)
-        self.widget_21.setObjectName(u"widget_21")
-        self.horizontalLayout_24 = QHBoxLayout(self.widget_21)
-        self.horizontalLayout_24.setSpacing(3)
-        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
-        self.horizontalLayout_24.setContentsMargins(0, 0, 0, 0)
-        self.label_3 = QLabel(self.widget_21)
-        self.label_3.setObjectName(u"label_3")
-
-        self.horizontalLayout_24.addWidget(self.label_3)
-
-        self.horizontalSlider_conf_thresh = QSlider(self.widget_21)
-        self.horizontalSlider_conf_thresh.setObjectName(u"horizontalSlider_conf_thresh")
-        self.horizontalSlider_conf_thresh.setValue(50)
-        self.horizontalSlider_conf_thresh.setOrientation(Qt.Horizontal)
-
-        self.horizontalLayout_24.addWidget(self.horizontalSlider_conf_thresh)
-
-
-        self.verticalLayout_5.addWidget(self.widget_21)
-
-
-        self.verticalLayout_3.addWidget(self.groupBox_target_settings)
-
-        self.widget_23 = QWidget(self.groupBox_sb_info)
-        self.widget_23.setObjectName(u"widget_23")
-        self.horizontalLayout = QHBoxLayout(self.widget_23)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_templatefield = QCheckBox(self.widget_23)
-        self.checkBox_templatefield.setObjectName(u"checkBox_templatefield")
-
-        self.horizontalLayout.addWidget(self.checkBox_templatefield)
-
-        self.lineEdit_templatefield = QLineEdit(self.widget_23)
-        self.lineEdit_templatefield.setObjectName(u"lineEdit_templatefield")
-
-        self.horizontalLayout.addWidget(self.lineEdit_templatefield)
-
-
-        self.verticalLayout_3.addWidget(self.widget_23)
-
-        self.widget_6 = QWidget(self.groupBox_sb_info)
-        self.widget_6.setObjectName(u"widget_6")
-        self.horizontalLayout_7 = QHBoxLayout(self.widget_6)
-        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.label_10 = QLabel(self.widget_6)
-        self.label_10.setObjectName(u"label_10")
-        sizePolicy.setHeightForWidth(self.label_10.sizePolicy().hasHeightForWidth())
-        self.label_10.setSizePolicy(sizePolicy)
-
-        self.horizontalLayout_7.addWidget(self.label_10)
-
-        self.comboBox_ocrModel = QComboBox(self.widget_6)
-        self.comboBox_ocrModel.setObjectName(u"comboBox_ocrModel")
-
-        self.horizontalLayout_7.addWidget(self.comboBox_ocrModel)
-
-
-        self.verticalLayout_3.addWidget(self.widget_6)
-
-
-        self.verticalLayout.addWidget(self.groupBox_sb_info)
-
-        self.line_2 = QFrame(self.frame)
-        self.line_2.setObjectName(u"line_2")
-        self.line_2.setMidLineWidth(1)
-        self.line_2.setFrameShape(QFrame.Shape.HLine)
-        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.verticalLayout.addWidget(self.line_2)
-
-        self.tabWidget_outputs = QTabWidget(self.frame)
-        self.tabWidget_outputs.setObjectName(u"tabWidget_outputs")
-        self.tabWidget_outputs.setTabShape(QTabWidget.Rounded)
-        self.tab_textFiles = QWidget()
-        self.tab_textFiles.setObjectName(u"tab_textFiles")
-        sizePolicy3.setHeightForWidth(self.tab_textFiles.sizePolicy().hasHeightForWidth())
-        self.tab_textFiles.setSizePolicy(sizePolicy3)
-        self.formLayout_2 = QFormLayout(self.tab_textFiles)
-        self.formLayout_2.setObjectName(u"formLayout_2")
-        self.formLayout_2.setVerticalSpacing(3)
-        self.formLayout_2.setContentsMargins(-1, -1, -1, 0)
-        self.label_7 = QLabel(self.tab_textFiles)
-        self.label_7.setObjectName(u"label_7")
-
-        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_7)
-
-        self.widget_5 = QWidget(self.tab_textFiles)
-        self.widget_5.setObjectName(u"widget_5")
-        sizePolicy4.setHeightForWidth(self.widget_5.sizePolicy().hasHeightForWidth())
-        self.widget_5.setSizePolicy(sizePolicy4)
-        self.horizontalLayout_6 = QHBoxLayout(self.widget_5)
-        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.lineEdit_folder = QLineEdit(self.widget_5)
-        self.lineEdit_folder.setObjectName(u"lineEdit_folder")
-        self.lineEdit_folder.setReadOnly(True)
-
-        self.horizontalLayout_6.addWidget(self.lineEdit_folder)
-
-        self.pushButton_selectFolder = QToolButton(self.widget_5)
-        self.pushButton_selectFolder.setObjectName(u"pushButton_selectFolder")
-
-        self.horizontalLayout_6.addWidget(self.pushButton_selectFolder)
-
-        self.toolButton_trashFolder = QToolButton(self.widget_5)
-        self.toolButton_trashFolder.setObjectName(u"toolButton_trashFolder")
-
-        self.horizontalLayout_6.addWidget(self.toolButton_trashFolder)
-
-
-        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.widget_5)
-
-        self.widget_12 = QWidget(self.tab_textFiles)
-        self.widget_12.setObjectName(u"widget_12")
-        sizePolicy4.setHeightForWidth(self.widget_12.sizePolicy().hasHeightForWidth())
-        self.widget_12.setSizePolicy(sizePolicy4)
-        self.horizontalLayout_14 = QHBoxLayout(self.widget_12)
-        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
-        self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_saveCsv = QCheckBox(self.widget_12)
-        self.checkBox_saveCsv.setObjectName(u"checkBox_saveCsv")
-
-        self.horizontalLayout_14.addWidget(self.checkBox_saveCsv)
-
-        self.checkBox_saveXML = QCheckBox(self.widget_12)
-        self.checkBox_saveXML.setObjectName(u"checkBox_saveXML")
-
-        self.horizontalLayout_14.addWidget(self.checkBox_saveXML)
-
-
-        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.widget_12)
-
-        self.label_append = QLabel(self.tab_textFiles)
-        self.label_append.setObjectName(u"label_append")
-
-        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_append)
-
-        self.comboBox_appendMethod = QComboBox(self.tab_textFiles)
-        self.comboBox_appendMethod.addItem("")
-        self.comboBox_appendMethod.addItem("")
-        self.comboBox_appendMethod.addItem("")
-        self.comboBox_appendMethod.addItem("")
-        self.comboBox_appendMethod.setObjectName(u"comboBox_appendMethod")
-        sizePolicy4.setHeightForWidth(self.comboBox_appendMethod.sizePolicy().hasHeightForWidth())
-        self.comboBox_appendMethod.setSizePolicy(sizePolicy4)
-
-        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.comboBox_appendMethod)
-
-        self.label_savePerSec = QLabel(self.tab_textFiles)
-        self.label_savePerSec.setObjectName(u"label_savePerSec")
-
-        self.formLayout_2.setWidget(3, QFormLayout.LabelRole, self.label_savePerSec)
-
-        self.horizontalSlider_aggsPerSecond = QSlider(self.tab_textFiles)
-        self.horizontalSlider_aggsPerSecond.setObjectName(u"horizontalSlider_aggsPerSecond")
-        self.horizontalSlider_aggsPerSecond.setMinimum(1)
-        self.horizontalSlider_aggsPerSecond.setMaximum(10)
-        self.horizontalSlider_aggsPerSecond.setPageStep(1)
-        self.horizontalSlider_aggsPerSecond.setValue(5)
-        self.horizontalSlider_aggsPerSecond.setOrientation(Qt.Horizontal)
-        self.horizontalSlider_aggsPerSecond.setTickPosition(QSlider.TicksBelow)
-
-        self.formLayout_2.setWidget(3, QFormLayout.FieldRole, self.horizontalSlider_aggsPerSecond)
-
-        self.tabWidget_outputs.addTab(self.tab_textFiles, "")
-        self.tab_browser = QWidget()
-        self.tab_browser.setObjectName(u"tab_browser")
-        self.verticalLayout_4 = QVBoxLayout(self.tab_browser)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.label_8 = QLabel(self.tab_browser)
-        self.label_8.setObjectName(u"label_8")
-        self.label_8.setTextFormat(Qt.RichText)
-        self.label_8.setOpenExternalLinks(True)
-        self.label_8.setTextInteractionFlags(Qt.LinksAccessibleByMouse|Qt.TextSelectableByMouse)
-
-        self.verticalLayout_4.addWidget(self.label_8, 0, Qt.AlignTop)
-
-        self.tabWidget_outputs.addTab(self.tab_browser, "")
-        self.tab_obs = QWidget()
-        self.tab_obs.setObjectName(u"tab_obs")
-        self.gridLayout_2 = QGridLayout(self.tab_obs)
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.gridLayout_2.setVerticalSpacing(2)
-        self.pushButton_connectObs = QPushButton(self.tab_obs)
-        self.pushButton_connectObs.setObjectName(u"pushButton_connectObs")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.pushButton_connectObs.sizePolicy().hasHeightForWidth())
-        self.pushButton_connectObs.setSizePolicy(sizePolicy6)
-        self.pushButton_connectObs.setMinimumSize(QSize(0, 0))
-
-        self.gridLayout_2.addWidget(self.pushButton_connectObs, 0, 0, 1, 1)
-
-        self.widget_18 = QWidget(self.tab_obs)
-        self.widget_18.setObjectName(u"widget_18")
-        self.horizontalLayout_22 = QHBoxLayout(self.widget_18)
-        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
-        self.lineEdit_sceneName = QLineEdit(self.widget_18)
-        self.lineEdit_sceneName.setObjectName(u"lineEdit_sceneName")
-        self.lineEdit_sceneName.setEnabled(False)
-
-        self.horizontalLayout_22.addWidget(self.lineEdit_sceneName)
-
-        self.pushButton_createOBSScene = QPushButton(self.widget_18)
-        self.pushButton_createOBSScene.setObjectName(u"pushButton_createOBSScene")
-        self.pushButton_createOBSScene.setEnabled(False)
-
-        self.horizontalLayout_22.addWidget(self.pushButton_createOBSScene)
-
-        self.checkBox_recreate = QCheckBox(self.widget_18)
-        self.checkBox_recreate.setObjectName(u"checkBox_recreate")
-        self.checkBox_recreate.setEnabled(False)
-        self.checkBox_recreate.setChecked(True)
-
-        self.horizontalLayout_22.addWidget(self.checkBox_recreate)
-
-
-        self.gridLayout_2.addWidget(self.widget_18, 1, 0, 1, 1, Qt.AlignTop)
-
-        self.tabWidget_outputs.addTab(self.tab_obs, "")
-        self.tab_vmix = QWidget()
-        self.tab_vmix.setObjectName(u"tab_vmix")
-        self.gridLayout_3 = QGridLayout(self.tab_vmix)
-        self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.gridLayout_3.setVerticalSpacing(2)
-        self.tableView_vmixMapping = QTableView(self.tab_vmix)
-        self.tableView_vmixMapping.setObjectName(u"tableView_vmixMapping")
-        self.tableView_vmixMapping.horizontalHeader().setVisible(False)
-        self.tableView_vmixMapping.horizontalHeader().setStretchLastSection(True)
-
-        self.gridLayout_3.addWidget(self.tableView_vmixMapping, 1, 0, 1, 1)
-
-        self.verticalLayout_6 = QVBoxLayout()
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.connectionWidget = QWidget(self.tab_vmix)
-        self.connectionWidget.setObjectName(u"connectionWidget")
-        self.horizontalLayout_18 = QHBoxLayout(self.connectionWidget)
-        self.horizontalLayout_18.setSpacing(3)
-        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
-        self.horizontalLayout_18.setContentsMargins(0, 0, 0, 0)
-        self.connectionLabel = QLabel(self.connectionWidget)
-        self.connectionLabel.setObjectName(u"connectionLabel")
-
-        self.horizontalLayout_18.addWidget(self.connectionLabel)
-
-        self.lineEdit_vmixHost = QLineEdit(self.connectionWidget)
-        self.lineEdit_vmixHost.setObjectName(u"lineEdit_vmixHost")
-
-        self.horizontalLayout_18.addWidget(self.lineEdit_vmixHost)
-
-        self.label_5 = QLabel(self.connectionWidget)
-        self.label_5.setObjectName(u"label_5")
-
-        self.horizontalLayout_18.addWidget(self.label_5)
-
-        self.lineEdit_vmixPort = QLineEdit(self.connectionWidget)
-        self.lineEdit_vmixPort.setObjectName(u"lineEdit_vmixPort")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.lineEdit_vmixPort.sizePolicy().hasHeightForWidth())
-        self.lineEdit_vmixPort.setSizePolicy(sizePolicy7)
-        self.lineEdit_vmixPort.setMaximumSize(QSize(50, 16777215))
-
-        self.horizontalLayout_18.addWidget(self.lineEdit_vmixPort)
-
-        self.pushButton_startvmix = QPushButton(self.connectionWidget)
-        self.pushButton_startvmix.setObjectName(u"pushButton_startvmix")
-        sizePolicy7.setHeightForWidth(self.pushButton_startvmix.sizePolicy().hasHeightForWidth())
-        self.pushButton_startvmix.setSizePolicy(sizePolicy7)
-        self.pushButton_startvmix.setCheckable(True)
-        self.pushButton_startvmix.setChecked(False)
-
-        self.horizontalLayout_18.addWidget(self.pushButton_startvmix)
-
-
-        self.verticalLayout_6.addWidget(self.connectionWidget)
-
-        self.widget_16 = QWidget(self.tab_vmix)
-        self.widget_16.setObjectName(u"widget_16")
-        self.widget_16.setMinimumSize(QSize(0, 0))
-        self.horizontalLayout_19 = QHBoxLayout(self.widget_16)
-        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
-        self.horizontalLayout_19.setContentsMargins(0, 0, 0, 0)
-        self.vmixinputLabel = QLabel(self.widget_16)
-        self.vmixinputLabel.setObjectName(u"vmixinputLabel")
-
-        self.horizontalLayout_19.addWidget(self.vmixinputLabel)
-
-        self.inputLineEdit_vmix = QLineEdit(self.widget_16)
-        self.inputLineEdit_vmix.setObjectName(u"inputLineEdit_vmix")
-
-        self.horizontalLayout_19.addWidget(self.inputLineEdit_vmix)
-
-        self.checkBox_vmix_send_same = QCheckBox(self.widget_16)
-        self.checkBox_vmix_send_same.setObjectName(u"checkBox_vmix_send_same")
-
-        self.horizontalLayout_19.addWidget(self.checkBox_vmix_send_same)
-
-
-        self.verticalLayout_6.addWidget(self.widget_16)
-
-
-        self.gridLayout_3.addLayout(self.verticalLayout_6, 0, 0, 1, 1)
-
-        self.tabWidget_outputs.addTab(self.tab_vmix, "")
-        self.tab_api = QWidget()
-        self.tab_api.setObjectName(u"tab_api")
-        self.formLayout_3 = QFormLayout(self.tab_api)
-        self.formLayout_3.setObjectName(u"formLayout_3")
-        self.formLayout_3.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
-        self.checkBox_enableOutAPI = QCheckBox(self.tab_api)
-        self.checkBox_enableOutAPI.setObjectName(u"checkBox_enableOutAPI")
-
-        self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.checkBox_enableOutAPI)
-
-        self.label_21 = QLabel(self.tab_api)
-        self.label_21.setObjectName(u"label_21")
-
-        self.formLayout_3.setWidget(4, QFormLayout.LabelRole, self.label_21)
-
-        self.comboBox_api_encode = QComboBox(self.tab_api)
-        self.comboBox_api_encode.addItem("")
-        self.comboBox_api_encode.addItem("")
-        self.comboBox_api_encode.addItem("")
-        self.comboBox_api_encode.addItem("")
-        self.comboBox_api_encode.setObjectName(u"comboBox_api_encode")
-
-        self.formLayout_3.setWidget(4, QFormLayout.FieldRole, self.comboBox_api_encode)
-
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.formLayout_3.setItem(5, QFormLayout.FieldRole, self.verticalSpacer)
-
-        self.widget_24 = QWidget(self.tab_api)
-        self.widget_24.setObjectName(u"widget_24")
-        self.horizontalLayout_27 = QHBoxLayout(self.widget_24)
-        self.horizontalLayout_27.setSpacing(2)
-        self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
-        self.horizontalLayout_27.setContentsMargins(0, 0, 0, 0)
-        self.lineEdit_api_url = QLineEdit(self.widget_24)
-        self.lineEdit_api_url.setObjectName(u"lineEdit_api_url")
-
-        self.horizontalLayout_27.addWidget(self.lineEdit_api_url)
-
-        self.comboBox_outApiMethod = QComboBox(self.widget_24)
-        self.comboBox_outApiMethod.addItem("")
-        self.comboBox_outApiMethod.addItem("")
-        self.comboBox_outApiMethod.addItem("")
-        self.comboBox_outApiMethod.setObjectName(u"comboBox_outApiMethod")
-        self.comboBox_outApiMethod.setMaximumSize(QSize(50, 16777215))
-
-        self.horizontalLayout_27.addWidget(self.comboBox_outApiMethod)
-
-
-        self.formLayout_3.setWidget(1, QFormLayout.FieldRole, self.widget_24)
-
-        self.label_20 = QLabel(self.tab_api)
-        self.label_20.setObjectName(u"label_20")
-
-        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.label_20)
-
-        self.tabWidget_outputs.addTab(self.tab_api, "")
-
-        self.verticalLayout.addWidget(self.tabWidget_outputs, 0, Qt.AlignTop)
-
-        self.pushButton_stopUpdates = QPushButton(self.frame)
-        self.pushButton_stopUpdates.setObjectName(u"pushButton_stopUpdates")
-        self.pushButton_stopUpdates.setMinimumSize(QSize(0, 0))
-        self.pushButton_stopUpdates.setCheckable(True)
-
-        self.verticalLayout.addWidget(self.pushButton_stopUpdates)
-
-        self.widget_detectionCadence = QWidget(self.frame)
-        self.widget_detectionCadence.setObjectName(u"widget_detectionCadence")
-        self.horizontalLayout_9 = QHBoxLayout(self.widget_detectionCadence)
-        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-        self.horizontalLayout_9.setContentsMargins(0, 0, 0, 0)
-        self.label_detectionCadence = QLabel(self.widget_detectionCadence)
-        self.label_detectionCadence.setObjectName(u"label_detectionCadence")
-
-        self.horizontalLayout_9.addWidget(self.label_detectionCadence)
-
-        self.horizontalSlider_detectionCadence = QSlider(self.widget_detectionCadence)
-        self.horizontalSlider_detectionCadence.setObjectName(u"horizontalSlider_detectionCadence")
-        self.horizontalSlider_detectionCadence.setMinimum(1)
-        self.horizontalSlider_detectionCadence.setMaximum(15)
-        self.horizontalSlider_detectionCadence.setPageStep(5)
-        self.horizontalSlider_detectionCadence.setValue(5)
-        self.horizontalSlider_detectionCadence.setOrientation(Qt.Horizontal)
-        self.horizontalSlider_detectionCadence.setInvertedAppearance(False)
-        self.horizontalSlider_detectionCadence.setInvertedControls(False)
-        self.horizontalSlider_detectionCadence.setTickPosition(QSlider.TicksBelow)
-        self.horizontalSlider_detectionCadence.setTickInterval(5)
-
-        self.horizontalLayout_9.addWidget(self.horizontalSlider_detectionCadence)
-
-        self.checkBox_updateOnchange = QCheckBox(self.widget_detectionCadence)
-        self.checkBox_updateOnchange.setObjectName(u"checkBox_updateOnchange")
-        self.checkBox_updateOnchange.setChecked(True)
-
-        self.horizontalLayout_9.addWidget(self.checkBox_updateOnchange)
-
-
-        self.verticalLayout.addWidget(self.widget_detectionCadence)
-
-
-        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.frame)
-
+        self.verticalLayout_7 = QVBoxLayout(self.centralwidget)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.frame_source_view = QFrame(self.centralwidget)
         self.frame_source_view.setObjectName(u"frame_source_view")
         self.frame_source_view.setEnabled(True)
-        sizePolicy2.setHeightForWidth(self.frame_source_view.sizePolicy().hasHeightForWidth())
-        self.frame_source_view.setSizePolicy(sizePolicy2)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.frame_source_view.sizePolicy().hasHeightForWidth())
+        self.frame_source_view.setSizePolicy(sizePolicy)
         self.frame_source_view.setFrameShape(QFrame.StyledPanel)
         self.frame_source_view.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.frame_source_view)
@@ -883,8 +60,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.label = QLabel(self.widget_3)
         self.label.setObjectName(u"label")
-        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy1)
 
         self.horizontalLayout_3.addWidget(self.label)
 
@@ -894,11 +74,11 @@ class Ui_MainWindow(object):
         self.comboBox_camera_source.addItem("")
         self.comboBox_camera_source.addItem("")
         self.comboBox_camera_source.setObjectName(u"comboBox_camera_source")
-        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy8.setHorizontalStretch(1)
-        sizePolicy8.setVerticalStretch(0)
-        sizePolicy8.setHeightForWidth(self.comboBox_camera_source.sizePolicy().hasHeightForWidth())
-        self.comboBox_camera_source.setSizePolicy(sizePolicy8)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy2.setHorizontalStretch(1)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.comboBox_camera_source.sizePolicy().hasHeightForWidth())
+        self.comboBox_camera_source.setSizePolicy(sizePolicy2)
 
         self.horizontalLayout_3.addWidget(self.comboBox_camera_source)
 
@@ -1001,9 +181,9 @@ class Ui_MainWindow(object):
         self.widget_cropPanel.setObjectName(u"widget_cropPanel")
         self.widget_cropPanel.setEnabled(False)
         self.widget_cropPanel.setMaximumSize(QSize(16777215, 18))
-        font1 = QFont()
-        font1.setPointSize(8)
-        self.widget_cropPanel.setFont(font1)
+        font = QFont()
+        font.setPointSize(8)
+        self.widget_cropPanel.setFont(font)
         self.horizontalLayout_26 = QHBoxLayout(self.widget_cropPanel)
         self.horizontalLayout_26.setObjectName(u"horizontalLayout_26")
         self.horizontalLayout_26.setContentsMargins(0, 0, 0, 0)
@@ -1079,11 +259,11 @@ class Ui_MainWindow(object):
         self.frame_for_source_view_label = QFrame(self.frame_source_view)
         self.frame_for_source_view_label.setObjectName(u"frame_for_source_view_label")
         self.frame_for_source_view_label.setEnabled(True)
-        sizePolicy9 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
-        sizePolicy9.setHorizontalStretch(0)
-        sizePolicy9.setVerticalStretch(0)
-        sizePolicy9.setHeightForWidth(self.frame_for_source_view_label.sizePolicy().hasHeightForWidth())
-        self.frame_for_source_view_label.setSizePolicy(sizePolicy9)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.frame_for_source_view_label.sizePolicy().hasHeightForWidth())
+        self.frame_for_source_view_label.setSizePolicy(sizePolicy3)
         self.gridLayout = QGridLayout(self.frame_for_source_view_label)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setSizeConstraint(QLayout.SetMaximumSize)
@@ -1100,7 +280,897 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.frame_for_source_view_label)
 
 
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.frame_source_view)
+        self.verticalLayout_7.addWidget(self.frame_source_view)
+
+        self.frame = QFrame(self.centralwidget)
+        self.frame.setObjectName(u"frame")
+        sizePolicy1.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(sizePolicy1)
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Plain)
+        self.frame.setLineWidth(0)
+        self.verticalLayout = QVBoxLayout(self.frame)
+        self.verticalLayout.setSpacing(3)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.groupBox_sb_info = QWidget(self.frame)
+        self.groupBox_sb_info.setObjectName(u"groupBox_sb_info")
+        self.groupBox_sb_info.setEnabled(False)
+        self.verticalLayout_3 = QVBoxLayout(self.groupBox_sb_info)
+        self.verticalLayout_3.setSpacing(4)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.widget = QWidget(self.groupBox_sb_info)
+        self.widget.setObjectName(u"widget")
+        self.horizontalLayout_2 = QHBoxLayout(self.widget)
+        self.horizontalLayout_2.setSpacing(1)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.tableWidget_boxes = QTableWidget(self.widget)
+        if (self.tableWidget_boxes.columnCount() < 2):
+            self.tableWidget_boxes.setColumnCount(2)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.tableWidget_boxes.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.tableWidget_boxes.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        self.tableWidget_boxes.setObjectName(u"tableWidget_boxes")
+        self.tableWidget_boxes.setMinimumSize(QSize(0, 100))
+        self.tableWidget_boxes.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.tableWidget_boxes.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tableWidget_boxes.setTabKeyNavigation(False)
+        self.tableWidget_boxes.setDragDropOverwriteMode(False)
+        self.tableWidget_boxes.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.tableWidget_boxes.setShowGrid(False)
+        self.tableWidget_boxes.horizontalHeader().setCascadingSectionResizes(True)
+        self.tableWidget_boxes.verticalHeader().setVisible(False)
+
+        self.horizontalLayout_2.addWidget(self.tableWidget_boxes)
+
+        self.widget_8 = QWidget(self.widget)
+        self.widget_8.setObjectName(u"widget_8")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.widget_8.sizePolicy().hasHeightForWidth())
+        self.widget_8.setSizePolicy(sizePolicy4)
+        self.gridLayout_4 = QGridLayout(self.widget_8)
+        self.gridLayout_4.setSpacing(0)
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.gridLayout_4.setSizeConstraint(QLayout.SetMinimumSize)
+        self.gridLayout_4.setContentsMargins(3, 0, 0, 0)
+        self.toolButton_addBox = QToolButton(self.widget_8)
+        self.toolButton_addBox.setObjectName(u"toolButton_addBox")
+        self.toolButton_addBox.setMinimumSize(QSize(27, 0))
+        font1 = QFont()
+        font1.setPointSize(14)
+        font1.setBold(True)
+        self.toolButton_addBox.setFont(font1)
+
+        self.gridLayout_4.addWidget(self.toolButton_addBox, 0, 0, 1, 1)
+
+        self.toolButton_removeBox = QToolButton(self.widget_8)
+        self.toolButton_removeBox.setObjectName(u"toolButton_removeBox")
+        self.toolButton_removeBox.setMinimumSize(QSize(27, 0))
+        self.toolButton_removeBox.setFont(font1)
+
+        self.gridLayout_4.addWidget(self.toolButton_removeBox, 1, 0, 1, 1)
+
+
+        self.horizontalLayout_2.addWidget(self.widget_8, 0, Qt.AlignHCenter)
+
+
+        self.verticalLayout_3.addWidget(self.widget)
+
+        self.widget_2 = QWidget(self.groupBox_sb_info)
+        self.widget_2.setObjectName(u"widget_2")
+        self.horizontalLayout_5 = QHBoxLayout(self.widget_2)
+        self.horizontalLayout_5.setSpacing(3)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.pushButton_makeBox = QPushButton(self.widget_2)
+        self.pushButton_makeBox.setObjectName(u"pushButton_makeBox")
+        self.pushButton_makeBox.setEnabled(False)
+
+        self.horizontalLayout_5.addWidget(self.pushButton_makeBox)
+
+        self.pushButton_removeBox = QPushButton(self.widget_2)
+        self.pushButton_removeBox.setObjectName(u"pushButton_removeBox")
+        self.pushButton_removeBox.setEnabled(False)
+
+        self.horizontalLayout_5.addWidget(self.pushButton_removeBox)
+
+
+        self.verticalLayout_3.addWidget(self.widget_2)
+
+        self.groupBox_target_settings = QGroupBox(self.groupBox_sb_info)
+        self.groupBox_target_settings.setObjectName(u"groupBox_target_settings")
+        self.verticalLayout_5 = QVBoxLayout(self.groupBox_target_settings)
+        self.verticalLayout_5.setSpacing(2)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(3, 0, 3, 3)
+        self.widget_10 = QWidget(self.groupBox_target_settings)
+        self.widget_10.setObjectName(u"widget_10")
+        sizePolicy.setHeightForWidth(self.widget_10.sizePolicy().hasHeightForWidth())
+        self.widget_10.setSizePolicy(sizePolicy)
+        self.horizontalLayout_12 = QHBoxLayout(self.widget_10)
+        self.horizontalLayout_12.setSpacing(3)
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
+        self.label_6 = QLabel(self.widget_10)
+        self.label_6.setObjectName(u"label_6")
+
+        self.horizontalLayout_12.addWidget(self.label_6)
+
+        self.label_selectedInfo = QLabel(self.widget_10)
+        self.label_selectedInfo.setObjectName(u"label_selectedInfo")
+
+        self.horizontalLayout_12.addWidget(self.label_selectedInfo)
+
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_12.addItem(self.horizontalSpacer_3)
+
+        self.pushButton_restoreDefaults = QPushButton(self.widget_10)
+        self.pushButton_restoreDefaults.setObjectName(u"pushButton_restoreDefaults")
+
+        self.horizontalLayout_12.addWidget(self.pushButton_restoreDefaults)
+
+
+        self.verticalLayout_5.addWidget(self.widget_10)
+
+        self.widget_7 = QWidget(self.groupBox_target_settings)
+        self.widget_7.setObjectName(u"widget_7")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.widget_7.sizePolicy().hasHeightForWidth())
+        self.widget_7.setSizePolicy(sizePolicy5)
+        self.horizontalLayout_8 = QHBoxLayout(self.widget_7)
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.label_2 = QLabel(self.widget_7)
+        self.label_2.setObjectName(u"label_2")
+
+        self.horizontalLayout_8.addWidget(self.label_2)
+
+        self.lineEdit_format = QLineEdit(self.widget_7)
+        self.lineEdit_format.setObjectName(u"lineEdit_format")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.lineEdit_format.sizePolicy().hasHeightForWidth())
+        self.lineEdit_format.setSizePolicy(sizePolicy6)
+
+        self.horizontalLayout_8.addWidget(self.lineEdit_format)
+
+        self.comboBox_formatPrefix = QComboBox(self.widget_7)
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.setObjectName(u"comboBox_formatPrefix")
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.comboBox_formatPrefix.sizePolicy().hasHeightForWidth())
+        self.comboBox_formatPrefix.setSizePolicy(sizePolicy7)
+
+        self.horizontalLayout_8.addWidget(self.comboBox_formatPrefix)
+
+
+        self.verticalLayout_5.addWidget(self.widget_7)
+
+        self.widget_19 = QWidget(self.groupBox_target_settings)
+        self.widget_19.setObjectName(u"widget_19")
+        self.horizontalLayout_21 = QHBoxLayout(self.widget_19)
+        self.horizontalLayout_21.setSpacing(3)
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.horizontalLayout_21.setContentsMargins(0, 0, 0, 0)
+        self.widget_25 = QWidget(self.widget_19)
+        self.widget_25.setObjectName(u"widget_25")
+        self.horizontalLayout_28 = QHBoxLayout(self.widget_25)
+        self.horizontalLayout_28.setObjectName(u"horizontalLayout_28")
+        self.horizontalLayout_28.setContentsMargins(0, 0, 0, 0)
+        self.label_13 = QLabel(self.widget_25)
+        self.label_13.setObjectName(u"label_13")
+
+        self.horizontalLayout_28.addWidget(self.label_13)
+
+        self.comboBox_fieldType = QComboBox(self.widget_25)
+        self.comboBox_fieldType.addItem("")
+        self.comboBox_fieldType.addItem("")
+        self.comboBox_fieldType.addItem("")
+        self.comboBox_fieldType.setObjectName(u"comboBox_fieldType")
+
+        self.horizontalLayout_28.addWidget(self.comboBox_fieldType)
+
+
+        self.horizontalLayout_21.addWidget(self.widget_25)
+
+        self.checkBox_compositeBox = QCheckBox(self.widget_19)
+        self.checkBox_compositeBox.setObjectName(u"checkBox_compositeBox")
+
+        self.horizontalLayout_21.addWidget(self.checkBox_compositeBox)
+
+
+        self.verticalLayout_5.addWidget(self.widget_19)
+
+        self.widget_14 = QWidget(self.groupBox_target_settings)
+        self.widget_14.setObjectName(u"widget_14")
+        sizePolicy.setHeightForWidth(self.widget_14.sizePolicy().hasHeightForWidth())
+        self.widget_14.setSizePolicy(sizePolicy)
+        self.horizontalLayout_16 = QHBoxLayout(self.widget_14)
+        self.horizontalLayout_16.setSpacing(3)
+        self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
+        self.horizontalLayout_16.setContentsMargins(0, 0, 0, 0)
+        self.checkBox_smoothing = QCheckBox(self.widget_14)
+        self.checkBox_smoothing.setObjectName(u"checkBox_smoothing")
+
+        self.horizontalLayout_16.addWidget(self.checkBox_smoothing)
+
+        self.checkBox_ordinalIndicator = QCheckBox(self.widget_14)
+        self.checkBox_ordinalIndicator.setObjectName(u"checkBox_ordinalIndicator")
+
+        self.horizontalLayout_16.addWidget(self.checkBox_ordinalIndicator)
+
+
+        self.verticalLayout_5.addWidget(self.widget_14)
+
+        self.widget_11 = QWidget(self.groupBox_target_settings)
+        self.widget_11.setObjectName(u"widget_11")
+        sizePolicy.setHeightForWidth(self.widget_11.sizePolicy().hasHeightForWidth())
+        self.widget_11.setSizePolicy(sizePolicy)
+        self.horizontalLayout_13 = QHBoxLayout(self.widget_11)
+        self.horizontalLayout_13.setSpacing(3)
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
+        self.checkBox_skip_empty = QCheckBox(self.widget_11)
+        self.checkBox_skip_empty.setObjectName(u"checkBox_skip_empty")
+
+        self.horizontalLayout_13.addWidget(self.checkBox_skip_empty)
+
+        self.checkBox_skip_similar_image = QCheckBox(self.widget_11)
+        self.checkBox_skip_similar_image.setObjectName(u"checkBox_skip_similar_image")
+
+        self.horizontalLayout_13.addWidget(self.checkBox_skip_similar_image)
+
+
+        self.verticalLayout_5.addWidget(self.widget_11)
+
+        self.widget_15 = QWidget(self.groupBox_target_settings)
+        self.widget_15.setObjectName(u"widget_15")
+        sizePolicy.setHeightForWidth(self.widget_15.sizePolicy().hasHeightForWidth())
+        self.widget_15.setSizePolicy(sizePolicy)
+        self.horizontalLayout_17 = QHBoxLayout(self.widget_15)
+        self.horizontalLayout_17.setSpacing(3)
+        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
+        self.horizontalLayout_17.setContentsMargins(0, 0, 0, 0)
+        self.checkBox_autocrop = QCheckBox(self.widget_15)
+        self.checkBox_autocrop.setObjectName(u"checkBox_autocrop")
+
+        self.horizontalLayout_17.addWidget(self.checkBox_autocrop)
+
+        self.checkBox_invertPatch = QCheckBox(self.widget_15)
+        self.checkBox_invertPatch.setObjectName(u"checkBox_invertPatch")
+
+        self.horizontalLayout_17.addWidget(self.checkBox_invertPatch)
+
+
+        self.verticalLayout_5.addWidget(self.widget_15)
+
+        self.widget_22 = QWidget(self.groupBox_target_settings)
+        self.widget_22.setObjectName(u"widget_22")
+        self.horizontalLayout_25 = QHBoxLayout(self.widget_22)
+        self.horizontalLayout_25.setSpacing(3)
+        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
+        self.horizontalLayout_25.setContentsMargins(0, 0, 0, 0)
+        self.checkBox_removeLeadingZeros = QCheckBox(self.widget_22)
+        self.checkBox_removeLeadingZeros.setObjectName(u"checkBox_removeLeadingZeros")
+
+        self.horizontalLayout_25.addWidget(self.checkBox_removeLeadingZeros)
+
+        self.checkBox_dotDetector = QCheckBox(self.widget_22)
+        self.checkBox_dotDetector.setObjectName(u"checkBox_dotDetector")
+
+        self.horizontalLayout_25.addWidget(self.checkBox_dotDetector)
+
+
+        self.verticalLayout_5.addWidget(self.widget_22)
+
+        self.widget_9 = QWidget(self.groupBox_target_settings)
+        self.widget_9.setObjectName(u"widget_9")
+        self.horizontalLayout_11 = QHBoxLayout(self.widget_9)
+        self.horizontalLayout_11.setSpacing(3)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
+        self.checkBox_rescalePatch = QCheckBox(self.widget_9)
+        self.checkBox_rescalePatch.setObjectName(u"checkBox_rescalePatch")
+
+        self.horizontalLayout_11.addWidget(self.checkBox_rescalePatch)
+
+        self.checkBox_normWHRatio = QCheckBox(self.widget_9)
+        self.checkBox_normWHRatio.setObjectName(u"checkBox_normWHRatio")
+
+        self.horizontalLayout_11.addWidget(self.checkBox_normWHRatio)
+
+
+        self.verticalLayout_5.addWidget(self.widget_9)
+
+        self.widget_20 = QWidget(self.groupBox_target_settings)
+        self.widget_20.setObjectName(u"widget_20")
+        self.horizontalLayout_23 = QHBoxLayout(self.widget_20)
+        self.horizontalLayout_23.setSpacing(3)
+        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
+        self.horizontalLayout_23.setContentsMargins(0, 0, 0, 0)
+        self.label_binarizationMethod = QLabel(self.widget_20)
+        self.label_binarizationMethod.setObjectName(u"label_binarizationMethod")
+
+        self.horizontalLayout_23.addWidget(self.label_binarizationMethod)
+
+        self.comboBox_binarizationMethod = QComboBox(self.widget_20)
+        self.comboBox_binarizationMethod.addItem("")
+        self.comboBox_binarizationMethod.addItem("")
+        self.comboBox_binarizationMethod.addItem("")
+        self.comboBox_binarizationMethod.addItem("")
+        self.comboBox_binarizationMethod.setObjectName(u"comboBox_binarizationMethod")
+
+        self.horizontalLayout_23.addWidget(self.comboBox_binarizationMethod)
+
+
+        self.verticalLayout_5.addWidget(self.widget_20)
+
+        self.widget_17 = QWidget(self.groupBox_target_settings)
+        self.widget_17.setObjectName(u"widget_17")
+        sizePolicy5.setHeightForWidth(self.widget_17.sizePolicy().hasHeightForWidth())
+        self.widget_17.setSizePolicy(sizePolicy5)
+        self.horizontalLayout_20 = QHBoxLayout(self.widget_17)
+        self.horizontalLayout_20.setSpacing(3)
+        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
+        self.horizontalLayout_20.setContentsMargins(0, 0, 0, 0)
+        self.label_4 = QLabel(self.widget_17)
+        self.label_4.setObjectName(u"label_4")
+
+        self.horizontalLayout_20.addWidget(self.label_4)
+
+        self.horizontalSlider_cleanup = QSlider(self.widget_17)
+        self.horizontalSlider_cleanup.setObjectName(u"horizontalSlider_cleanup")
+        self.horizontalSlider_cleanup.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_20.addWidget(self.horizontalSlider_cleanup)
+
+        self.label_15 = QLabel(self.widget_17)
+        self.label_15.setObjectName(u"label_15")
+
+        self.horizontalLayout_20.addWidget(self.label_15)
+
+        self.horizontalSlider_vscale = QSlider(self.widget_17)
+        self.horizontalSlider_vscale.setObjectName(u"horizontalSlider_vscale")
+        self.horizontalSlider_vscale.setMinimum(1)
+        self.horizontalSlider_vscale.setMaximum(10)
+        self.horizontalSlider_vscale.setPageStep(5)
+        self.horizontalSlider_vscale.setValue(10)
+        self.horizontalSlider_vscale.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_20.addWidget(self.horizontalSlider_vscale)
+
+
+        self.verticalLayout_5.addWidget(self.widget_17)
+
+        self.widget_13 = QWidget(self.groupBox_target_settings)
+        self.widget_13.setObjectName(u"widget_13")
+        sizePolicy.setHeightForWidth(self.widget_13.sizePolicy().hasHeightForWidth())
+        self.widget_13.setSizePolicy(sizePolicy)
+        self.horizontalLayout_15 = QHBoxLayout(self.widget_13)
+        self.horizontalLayout_15.setSpacing(3)
+        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
+        self.horizontalLayout_15.setContentsMargins(0, 0, 0, 0)
+        self.label_9 = QLabel(self.widget_13)
+        self.label_9.setObjectName(u"label_9")
+
+        self.horizontalLayout_15.addWidget(self.label_9)
+
+        self.horizontalSlider_dilate = QSlider(self.widget_13)
+        self.horizontalSlider_dilate.setObjectName(u"horizontalSlider_dilate")
+        self.horizontalSlider_dilate.setMaximum(5)
+        self.horizontalSlider_dilate.setPageStep(1)
+        self.horizontalSlider_dilate.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_15.addWidget(self.horizontalSlider_dilate)
+
+        self.label_14 = QLabel(self.widget_13)
+        self.label_14.setObjectName(u"label_14")
+
+        self.horizontalLayout_15.addWidget(self.label_14)
+
+        self.horizontalSlider_skew = QSlider(self.widget_13)
+        self.horizontalSlider_skew.setObjectName(u"horizontalSlider_skew")
+        self.horizontalSlider_skew.setMinimum(-10)
+        self.horizontalSlider_skew.setMaximum(10)
+        self.horizontalSlider_skew.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_15.addWidget(self.horizontalSlider_skew)
+
+
+        self.verticalLayout_5.addWidget(self.widget_13)
+
+        self.widget_21 = QWidget(self.groupBox_target_settings)
+        self.widget_21.setObjectName(u"widget_21")
+        self.horizontalLayout_24 = QHBoxLayout(self.widget_21)
+        self.horizontalLayout_24.setSpacing(3)
+        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
+        self.horizontalLayout_24.setContentsMargins(0, 0, 0, 0)
+        self.label_3 = QLabel(self.widget_21)
+        self.label_3.setObjectName(u"label_3")
+
+        self.horizontalLayout_24.addWidget(self.label_3)
+
+        self.horizontalSlider_conf_thresh = QSlider(self.widget_21)
+        self.horizontalSlider_conf_thresh.setObjectName(u"horizontalSlider_conf_thresh")
+        self.horizontalSlider_conf_thresh.setValue(50)
+        self.horizontalSlider_conf_thresh.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_24.addWidget(self.horizontalSlider_conf_thresh)
+
+
+        self.verticalLayout_5.addWidget(self.widget_21)
+
+
+        self.verticalLayout_3.addWidget(self.groupBox_target_settings)
+
+        self.widget_23 = QWidget(self.groupBox_sb_info)
+        self.widget_23.setObjectName(u"widget_23")
+        self.horizontalLayout = QHBoxLayout(self.widget_23)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.checkBox_templatefield = QCheckBox(self.widget_23)
+        self.checkBox_templatefield.setObjectName(u"checkBox_templatefield")
+
+        self.horizontalLayout.addWidget(self.checkBox_templatefield)
+
+        self.lineEdit_templatefield = QLineEdit(self.widget_23)
+        self.lineEdit_templatefield.setObjectName(u"lineEdit_templatefield")
+
+        self.horizontalLayout.addWidget(self.lineEdit_templatefield)
+
+
+        self.verticalLayout_3.addWidget(self.widget_23)
+
+        self.widget_6 = QWidget(self.groupBox_sb_info)
+        self.widget_6.setObjectName(u"widget_6")
+        self.horizontalLayout_7 = QHBoxLayout(self.widget_6)
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.label_10 = QLabel(self.widget_6)
+        self.label_10.setObjectName(u"label_10")
+        sizePolicy1.setHeightForWidth(self.label_10.sizePolicy().hasHeightForWidth())
+        self.label_10.setSizePolicy(sizePolicy1)
+
+        self.horizontalLayout_7.addWidget(self.label_10)
+
+        self.comboBox_ocrModel = QComboBox(self.widget_6)
+        self.comboBox_ocrModel.setObjectName(u"comboBox_ocrModel")
+
+        self.horizontalLayout_7.addWidget(self.comboBox_ocrModel)
+
+
+        self.verticalLayout_3.addWidget(self.widget_6)
+
+
+        self.verticalLayout.addWidget(self.groupBox_sb_info)
+
+        self.line_2 = QFrame(self.frame)
+        self.line_2.setObjectName(u"line_2")
+        self.line_2.setMidLineWidth(1)
+        self.line_2.setFrameShape(QFrame.Shape.HLine)
+        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.verticalLayout.addWidget(self.line_2)
+
+        self.tabWidget_outputs = QTabWidget(self.frame)
+        self.tabWidget_outputs.setObjectName(u"tabWidget_outputs")
+        self.tabWidget_outputs.setTabShape(QTabWidget.Rounded)
+        self.tab_textFiles = QWidget()
+        self.tab_textFiles.setObjectName(u"tab_textFiles")
+        sizePolicy5.setHeightForWidth(self.tab_textFiles.sizePolicy().hasHeightForWidth())
+        self.tab_textFiles.setSizePolicy(sizePolicy5)
+        self.formLayout_2 = QFormLayout(self.tab_textFiles)
+        self.formLayout_2.setObjectName(u"formLayout_2")
+        self.formLayout_2.setVerticalSpacing(3)
+        self.formLayout_2.setContentsMargins(-1, -1, -1, 0)
+        self.label_7 = QLabel(self.tab_textFiles)
+        self.label_7.setObjectName(u"label_7")
+
+        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_7)
+
+        self.widget_5 = QWidget(self.tab_textFiles)
+        self.widget_5.setObjectName(u"widget_5")
+        sizePolicy6.setHeightForWidth(self.widget_5.sizePolicy().hasHeightForWidth())
+        self.widget_5.setSizePolicy(sizePolicy6)
+        self.horizontalLayout_6 = QHBoxLayout(self.widget_5)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.lineEdit_folder = QLineEdit(self.widget_5)
+        self.lineEdit_folder.setObjectName(u"lineEdit_folder")
+        self.lineEdit_folder.setReadOnly(True)
+
+        self.horizontalLayout_6.addWidget(self.lineEdit_folder)
+
+        self.pushButton_selectFolder = QToolButton(self.widget_5)
+        self.pushButton_selectFolder.setObjectName(u"pushButton_selectFolder")
+
+        self.horizontalLayout_6.addWidget(self.pushButton_selectFolder)
+
+        self.toolButton_trashFolder = QToolButton(self.widget_5)
+        self.toolButton_trashFolder.setObjectName(u"toolButton_trashFolder")
+
+        self.horizontalLayout_6.addWidget(self.toolButton_trashFolder)
+
+
+        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.widget_5)
+
+        self.widget_12 = QWidget(self.tab_textFiles)
+        self.widget_12.setObjectName(u"widget_12")
+        sizePolicy6.setHeightForWidth(self.widget_12.sizePolicy().hasHeightForWidth())
+        self.widget_12.setSizePolicy(sizePolicy6)
+        self.horizontalLayout_14 = QHBoxLayout(self.widget_12)
+        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
+        self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
+        self.checkBox_saveCsv = QCheckBox(self.widget_12)
+        self.checkBox_saveCsv.setObjectName(u"checkBox_saveCsv")
+
+        self.horizontalLayout_14.addWidget(self.checkBox_saveCsv)
+
+        self.checkBox_saveXML = QCheckBox(self.widget_12)
+        self.checkBox_saveXML.setObjectName(u"checkBox_saveXML")
+
+        self.horizontalLayout_14.addWidget(self.checkBox_saveXML)
+
+
+        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.widget_12)
+
+        self.label_append = QLabel(self.tab_textFiles)
+        self.label_append.setObjectName(u"label_append")
+
+        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_append)
+
+        self.comboBox_appendMethod = QComboBox(self.tab_textFiles)
+        self.comboBox_appendMethod.addItem("")
+        self.comboBox_appendMethod.addItem("")
+        self.comboBox_appendMethod.addItem("")
+        self.comboBox_appendMethod.addItem("")
+        self.comboBox_appendMethod.setObjectName(u"comboBox_appendMethod")
+        sizePolicy6.setHeightForWidth(self.comboBox_appendMethod.sizePolicy().hasHeightForWidth())
+        self.comboBox_appendMethod.setSizePolicy(sizePolicy6)
+
+        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.comboBox_appendMethod)
+
+        self.label_savePerSec = QLabel(self.tab_textFiles)
+        self.label_savePerSec.setObjectName(u"label_savePerSec")
+
+        self.formLayout_2.setWidget(3, QFormLayout.LabelRole, self.label_savePerSec)
+
+        self.horizontalSlider_aggsPerSecond = QSlider(self.tab_textFiles)
+        self.horizontalSlider_aggsPerSecond.setObjectName(u"horizontalSlider_aggsPerSecond")
+        self.horizontalSlider_aggsPerSecond.setMinimum(1)
+        self.horizontalSlider_aggsPerSecond.setMaximum(10)
+        self.horizontalSlider_aggsPerSecond.setPageStep(1)
+        self.horizontalSlider_aggsPerSecond.setValue(5)
+        self.horizontalSlider_aggsPerSecond.setOrientation(Qt.Horizontal)
+        self.horizontalSlider_aggsPerSecond.setTickPosition(QSlider.TicksBelow)
+
+        self.formLayout_2.setWidget(3, QFormLayout.FieldRole, self.horizontalSlider_aggsPerSecond)
+
+        self.tabWidget_outputs.addTab(self.tab_textFiles, "")
+        self.tab_browser = QWidget()
+        self.tab_browser.setObjectName(u"tab_browser")
+        self.verticalLayout_4 = QVBoxLayout(self.tab_browser)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.label_8 = QLabel(self.tab_browser)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setTextFormat(Qt.RichText)
+        self.label_8.setOpenExternalLinks(True)
+        self.label_8.setTextInteractionFlags(Qt.LinksAccessibleByMouse|Qt.TextSelectableByMouse)
+
+        self.verticalLayout_4.addWidget(self.label_8, 0, Qt.AlignTop)
+
+        self.tabWidget_outputs.addTab(self.tab_browser, "")
+        self.tab_obs = QWidget()
+        self.tab_obs.setObjectName(u"tab_obs")
+        self.gridLayout_2 = QGridLayout(self.tab_obs)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.gridLayout_2.setVerticalSpacing(2)
+        self.pushButton_connectObs = QPushButton(self.tab_obs)
+        self.pushButton_connectObs.setObjectName(u"pushButton_connectObs")
+        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy8.setHorizontalStretch(0)
+        sizePolicy8.setVerticalStretch(0)
+        sizePolicy8.setHeightForWidth(self.pushButton_connectObs.sizePolicy().hasHeightForWidth())
+        self.pushButton_connectObs.setSizePolicy(sizePolicy8)
+        self.pushButton_connectObs.setMinimumSize(QSize(0, 0))
+
+        self.gridLayout_2.addWidget(self.pushButton_connectObs, 0, 0, 1, 1)
+
+        self.widget_18 = QWidget(self.tab_obs)
+        self.widget_18.setObjectName(u"widget_18")
+        self.horizontalLayout_22 = QHBoxLayout(self.widget_18)
+        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
+        self.lineEdit_sceneName = QLineEdit(self.widget_18)
+        self.lineEdit_sceneName.setObjectName(u"lineEdit_sceneName")
+        self.lineEdit_sceneName.setEnabled(False)
+
+        self.horizontalLayout_22.addWidget(self.lineEdit_sceneName)
+
+        self.pushButton_createOBSScene = QPushButton(self.widget_18)
+        self.pushButton_createOBSScene.setObjectName(u"pushButton_createOBSScene")
+        self.pushButton_createOBSScene.setEnabled(False)
+
+        self.horizontalLayout_22.addWidget(self.pushButton_createOBSScene)
+
+        self.checkBox_recreate = QCheckBox(self.widget_18)
+        self.checkBox_recreate.setObjectName(u"checkBox_recreate")
+        self.checkBox_recreate.setEnabled(False)
+        self.checkBox_recreate.setChecked(True)
+
+        self.horizontalLayout_22.addWidget(self.checkBox_recreate)
+
+
+        self.gridLayout_2.addWidget(self.widget_18, 1, 0, 1, 1, Qt.AlignTop)
+
+        self.tabWidget_outputs.addTab(self.tab_obs, "")
+        self.tab_vmix = QWidget()
+        self.tab_vmix.setObjectName(u"tab_vmix")
+        self.gridLayout_3 = QGridLayout(self.tab_vmix)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.gridLayout_3.setVerticalSpacing(2)
+        self.tableView_vmixMapping = QTableView(self.tab_vmix)
+        self.tableView_vmixMapping.setObjectName(u"tableView_vmixMapping")
+        self.tableView_vmixMapping.horizontalHeader().setVisible(False)
+        self.tableView_vmixMapping.horizontalHeader().setStretchLastSection(True)
+
+        self.gridLayout_3.addWidget(self.tableView_vmixMapping, 1, 0, 1, 1)
+
+        self.verticalLayout_6 = QVBoxLayout()
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.connectionWidget = QWidget(self.tab_vmix)
+        self.connectionWidget.setObjectName(u"connectionWidget")
+        self.horizontalLayout_18 = QHBoxLayout(self.connectionWidget)
+        self.horizontalLayout_18.setSpacing(3)
+        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
+        self.horizontalLayout_18.setContentsMargins(0, 0, 0, 0)
+        self.connectionLabel = QLabel(self.connectionWidget)
+        self.connectionLabel.setObjectName(u"connectionLabel")
+
+        self.horizontalLayout_18.addWidget(self.connectionLabel)
+
+        self.lineEdit_vmixHost = QLineEdit(self.connectionWidget)
+        self.lineEdit_vmixHost.setObjectName(u"lineEdit_vmixHost")
+
+        self.horizontalLayout_18.addWidget(self.lineEdit_vmixHost)
+
+        self.label_5 = QLabel(self.connectionWidget)
+        self.label_5.setObjectName(u"label_5")
+
+        self.horizontalLayout_18.addWidget(self.label_5)
+
+        self.lineEdit_vmixPort = QLineEdit(self.connectionWidget)
+        self.lineEdit_vmixPort.setObjectName(u"lineEdit_vmixPort")
+        sizePolicy9 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy9.setHorizontalStretch(0)
+        sizePolicy9.setVerticalStretch(0)
+        sizePolicy9.setHeightForWidth(self.lineEdit_vmixPort.sizePolicy().hasHeightForWidth())
+        self.lineEdit_vmixPort.setSizePolicy(sizePolicy9)
+        self.lineEdit_vmixPort.setMaximumSize(QSize(50, 16777215))
+
+        self.horizontalLayout_18.addWidget(self.lineEdit_vmixPort)
+
+        self.pushButton_startvmix = QPushButton(self.connectionWidget)
+        self.pushButton_startvmix.setObjectName(u"pushButton_startvmix")
+        sizePolicy9.setHeightForWidth(self.pushButton_startvmix.sizePolicy().hasHeightForWidth())
+        self.pushButton_startvmix.setSizePolicy(sizePolicy9)
+        self.pushButton_startvmix.setCheckable(True)
+        self.pushButton_startvmix.setChecked(False)
+
+        self.horizontalLayout_18.addWidget(self.pushButton_startvmix)
+
+
+        self.verticalLayout_6.addWidget(self.connectionWidget)
+
+        self.widget_16 = QWidget(self.tab_vmix)
+        self.widget_16.setObjectName(u"widget_16")
+        self.widget_16.setMinimumSize(QSize(0, 0))
+        self.horizontalLayout_19 = QHBoxLayout(self.widget_16)
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.horizontalLayout_19.setContentsMargins(0, 0, 0, 0)
+        self.vmixinputLabel = QLabel(self.widget_16)
+        self.vmixinputLabel.setObjectName(u"vmixinputLabel")
+
+        self.horizontalLayout_19.addWidget(self.vmixinputLabel)
+
+        self.inputLineEdit_vmix = QLineEdit(self.widget_16)
+        self.inputLineEdit_vmix.setObjectName(u"inputLineEdit_vmix")
+
+        self.horizontalLayout_19.addWidget(self.inputLineEdit_vmix)
+
+        self.checkBox_vmix_send_same = QCheckBox(self.widget_16)
+        self.checkBox_vmix_send_same.setObjectName(u"checkBox_vmix_send_same")
+
+        self.horizontalLayout_19.addWidget(self.checkBox_vmix_send_same)
+
+
+        self.verticalLayout_6.addWidget(self.widget_16)
+
+
+        self.gridLayout_3.addLayout(self.verticalLayout_6, 0, 0, 1, 1)
+
+        self.tabWidget_outputs.addTab(self.tab_vmix, "")
+        self.tab_uno = QWidget()
+        self.tab_uno.setObjectName(u"tab_uno")
+        self.gridLayout_5 = QGridLayout(self.tab_uno)
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.verticalLayout_8 = QVBoxLayout()
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.connectionWidget_2 = QWidget(self.tab_uno)
+        self.connectionWidget_2.setObjectName(u"connectionWidget_2")
+        self.horizontalLayout_29 = QHBoxLayout(self.connectionWidget_2)
+        self.horizontalLayout_29.setSpacing(3)
+        self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
+        self.horizontalLayout_29.setContentsMargins(0, 0, 0, 0)
+        self.connectionLabel_2 = QLabel(self.connectionWidget_2)
+        self.connectionLabel_2.setObjectName(u"connectionLabel_2")
+
+        self.horizontalLayout_29.addWidget(self.connectionLabel_2)
+
+        self.lineEdit_unoUrl = QLineEdit(self.connectionWidget_2)
+        self.lineEdit_unoUrl.setObjectName(u"lineEdit_unoUrl")
+
+        self.horizontalLayout_29.addWidget(self.lineEdit_unoUrl)
+
+        self.toolButton = QToolButton(self.connectionWidget_2)
+        self.toolButton.setObjectName(u"toolButton")
+
+        self.horizontalLayout_29.addWidget(self.toolButton)
+
+
+        self.verticalLayout_8.addWidget(self.connectionWidget_2)
+
+        self.checkBox_uno_send_same = QCheckBox(self.tab_uno)
+        self.checkBox_uno_send_same.setObjectName(u"checkBox_uno_send_same")
+
+        self.verticalLayout_8.addWidget(self.checkBox_uno_send_same)
+
+        self.widget_26 = QWidget(self.tab_uno)
+        self.widget_26.setObjectName(u"widget_26")
+        self.widget_26.setMinimumSize(QSize(0, 0))
+        self.horizontalLayout_30 = QHBoxLayout(self.widget_26)
+        self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
+        self.horizontalLayout_30.setContentsMargins(0, 0, 0, 0)
+
+        self.verticalLayout_8.addWidget(self.widget_26)
+
+
+        self.gridLayout_5.addLayout(self.verticalLayout_8, 0, 0, 1, 1)
+
+        self.tableView_vmixMapping_2 = QTableView(self.tab_uno)
+        self.tableView_vmixMapping_2.setObjectName(u"tableView_vmixMapping_2")
+        self.tableView_vmixMapping_2.horizontalHeader().setVisible(False)
+        self.tableView_vmixMapping_2.horizontalHeader().setStretchLastSection(True)
+
+        self.gridLayout_5.addWidget(self.tableView_vmixMapping_2, 1, 0, 1, 1)
+
+        self.tabWidget_outputs.addTab(self.tab_uno, "")
+        self.tab_api = QWidget()
+        self.tab_api.setObjectName(u"tab_api")
+        self.formLayout_3 = QFormLayout(self.tab_api)
+        self.formLayout_3.setObjectName(u"formLayout_3")
+        self.formLayout_3.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
+        self.formLayout_3.setVerticalSpacing(3)
+        self.checkBox_enableOutAPI = QCheckBox(self.tab_api)
+        self.checkBox_enableOutAPI.setObjectName(u"checkBox_enableOutAPI")
+
+        self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.checkBox_enableOutAPI)
+
+        self.label_21 = QLabel(self.tab_api)
+        self.label_21.setObjectName(u"label_21")
+
+        self.formLayout_3.setWidget(4, QFormLayout.LabelRole, self.label_21)
+
+        self.comboBox_api_encode = QComboBox(self.tab_api)
+        self.comboBox_api_encode.addItem("")
+        self.comboBox_api_encode.addItem("")
+        self.comboBox_api_encode.addItem("")
+        self.comboBox_api_encode.addItem("")
+        self.comboBox_api_encode.setObjectName(u"comboBox_api_encode")
+
+        self.formLayout_3.setWidget(4, QFormLayout.FieldRole, self.comboBox_api_encode)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.formLayout_3.setItem(5, QFormLayout.FieldRole, self.verticalSpacer)
+
+        self.widget_24 = QWidget(self.tab_api)
+        self.widget_24.setObjectName(u"widget_24")
+        self.horizontalLayout_27 = QHBoxLayout(self.widget_24)
+        self.horizontalLayout_27.setSpacing(2)
+        self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
+        self.horizontalLayout_27.setContentsMargins(0, 0, 0, 0)
+        self.lineEdit_api_url = QLineEdit(self.widget_24)
+        self.lineEdit_api_url.setObjectName(u"lineEdit_api_url")
+
+        self.horizontalLayout_27.addWidget(self.lineEdit_api_url)
+
+        self.comboBox_outApiMethod = QComboBox(self.widget_24)
+        self.comboBox_outApiMethod.addItem("")
+        self.comboBox_outApiMethod.addItem("")
+        self.comboBox_outApiMethod.addItem("")
+        self.comboBox_outApiMethod.setObjectName(u"comboBox_outApiMethod")
+        self.comboBox_outApiMethod.setMaximumSize(QSize(50, 16777215))
+
+        self.horizontalLayout_27.addWidget(self.comboBox_outApiMethod)
+
+
+        self.formLayout_3.setWidget(1, QFormLayout.FieldRole, self.widget_24)
+
+        self.label_20 = QLabel(self.tab_api)
+        self.label_20.setObjectName(u"label_20")
+
+        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.label_20)
+
+        self.tabWidget_outputs.addTab(self.tab_api, "")
+
+        self.verticalLayout.addWidget(self.tabWidget_outputs, 0, Qt.AlignTop)
+
+        self.pushButton_stopUpdates = QPushButton(self.frame)
+        self.pushButton_stopUpdates.setObjectName(u"pushButton_stopUpdates")
+        self.pushButton_stopUpdates.setMinimumSize(QSize(0, 0))
+        self.pushButton_stopUpdates.setCheckable(True)
+
+        self.verticalLayout.addWidget(self.pushButton_stopUpdates)
+
+        self.widget_detectionCadence = QWidget(self.frame)
+        self.widget_detectionCadence.setObjectName(u"widget_detectionCadence")
+        self.horizontalLayout_9 = QHBoxLayout(self.widget_detectionCadence)
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.horizontalLayout_9.setContentsMargins(0, 0, 0, 0)
+        self.label_detectionCadence = QLabel(self.widget_detectionCadence)
+        self.label_detectionCadence.setObjectName(u"label_detectionCadence")
+
+        self.horizontalLayout_9.addWidget(self.label_detectionCadence)
+
+        self.horizontalSlider_detectionCadence = QSlider(self.widget_detectionCadence)
+        self.horizontalSlider_detectionCadence.setObjectName(u"horizontalSlider_detectionCadence")
+        self.horizontalSlider_detectionCadence.setMinimum(1)
+        self.horizontalSlider_detectionCadence.setMaximum(15)
+        self.horizontalSlider_detectionCadence.setPageStep(5)
+        self.horizontalSlider_detectionCadence.setValue(5)
+        self.horizontalSlider_detectionCadence.setOrientation(Qt.Horizontal)
+        self.horizontalSlider_detectionCadence.setInvertedAppearance(False)
+        self.horizontalSlider_detectionCadence.setInvertedControls(False)
+        self.horizontalSlider_detectionCadence.setTickPosition(QSlider.TicksBelow)
+        self.horizontalSlider_detectionCadence.setTickInterval(5)
+
+        self.horizontalLayout_9.addWidget(self.horizontalSlider_detectionCadence)
+
+        self.checkBox_updateOnchange = QCheckBox(self.widget_detectionCadence)
+        self.checkBox_updateOnchange.setObjectName(u"checkBox_updateOnchange")
+        self.checkBox_updateOnchange.setChecked(True)
+
+        self.horizontalLayout_9.addWidget(self.checkBox_updateOnchange)
+
+
+        self.verticalLayout.addWidget(self.widget_detectionCadence)
+
+
+        self.verticalLayout_7.addWidget(self.frame)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -1111,7 +1181,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.comboBox_formatPrefix.setCurrentIndex(0)
-        self.tabWidget_outputs.setCurrentIndex(0)
+        self.tabWidget_outputs.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1119,6 +1189,50 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"ScoreSight", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Source", None))
+        self.comboBox_camera_source.setItemText(0, QCoreApplication.translate("MainWindow", u"Select a source", None))
+        self.comboBox_camera_source.setItemText(1, QCoreApplication.translate("MainWindow", u"Open a Video File", None))
+        self.comboBox_camera_source.setItemText(2, QCoreApplication.translate("MainWindow", u"URL Source (HTTP, RTSP)", None))
+        self.comboBox_camera_source.setItemText(3, QCoreApplication.translate("MainWindow", u"Screen Capture", None))
+
+        self.toolButton_videoSettings.setText(QCoreApplication.translate("MainWindow", u"Video Settings", None))
+#if QT_CONFIG(tooltip)
+        self.pushButton_refresh_sources.setToolTip(QCoreApplication.translate("MainWindow", u"Refresh Sources", None))
+#endif // QT_CONFIG(tooltip)
+        self.pushButton_refresh_sources.setText(QCoreApplication.translate("MainWindow", u"Reload", None))
+        self.pushButton_saveOCRTrainingData.setText(QCoreApplication.translate("MainWindow", u"Save OCR Training Data", None))
+        self.pushButton_binary.setText(QCoreApplication.translate("MainWindow", u"Binary View", None))
+        self.pushButton_fourCorner.setText(QCoreApplication.translate("MainWindow", u"4-corner Correction", None))
+#if QT_CONFIG(tooltip)
+        self.toolButton_topCrop.setToolTip(QCoreApplication.translate("MainWindow", u"Apply cropping to the entire image", None))
+#endif // QT_CONFIG(tooltip)
+        self.toolButton_topCrop.setText(QCoreApplication.translate("MainWindow", u"Crop", None))
+        self.toolButton_rotate.setText(QCoreApplication.translate("MainWindow", u"Rotate", None))
+        self.pushButton_stabilize.setText(QCoreApplication.translate("MainWindow", u"Stabilize", None))
+#if QT_CONFIG(tooltip)
+        self.toolButton_osd.setToolTip(QCoreApplication.translate("MainWindow", u"Show Statistics", None))
+#endif // QT_CONFIG(tooltip)
+        self.toolButton_osd.setText(QCoreApplication.translate("MainWindow", u"OSD", None))
+#if QT_CONFIG(tooltip)
+        self.toolButton_showOCRrects.setToolTip(QCoreApplication.translate("MainWindow", u"Show OCR Detection Boxes", None))
+#endif // QT_CONFIG(tooltip)
+        self.toolButton_showOCRrects.setText(QCoreApplication.translate("MainWindow", u"OCR", None))
+#if QT_CONFIG(tooltip)
+        self.toolButton_zoomReset.setToolTip(QCoreApplication.translate("MainWindow", u"Reset zoom", None))
+#endif // QT_CONFIG(tooltip)
+        self.toolButton_zoomReset.setText(QCoreApplication.translate("MainWindow", u"1:1", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Ctrl-scroll to zoom", None))
+        self.label_16.setText(QCoreApplication.translate("MainWindow", u"Left", None))
+        self.spinBox_leftCrop.setSuffix(QCoreApplication.translate("MainWindow", u"px", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"Top", None))
+        self.spinBox_topCrop.setSuffix(QCoreApplication.translate("MainWindow", u"px", None))
+        self.label_18.setText(QCoreApplication.translate("MainWindow", u"Right", None))
+        self.spinBox_rightCrop.setSuffix(QCoreApplication.translate("MainWindow", u"px", None))
+        self.label_19.setText(QCoreApplication.translate("MainWindow", u"Bottom", None))
+        self.spinBox_bottomCrop.setSuffix(QCoreApplication.translate("MainWindow", u"px", None))
+        self.label_22.setText(QCoreApplication.translate("MainWindow", u"Speed", None))
+        self.toolButton_speed.setText(QCoreApplication.translate("MainWindow", u"x1", None))
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"### Open a Camera or Load a File", None))
         ___qtablewidgetitem = self.tableWidget_boxes.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Field", None));
         ___qtablewidgetitem1 = self.tableWidget_boxes.horizontalHeaderItem(1)
@@ -1150,6 +1264,7 @@ class Ui_MainWindow(object):
         self.comboBox_fieldType.setItemText(1, QCoreApplication.translate("MainWindow", u"Time 0-9 , . :", None))
         self.comboBox_fieldType.setItemText(2, QCoreApplication.translate("MainWindow", u"Text", None))
 
+        self.checkBox_compositeBox.setText(QCoreApplication.translate("MainWindow", u"Composite (Characters)", None))
         self.checkBox_smoothing.setText(QCoreApplication.translate("MainWindow", u"Average Output", None))
         self.checkBox_ordinalIndicator.setText(QCoreApplication.translate("MainWindow", u"Ordinal (1st, 2nd, ..)", None))
         self.checkBox_skip_empty.setText(QCoreApplication.translate("MainWindow", u"Skip Empty Values", None))
@@ -1203,7 +1318,7 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.label_savePerSec.setText(QCoreApplication.translate("MainWindow", u"Save / s", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_textFiles), QCoreApplication.translate("MainWindow", u"Text Files", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>HTML Scoreboard: <a href=\"http://localhost:18099/scoresight\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/scoresight<br/></span></a>JSON: <a href=\"http://localhost:18099/json\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/json</span></a> (optional: ?pivot)<br/>XML: <a href=\"http://localhost:18099/xml\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/xml</span></a> (optional: ?pivot)<br/>CSV: <a href=\"http://localhost:18099/csv\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/csv</span></a></p></body></html>", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Use these endpoints in external software to get live data updates</p><p>HTML Scoreboard: <a href=\"http://localhost:18099/scoresight\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/scoresight<br/></span></a>JSON: <a href=\"http://localhost:18099/json\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/json</span></a> (optional: ?pivot)<br/>XML: <a href=\"http://localhost:18099/xml\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/xml</span></a> (optional: ?pivot)<br/>CSV: <a href=\"http://localhost:18099/csv\"><span style=\" text-decoration: underline; color:#0000ff;\">http://localhost:18099/csv</span></a></p></body></html>", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_browser), QCoreApplication.translate("MainWindow", u"Browser", None))
         self.pushButton_connectObs.setText(QCoreApplication.translate("MainWindow", u"Connect OBS", None))
         self.lineEdit_sceneName.setText(QCoreApplication.translate("MainWindow", u"ScoreSight Scene", None))
@@ -1222,6 +1337,14 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.checkBox_vmix_send_same.setText(QCoreApplication.translate("MainWindow", u"Send Same?", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_vmix), QCoreApplication.translate("MainWindow", u"VMix", None))
+        self.connectionLabel_2.setText(QCoreApplication.translate("MainWindow", u"URL", None))
+        self.lineEdit_unoUrl.setText(QCoreApplication.translate("MainWindow", u"https://app.overlays.uno/apiv2/controlapps/.../api", None))
+        self.toolButton.setText(QCoreApplication.translate("MainWindow", u"\u25b6\ufe0f", None))
+#if QT_CONFIG(tooltip)
+        self.checkBox_uno_send_same.setToolTip(QCoreApplication.translate("MainWindow", u"Send only new detections or also existing?", None))
+#endif // QT_CONFIG(tooltip)
+        self.checkBox_uno_send_same.setText(QCoreApplication.translate("MainWindow", u"Send Same?", None))
+        self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_uno), QCoreApplication.translate("MainWindow", u"UNO", None))
         self.checkBox_enableOutAPI.setText(QCoreApplication.translate("MainWindow", u"Send out API requests to external services.", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Encode", None))
         self.comboBox_api_encode.setItemText(0, QCoreApplication.translate("MainWindow", u"JSON (Full)", None))
@@ -1242,49 +1365,5 @@ class Ui_MainWindow(object):
         self.checkBox_updateOnchange.setToolTip(QCoreApplication.translate("MainWindow", u"Only send an update if the field value has changed", None))
 #endif // QT_CONFIG(tooltip)
         self.checkBox_updateOnchange.setText(QCoreApplication.translate("MainWindow", u"Update on change", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Source", None))
-        self.comboBox_camera_source.setItemText(0, QCoreApplication.translate("MainWindow", u"Select a source", None))
-        self.comboBox_camera_source.setItemText(1, QCoreApplication.translate("MainWindow", u"Open a Video File", None))
-        self.comboBox_camera_source.setItemText(2, QCoreApplication.translate("MainWindow", u"URL Source (HTTP, RTSP)", None))
-        self.comboBox_camera_source.setItemText(3, QCoreApplication.translate("MainWindow", u"Screen Capture", None))
-
-        self.toolButton_videoSettings.setText(QCoreApplication.translate("MainWindow", u"Video Settings", None))
-#if QT_CONFIG(tooltip)
-        self.pushButton_refresh_sources.setToolTip(QCoreApplication.translate("MainWindow", u"Refresh Sources", None))
-#endif // QT_CONFIG(tooltip)
-        self.pushButton_refresh_sources.setText(QCoreApplication.translate("MainWindow", u"Reload", None))
-        self.pushButton_saveOCRTrainingData.setText(QCoreApplication.translate("MainWindow", u"Save OCR Training Data", None))
-        self.pushButton_binary.setText(QCoreApplication.translate("MainWindow", u"Binary View", None))
-        self.pushButton_fourCorner.setText(QCoreApplication.translate("MainWindow", u"4-corner Correction", None))
-#if QT_CONFIG(tooltip)
-        self.toolButton_topCrop.setToolTip(QCoreApplication.translate("MainWindow", u"Apply cropping to the entire image", None))
-#endif // QT_CONFIG(tooltip)
-        self.toolButton_topCrop.setText(QCoreApplication.translate("MainWindow", u"Crop", None))
-        self.toolButton_rotate.setText(QCoreApplication.translate("MainWindow", u"Rotate", None))
-        self.pushButton_stabilize.setText(QCoreApplication.translate("MainWindow", u"Stabilize", None))
-#if QT_CONFIG(tooltip)
-        self.toolButton_osd.setToolTip(QCoreApplication.translate("MainWindow", u"Show Statistics", None))
-#endif // QT_CONFIG(tooltip)
-        self.toolButton_osd.setText(QCoreApplication.translate("MainWindow", u"OSD", None))
-#if QT_CONFIG(tooltip)
-        self.toolButton_showOCRrects.setToolTip(QCoreApplication.translate("MainWindow", u"Show OCR Detection Boxes", None))
-#endif // QT_CONFIG(tooltip)
-        self.toolButton_showOCRrects.setText(QCoreApplication.translate("MainWindow", u"OCR", None))
-#if QT_CONFIG(tooltip)
-        self.toolButton_zoomReset.setToolTip(QCoreApplication.translate("MainWindow", u"Reset zoom", None))
-#endif // QT_CONFIG(tooltip)
-        self.toolButton_zoomReset.setText(QCoreApplication.translate("MainWindow", u"1:1", None))
-        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Ctrl-scroll to zoom", None))
-        self.label_16.setText(QCoreApplication.translate("MainWindow", u"Left", None))
-        self.spinBox_leftCrop.setSuffix(QCoreApplication.translate("MainWindow", u"px", None))
-        self.label_17.setText(QCoreApplication.translate("MainWindow", u"Top", None))
-        self.spinBox_topCrop.setSuffix(QCoreApplication.translate("MainWindow", u"px", None))
-        self.label_18.setText(QCoreApplication.translate("MainWindow", u"Right", None))
-        self.spinBox_rightCrop.setSuffix(QCoreApplication.translate("MainWindow", u"px", None))
-        self.label_19.setText(QCoreApplication.translate("MainWindow", u"Bottom", None))
-        self.spinBox_bottomCrop.setSuffix(QCoreApplication.translate("MainWindow", u"px", None))
-        self.label_22.setText(QCoreApplication.translate("MainWindow", u"Speed", None))
-        self.toolButton_speed.setText(QCoreApplication.translate("MainWindow", u"x1", None))
-        self.label_12.setText(QCoreApplication.translate("MainWindow", u"### Open a Camera or Load a File", None))
     # retranslateUi
 
