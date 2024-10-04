@@ -1,9 +1,11 @@
 import platform
 from typing import Union, Type
 
+from base_video_capture import BaseVideoCapture
+
 
 # Define a base class or protocol for screen capture
-class ScreenCaptureBase:
+class ScreenCaptureBase(BaseVideoCapture):
     @staticmethod
     def list_windows():
         raise NotImplementedError
@@ -24,7 +26,7 @@ class ScreenCaptureBase:
         raise NotImplementedError
 
 
-class ScreenCaptureDummy:
+class ScreenCaptureDummy(ScreenCaptureBase):
     @staticmethod
     def list_windows():
         return []

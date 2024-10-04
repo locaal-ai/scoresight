@@ -50,6 +50,7 @@ datas = [
 
 sources = [
     'src/api_output.py',
+    'src/base_video_capture.py',
     'src/camera_info.py',
     'src/camera_view.py',
     'src/camera_thread.py',
