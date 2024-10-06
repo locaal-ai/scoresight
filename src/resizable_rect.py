@@ -157,7 +157,7 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         onCenter=False,
         boxChangedCallback=None,
         itemSelectedCallback=None,
-        showOCRRects=True,
+        boxDisplayStyle: str = "outline",
     ):
         super().__init__(x, y, width, height, onCenter)
         self.setAcceptedMouseButtons(Qt.MouseButton.LeftButton)
@@ -194,7 +194,7 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         self.bgItem.setZValue(1)
         self.effectiveRect = None
         self.extraBoxes = []
-        self.showOCRRects = showOCRRects
+        self.boxDisplayStyle: str = boxDisplayStyle
         self.cornerBoxes = []
         self.cornerSize = 20
         for i in range(4):
@@ -264,7 +264,39 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         )
         self.resultItem.setZValue(2)
 
-        if not self.showOCRRects:
+        if self.boxDisplayStyle == "none":
+            # hide the rect and the text
+            self.hide()
+            self.posItem.hide()
+            self.bgItem.hide()
+            self.resultItem.hide()
+            for cornerBox in self.cornerBoxes:
+                cornerBox.hide()
+            return
+
+        if self.boxDisplayStyle == "outline":
+            # show the rect, but not the text
+            self.show()
+            self.posItem.hide()
+            self.bgItem.hide()
+            self.resultItem.hide()
+            for cornerBox in self.cornerBoxes:
+                cornerBox.hide()
+            return
+
+        if (
+            self.boxDisplayStyle == "outline_name"
+            or self.boxDisplayStyle == "outline_name_inner"
+        ):
+            # show the rect and the text
+            self.show()
+            self.posItem.show()
+            self.bgItem.show()
+            self.resultItem.show()
+            for cornerBox in self.cornerBoxes:
+                cornerBox.hide()
+
+        if self.boxDisplayStyle != "outline_name_inner":
             # do not show the effective rect and extra boxes
             if self.effectiveRect is not None:
                 self.effectiveRect.hide()

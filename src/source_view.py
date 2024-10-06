@@ -13,6 +13,7 @@ from storage import (
     fetch_data,
     remove_data,
     store_data,
+    subscribe_to_data,
 )
 from text_detection_target import TextDetectionTarget, TextDetectionTargetWithResult
 from sc_logging import logger
@@ -63,7 +64,10 @@ class ImageViewer(CameraView):
             self.setFourCorners(fetch_data("scoresight.json", "four_corners"))
             self.fourCornersAppliedCallback(self.fourCorners)
         self._isScaling = False
-        self.showOCRRects = True
+        self.boxDisplayStyleSetting = fetch_data(
+            "scoresight.json", "box_display_style", "outline"
+        )
+        subscribe_to_data("scoresight.json", "box_display_style", self.boxDisplayStyle)
 
     def resizeEvent(self, event):
         if self._isScaling:
@@ -72,11 +76,11 @@ class ImageViewer(CameraView):
         self.fitInView(self.scene.sceneRect(), Qt.AspectRatioMode.KeepAspectRatio)
         self.detectionTargetsChanged()
 
-    def toggleOCRRects(self, state):
-        self.showOCRRects = state
+    def boxDisplayStyle(self, state):
+        self.boxDisplayStyleSetting = state
         for item in self.scene.items():
             if isinstance(item, ResizableRectWithNameTypeAndResult):
-                item.showOCRRects = state
+                item.boxDisplayStyle = state
 
     def toggleStabilization(self, state):
         if self.firstFrameReceived and self.timerThread:
@@ -127,7 +131,7 @@ class ImageViewer(CameraView):
                     onCenter=False,
                     boxChangedCallback=self.boxChanged,
                     itemSelectedCallback=self.itemSelectedCallback,
-                    showOCRRects=self.showOCRRects,
+                    boxDisplayStyle=self.boxDisplayStyleSetting,
                 )
             )
 

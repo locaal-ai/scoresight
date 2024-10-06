@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(922, 731)
+        MainWindow.resize(1103, 899)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_31 = QHBoxLayout(self.centralwidget)
@@ -554,6 +554,7 @@ class Ui_MainWindow(object):
         self.tab_textFiles.setSizePolicy(sizePolicy3)
         self.formLayout_2 = QFormLayout(self.tab_textFiles)
         self.formLayout_2.setObjectName(u"formLayout_2")
+        self.formLayout_2.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         self.formLayout_2.setVerticalSpacing(3)
         self.formLayout_2.setContentsMargins(-1, -1, -1, 0)
         self.label_7 = QLabel(self.tab_textFiles)
@@ -1059,19 +1060,26 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_10.addItem(self.horizontalSpacer_2)
 
+        self.comboBox_boxDisplayStyle = QComboBox(self.widget_viewTools)
+        self.comboBox_boxDisplayStyle.addItem("")
+        self.comboBox_boxDisplayStyle.addItem("")
+        self.comboBox_boxDisplayStyle.addItem("")
+        self.comboBox_boxDisplayStyle.addItem("")
+        self.comboBox_boxDisplayStyle.setObjectName(u"comboBox_boxDisplayStyle")
+        sizePolicy6.setHeightForWidth(self.comboBox_boxDisplayStyle.sizePolicy().hasHeightForWidth())
+        self.comboBox_boxDisplayStyle.setSizePolicy(sizePolicy6)
+        font1 = QFont()
+        font1.setPointSize(12)
+        self.comboBox_boxDisplayStyle.setFont(font1)
+
+        self.horizontalLayout_10.addWidget(self.comboBox_boxDisplayStyle)
+
         self.toolButton_osd = QToolButton(self.widget_viewTools)
         self.toolButton_osd.setObjectName(u"toolButton_osd")
         self.toolButton_osd.setCheckable(True)
         self.toolButton_osd.setChecked(True)
 
         self.horizontalLayout_10.addWidget(self.toolButton_osd)
-
-        self.toolButton_showOCRrects = QToolButton(self.widget_viewTools)
-        self.toolButton_showOCRrects.setObjectName(u"toolButton_showOCRrects")
-        self.toolButton_showOCRrects.setCheckable(True)
-        self.toolButton_showOCRrects.setChecked(True)
-
-        self.horizontalLayout_10.addWidget(self.toolButton_showOCRrects)
 
         self.toolButton_zoomReset = QToolButton(self.widget_viewTools)
         self.toolButton_zoomReset.setObjectName(u"toolButton_zoomReset")
@@ -1091,9 +1099,9 @@ class Ui_MainWindow(object):
         self.widget_cropPanel.setObjectName(u"widget_cropPanel")
         self.widget_cropPanel.setEnabled(False)
         self.widget_cropPanel.setMaximumSize(QSize(16777215, 18))
-        font1 = QFont()
-        font1.setPointSize(8)
-        self.widget_cropPanel.setFont(font1)
+        font2 = QFont()
+        font2.setPointSize(8)
+        self.widget_cropPanel.setFont(font2)
         self.horizontalLayout_26 = QHBoxLayout(self.widget_cropPanel)
         self.horizontalLayout_26.setObjectName(u"horizontalLayout_26")
         self.horizontalLayout_26.setContentsMargins(0, 0, 0, 0)
@@ -1195,7 +1203,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 922, 20))
+        self.menubar.setGeometry(QRect(0, 0, 1103, 24))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
@@ -1361,14 +1369,15 @@ class Ui_MainWindow(object):
         self.toolButton_topCrop.setText(QCoreApplication.translate("MainWindow", u"Crop", None))
         self.toolButton_rotate.setText(QCoreApplication.translate("MainWindow", u"Rotate", None))
         self.pushButton_stabilize.setText(QCoreApplication.translate("MainWindow", u"Stabilize", None))
+        self.comboBox_boxDisplayStyle.setItemText(0, QCoreApplication.translate("MainWindow", u"No Box", None))
+        self.comboBox_boxDisplayStyle.setItemText(1, QCoreApplication.translate("MainWindow", u"Outline", None))
+        self.comboBox_boxDisplayStyle.setItemText(2, QCoreApplication.translate("MainWindow", u"Names", None))
+        self.comboBox_boxDisplayStyle.setItemText(3, QCoreApplication.translate("MainWindow", u"All", None))
+
 #if QT_CONFIG(tooltip)
         self.toolButton_osd.setToolTip(QCoreApplication.translate("MainWindow", u"Show Statistics", None))
 #endif // QT_CONFIG(tooltip)
         self.toolButton_osd.setText(QCoreApplication.translate("MainWindow", u"OSD", None))
-#if QT_CONFIG(tooltip)
-        self.toolButton_showOCRrects.setToolTip(QCoreApplication.translate("MainWindow", u"Show OCR Detection Boxes", None))
-#endif // QT_CONFIG(tooltip)
-        self.toolButton_showOCRrects.setText(QCoreApplication.translate("MainWindow", u"OCR", None))
 #if QT_CONFIG(tooltip)
         self.toolButton_zoomReset.setToolTip(QCoreApplication.translate("MainWindow", u"Reset zoom", None))
 #endif // QT_CONFIG(tooltip)

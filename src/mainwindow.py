@@ -266,7 +266,14 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_restoreDefaults.clicked.connect(self.restoreDefaults)
         self.ui.toolButton_zoomReset.clicked.connect(self.resetZoom)
         self.ui.toolButton_osd.toggled.connect(self.toggleOSD)
-        self.ui.toolButton_showOCRrects.toggled.connect(self.toggleOCRRects)
+        self.ui.comboBox_boxDisplayStyle.currentIndexChanged.connect(
+            self.changeDisplayStyle
+        )
+        self.ui.comboBox_boxDisplayStyle.setCurrentIndex(
+            self.ui.comboBox_boxDisplayStyle.findText(
+                fetch_data("scoresight.json", "box_display_style", "All")
+            )
+        )
         self.ui.checkBox_smoothing.toggled.connect(
             partial(self.genericSettingsChanged, "smoothing")
         )
@@ -577,9 +584,20 @@ class MainWindow(QMainWindow):
         if self.image_viewer:
             self.image_viewer.toggleOSD(value)
 
-    def toggleOCRRects(self, value):
-        if self.image_viewer:
-            self.image_viewer.toggleOCRRects(value)
+    def changeDisplayStyle(self, value):
+        logger.info(f"Changing box display style to {value}")
+        if value == 0:
+            # disable box display
+            self.globalSettingsChanged("box_display_style", "none")
+        elif value == 1:
+            # only outline the box
+            self.globalSettingsChanged("box_display_style", "outline")
+        elif value == 2:
+            # boxes outline and names
+            self.globalSettingsChanged("box_display_style", "outline_name")
+        elif value == 3:
+            # boxes outline, names and OCR inner boxes
+            self.globalSettingsChanged("box_display_style", "outline_name_inner")
 
     def resetZoom(self):
         if self.image_viewer:
