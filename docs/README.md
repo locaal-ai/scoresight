@@ -30,10 +30,10 @@ If you'd like to donate to help support the project, you can do so on [GitHub](h
 - Perspective correction
 - Image processing and binarization techniques, local, global etc.
 - Output to text files (.txt, .csv, .xml)
-- HTTP output via local server: HTML, JSON, XML and CSV endpoints
+- [HTTP output via local server](http_server.md): HTML, JSON, XML and CSV endpoints
 - Call external HTTP services with the OCR data
 - Import & Export configuration profiles
-- Integrations: OBS (websocket), vMix (API), NewBlue FX Titler (API)
+- Integrations: [OBS](https://obsproject.com/) (websocket), [vMix](vmix.md) (API), [NewBlue FX Titler](https://newbluefx.com/titler-live) (API), [UNO](https://www.overlays.uno/) (API), generic HTTP APIs
 - Up to 30 updates/s
 - Unlimited detection boxes
 - Template fields: Derived from other fields and optional extra text

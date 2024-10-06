@@ -161,6 +161,16 @@ class ImageViewer(CameraView):
         if item:
             self.scene.removeItem(item)
 
+    def selectBox(self, name):
+        # deselect all the boxes
+        for item in self.scene.items():
+            if isinstance(item, ResizableRectWithNameTypeAndResult):
+                item.setSelected(False)
+        # find the box with the name
+        item = self.findBox(name)
+        if item:
+            item.setSelected(True)
+
     def mousePressEvent(self, event: QMouseEvent | None) -> None:
         if self.fourCornerSelectionMode and event.button() == Qt.MouseButton.LeftButton:
             # in four corner mode we want to add a point to the scene

@@ -195,6 +195,35 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         self.effectiveRect = None
         self.extraBoxes = []
         self.showOCRRects = showOCRRects
+        self.cornerBoxes = []
+        self.cornerSize = 20
+        for i in range(4):
+            cornerBox = QGraphicsRectItem(
+                0, 0, self.cornerSize, self.cornerSize, parent=self
+            )
+            cornerBox.setBrush(QBrush(QColor(255, 0, 0, 128)))  # Light red inside
+            cornerBox.setPen(QPen(QColor("red")))  # Red borders
+            cornerBox.setZValue(3)
+            cornerBox.setVisible(False)  # Initially hide the corner boxes
+            self.cornerBoxes.append(cornerBox)
+        self.updateCornerBoxes()
+
+    def updateCornerBoxes(self):
+        rect = self.boundingRect()
+        offset = QPointF(self.cornerSize / 2, self.cornerSize / 2)
+        self.cornerBoxes[0].setPos(rect.topLeft() - offset)
+        self.cornerBoxes[1].setPos(rect.topRight() - offset)
+        self.cornerBoxes[2].setPos(rect.bottomLeft() - offset)
+        self.cornerBoxes[3].setPos(rect.bottomRight() - offset)
+
+    def setRect(self, *args, **kwargs):
+        super().setRect(*args, **kwargs)
+        self.updateCornerBoxes()
+
+    def setSelected(self, selected):
+        super().setSelected(selected)
+        for cornerBox in self.cornerBoxes:
+            cornerBox.setVisible(selected)
 
     def getRect(self):
         return self.getOriginalRect()
