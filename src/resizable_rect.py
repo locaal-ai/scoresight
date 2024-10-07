@@ -163,7 +163,7 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         onCenter=False,
         boxChangedCallback=None,
         itemSelectedCallback=None,
-        boxDisplayStyle: str = "outline",
+        boxDisplayStyle: int = 1,
     ):
         super().__init__(x, y, width, height, onCenter)
         self.setAcceptedMouseButtons(Qt.MouseButton.LeftButton)
