@@ -218,4 +218,7 @@ def normalize_settings_dict(settings, box_info):
         "templatefield_text": (
             settings["templatefield_text"] if "templatefield_text" in settings else ""
         ),
+        "composite_box": (
+            settings["composite_box"] if "composite_box" in settings else False
+        ),
     }

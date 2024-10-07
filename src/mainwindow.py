@@ -328,6 +328,9 @@ class MainWindow(QMainWindow):
         self.ui.lineEdit_templatefield.textChanged.connect(
             partial(self.genericSettingsChanged, "templatefield_text")
         )
+        self.ui.checkBox_compositeBox.toggled.connect(
+            partial(self.genericSettingsChanged, "composite_box")
+        )
         self.ui.comboBox_formatPrefix.currentIndexChanged.connect(
             self.formatPrefixChanged
         )
@@ -775,6 +778,7 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_formatPrefix.blockSignals(True)
         self.ui.checkBox_templatefield.blockSignals(True)
         self.ui.lineEdit_templatefield.blockSignals(True)
+        self.ui.checkBox_compositeBox.blockSignals(True)
 
         # populate the settings from the detectionTargetsStorage
         item_obj = self.detectionTargetsStorage.find_item_by_name(name)
@@ -799,6 +803,7 @@ class MainWindow(QMainWindow):
             self.ui.comboBox_binarizationMethod.setCurrentIndex(0)
             self.ui.checkBox_templatefield.setChecked(False)
             self.ui.lineEdit_templatefield.setText("")
+            self.ui.checkBox_compositeBox.setChecked(False)
         else:
             item_obj.settings = normalize_settings_dict(
                 item_obj.settings, default_info_for_box_name(item_obj.name)
@@ -842,6 +847,7 @@ class MainWindow(QMainWindow):
             self.ui.lineEdit_templatefield.setText(
                 item_obj.settings["templatefield_text"]
             )
+            self.ui.checkBox_compositeBox.setChecked(item_obj.settings["composite_box"])
 
         self.ui.comboBox_formatPrefix.setCurrentIndex(12)
 
@@ -865,6 +871,7 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_formatPrefix.blockSignals(False)
         self.ui.checkBox_templatefield.blockSignals(False)
         self.ui.lineEdit_templatefield.blockSignals(False)
+        self.ui.checkBox_compositeBox.blockSignals(False)
 
     def listItemClicked(self, item):
         user_role = item.data(Qt.ItemDataRole.UserRole)
@@ -1097,6 +1104,12 @@ class MainWindow(QMainWindow):
         self.sourceSelectionSucessful()
 
     def itemSelected(self, item_name):
+        if item_name is None:
+            # clear the selected item
+            self.ui.tableWidget_boxes.clearSelection()
+            self.ui.groupBox_target_settings.setEnabled(False)
+            self.populateSettings("")
+            return
         # select the item in the tableWidget_boxes
         items = self.ui.tableWidget_boxes.findItems(
             item_name, Qt.MatchFlag.MatchExactly

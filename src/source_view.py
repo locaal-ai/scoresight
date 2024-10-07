@@ -64,6 +64,9 @@ class ImageViewer(CameraView):
             self.setFourCorners(fetch_data("scoresight.json", "four_corners"))
             self.fourCornersAppliedCallback(self.fourCorners)
         self._isScaling = False
+        self._isPanning = False
+        self._lastMousePosition = QPointF()
+
         self.boxDisplayStyleSetting: int = fetch_data(
             "scoresight.json", "box_display_style", 3
         )
@@ -184,7 +187,13 @@ class ImageViewer(CameraView):
                 item.setSelected(item.name == name)
 
     def mousePressEvent(self, event: QMouseEvent | None) -> None:
-        if self.fourCornerSelectionMode and event.button() == Qt.MouseButton.LeftButton:
+        if event.button() == Qt.MouseButton.MiddleButton:
+            self._isPanning = True
+            self._lastMousePosition = event.position()
+            self.setCursor(Qt.CursorShape.ClosedHandCursor)
+        elif (
+            self.fourCornerSelectionMode and event.button() == Qt.MouseButton.LeftButton
+        ):
             # in four corner mode we want to add a point to the scene
             # and connect the points in a polygon
             # get the position of the click
@@ -223,15 +232,31 @@ class ImageViewer(CameraView):
                 for corner in self.fourCorners:
                     corner.hide()
         else:
+            # deselect all the boxes
             self.selectBox(None)
+            self.itemSelectedCallback(None)
             super().mousePressEvent(event)
 
     def mouseReleaseEvent(self, event: QMouseEvent | None) -> None:
-        super().mouseReleaseEvent(event)
-        self.detectionTargetsStorage.saveBoxesToStorage()
+        if event.button() == Qt.MouseButton.MiddleButton:
+            self._isPanning = False
+            self.setCursor(Qt.CursorShape.ArrowCursor)
+        else:
+            super().mouseReleaseEvent(event)
+            self.detectionTargetsStorage.saveBoxesToStorage()
 
     def mouseMoveEvent(self, event: QMouseEvent | None) -> None:
-        super().mouseMoveEvent(event)
+        if self._isPanning:
+            delta = event.position() - self._lastMousePosition
+            self._lastMousePosition = event.position()
+            self.horizontalScrollBar().setValue(
+                self.horizontalScrollBar().value() - delta.x()
+            )
+            self.verticalScrollBar().setValue(
+                self.verticalScrollBar().value() - delta.y()
+            )
+        else:
+            super().mouseMoveEvent(event)
 
     def wheelEvent(self, event):
         # check for ctrl key

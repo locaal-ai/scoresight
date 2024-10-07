@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1103, 733)
+        MainWindow.resize(958, 730)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_31 = QHBoxLayout(self.centralwidget)
@@ -137,232 +137,49 @@ class Ui_MainWindow(object):
 
         self.groupBox_target_settings = QGroupBox(self.groupBox_sb_info)
         self.groupBox_target_settings.setObjectName(u"groupBox_target_settings")
-        self.verticalLayout_5 = QVBoxLayout(self.groupBox_target_settings)
-        self.verticalLayout_5.setSpacing(2)
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.verticalLayout_5.setContentsMargins(3, 0, 3, 3)
-        self.widget_10 = QWidget(self.groupBox_target_settings)
-        self.widget_10.setObjectName(u"widget_10")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        self.gridLayout_6 = QGridLayout(self.groupBox_target_settings)
+        self.gridLayout_6.setObjectName(u"gridLayout_6")
+        self.gridLayout_6.setVerticalSpacing(1)
+        self.gridLayout_6.setContentsMargins(2, 0, 2, 2)
+        self.pushButton_restoreDefaults = QPushButton(self.groupBox_target_settings)
+        self.pushButton_restoreDefaults.setObjectName(u"pushButton_restoreDefaults")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.widget_10.sizePolicy().hasHeightForWidth())
-        self.widget_10.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_12 = QHBoxLayout(self.widget_10)
-        self.horizontalLayout_12.setSpacing(3)
-        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
-        self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
-        self.label_6 = QLabel(self.widget_10)
-        self.label_6.setObjectName(u"label_6")
+        sizePolicy2.setHeightForWidth(self.pushButton_restoreDefaults.sizePolicy().hasHeightForWidth())
+        self.pushButton_restoreDefaults.setSizePolicy(sizePolicy2)
 
-        self.horizontalLayout_12.addWidget(self.label_6)
+        self.gridLayout_6.addWidget(self.pushButton_restoreDefaults, 0, 3, 1, 1)
 
-        self.label_selectedInfo = QLabel(self.widget_10)
-        self.label_selectedInfo.setObjectName(u"label_selectedInfo")
-
-        self.horizontalLayout_12.addWidget(self.label_selectedInfo)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_12.addItem(self.horizontalSpacer_3)
-
-        self.pushButton_restoreDefaults = QPushButton(self.widget_10)
-        self.pushButton_restoreDefaults.setObjectName(u"pushButton_restoreDefaults")
-
-        self.horizontalLayout_12.addWidget(self.pushButton_restoreDefaults)
-
-
-        self.verticalLayout_5.addWidget(self.widget_10)
-
-        self.widget_7 = QWidget(self.groupBox_target_settings)
-        self.widget_7.setObjectName(u"widget_7")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.widget_7.sizePolicy().hasHeightForWidth())
-        self.widget_7.setSizePolicy(sizePolicy3)
-        self.horizontalLayout_8 = QHBoxLayout(self.widget_7)
-        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
-        self.label_2 = QLabel(self.widget_7)
-        self.label_2.setObjectName(u"label_2")
-
-        self.horizontalLayout_8.addWidget(self.label_2)
-
-        self.lineEdit_format = QLineEdit(self.widget_7)
-        self.lineEdit_format.setObjectName(u"lineEdit_format")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.lineEdit_format.sizePolicy().hasHeightForWidth())
-        self.lineEdit_format.setSizePolicy(sizePolicy4)
-
-        self.horizontalLayout_8.addWidget(self.lineEdit_format)
-
-        self.comboBox_formatPrefix = QComboBox(self.widget_7)
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.addItem("")
-        self.comboBox_formatPrefix.setObjectName(u"comboBox_formatPrefix")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.comboBox_formatPrefix.sizePolicy().hasHeightForWidth())
-        self.comboBox_formatPrefix.setSizePolicy(sizePolicy5)
-
-        self.horizontalLayout_8.addWidget(self.comboBox_formatPrefix)
-
-
-        self.verticalLayout_5.addWidget(self.widget_7)
-
-        self.widget_19 = QWidget(self.groupBox_target_settings)
-        self.widget_19.setObjectName(u"widget_19")
-        self.horizontalLayout_21 = QHBoxLayout(self.widget_19)
-        self.horizontalLayout_21.setSpacing(3)
-        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
-        self.horizontalLayout_21.setContentsMargins(0, 0, 0, 0)
-        self.widget_25 = QWidget(self.widget_19)
-        self.widget_25.setObjectName(u"widget_25")
-        self.horizontalLayout_28 = QHBoxLayout(self.widget_25)
-        self.horizontalLayout_28.setObjectName(u"horizontalLayout_28")
-        self.horizontalLayout_28.setContentsMargins(0, 0, 0, 0)
-        self.label_13 = QLabel(self.widget_25)
-        self.label_13.setObjectName(u"label_13")
-
-        self.horizontalLayout_28.addWidget(self.label_13)
-
-        self.comboBox_fieldType = QComboBox(self.widget_25)
-        self.comboBox_fieldType.addItem("")
-        self.comboBox_fieldType.addItem("")
-        self.comboBox_fieldType.addItem("")
-        self.comboBox_fieldType.setObjectName(u"comboBox_fieldType")
-
-        self.horizontalLayout_28.addWidget(self.comboBox_fieldType)
-
-
-        self.horizontalLayout_21.addWidget(self.widget_25)
-
-        self.checkBox_compositeBox = QCheckBox(self.widget_19)
-        self.checkBox_compositeBox.setObjectName(u"checkBox_compositeBox")
-
-        self.horizontalLayout_21.addWidget(self.checkBox_compositeBox)
-
-
-        self.verticalLayout_5.addWidget(self.widget_19)
-
-        self.widget_14 = QWidget(self.groupBox_target_settings)
-        self.widget_14.setObjectName(u"widget_14")
-        sizePolicy2.setHeightForWidth(self.widget_14.sizePolicy().hasHeightForWidth())
-        self.widget_14.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_16 = QHBoxLayout(self.widget_14)
-        self.horizontalLayout_16.setSpacing(3)
-        self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
-        self.horizontalLayout_16.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_smoothing = QCheckBox(self.widget_14)
+        self.checkBox_smoothing = QCheckBox(self.groupBox_target_settings)
         self.checkBox_smoothing.setObjectName(u"checkBox_smoothing")
 
-        self.horizontalLayout_16.addWidget(self.checkBox_smoothing)
+        self.gridLayout_6.addWidget(self.checkBox_smoothing, 3, 2, 1, 1)
 
-        self.checkBox_ordinalIndicator = QCheckBox(self.widget_14)
-        self.checkBox_ordinalIndicator.setObjectName(u"checkBox_ordinalIndicator")
-
-        self.horizontalLayout_16.addWidget(self.checkBox_ordinalIndicator)
-
-
-        self.verticalLayout_5.addWidget(self.widget_14)
-
-        self.widget_11 = QWidget(self.groupBox_target_settings)
-        self.widget_11.setObjectName(u"widget_11")
-        sizePolicy2.setHeightForWidth(self.widget_11.sizePolicy().hasHeightForWidth())
-        self.widget_11.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_13 = QHBoxLayout(self.widget_11)
-        self.horizontalLayout_13.setSpacing(3)
-        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
-        self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_skip_empty = QCheckBox(self.widget_11)
-        self.checkBox_skip_empty.setObjectName(u"checkBox_skip_empty")
-
-        self.horizontalLayout_13.addWidget(self.checkBox_skip_empty)
-
-        self.checkBox_skip_similar_image = QCheckBox(self.widget_11)
-        self.checkBox_skip_similar_image.setObjectName(u"checkBox_skip_similar_image")
-
-        self.horizontalLayout_13.addWidget(self.checkBox_skip_similar_image)
-
-
-        self.verticalLayout_5.addWidget(self.widget_11)
-
-        self.widget_15 = QWidget(self.groupBox_target_settings)
-        self.widget_15.setObjectName(u"widget_15")
-        sizePolicy2.setHeightForWidth(self.widget_15.sizePolicy().hasHeightForWidth())
-        self.widget_15.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_17 = QHBoxLayout(self.widget_15)
-        self.horizontalLayout_17.setSpacing(3)
-        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
-        self.horizontalLayout_17.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_autocrop = QCheckBox(self.widget_15)
-        self.checkBox_autocrop.setObjectName(u"checkBox_autocrop")
-
-        self.horizontalLayout_17.addWidget(self.checkBox_autocrop)
-
-        self.checkBox_invertPatch = QCheckBox(self.widget_15)
-        self.checkBox_invertPatch.setObjectName(u"checkBox_invertPatch")
-
-        self.horizontalLayout_17.addWidget(self.checkBox_invertPatch)
-
-
-        self.verticalLayout_5.addWidget(self.widget_15)
-
-        self.widget_22 = QWidget(self.groupBox_target_settings)
-        self.widget_22.setObjectName(u"widget_22")
-        self.horizontalLayout_25 = QHBoxLayout(self.widget_22)
-        self.horizontalLayout_25.setSpacing(3)
-        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
-        self.horizontalLayout_25.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_removeLeadingZeros = QCheckBox(self.widget_22)
-        self.checkBox_removeLeadingZeros.setObjectName(u"checkBox_removeLeadingZeros")
-
-        self.horizontalLayout_25.addWidget(self.checkBox_removeLeadingZeros)
-
-        self.checkBox_dotDetector = QCheckBox(self.widget_22)
-        self.checkBox_dotDetector.setObjectName(u"checkBox_dotDetector")
-
-        self.horizontalLayout_25.addWidget(self.checkBox_dotDetector)
-
-
-        self.verticalLayout_5.addWidget(self.widget_22)
-
-        self.widget_9 = QWidget(self.groupBox_target_settings)
-        self.widget_9.setObjectName(u"widget_9")
-        self.horizontalLayout_11 = QHBoxLayout(self.widget_9)
-        self.horizontalLayout_11.setSpacing(3)
+        self.horizontalLayout_11 = QHBoxLayout()
         self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
-        self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
-        self.checkBox_rescalePatch = QCheckBox(self.widget_9)
-        self.checkBox_rescalePatch.setObjectName(u"checkBox_rescalePatch")
+        self.label_15 = QLabel(self.groupBox_target_settings)
+        self.label_15.setObjectName(u"label_15")
 
-        self.horizontalLayout_11.addWidget(self.checkBox_rescalePatch)
+        self.horizontalLayout_11.addWidget(self.label_15)
 
-        self.checkBox_normWHRatio = QCheckBox(self.widget_9)
-        self.checkBox_normWHRatio.setObjectName(u"checkBox_normWHRatio")
+        self.horizontalSlider_vscale = QSlider(self.groupBox_target_settings)
+        self.horizontalSlider_vscale.setObjectName(u"horizontalSlider_vscale")
+        self.horizontalSlider_vscale.setMinimum(1)
+        self.horizontalSlider_vscale.setMaximum(10)
+        self.horizontalSlider_vscale.setPageStep(5)
+        self.horizontalSlider_vscale.setValue(10)
+        self.horizontalSlider_vscale.setOrientation(Qt.Horizontal)
 
-        self.horizontalLayout_11.addWidget(self.checkBox_normWHRatio)
+        self.horizontalLayout_11.addWidget(self.horizontalSlider_vscale)
 
 
-        self.verticalLayout_5.addWidget(self.widget_9)
+        self.gridLayout_6.addLayout(self.horizontalLayout_11, 10, 3, 1, 1)
 
         self.widget_27 = QWidget(self.groupBox_target_settings)
         self.widget_27.setObjectName(u"widget_27")
+        sizePolicy.setHeightForWidth(self.widget_27.sizePolicy().hasHeightForWidth())
+        self.widget_27.setSizePolicy(sizePolicy)
         self.horizontalLayout_32 = QHBoxLayout(self.widget_27)
         self.horizontalLayout_32.setObjectName(u"horizontalLayout_32")
         self.horizontalLayout_32.setContentsMargins(0, 0, 0, 0)
@@ -379,119 +196,273 @@ class Ui_MainWindow(object):
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.setObjectName(u"comboBox_binarizationMethod")
+        sizePolicy2.setHeightForWidth(self.comboBox_binarizationMethod.sizePolicy().hasHeightForWidth())
+        self.comboBox_binarizationMethod.setSizePolicy(sizePolicy2)
 
         self.horizontalLayout_32.addWidget(self.comboBox_binarizationMethod)
 
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_32.addItem(self.horizontalSpacer_5)
+        self.gridLayout_6.addWidget(self.widget_27, 9, 2, 1, 1)
+
+        self.comboBox_formatPrefix = QComboBox(self.groupBox_target_settings)
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.addItem("")
+        self.comboBox_formatPrefix.setObjectName(u"comboBox_formatPrefix")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.comboBox_formatPrefix.sizePolicy().hasHeightForWidth())
+        self.comboBox_formatPrefix.setSizePolicy(sizePolicy3)
+
+        self.gridLayout_6.addWidget(self.comboBox_formatPrefix, 1, 3, 1, 1)
+
+        self.checkBox_dotDetector = QCheckBox(self.groupBox_target_settings)
+        self.checkBox_dotDetector.setObjectName(u"checkBox_dotDetector")
+
+        self.gridLayout_6.addWidget(self.checkBox_dotDetector, 7, 3, 1, 1)
+
+        self.horizontalWidget = QWidget(self.groupBox_target_settings)
+        self.horizontalWidget.setObjectName(u"horizontalWidget")
+        sizePolicy.setHeightForWidth(self.horizontalWidget.sizePolicy().hasHeightForWidth())
+        self.horizontalWidget.setSizePolicy(sizePolicy)
+        self.horizontalLayout_8 = QHBoxLayout(self.horizontalWidget)
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.label_13 = QLabel(self.horizontalWidget)
+        self.label_13.setObjectName(u"label_13")
+        sizePolicy.setHeightForWidth(self.label_13.sizePolicy().hasHeightForWidth())
+        self.label_13.setSizePolicy(sizePolicy)
+
+        self.horizontalLayout_8.addWidget(self.label_13)
+
+        self.comboBox_fieldType = QComboBox(self.horizontalWidget)
+        self.comboBox_fieldType.addItem("")
+        self.comboBox_fieldType.addItem("")
+        self.comboBox_fieldType.addItem("")
+        self.comboBox_fieldType.setObjectName(u"comboBox_fieldType")
+        sizePolicy2.setHeightForWidth(self.comboBox_fieldType.sizePolicy().hasHeightForWidth())
+        self.comboBox_fieldType.setSizePolicy(sizePolicy2)
+
+        self.horizontalLayout_8.addWidget(self.comboBox_fieldType)
 
 
-        self.verticalLayout_5.addWidget(self.widget_27)
-
-        self.widget_20 = QWidget(self.groupBox_target_settings)
-        self.widget_20.setObjectName(u"widget_20")
-        self.horizontalLayout_23 = QHBoxLayout(self.widget_20)
-        self.horizontalLayout_23.setSpacing(3)
-        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
-        self.horizontalLayout_23.setContentsMargins(0, 0, 0, 0)
-
-        self.verticalLayout_5.addWidget(self.widget_20)
+        self.gridLayout_6.addWidget(self.horizontalWidget, 2, 2, 1, 1)
 
         self.widget_17 = QWidget(self.groupBox_target_settings)
         self.widget_17.setObjectName(u"widget_17")
-        sizePolicy3.setHeightForWidth(self.widget_17.sizePolicy().hasHeightForWidth())
-        self.widget_17.setSizePolicy(sizePolicy3)
-        self.horizontalLayout_20 = QHBoxLayout(self.widget_17)
-        self.horizontalLayout_20.setSpacing(3)
-        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
-        self.horizontalLayout_20.setContentsMargins(0, 0, 0, 0)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.widget_17.sizePolicy().hasHeightForWidth())
+        self.widget_17.setSizePolicy(sizePolicy4)
+        self.horizontalLayout_15 = QHBoxLayout(self.widget_17)
+        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
+        self.horizontalLayout_15.setContentsMargins(0, 0, 0, 0)
         self.label_4 = QLabel(self.widget_17)
         self.label_4.setObjectName(u"label_4")
+        sizePolicy.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
+        self.label_4.setSizePolicy(sizePolicy)
 
-        self.horizontalLayout_20.addWidget(self.label_4)
+        self.horizontalLayout_15.addWidget(self.label_4)
 
         self.horizontalSlider_cleanup = QSlider(self.widget_17)
         self.horizontalSlider_cleanup.setObjectName(u"horizontalSlider_cleanup")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.horizontalSlider_cleanup.sizePolicy().hasHeightForWidth())
+        self.horizontalSlider_cleanup.setSizePolicy(sizePolicy5)
         self.horizontalSlider_cleanup.setOrientation(Qt.Horizontal)
 
-        self.horizontalLayout_20.addWidget(self.horizontalSlider_cleanup)
-
-        self.label_15 = QLabel(self.widget_17)
-        self.label_15.setObjectName(u"label_15")
-
-        self.horizontalLayout_20.addWidget(self.label_15)
-
-        self.horizontalSlider_vscale = QSlider(self.widget_17)
-        self.horizontalSlider_vscale.setObjectName(u"horizontalSlider_vscale")
-        self.horizontalSlider_vscale.setMinimum(1)
-        self.horizontalSlider_vscale.setMaximum(10)
-        self.horizontalSlider_vscale.setPageStep(5)
-        self.horizontalSlider_vscale.setValue(10)
-        self.horizontalSlider_vscale.setOrientation(Qt.Horizontal)
-
-        self.horizontalLayout_20.addWidget(self.horizontalSlider_vscale)
+        self.horizontalLayout_15.addWidget(self.horizontalSlider_cleanup)
 
 
-        self.verticalLayout_5.addWidget(self.widget_17)
+        self.gridLayout_6.addWidget(self.widget_17, 10, 2, 1, 1)
 
-        self.widget_13 = QWidget(self.groupBox_target_settings)
-        self.widget_13.setObjectName(u"widget_13")
-        sizePolicy2.setHeightForWidth(self.widget_13.sizePolicy().hasHeightForWidth())
-        self.widget_13.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_15 = QHBoxLayout(self.widget_13)
-        self.horizontalLayout_15.setSpacing(3)
-        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
-        self.horizontalLayout_15.setContentsMargins(0, 0, 0, 0)
-        self.label_9 = QLabel(self.widget_13)
-        self.label_9.setObjectName(u"label_9")
+        self.checkBox_ordinalIndicator = QCheckBox(self.groupBox_target_settings)
+        self.checkBox_ordinalIndicator.setObjectName(u"checkBox_ordinalIndicator")
 
-        self.horizontalLayout_15.addWidget(self.label_9)
+        self.gridLayout_6.addWidget(self.checkBox_ordinalIndicator, 3, 3, 1, 1)
 
-        self.horizontalSlider_dilate = QSlider(self.widget_13)
-        self.horizontalSlider_dilate.setObjectName(u"horizontalSlider_dilate")
-        self.horizontalSlider_dilate.setMaximum(5)
-        self.horizontalSlider_dilate.setPageStep(1)
-        self.horizontalSlider_dilate.setOrientation(Qt.Horizontal)
+        self.checkBox_skip_empty = QCheckBox(self.groupBox_target_settings)
+        self.checkBox_skip_empty.setObjectName(u"checkBox_skip_empty")
 
-        self.horizontalLayout_15.addWidget(self.horizontalSlider_dilate)
+        self.gridLayout_6.addWidget(self.checkBox_skip_empty, 4, 2, 1, 1)
 
-        self.label_14 = QLabel(self.widget_13)
+        self.widget_10 = QWidget(self.groupBox_target_settings)
+        self.widget_10.setObjectName(u"widget_10")
+        sizePolicy4.setHeightForWidth(self.widget_10.sizePolicy().hasHeightForWidth())
+        self.widget_10.setSizePolicy(sizePolicy4)
+        self.horizontalLayout_16 = QHBoxLayout(self.widget_10)
+        self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
+        self.label_6 = QLabel(self.widget_10)
+        self.label_6.setObjectName(u"label_6")
+        sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
+        self.label_6.setSizePolicy(sizePolicy)
+
+        self.horizontalLayout_16.addWidget(self.label_6)
+
+        self.label_selectedInfo = QLabel(self.widget_10)
+        self.label_selectedInfo.setObjectName(u"label_selectedInfo")
+
+        self.horizontalLayout_16.addWidget(self.label_selectedInfo)
+
+
+        self.gridLayout_6.addWidget(self.widget_10, 0, 2, 1, 1)
+
+        self.horizontalLayout_12 = QHBoxLayout()
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.label_14 = QLabel(self.groupBox_target_settings)
         self.label_14.setObjectName(u"label_14")
 
-        self.horizontalLayout_15.addWidget(self.label_14)
+        self.horizontalLayout_12.addWidget(self.label_14)
 
-        self.horizontalSlider_skew = QSlider(self.widget_13)
+        self.horizontalSlider_skew = QSlider(self.groupBox_target_settings)
         self.horizontalSlider_skew.setObjectName(u"horizontalSlider_skew")
         self.horizontalSlider_skew.setMinimum(-10)
         self.horizontalSlider_skew.setMaximum(10)
         self.horizontalSlider_skew.setOrientation(Qt.Horizontal)
 
-        self.horizontalLayout_15.addWidget(self.horizontalSlider_skew)
+        self.horizontalLayout_12.addWidget(self.horizontalSlider_skew)
 
 
-        self.verticalLayout_5.addWidget(self.widget_13)
+        self.gridLayout_6.addLayout(self.horizontalLayout_12, 11, 3, 1, 1)
+
+        self.checkBox_compositeBox = QCheckBox(self.groupBox_target_settings)
+        self.checkBox_compositeBox.setObjectName(u"checkBox_compositeBox")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.checkBox_compositeBox.sizePolicy().hasHeightForWidth())
+        self.checkBox_compositeBox.setSizePolicy(sizePolicy6)
+
+        self.gridLayout_6.addWidget(self.checkBox_compositeBox, 9, 3, 1, 1)
 
         self.widget_21 = QWidget(self.groupBox_target_settings)
         self.widget_21.setObjectName(u"widget_21")
-        self.horizontalLayout_24 = QHBoxLayout(self.widget_21)
-        self.horizontalLayout_24.setSpacing(3)
-        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
-        self.horizontalLayout_24.setContentsMargins(0, 0, 0, 0)
+        sizePolicy4.setHeightForWidth(self.widget_21.sizePolicy().hasHeightForWidth())
+        self.widget_21.setSizePolicy(sizePolicy4)
+        self.horizontalLayout_20 = QHBoxLayout(self.widget_21)
+        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
+        self.horizontalLayout_20.setContentsMargins(0, 0, 0, 0)
         self.label_3 = QLabel(self.widget_21)
         self.label_3.setObjectName(u"label_3")
+        sizePolicy.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
+        self.label_3.setSizePolicy(sizePolicy)
 
-        self.horizontalLayout_24.addWidget(self.label_3)
+        self.horizontalLayout_20.addWidget(self.label_3)
 
         self.horizontalSlider_conf_thresh = QSlider(self.widget_21)
         self.horizontalSlider_conf_thresh.setObjectName(u"horizontalSlider_conf_thresh")
+        sizePolicy5.setHeightForWidth(self.horizontalSlider_conf_thresh.sizePolicy().hasHeightForWidth())
+        self.horizontalSlider_conf_thresh.setSizePolicy(sizePolicy5)
         self.horizontalSlider_conf_thresh.setValue(50)
         self.horizontalSlider_conf_thresh.setOrientation(Qt.Horizontal)
 
-        self.horizontalLayout_24.addWidget(self.horizontalSlider_conf_thresh)
+        self.horizontalLayout_20.addWidget(self.horizontalSlider_conf_thresh)
 
 
-        self.verticalLayout_5.addWidget(self.widget_21)
+        self.gridLayout_6.addWidget(self.widget_21, 12, 2, 1, 1)
+
+        self.checkBox_normWHRatio = QCheckBox(self.groupBox_target_settings)
+        self.checkBox_normWHRatio.setObjectName(u"checkBox_normWHRatio")
+
+        self.gridLayout_6.addWidget(self.checkBox_normWHRatio, 8, 3, 1, 1)
+
+        self.checkBox_invertPatch = QCheckBox(self.groupBox_target_settings)
+        self.checkBox_invertPatch.setObjectName(u"checkBox_invertPatch")
+
+        self.gridLayout_6.addWidget(self.checkBox_invertPatch, 6, 3, 1, 1)
+
+        self.checkBox_skip_similar_image = QCheckBox(self.groupBox_target_settings)
+        self.checkBox_skip_similar_image.setObjectName(u"checkBox_skip_similar_image")
+
+        self.gridLayout_6.addWidget(self.checkBox_skip_similar_image, 4, 3, 1, 1)
+
+        self.checkBox = QCheckBox(self.groupBox_target_settings)
+        self.checkBox.setObjectName(u"checkBox")
+        self.checkBox.setEnabled(False)
+        sizePolicy6.setHeightForWidth(self.checkBox.sizePolicy().hasHeightForWidth())
+        self.checkBox.setSizePolicy(sizePolicy6)
+
+        self.gridLayout_6.addWidget(self.checkBox, 2, 3, 1, 1)
+
+        self.widget_7 = QWidget(self.groupBox_target_settings)
+        self.widget_7.setObjectName(u"widget_7")
+        sizePolicy4.setHeightForWidth(self.widget_7.sizePolicy().hasHeightForWidth())
+        self.widget_7.setSizePolicy(sizePolicy4)
+        self.horizontalLayout_17 = QHBoxLayout(self.widget_7)
+        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
+        self.horizontalLayout_17.setContentsMargins(0, 0, 0, 0)
+        self.label_2 = QLabel(self.widget_7)
+        self.label_2.setObjectName(u"label_2")
+        sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy)
+
+        self.horizontalLayout_17.addWidget(self.label_2)
+
+        self.lineEdit_format = QLineEdit(self.widget_7)
+        self.lineEdit_format.setObjectName(u"lineEdit_format")
+        sizePolicy5.setHeightForWidth(self.lineEdit_format.sizePolicy().hasHeightForWidth())
+        self.lineEdit_format.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_17.addWidget(self.lineEdit_format)
+
+
+        self.gridLayout_6.addWidget(self.widget_7, 1, 2, 1, 1)
+
+        self.widget_13 = QWidget(self.groupBox_target_settings)
+        self.widget_13.setObjectName(u"widget_13")
+        sizePolicy4.setHeightForWidth(self.widget_13.sizePolicy().hasHeightForWidth())
+        self.widget_13.setSizePolicy(sizePolicy4)
+        self.horizontalLayout_13 = QHBoxLayout(self.widget_13)
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
+        self.label_9 = QLabel(self.widget_13)
+        self.label_9.setObjectName(u"label_9")
+        sizePolicy.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
+        self.label_9.setSizePolicy(sizePolicy)
+
+        self.horizontalLayout_13.addWidget(self.label_9)
+
+        self.horizontalSlider_dilate = QSlider(self.widget_13)
+        self.horizontalSlider_dilate.setObjectName(u"horizontalSlider_dilate")
+        sizePolicy5.setHeightForWidth(self.horizontalSlider_dilate.sizePolicy().hasHeightForWidth())
+        self.horizontalSlider_dilate.setSizePolicy(sizePolicy5)
+        self.horizontalSlider_dilate.setMaximum(5)
+        self.horizontalSlider_dilate.setPageStep(1)
+        self.horizontalSlider_dilate.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_13.addWidget(self.horizontalSlider_dilate)
+
+
+        self.gridLayout_6.addWidget(self.widget_13, 11, 2, 1, 1)
+
+        self.checkBox_autocrop = QCheckBox(self.groupBox_target_settings)
+        self.checkBox_autocrop.setObjectName(u"checkBox_autocrop")
+
+        self.gridLayout_6.addWidget(self.checkBox_autocrop, 6, 2, 1, 1)
+
+        self.checkBox_removeLeadingZeros = QCheckBox(self.groupBox_target_settings)
+        self.checkBox_removeLeadingZeros.setObjectName(u"checkBox_removeLeadingZeros")
+
+        self.gridLayout_6.addWidget(self.checkBox_removeLeadingZeros, 7, 2, 1, 1)
+
+        self.checkBox_rescalePatch = QCheckBox(self.groupBox_target_settings)
+        self.checkBox_rescalePatch.setObjectName(u"checkBox_rescalePatch")
+
+        self.gridLayout_6.addWidget(self.checkBox_rescalePatch, 8, 2, 1, 1)
 
 
         self.verticalLayout_3.addWidget(self.groupBox_target_settings)
@@ -550,8 +521,8 @@ class Ui_MainWindow(object):
         self.tabWidget_outputs.setTabShape(QTabWidget.Rounded)
         self.tab_textFiles = QWidget()
         self.tab_textFiles.setObjectName(u"tab_textFiles")
-        sizePolicy3.setHeightForWidth(self.tab_textFiles.sizePolicy().hasHeightForWidth())
-        self.tab_textFiles.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.tab_textFiles.sizePolicy().hasHeightForWidth())
+        self.tab_textFiles.setSizePolicy(sizePolicy4)
         self.formLayout_2 = QFormLayout(self.tab_textFiles)
         self.formLayout_2.setObjectName(u"formLayout_2")
         self.formLayout_2.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
@@ -564,8 +535,8 @@ class Ui_MainWindow(object):
 
         self.widget_5 = QWidget(self.tab_textFiles)
         self.widget_5.setObjectName(u"widget_5")
-        sizePolicy4.setHeightForWidth(self.widget_5.sizePolicy().hasHeightForWidth())
-        self.widget_5.setSizePolicy(sizePolicy4)
+        sizePolicy6.setHeightForWidth(self.widget_5.sizePolicy().hasHeightForWidth())
+        self.widget_5.setSizePolicy(sizePolicy6)
         self.horizontalLayout_6 = QHBoxLayout(self.widget_5)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
@@ -590,8 +561,8 @@ class Ui_MainWindow(object):
 
         self.widget_12 = QWidget(self.tab_textFiles)
         self.widget_12.setObjectName(u"widget_12")
-        sizePolicy4.setHeightForWidth(self.widget_12.sizePolicy().hasHeightForWidth())
-        self.widget_12.setSizePolicy(sizePolicy4)
+        sizePolicy6.setHeightForWidth(self.widget_12.sizePolicy().hasHeightForWidth())
+        self.widget_12.setSizePolicy(sizePolicy6)
         self.horizontalLayout_14 = QHBoxLayout(self.widget_12)
         self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
         self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
@@ -619,8 +590,8 @@ class Ui_MainWindow(object):
         self.comboBox_appendMethod.addItem("")
         self.comboBox_appendMethod.addItem("")
         self.comboBox_appendMethod.setObjectName(u"comboBox_appendMethod")
-        sizePolicy4.setHeightForWidth(self.comboBox_appendMethod.sizePolicy().hasHeightForWidth())
-        self.comboBox_appendMethod.setSizePolicy(sizePolicy4)
+        sizePolicy6.setHeightForWidth(self.comboBox_appendMethod.sizePolicy().hasHeightForWidth())
+        self.comboBox_appendMethod.setSizePolicy(sizePolicy6)
 
         self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.comboBox_appendMethod)
 
@@ -665,11 +636,8 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setVerticalSpacing(2)
         self.pushButton_connectObs = QPushButton(self.tab_obs)
         self.pushButton_connectObs.setObjectName(u"pushButton_connectObs")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.pushButton_connectObs.sizePolicy().hasHeightForWidth())
-        self.pushButton_connectObs.setSizePolicy(sizePolicy6)
+        sizePolicy5.setHeightForWidth(self.pushButton_connectObs.sizePolicy().hasHeightForWidth())
+        self.pushButton_connectObs.setSizePolicy(sizePolicy5)
         self.pushButton_connectObs.setMinimumSize(QSize(0, 0))
 
         self.gridLayout_2.addWidget(self.pushButton_connectObs, 0, 0, 1, 1)
@@ -739,19 +707,16 @@ class Ui_MainWindow(object):
 
         self.lineEdit_vmixPort = QLineEdit(self.connectionWidget)
         self.lineEdit_vmixPort.setObjectName(u"lineEdit_vmixPort")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.lineEdit_vmixPort.sizePolicy().hasHeightForWidth())
-        self.lineEdit_vmixPort.setSizePolicy(sizePolicy7)
+        sizePolicy2.setHeightForWidth(self.lineEdit_vmixPort.sizePolicy().hasHeightForWidth())
+        self.lineEdit_vmixPort.setSizePolicy(sizePolicy2)
         self.lineEdit_vmixPort.setMaximumSize(QSize(50, 16777215))
 
         self.horizontalLayout_18.addWidget(self.lineEdit_vmixPort)
 
         self.pushButton_startvmix = QPushButton(self.connectionWidget)
         self.pushButton_startvmix.setObjectName(u"pushButton_startvmix")
-        sizePolicy7.setHeightForWidth(self.pushButton_startvmix.sizePolicy().hasHeightForWidth())
-        self.pushButton_startvmix.setSizePolicy(sizePolicy7)
+        sizePolicy2.setHeightForWidth(self.pushButton_startvmix.sizePolicy().hasHeightForWidth())
+        self.pushButton_startvmix.setSizePolicy(sizePolicy2)
         self.pushButton_startvmix.setCheckable(True)
         self.pushButton_startvmix.setChecked(False)
 
@@ -952,8 +917,11 @@ class Ui_MainWindow(object):
         self.frame_source_view = QFrame(self.centralwidget)
         self.frame_source_view.setObjectName(u"frame_source_view")
         self.frame_source_view.setEnabled(True)
-        sizePolicy2.setHeightForWidth(self.frame_source_view.sizePolicy().hasHeightForWidth())
-        self.frame_source_view.setSizePolicy(sizePolicy2)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.frame_source_view.sizePolicy().hasHeightForWidth())
+        self.frame_source_view.setSizePolicy(sizePolicy7)
         self.frame_source_view.setFrameShape(QFrame.StyledPanel)
         self.frame_source_view.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.frame_source_view)
@@ -1198,7 +1166,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1103, 20))
+        self.menubar.setGeometry(QRect(0, 0, 958, 20))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
@@ -1220,10 +1188,15 @@ class Ui_MainWindow(object):
         self.toolButton_removeBox.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.pushButton_makeBox.setText(QCoreApplication.translate("MainWindow", u"Add to Scene ->", None))
         self.pushButton_removeBox.setText(QCoreApplication.translate("MainWindow", u"Remove Selected", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Target:", None))
-        self.label_selectedInfo.setText(QCoreApplication.translate("MainWindow", u"Select an item above", None))
         self.pushButton_restoreDefaults.setText(QCoreApplication.translate("MainWindow", u"Defaults", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Format", None))
+        self.checkBox_smoothing.setText(QCoreApplication.translate("MainWindow", u"Average Output", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"V.Scale", None))
+        self.label_binarizationMethod.setText(QCoreApplication.translate("MainWindow", u"Binarize", None))
+        self.comboBox_binarizationMethod.setItemText(0, QCoreApplication.translate("MainWindow", u"Global", None))
+        self.comboBox_binarizationMethod.setItemText(1, QCoreApplication.translate("MainWindow", u"No Binarization", None))
+        self.comboBox_binarizationMethod.setItemText(2, QCoreApplication.translate("MainWindow", u"Local", None))
+        self.comboBox_binarizationMethod.setItemText(3, QCoreApplication.translate("MainWindow", u"Adaptive", None))
+
         self.comboBox_formatPrefix.setItemText(0, QCoreApplication.translate("MainWindow", u"Time mm:ss.d", None))
         self.comboBox_formatPrefix.setItemText(1, QCoreApplication.translate("MainWindow", u"Time mm:ss", None))
         self.comboBox_formatPrefix.setItemText(2, QCoreApplication.translate("MainWindow", u"Time ss.d", None))
@@ -1238,42 +1211,38 @@ class Ui_MainWindow(object):
         self.comboBox_formatPrefix.setItemText(11, QCoreApplication.translate("MainWindow", u"Any number", None))
         self.comboBox_formatPrefix.setItemText(12, QCoreApplication.translate("MainWindow", u"Select Preset", None))
 
+#if QT_CONFIG(tooltip)
+        self.checkBox_dotDetector.setToolTip(QCoreApplication.translate("MainWindow", u"Count dots/blobs instead of detecting characters", None))
+#endif // QT_CONFIG(tooltip)
+        self.checkBox_dotDetector.setText(QCoreApplication.translate("MainWindow", u"Dot Counter", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Type", None))
         self.comboBox_fieldType.setItemText(0, QCoreApplication.translate("MainWindow", u"Number 0-9", None))
         self.comboBox_fieldType.setItemText(1, QCoreApplication.translate("MainWindow", u"Time 0-9 , . :", None))
         self.comboBox_fieldType.setItemText(2, QCoreApplication.translate("MainWindow", u"Text", None))
 
-        self.checkBox_compositeBox.setText(QCoreApplication.translate("MainWindow", u"Composite (Per-Character)", None))
-        self.checkBox_smoothing.setText(QCoreApplication.translate("MainWindow", u"Average Output", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Cleanup", None))
         self.checkBox_ordinalIndicator.setText(QCoreApplication.translate("MainWindow", u"Ordinal (1st, 2nd, ..)", None))
         self.checkBox_skip_empty.setText(QCoreApplication.translate("MainWindow", u"Skip Empty Values", None))
-        self.checkBox_skip_similar_image.setText(QCoreApplication.translate("MainWindow", u"Skip Similar Image", None))
-        self.checkBox_autocrop.setText(QCoreApplication.translate("MainWindow", u"Auto Crop", None))
-        self.checkBox_invertPatch.setText(QCoreApplication.translate("MainWindow", u"Invert Input", None))
-        self.checkBox_removeLeadingZeros.setText(QCoreApplication.translate("MainWindow", u"Remove leading 0s", None))
-#if QT_CONFIG(tooltip)
-        self.checkBox_dotDetector.setToolTip(QCoreApplication.translate("MainWindow", u"Count dots/blobs instead of detecting characters", None))
-#endif // QT_CONFIG(tooltip)
-        self.checkBox_dotDetector.setText(QCoreApplication.translate("MainWindow", u"Dot Counter", None))
-#if QT_CONFIG(tooltip)
-        self.checkBox_rescalePatch.setToolTip(QCoreApplication.translate("MainWindow", u"Scale the image to 35 pixels height, a favorable size for OCR", None))
-#endif // QT_CONFIG(tooltip)
-        self.checkBox_rescalePatch.setText(QCoreApplication.translate("MainWindow", u"Rescale Input", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Target:", None))
+        self.label_selectedInfo.setText(QCoreApplication.translate("MainWindow", u"Select an item above", None))
+        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Skew", None))
+        self.checkBox_compositeBox.setText(QCoreApplication.translate("MainWindow", u"Composite (Per-Character)", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Conf. Th", None))
 #if QT_CONFIG(tooltip)
         self.checkBox_normWHRatio.setToolTip(QCoreApplication.translate("MainWindow", u"Scale to a favorable 1:2 width-to-height ratio", None))
 #endif // QT_CONFIG(tooltip)
         self.checkBox_normWHRatio.setText(QCoreApplication.translate("MainWindow", u"Normalize W-H Ratio", None))
-        self.label_binarizationMethod.setText(QCoreApplication.translate("MainWindow", u"Binarize", None))
-        self.comboBox_binarizationMethod.setItemText(0, QCoreApplication.translate("MainWindow", u"Global", None))
-        self.comboBox_binarizationMethod.setItemText(1, QCoreApplication.translate("MainWindow", u"No Binarization", None))
-        self.comboBox_binarizationMethod.setItemText(2, QCoreApplication.translate("MainWindow", u"Local", None))
-        self.comboBox_binarizationMethod.setItemText(3, QCoreApplication.translate("MainWindow", u"Adaptive", None))
-
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Cleanup", None))
-        self.label_15.setText(QCoreApplication.translate("MainWindow", u"V.Scale", None))
+        self.checkBox_invertPatch.setText(QCoreApplication.translate("MainWindow", u"Invert Input", None))
+        self.checkBox_skip_similar_image.setText(QCoreApplication.translate("MainWindow", u"Skip Similar Image", None))
+        self.checkBox.setText(QCoreApplication.translate("MainWindow", u"Force Format", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Format", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Dilate", None))
-        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Skew", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Conf. Th", None))
+        self.checkBox_autocrop.setText(QCoreApplication.translate("MainWindow", u"Auto Crop", None))
+        self.checkBox_removeLeadingZeros.setText(QCoreApplication.translate("MainWindow", u"Remove leading 0s", None))
+#if QT_CONFIG(tooltip)
+        self.checkBox_rescalePatch.setToolTip(QCoreApplication.translate("MainWindow", u"Scale the image to 35 pixels height, a favorable size for OCR", None))
+#endif // QT_CONFIG(tooltip)
+        self.checkBox_rescalePatch.setText(QCoreApplication.translate("MainWindow", u"Rescale Input", None))
 #if QT_CONFIG(tooltip)
         self.checkBox_templatefield.setToolTip(QCoreApplication.translate("MainWindow", u"This field is a combination of exising fields in a template", None))
 #endif // QT_CONFIG(tooltip)
