@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.3
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1103, 899)
+        MainWindow.resize(1103, 733)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_31 = QHBoxLayout(self.centralwidget)
@@ -1066,11 +1066,6 @@ class Ui_MainWindow(object):
         self.comboBox_boxDisplayStyle.addItem("")
         self.comboBox_boxDisplayStyle.addItem("")
         self.comboBox_boxDisplayStyle.setObjectName(u"comboBox_boxDisplayStyle")
-        sizePolicy6.setHeightForWidth(self.comboBox_boxDisplayStyle.sizePolicy().hasHeightForWidth())
-        self.comboBox_boxDisplayStyle.setSizePolicy(sizePolicy6)
-        font1 = QFont()
-        font1.setPointSize(12)
-        self.comboBox_boxDisplayStyle.setFont(font1)
 
         self.horizontalLayout_10.addWidget(self.comboBox_boxDisplayStyle)
 
@@ -1099,9 +1094,9 @@ class Ui_MainWindow(object):
         self.widget_cropPanel.setObjectName(u"widget_cropPanel")
         self.widget_cropPanel.setEnabled(False)
         self.widget_cropPanel.setMaximumSize(QSize(16777215, 18))
-        font2 = QFont()
-        font2.setPointSize(8)
-        self.widget_cropPanel.setFont(font2)
+        font1 = QFont()
+        font1.setPointSize(8)
+        self.widget_cropPanel.setFont(font1)
         self.horizontalLayout_26 = QHBoxLayout(self.widget_cropPanel)
         self.horizontalLayout_26.setObjectName(u"horizontalLayout_26")
         self.horizontalLayout_26.setContentsMargins(0, 0, 0, 0)
@@ -1203,7 +1198,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1103, 24))
+        self.menubar.setGeometry(QRect(0, 0, 1103, 20))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)

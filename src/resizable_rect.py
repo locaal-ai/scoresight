@@ -23,6 +23,12 @@ class ResizableRect(QGraphicsRectItem):
         self.setPen(QPen(QBrush(Qt.GlobalColor.red), 3))
 
     def getOriginalRect(self):
+        """
+        Retrieve the original rectangle adjusted by the pen width.
+
+        Returns:
+            QRectF: The adjusted rectangle.
+        """
         # get the original rect adjusted by the pen width
         rect = self.rect()
         border = 0  # self.pen().width() / 2
@@ -180,21 +186,13 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         self.bgItem = QGraphicsRectItem(self.posItem.boundingRect(), parent=self)
         self.bgItem.setBrush(QBrush(QColor(0, 0, 0, 128)))
         self.bgItem.setPen(QPen(Qt.GlobalColor.transparent))
-        xpos = (
-            self.boundingRect().x()
-            - self.posItem.boundingRect().width() / 2
-            + self.boundingRect().width() / 2
-        )
-        ypos = self.boundingRect().y() - self.posItem.boundingRect().height()
-        # set the text position to the top left corner of the rect
-        self.posItem.setPos(xpos, ypos)
-        self.bgItem.setPos(xpos, ypos)
+        self.updateTextLabelPosition()
         # z order the text over the rect
         self.posItem.setZValue(2)
         self.bgItem.setZValue(1)
         self.effectiveRect = None
         self.extraBoxes = []
-        self.boxDisplayStyle: str = boxDisplayStyle
+        self.setBoxDisplayStyle(boxDisplayStyle)
         self.cornerBoxes = []
         self.cornerSize = 20
         for i in range(4):
@@ -208,6 +206,46 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
             self.cornerBoxes.append(cornerBox)
         self.updateCornerBoxes()
 
+    def updateTextLabelPosition(self):
+        xpos = (
+            self.boundingRect().x()
+            - self.posItem.boundingRect().width() / 2
+            + self.boundingRect().width() / 2
+        )
+        ypos = self.boundingRect().y() - self.posItem.boundingRect().height()
+        # set the text position to the top left corner of the rect
+        self.posItem.setPos(xpos, ypos)
+        self.bgItem.setPos(xpos, ypos)
+
+    def setBoxDisplayStyle(self, boxDisplayStyle: int):
+        self.boxDisplayStyle = boxDisplayStyle
+        if self.boxDisplayStyle == 0:
+            # hide the rect and the text
+            self.hide()
+            self.posItem.hide()
+            self.bgItem.hide()
+            self.resultItem.hide()
+        elif self.boxDisplayStyle == 1:
+            # show the rect, but not the text
+            self.show()
+            self.posItem.hide()
+            self.bgItem.hide()
+            self.resultItem.hide()
+        else:
+            # show the rect and the text
+            self.show()
+            self.posItem.show()
+            self.bgItem.show()
+            self.resultItem.show()
+
+        if self.boxDisplayStyle != 3:
+            # do not show the effective rect and extra boxes
+            if self.effectiveRect is not None:
+                self.effectiveRect.hide()
+            for extraBox in self.extraBoxes:
+                # remove from the scene
+                extraBox.hide()
+
     def updateCornerBoxes(self):
         rect = self.boundingRect()
         offset = QPointF(self.cornerSize / 2, self.cornerSize / 2)
@@ -219,11 +257,19 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
     def setRect(self, *args, **kwargs):
         super().setRect(*args, **kwargs)
         self.updateCornerBoxes()
+        self.updateTextLabelPosition()
 
     def setSelected(self, selected):
         super().setSelected(selected)
         for cornerBox in self.cornerBoxes:
             cornerBox.setVisible(selected)
+        if selected:
+            self.show()
+            self.posItem.show()
+            self.bgItem.show()
+            self.resultItem.show()
+        else:
+            self.setBoxDisplayStyle(self.boxDisplayStyle)
 
     def getRect(self):
         return self.getOriginalRect()
@@ -264,51 +310,8 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         )
         self.resultItem.setZValue(2)
 
-        if self.boxDisplayStyle == "none":
-            # hide the rect and the text
-            self.hide()
-            self.posItem.hide()
-            self.bgItem.hide()
-            self.resultItem.hide()
-            for cornerBox in self.cornerBoxes:
-                cornerBox.hide()
+        if self.boxDisplayStyle != 3:
             return
-
-        if self.boxDisplayStyle == "outline":
-            # show the rect, but not the text
-            self.show()
-            self.posItem.hide()
-            self.bgItem.hide()
-            self.resultItem.hide()
-            for cornerBox in self.cornerBoxes:
-                cornerBox.hide()
-            return
-
-        if (
-            self.boxDisplayStyle == "outline_name"
-            or self.boxDisplayStyle == "outline_name_inner"
-        ):
-            # show the rect and the text
-            self.show()
-            self.posItem.show()
-            self.bgItem.show()
-            self.resultItem.show()
-            for cornerBox in self.cornerBoxes:
-                cornerBox.hide()
-
-        if self.boxDisplayStyle != "outline_name_inner":
-            # do not show the effective rect and extra boxes
-            if self.effectiveRect is not None:
-                self.effectiveRect.hide()
-            for extraBox in self.extraBoxes:
-                # remove from the scene
-                extraBox.hide()
-                self.scene().removeItem(extraBox)
-            self.extraBoxes.clear()
-            return
-        else:
-            if self.effectiveRect is not None:
-                self.effectiveRect.show()
 
         if targetWithResult.effectiveRect is not None:
             # draw the effective rect in the scene

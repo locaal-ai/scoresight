@@ -64,8 +64,8 @@ class ImageViewer(CameraView):
             self.setFourCorners(fetch_data("scoresight.json", "four_corners"))
             self.fourCornersAppliedCallback(self.fourCorners)
         self._isScaling = False
-        self.boxDisplayStyleSetting = fetch_data(
-            "scoresight.json", "box_display_style", "outline"
+        self.boxDisplayStyleSetting: int = fetch_data(
+            "scoresight.json", "box_display_style", 3
         )
         subscribe_to_data("scoresight.json", "box_display_style", self.boxDisplayStyle)
 
@@ -76,11 +76,11 @@ class ImageViewer(CameraView):
         self.fitInView(self.scene.sceneRect(), Qt.AspectRatioMode.KeepAspectRatio)
         self.detectionTargetsChanged()
 
-    def boxDisplayStyle(self, state):
+    def boxDisplayStyle(self, state: int):
         self.boxDisplayStyleSetting = state
         for item in self.scene.items():
             if isinstance(item, ResizableRectWithNameTypeAndResult):
-                item.boxDisplayStyle = state
+                item.setBoxDisplayStyle(state)
 
     def toggleStabilization(self, state):
         if self.firstFrameReceived and self.timerThread:
@@ -106,34 +106,46 @@ class ImageViewer(CameraView):
         if not self.firstFrameReceived:
             return
 
-        # clear the scene from all ResizableRectWithNameTypeAndResult
-        for item in self.scene.items():
-            if isinstance(item, ResizableRectWithNameTypeAndResult):
-                self.scene.removeItem(item)
         # get the detection targets from the storage
         detectionTargets: list[TextDetectionTarget] = (
             self.detectionTargetsStorage.get_data()
         )
+        done_targets = []
         # add the boxes to the scene
         for detectionTarget in detectionTargets:
+            done_targets.append(detectionTarget.name)
             if detectionTarget.settings["templatefield"]:
                 # do not show the template fields
                 continue
-            self.scene.addItem(
-                ResizableRectWithNameTypeAndResult(
-                    detectionTarget.x(),
-                    detectionTarget.y(),
+            boxFound = self.findBox(detectionTarget.name)
+            if boxFound is None:
+                self.scene.addItem(
+                    ResizableRectWithNameTypeAndResult(
+                        detectionTarget.x(),
+                        detectionTarget.y(),
+                        detectionTarget.width(),
+                        detectionTarget.height(),
+                        detectionTarget.name,
+                        # image size
+                        self.scene.sceneRect().width(),
+                        onCenter=False,
+                        boxChangedCallback=self.boxChanged,
+                        itemSelectedCallback=self.itemSelectedCallback,
+                        boxDisplayStyle=self.boxDisplayStyleSetting,
+                    )
+                )
+            else:
+                boxFound.setRect(
+                    detectionTarget.x() - boxFound.x(),
+                    detectionTarget.y() - boxFound.y(),
                     detectionTarget.width(),
                     detectionTarget.height(),
-                    detectionTarget.name,
-                    # image size
-                    self.scene.sceneRect().width(),
-                    onCenter=False,
-                    boxChangedCallback=self.boxChanged,
-                    itemSelectedCallback=self.itemSelectedCallback,
-                    boxDisplayStyle=self.boxDisplayStyleSetting,
                 )
-            )
+        # remove the boxes that are not in the storage
+        for item in self.scene.items():
+            if isinstance(item, ResizableRectWithNameTypeAndResult):
+                if item.name not in done_targets:
+                    self.scene.removeItem(item)
 
     def boxChanged(self, name, rect):
         # update the detection target in the storage
@@ -166,14 +178,10 @@ class ImageViewer(CameraView):
             self.scene.removeItem(item)
 
     def selectBox(self, name):
-        # deselect all the boxes
+        # deselect all the boxes and select the one with the name
         for item in self.scene.items():
             if isinstance(item, ResizableRectWithNameTypeAndResult):
-                item.setSelected(False)
-        # find the box with the name
-        item = self.findBox(name)
-        if item:
-            item.setSelected(True)
+                item.setSelected(item.name == name)
 
     def mousePressEvent(self, event: QMouseEvent | None) -> None:
         if self.fourCornerSelectionMode and event.button() == Qt.MouseButton.LeftButton:
@@ -215,6 +223,7 @@ class ImageViewer(CameraView):
                 for corner in self.fourCorners:
                     corner.hide()
         else:
+            self.selectBox(None)
             super().mousePressEvent(event)
 
     def mouseReleaseEvent(self, event: QMouseEvent | None) -> None:

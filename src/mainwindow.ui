@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1103</width>
-    <height>899</height>
+    <height>733</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2076,17 +2076,6 @@
           </item>
           <item>
            <widget class="QComboBox" name="comboBox_boxDisplayStyle">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
             <item>
              <property name="text">
               <string>No Box</string>
@@ -2368,7 +2357,7 @@
      <x>0</x>
      <y>0</y>
      <width>1103</width>
-     <height>24</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
