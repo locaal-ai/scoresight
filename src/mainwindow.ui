@@ -966,7 +966,7 @@
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>4</number>
          </property>
          <widget class="QWidget" name="tab_textFiles">
           <property name="sizePolicy">
@@ -1482,16 +1482,6 @@
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_uno_send_same">
-               <property name="toolTip">
-                <string>Send only new detections or also existing?</string>
-               </property>
-               <property name="text">
-                <string>Send Same?</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QWidget" name="widget_26" native="true">
                <property name="minimumSize">
                 <size>
@@ -1504,14 +1494,53 @@
                  <number>0</number>
                 </property>
                 <property name="topMargin">
-                 <number>0</number>
+                 <number>5</number>
                 </property>
                 <property name="rightMargin">
                  <number>0</number>
                 </property>
                 <property name="bottomMargin">
-                 <number>0</number>
+                 <number>5</number>
                 </property>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_uno_send_same">
+                  <property name="toolTip">
+                   <string>Send only new detections or also existing?</string>
+                  </property>
+                  <property name="text">
+                   <string>Send Same?</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_23">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Rate Limit</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="spinBox">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="suffix">
+                   <string>/second</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </item>

@@ -122,21 +122,20 @@ class ImageViewer(CameraView):
                 continue
             boxFound = self.findBox(detectionTarget.name)
             if boxFound is None:
-                self.scene.addItem(
-                    ResizableRectWithNameTypeAndResult(
-                        detectionTarget.x(),
-                        detectionTarget.y(),
-                        detectionTarget.width(),
-                        detectionTarget.height(),
-                        detectionTarget.name,
-                        # image size
-                        self.scene.sceneRect().width(),
-                        onCenter=False,
-                        boxChangedCallback=self.boxChanged,
-                        itemSelectedCallback=self.itemSelectedCallback,
-                        boxDisplayStyle=self.boxDisplayStyleSetting,
-                    )
+                boxFound = ResizableRectWithNameTypeAndResult(
+                    detectionTarget.x(),
+                    detectionTarget.y(),
+                    detectionTarget.width(),
+                    detectionTarget.height(),
+                    detectionTarget.name,
+                    # image size
+                    self.scene.sceneRect().width(),
+                    onCenter=False,
+                    boxChangedCallback=self.boxChanged,
+                    itemSelectedCallback=self.itemSelectedCallback,
+                    boxDisplayStyle=self.boxDisplayStyleSetting,
                 )
+                self.scene.addItem(boxFound)
             else:
                 boxFound.setRect(
                     detectionTarget.x() - boxFound.x(),
@@ -144,6 +143,8 @@ class ImageViewer(CameraView):
                     detectionTarget.width(),
                     detectionTarget.height(),
                 )
+            boxFound.setMiniRectMode(detectionTarget.settings["composite_box"])
+
         # remove the boxes that are not in the storage
         for item in self.scene.items():
             if isinstance(item, ResizableRectWithNameTypeAndResult):

@@ -785,17 +785,32 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.connectionWidget_2)
 
-        self.checkBox_uno_send_same = QCheckBox(self.tab_uno)
-        self.checkBox_uno_send_same.setObjectName(u"checkBox_uno_send_same")
-
-        self.verticalLayout_8.addWidget(self.checkBox_uno_send_same)
-
         self.widget_26 = QWidget(self.tab_uno)
         self.widget_26.setObjectName(u"widget_26")
         self.widget_26.setMinimumSize(QSize(0, 0))
         self.horizontalLayout_30 = QHBoxLayout(self.widget_26)
         self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
-        self.horizontalLayout_30.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_30.setContentsMargins(0, 5, 0, 5)
+        self.checkBox_uno_send_same = QCheckBox(self.widget_26)
+        self.checkBox_uno_send_same.setObjectName(u"checkBox_uno_send_same")
+
+        self.horizontalLayout_30.addWidget(self.checkBox_uno_send_same)
+
+        self.label_23 = QLabel(self.widget_26)
+        self.label_23.setObjectName(u"label_23")
+        sizePolicy.setHeightForWidth(self.label_23.sizePolicy().hasHeightForWidth())
+        self.label_23.setSizePolicy(sizePolicy)
+
+        self.horizontalLayout_30.addWidget(self.label_23)
+
+        self.spinBox = QSpinBox(self.widget_26)
+        self.spinBox.setObjectName(u"spinBox")
+        sizePolicy2.setHeightForWidth(self.spinBox.sizePolicy().hasHeightForWidth())
+        self.spinBox.setSizePolicy(sizePolicy2)
+        self.spinBox.setMinimum(1)
+
+        self.horizontalLayout_30.addWidget(self.spinBox)
+
 
         self.verticalLayout_8.addWidget(self.widget_26)
 
@@ -1172,7 +1187,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.comboBox_formatPrefix.setCurrentIndex(0)
-        self.tabWidget_outputs.setCurrentIndex(0)
+        self.tabWidget_outputs.setCurrentIndex(4)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1292,6 +1307,8 @@ class Ui_MainWindow(object):
         self.checkBox_uno_send_same.setToolTip(QCoreApplication.translate("MainWindow", u"Send only new detections or also existing?", None))
 #endif // QT_CONFIG(tooltip)
         self.checkBox_uno_send_same.setText(QCoreApplication.translate("MainWindow", u"Send Same?", None))
+        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Rate Limit", None))
+        self.spinBox.setSuffix(QCoreApplication.translate("MainWindow", u"/second", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_uno), QCoreApplication.translate("MainWindow", u"UNO", None))
         self.checkBox_enableOutAPI.setText(QCoreApplication.translate("MainWindow", u"Send out API requests to external services.", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Encode", None))
