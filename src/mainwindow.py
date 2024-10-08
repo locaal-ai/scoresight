@@ -368,7 +368,7 @@ class MainWindow(QMainWindow):
         # possible speeds are x2, x4, x8, x16, x32 and back to x1
         # change the button text to the current speed
         # change the speed of the image viewer
-        if self.image_viewer:
+        if self.image_viewer and self.image_viewer.timerThread is not None:
             speed = self.image_viewer.timerThread.getSpeed()
             if speed == 1:
                 speed = 2
@@ -431,7 +431,11 @@ class MainWindow(QMainWindow):
         store_data("scoresight.json", settingName, value)
 
     def eventFilter(self, obj, event):
-        if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Alt:
+        if (
+            event.type() == QEvent.KeyPress
+            and isinstance(event, QKeyEvent)
+            and event.key() == Qt.Key_Alt
+        ):
             self.menubar.setVisible(True)
         elif event.type() == QEvent.FocusOut and self.menubar.isVisible():
             self.menubar.setVisible(False)
@@ -617,7 +621,7 @@ class MainWindow(QMainWindow):
             else:
                 item = items[0]
 
-            if not box.settings["templatefield"]:
+            if box.settings is None or not box.settings["templatefield"]:
                 # this is a detection target
                 item.setIcon(QIcon(resource_path("icons", "circle-check.svg")))
                 item.setData(Qt.ItemDataRole.UserRole, "checked")
@@ -974,6 +978,9 @@ class MainWindow(QMainWindow):
         self.ui.frame_for_source_view_label.layout().addWidget(self.image_viewer)
 
     def cameraConnectedEnableUI(self):
+        if self.image_viewer is None:
+            self.updateError("Image viewer is None")
+            return
         self.ui.pushButton_fourCorner.toggled.connect(
             self.image_viewer.toggleFourCorner
         )
@@ -1006,7 +1013,10 @@ class MainWindow(QMainWindow):
         for targetWithResult in results:
             if not targetWithResult.settings["templatefield"]:
                 continue
-            targetWithResult.result = evaluate_template_field(results, targetWithResult)
+            template_result = evaluate_template_field(results, targetWithResult)
+            targetWithResult.result = (
+                template_result if template_result is not None else ""
+            )
             targetWithResult.result_state = (
                 TextDetectionTargetWithResult.ResultState.Success
                 if targetWithResult.result is not None
@@ -1039,8 +1049,10 @@ class MainWindow(QMainWindow):
             update_out_api(results)
 
         # update vmix and uno
-        self.vmixUiHandler.vmixUpdater.update_vmix(results)
-        self.unoUiHandler.unoUpdater.update_uno(results)
+        if self.vmixUiHandler.vmixUpdater is not None:
+            self.vmixUiHandler.vmixUpdater.update_vmix(results)
+        if self.unoUiHandler.unoUpdater is not None:
+            self.unoUiHandler.unoUpdater.update_uno(results)
 
         if self.out_folder is None:
             return

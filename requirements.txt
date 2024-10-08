@@ -6,7 +6,7 @@ opencv-python==4.10.0.84
 pillow
 platformdirs
 pyinstaller==6.10.0
-pyside6
+pyside6==6.7.3
 python-dotenv
 requests
 tesserocr

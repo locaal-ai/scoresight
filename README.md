@@ -101,7 +101,7 @@ For Mac and Windows there are further dependencies in `requirements-mac.txt` and
 
 There are some extra steps for installation on Windows:
  - Download and install https://visualstudio.microsoft.com/visual-cpp-build-tools/ C++ Build Tools
- - Build the win32DeviceEnum pyd by `$ cd win32DeviceEnum && python.exe setup.py build_ext --inplace`
+ - Build the win32DeviceEnum pyd by `$ cd src/win32DeviceEnum && python.exe setup.py build_ext --inplace`
 
 #### MacOS
 
