@@ -210,15 +210,17 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         self.updateCornerBoxes()
 
     def setupAddButton(self):
-        self.add_button = QGraphicsRectItem(0, 0, 20, 20, parent=self)
+        self.add_button = QGraphicsRectItem(0, 0, 60, 30, parent=self)
         self.add_button.setBrush(QBrush(QColor(0, 255, 0)))
         self.add_button.setPen(QPen(Qt.black))
-        self.add_button.setPos(self.rect().topRight() - QPointF(25, -5))
+        self.add_button.setPos(self.rect().topLeft() + QPointF(5, 5))
+        self.add_button.setZValue(4)
         self.add_button.setVisible(False)
 
         # Add a "+" text to the button
-        text = QGraphicsSimpleTextItem("+", self.add_button)
+        text = QGraphicsSimpleTextItem("Add", self.add_button)
         text.setPos(5, 0)
+        text.setFont(QFont("Arial", 20))
 
     def setMiniRectMode(self, enabled):
         self.mini_rect_mode = enabled
@@ -404,8 +406,14 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
                 extraRect.setZValue(-2)
                 self.extraBoxes.append(extraRect)
 
-    def startCreateMiniRect(self, pos):
-        new_mini_rect = MiniRect(pos.x(), pos.y(), 1, 1, parent=self)
+    def startCreateMiniRect(self, rect: QRectF):
+        new_mini_rect = MiniRect(
+            rect.x(),
+            rect.y(),
+            rect.width(),
+            rect.height(),
+            parent=self,
+        )
         self.mini_rects.append(new_mini_rect)
 
     def clearMiniRects(self):
@@ -430,7 +438,14 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
     def mousePressEvent(self, event):
         if self.mini_rect_mode:
             if self.add_button.contains(event.pos()):
-                self.startCreateMiniRect(event.pos())
+                self.startCreateMiniRect(
+                    QRectF(
+                        10,
+                        10,
+                        self.getRect().height() * 0.75,
+                        self.getRect().width() / 3,
+                    )
+                )
             else:
                 super().mousePressEvent(event)
         else:
@@ -439,3 +454,12 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
 
     def mouseMoveEvent(self, event):
         return super().mouseMoveEvent(event)
+
+    def hoverMoveEvent(self, event):
+        super().hoverMoveEvent(event)
+        if self.mini_rect_mode:
+            if self.add_button.contains(event.pos()):
+                self.add_button.setBrush(QBrush(QColor(0, 255, 0, 128)))
+                self.setCursor(Qt.CursorShape.PointingHandCursor)
+            else:
+                self.add_button.setBrush(QBrush(QColor(0, 255, 0)))

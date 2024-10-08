@@ -294,6 +294,7 @@ class TextDetectionTargetMemoryStorage(QObject):
                         "templatefield_text": detectionTarget.settings.get(
                             "templatefield_text"
                         ),
+                        "composite_box": detectionTarget.settings.get("composite_box"),
                     },
                 }
             )
