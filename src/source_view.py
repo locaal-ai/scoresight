@@ -13,6 +13,7 @@ from storage import (
     fetch_data,
     remove_data,
     store_data,
+    subscribe_to_data,
 )
 from text_detection_target import TextDetectionTarget, TextDetectionTargetWithResult
 from sc_logging import logger
@@ -63,7 +64,13 @@ class ImageViewer(CameraView):
             self.setFourCorners(fetch_data("scoresight.json", "four_corners"))
             self.fourCornersAppliedCallback(self.fourCorners)
         self._isScaling = False
-        self.showOCRRects = True
+        self._isPanning = False
+        self._lastMousePosition = QPointF()
+
+        self.boxDisplayStyleSetting: int = fetch_data(
+            "scoresight.json", "box_display_style", 3
+        )
+        subscribe_to_data("scoresight.json", "box_display_style", self.boxDisplayStyle)
 
     def resizeEvent(self, event):
         if self._isScaling:
@@ -72,11 +79,11 @@ class ImageViewer(CameraView):
         self.fitInView(self.scene.sceneRect(), Qt.AspectRatioMode.KeepAspectRatio)
         self.detectionTargetsChanged()
 
-    def toggleOCRRects(self, state):
-        self.showOCRRects = state
+    def boxDisplayStyle(self, state: int):
+        self.boxDisplayStyleSetting = state
         for item in self.scene.items():
             if isinstance(item, ResizableRectWithNameTypeAndResult):
-                item.showOCRRects = state
+                item.setBoxDisplayStyle(state)
 
     def toggleStabilization(self, state):
         if self.firstFrameReceived and self.timerThread:
@@ -102,21 +109,20 @@ class ImageViewer(CameraView):
         if not self.firstFrameReceived:
             return
 
-        # clear the scene from all ResizableRectWithNameTypeAndResult
-        for item in self.scene.items():
-            if isinstance(item, ResizableRectWithNameTypeAndResult):
-                self.scene.removeItem(item)
         # get the detection targets from the storage
         detectionTargets: list[TextDetectionTarget] = (
             self.detectionTargetsStorage.get_data()
         )
+        done_targets = []
         # add the boxes to the scene
         for detectionTarget in detectionTargets:
+            done_targets.append(detectionTarget.name)
             if detectionTarget.settings["templatefield"]:
                 # do not show the template fields
                 continue
-            self.scene.addItem(
-                ResizableRectWithNameTypeAndResult(
+            boxFound = self.findBox(detectionTarget.name)
+            if boxFound is None:
+                boxFound = ResizableRectWithNameTypeAndResult(
                     detectionTarget.x(),
                     detectionTarget.y(),
                     detectionTarget.width(),
@@ -127,9 +133,23 @@ class ImageViewer(CameraView):
                     onCenter=False,
                     boxChangedCallback=self.boxChanged,
                     itemSelectedCallback=self.itemSelectedCallback,
-                    showOCRRects=self.showOCRRects,
+                    boxDisplayStyle=self.boxDisplayStyleSetting,
                 )
-            )
+                self.scene.addItem(boxFound)
+            else:
+                boxFound.setRect(
+                    detectionTarget.x() - boxFound.x(),
+                    detectionTarget.y() - boxFound.y(),
+                    detectionTarget.width(),
+                    detectionTarget.height(),
+                )
+            boxFound.setMiniRectMode(detectionTarget.settings["composite_box"])
+
+        # remove the boxes that are not in the storage
+        for item in self.scene.items():
+            if isinstance(item, ResizableRectWithNameTypeAndResult):
+                if item.name not in done_targets:
+                    self.scene.removeItem(item)
 
     def boxChanged(self, name, rect):
         # update the detection target in the storage
@@ -161,8 +181,20 @@ class ImageViewer(CameraView):
         if item:
             self.scene.removeItem(item)
 
+    def selectBox(self, name):
+        # deselect all the boxes and select the one with the name
+        for item in self.scene.items():
+            if isinstance(item, ResizableRectWithNameTypeAndResult):
+                item.setSelected(item.name == name)
+
     def mousePressEvent(self, event: QMouseEvent | None) -> None:
-        if self.fourCornerSelectionMode and event.button() == Qt.MouseButton.LeftButton:
+        if event.button() == Qt.MouseButton.MiddleButton:
+            self._isPanning = True
+            self._lastMousePosition = event.position()
+            self.setCursor(Qt.CursorShape.ClosedHandCursor)
+        elif (
+            self.fourCornerSelectionMode and event.button() == Qt.MouseButton.LeftButton
+        ):
             # in four corner mode we want to add a point to the scene
             # and connect the points in a polygon
             # get the position of the click
@@ -201,14 +233,31 @@ class ImageViewer(CameraView):
                 for corner in self.fourCorners:
                     corner.hide()
         else:
+            # deselect all the boxes
+            self.selectBox(None)
+            self.itemSelectedCallback(None)
             super().mousePressEvent(event)
 
     def mouseReleaseEvent(self, event: QMouseEvent | None) -> None:
-        super().mouseReleaseEvent(event)
-        self.detectionTargetsStorage.saveBoxesToStorage()
+        if event.button() == Qt.MouseButton.MiddleButton:
+            self._isPanning = False
+            self.setCursor(Qt.CursorShape.ArrowCursor)
+        else:
+            super().mouseReleaseEvent(event)
+            self.detectionTargetsStorage.saveBoxesToStorage()
 
     def mouseMoveEvent(self, event: QMouseEvent | None) -> None:
-        super().mouseMoveEvent(event)
+        if self._isPanning:
+            delta = event.position() - self._lastMousePosition
+            self._lastMousePosition = event.position()
+            self.horizontalScrollBar().setValue(
+                self.horizontalScrollBar().value() - delta.x()
+            )
+            self.verticalScrollBar().setValue(
+                self.verticalScrollBar().value() - delta.y()
+            )
+        else:
+            super().mouseMoveEvent(event)
 
     def wheelEvent(self, event):
         # check for ctrl key

@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>901</width>
-    <height>725</height>
+    <width>958</width>
+    <height>730</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ScoreSight</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QFormLayout" name="formLayout">
-    <item row="0" column="0">
+   <layout class="QHBoxLayout" name="horizontalLayout_31">
+    <item>
      <widget class="QFrame" name="frame">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -101,7 +101,10 @@
                <property name="showGrid">
                 <bool>false</bool>
                </property>
-               <attribute name="horizontalHeaderCascadingSectionResizes">
+               <attribute name="horizontalHeaderMinimumSectionSize">
+                <number>134</number>
+               </attribute>
+               <attribute name="horizontalHeaderStretchLastSection">
                 <bool>true</bool>
                </attribute>
                <attribute name="verticalHeaderVisible">
@@ -233,457 +236,81 @@
           </item>
           <item>
            <widget class="QGroupBox" name="groupBox_target_settings">
-            <layout class="QVBoxLayout" name="verticalLayout_5">
-             <property name="spacing">
-              <number>2</number>
-             </property>
+            <layout class="QGridLayout" name="gridLayout_6">
              <property name="leftMargin">
-              <number>3</number>
+              <number>2</number>
              </property>
              <property name="topMargin">
               <number>0</number>
              </property>
              <property name="rightMargin">
-              <number>3</number>
+              <number>2</number>
              </property>
              <property name="bottomMargin">
-              <number>3</number>
+              <number>2</number>
              </property>
-             <item>
-              <widget class="QWidget" name="widget_10" native="true">
+             <property name="verticalSpacing">
+              <number>1</number>
+             </property>
+             <item row="0" column="3">
+              <widget class="QPushButton" name="pushButton_restoreDefaults">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_12">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QLabel" name="label_6">
-                  <property name="text">
-                   <string>Target:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_selectedInfo">
-                  <property name="text">
-                   <string>Select an item above</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_3">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_restoreDefaults">
-                  <property name="text">
-                   <string>Defaults</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <property name="text">
+                <string>Defaults</string>
+               </property>
               </widget>
              </item>
-             <item>
-              <widget class="QWidget" name="widget_7" native="true">
+             <item row="3" column="2">
+              <widget class="QCheckBox" name="checkBox_smoothing">
+               <property name="text">
+                <string>Average Output</string>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="3">
+              <layout class="QHBoxLayout" name="horizontalLayout_11">
+               <item>
+                <widget class="QLabel" name="label_15">
+                 <property name="text">
+                  <string>V.Scale</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSlider" name="horizontalSlider_vscale">
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>10</number>
+                 </property>
+                 <property name="pageStep">
+                  <number>5</number>
+                 </property>
+                 <property name="value">
+                  <number>10</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="9" column="2">
+              <widget class="QWidget" name="widget_27" native="true">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_8">
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QLabel" name="label_2">
-                  <property name="text">
-                   <string>Format</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="lineEdit_format">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboBox_formatPrefix">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="currentIndex">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Time mm:ss.d</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Time mm:ss</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Time ss.d</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Time 0-59</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Shotclock 0-39</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Score 1dd</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Score ddd</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Period 1-4</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Period d</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Alphanumeric</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Any text</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Any number</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Select Preset</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_19" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_21">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QLabel" name="label_13">
-                  <property name="text">
-                   <string>Type</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboBox_fieldType">
-                  <item>
-                   <property name="text">
-                    <string>Number 0-9</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Time 0-9 , . :</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Text</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_14" native="true">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_16">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_smoothing">
-                  <property name="text">
-                   <string>Average Output</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_ordinalIndicator">
-                  <property name="text">
-                   <string>Ordinal (1st, 2nd, ..)</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_11" native="true">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_13">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_skip_empty">
-                  <property name="text">
-                   <string>Skip Empty Values</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_skip_similar_image">
-                  <property name="text">
-                   <string>Skip Similar Image</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_15" native="true">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_17">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_autocrop">
-                  <property name="text">
-                   <string>Auto Crop</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_invertPatch">
-                  <property name="text">
-                   <string>Invert Input</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_22" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_25">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_removeLeadingZeros">
-                  <property name="text">
-                   <string>Remove leading 0s</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_dotDetector">
-                  <property name="toolTip">
-                   <string>Count dots/blobs instead of detecting characters</string>
-                  </property>
-                  <property name="text">
-                   <string>Dot Counter</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_9" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_11">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_rescalePatch">
-                  <property name="toolTip">
-                   <string>Scale the image to 35 pixels height, a favorable size for OCR</string>
-                  </property>
-                  <property name="text">
-                   <string>Rescale Input</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_normWHRatio">
-                  <property name="toolTip">
-                   <string>Scale to a favorable 1:2 width-to-height ratio</string>
-                  </property>
-                  <property name="text">
-                   <string>Normalize W-H Ratio</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_20" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_23">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_32">
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
@@ -698,6 +325,12 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_binarizationMethod">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="text">
                    <string>Binarize</string>
                   </property>
@@ -705,6 +338,12 @@
                 </item>
                 <item>
                  <widget class="QComboBox" name="comboBox_binarizationMethod">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <item>
                    <property name="text">
                     <string>Global</string>
@@ -730,7 +369,157 @@
                </layout>
               </widget>
              </item>
-             <item>
+             <item row="1" column="3">
+              <widget class="QComboBox" name="comboBox_formatPrefix">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>Time mm:ss.d</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Time mm:ss</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Time ss.d</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Time 0-59</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Shotclock 0-39</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Score 1dd</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Score ddd</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Period 1-4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Period d</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Alphanumeric</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Any text</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Any number</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Select Preset</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="7" column="3">
+              <widget class="QCheckBox" name="checkBox_dotDetector">
+               <property name="toolTip">
+                <string>Count dots/blobs instead of detecting characters</string>
+               </property>
+               <property name="text">
+                <string>Dot Counter</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QWidget" name="horizontalWidget" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Type</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox_fieldType">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Number 0-9</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Time 0-9 , . :</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Text</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="10" column="2">
               <widget class="QWidget" name="widget_17" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -738,10 +527,7 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_20">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_15">
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
@@ -756,6 +542,12 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_4">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="text">
                    <string>Cleanup</string>
                   </property>
@@ -763,31 +555,11 @@
                 </item>
                 <item>
                  <widget class="QSlider" name="horizontalSlider_cleanup">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_15">
-                  <property name="text">
-                   <string>V.Scale</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSlider" name="horizontalSlider_vscale">
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10</number>
-                  </property>
-                  <property name="pageStep">
-                   <number>5</number>
-                  </property>
-                  <property name="value">
-                   <number>10</number>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
@@ -797,79 +569,98 @@
                </layout>
               </widget>
              </item>
-             <item>
-              <widget class="QWidget" name="widget_13" native="true">
+             <item row="3" column="3">
+              <widget class="QCheckBox" name="checkBox_ordinalIndicator">
+               <property name="text">
+                <string>Ordinal (1st, 2nd, ..)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="QCheckBox" name="checkBox_skip_empty">
+               <property name="text">
+                <string>Skip Empty Values</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QWidget" name="widget_10" native="true">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_15">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_16">
                 <item>
-                 <widget class="QLabel" name="label_9">
+                 <widget class="QLabel" name="label_6">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="text">
-                   <string>Dilate</string>
+                   <string>Target:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSlider" name="horizontalSlider_dilate">
-                  <property name="maximum">
-                   <number>5</number>
-                  </property>
-                  <property name="pageStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_14">
+                 <widget class="QLabel" name="label_selectedInfo">
                   <property name="text">
-                   <string>Skew</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSlider" name="horizontalSlider_skew">
-                  <property name="minimum">
-                   <number>-10</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <string>Select an item above</string>
                   </property>
                  </widget>
                 </item>
                </layout>
               </widget>
              </item>
-             <item>
+             <item row="11" column="3">
+              <layout class="QHBoxLayout" name="horizontalLayout_12">
+               <item>
+                <widget class="QLabel" name="label_14">
+                 <property name="text">
+                  <string>Skew</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSlider" name="horizontalSlider_skew">
+                 <property name="minimum">
+                  <number>-10</number>
+                 </property>
+                 <property name="maximum">
+                  <number>10</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="9" column="3">
+              <widget class="QCheckBox" name="checkBox_compositeBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Composite (Per-Character)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="12" column="2">
               <widget class="QWidget" name="widget_21" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_24">
-                <property name="spacing">
-                 <number>3</number>
-                </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_20">
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
@@ -884,6 +675,12 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_3">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="text">
                    <string>Conf. Th</string>
                   </property>
@@ -891,6 +688,12 @@
                 </item>
                 <item>
                  <widget class="QSlider" name="horizontalSlider_conf_thresh">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="value">
                    <number>50</number>
                   </property>
@@ -900,6 +703,173 @@
                  </widget>
                 </item>
                </layout>
+              </widget>
+             </item>
+             <item row="8" column="3">
+              <widget class="QCheckBox" name="checkBox_normWHRatio">
+               <property name="toolTip">
+                <string>Scale to a favorable 1:2 width-to-height ratio</string>
+               </property>
+               <property name="text">
+                <string>Normalize W-H Ratio</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="3">
+              <widget class="QCheckBox" name="checkBox_invertPatch">
+               <property name="text">
+                <string>Invert Input</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="3">
+              <widget class="QCheckBox" name="checkBox_skip_similar_image">
+               <property name="text">
+                <string>Skip Similar Image</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
+              <widget class="QCheckBox" name="checkBox">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Force Format</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QWidget" name="widget_7" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_17">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Format</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_format">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="11" column="2">
+              <widget class="QWidget" name="widget_13" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_13">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_9">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Dilate</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="horizontalSlider_dilate">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximum">
+                   <number>5</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>1</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="6" column="2">
+              <widget class="QCheckBox" name="checkBox_autocrop">
+               <property name="text">
+                <string>Auto Crop</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="2">
+              <widget class="QCheckBox" name="checkBox_removeLeadingZeros">
+               <property name="text">
+                <string>Remove leading 0s</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="2">
+              <widget class="QCheckBox" name="checkBox_rescalePatch">
+               <property name="toolTip">
+                <string>Scale the image to 35 pixels height, a favorable size for OCR</string>
+               </property>
+               <property name="text">
+                <string>Rescale Input</string>
+               </property>
               </widget>
              </item>
             </layout>
@@ -996,7 +966,7 @@
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>4</number>
          </property>
          <widget class="QWidget" name="tab_textFiles">
           <property name="sizePolicy">
@@ -1009,6 +979,9 @@
            <string>Text Files</string>
           </attribute>
           <layout class="QFormLayout" name="formLayout_2">
+           <property name="fieldGrowthPolicy">
+            <enum>QFormLayout::ExpandingFieldsGrow</enum>
+           </property>
            <property name="verticalSpacing">
             <number>3</number>
            </property>
@@ -1174,6 +1147,19 @@
              </property>
             </widget>
            </item>
+           <item row="4" column="1">
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tab_browser">
@@ -1184,7 +1170,7 @@
            <item alignment="Qt::AlignTop">
             <widget class="QLabel" name="label_8">
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;HTML Scoreboard: &lt;a href=&quot;http://localhost:18099/scoresight&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/scoresight&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;JSON: &lt;a href=&quot;http://localhost:18099/json&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/json&lt;/span&gt;&lt;/a&gt; (optional: ?pivot)&lt;br/&gt;XML: &lt;a href=&quot;http://localhost:18099/xml&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/xml&lt;/span&gt;&lt;/a&gt; (optional: ?pivot)&lt;br/&gt;CSV: &lt;a href=&quot;http://localhost:18099/csv&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/csv&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use these endpoints in external software to get live data updates&lt;/p&gt;&lt;p&gt;HTML Scoreboard: &lt;a href=&quot;http://localhost:18099/scoresight&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/scoresight&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;JSON: &lt;a href=&quot;http://localhost:18099/json&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/json&lt;/span&gt;&lt;/a&gt; (optional: ?pivot)&lt;br/&gt;XML: &lt;a href=&quot;http://localhost:18099/xml&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/xml&lt;/span&gt;&lt;/a&gt; (optional: ?pivot)&lt;br/&gt;CSV: &lt;a href=&quot;http://localhost:18099/csv&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://localhost:18099/csv&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="textFormat">
               <enum>Qt::RichText</enum>
@@ -1431,6 +1417,147 @@
            </item>
           </layout>
          </widget>
+         <widget class="QWidget" name="tab_uno">
+          <attribute name="title">
+           <string>UNO</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QWidget" name="connectionWidget_2" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_29">
+                <property name="spacing">
+                 <number>3</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="connectionLabel_2">
+                  <property name="text">
+                   <string>URL</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_unoUrl">
+                  <property name="text">
+                   <string>https://app.overlays.uno/apiv2/controlapps/.../api</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="toolButton_toggleUno">
+                  <property name="text">
+                   <string>▶️</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_26" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_30">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_uno_send_same">
+                  <property name="toolTip">
+                   <string>Send only new detections or also existing?</string>
+                  </property>
+                  <property name="text">
+                   <string>Send Same?</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_23">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Rate Limit</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="spinBox">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="suffix">
+                   <string>/second</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <widget class="QTableView" name="tableView_unoMapping">
+             <attribute name="horizontalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
+             </attribute>
+            </widget>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="tab_api">
           <attribute name="title">
            <string>API</string>
@@ -1438,6 +1565,9 @@
           <layout class="QFormLayout" name="formLayout_3">
            <property name="fieldGrowthPolicy">
             <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+           </property>
+           <property name="verticalSpacing">
+            <number>3</number>
            </property>
            <item row="0" column="1">
             <widget class="QCheckBox" name="checkBox_enableOutAPI">
@@ -1642,7 +1772,7 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="1">
+    <item>
      <widget class="QFrame" name="frame_source_view">
       <property name="enabled">
        <bool>true</bool>
@@ -1879,28 +2009,36 @@
            </spacer>
           </item>
           <item>
+           <widget class="QComboBox" name="comboBox_boxDisplayStyle">
+            <item>
+             <property name="text">
+              <string>No Box</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Outline</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Names</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>All</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
            <widget class="QToolButton" name="toolButton_osd">
             <property name="toolTip">
              <string>Show Statistics</string>
             </property>
             <property name="text">
              <string>OSD</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_showOCRrects">
-            <property name="toolTip">
-             <string>Show OCR Detection Boxes</string>
-            </property>
-            <property name="text">
-             <string>OCR</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -2152,7 +2290,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>901</width>
+     <width>958</width>
      <height>20</height>
     </rect>
    </property>

@@ -13,7 +13,7 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QTableWidgetItem,
 )
-from PySide6.QtGui import QIcon, QStandardItemModel, QStandardItem, QDesktopServices
+from PySide6.QtGui import QIcon, QDesktopServices
 from PySide6.QtCore import (
     Qt,
     Signal,
@@ -30,6 +30,7 @@ from os import path
 from platformdirs import user_data_dir
 
 from api_output import update_out_api
+from box_settings_ui_handler import BoxSettingsUIHandler
 from camera_info import CameraInfo
 from get_camera_info import get_camera_info
 from http_server import start_http_server, update_http_server
@@ -41,7 +42,6 @@ from defaults import (
     default_boxes,
     default_info_for_box_name,
     normalize_settings_dict,
-    format_prefixes,
 )
 
 from storage import (
@@ -63,16 +63,17 @@ from obs_websocket import (
 from template_fields import evaluate_template_field
 from text_detection_target import TextDetectionTarget, TextDetectionTargetWithResult
 from sc_logging import logger
+from uno_ui_handler import UNOUIHandler
 from update_check import check_for_updates
 from log_view import LogViewerDialog
 import file_output
 from video_settings import VideoSettingsDialog
-from vmix_output import VMixAPI
 from ui_mainwindow import Ui_MainWindow
 from ui_about import Ui_Dialog as Ui_About
 from ui_connect_obs import Ui_Dialog as Ui_ConnectObs
 from ui_url_source import Ui_Dialog as Ui_UrlSource
 from ui_screen_capture import Ui_Dialog as Ui_ScreenCapture
+from vmix_ui_handler import VMixUIHanlder
 
 
 def clear_layout(layout):
@@ -144,7 +145,11 @@ class MainWindow(QMainWindow):
 
         self.ui.pushButton_connectObs.clicked.connect(self.openOBSConnectModal)
 
-        self.vmixUiSetup()
+        self.vmixUiHandler = VMixUIHanlder(self.ui)
+        self.unoUiHandler = UNOUIHandler(self.ui)
+        self.boxSettingsUiHandler = BoxSettingsUIHandler(self.ui)
+
+        self.ui.checkBox_templatefield.toggled.connect(self.makeTemplateField)
 
         start_http_server()
 
@@ -261,69 +266,15 @@ class MainWindow(QMainWindow):
         self.ui.toolButton_trashFolder.clicked.connect(self.clearOutputFolder)
         self.ui.pushButton_stopUpdates.toggled.connect(self.toggleStopUpdates)
         self.ui.comboBox_ocrModel.currentIndexChanged.connect(self.ocrModelChanged)
-        self.ui.pushButton_restoreDefaults.clicked.connect(self.restoreDefaults)
         self.ui.toolButton_zoomReset.clicked.connect(self.resetZoom)
         self.ui.toolButton_osd.toggled.connect(self.toggleOSD)
-        self.ui.toolButton_showOCRrects.toggled.connect(self.toggleOCRRects)
-        self.ui.checkBox_smoothing.toggled.connect(
-            partial(self.genericSettingsChanged, "smoothing")
+        self.ui.comboBox_boxDisplayStyle.currentIndexChanged.connect(
+            partial(self.globalSettingsChanged, "box_display_style")
         )
-        self.ui.checkBox_skip_empty.toggled.connect(
-            partial(self.genericSettingsChanged, "skip_empty")
+        self.ui.comboBox_boxDisplayStyle.setCurrentIndex(
+            fetch_data("scoresight.json", "box_display_style", 3)
         )
-        self.ui.horizontalSlider_conf_thresh.valueChanged.connect(
-            self.confThreshChanged
-        )
-        self.ui.lineEdit_format.textChanged.connect(
-            partial(self.genericSettingsChanged, "format_regex")
-        )
-        self.ui.comboBox_fieldType.currentIndexChanged.connect(
-            partial(self.genericSettingsChanged, "type")
-        )
-        self.ui.checkBox_skip_similar_image.toggled.connect(
-            partial(self.genericSettingsChanged, "skip_similar_image")
-        )
-        self.ui.checkBox_autocrop.toggled.connect(
-            partial(self.genericSettingsChanged, "autocrop")
-        )
-        self.ui.horizontalSlider_cleanup.valueChanged.connect(self.cleanupThreshChanged)
-        self.ui.horizontalSlider_dilate.valueChanged.connect(
-            partial(self.genericSettingsChanged, "dilate")
-        )
-        self.ui.horizontalSlider_skew.valueChanged.connect(
-            partial(self.genericSettingsChanged, "skew")
-        )
-        self.ui.horizontalSlider_vscale.valueChanged.connect(
-            partial(self.genericSettingsChanged, "vscale")
-        )
-        self.ui.checkBox_removeLeadingZeros.toggled.connect(
-            partial(self.genericSettingsChanged, "remove_leading_zeros")
-        )
-        self.ui.checkBox_rescalePatch.toggled.connect(
-            partial(self.genericSettingsChanged, "rescale_patch")
-        )
-        self.ui.checkBox_normWHRatio.toggled.connect(
-            partial(self.genericSettingsChanged, "normalize_wh_ratio")
-        )
-        self.ui.checkBox_invertPatch.toggled.connect(
-            partial(self.genericSettingsChanged, "invert_patch")
-        )
-        self.ui.checkBox_dotDetector.toggled.connect(
-            partial(self.genericSettingsChanged, "dot_detector")
-        )
-        self.ui.checkBox_ordinalIndicator.toggled.connect(
-            partial(self.genericSettingsChanged, "ordinal_indicator")
-        )
-        self.ui.comboBox_binarizationMethod.currentIndexChanged.connect(
-            partial(self.genericSettingsChanged, "binarization_method")
-        )
-        self.ui.checkBox_templatefield.toggled.connect(self.makeTemplateField)
-        self.ui.lineEdit_templatefield.textChanged.connect(
-            partial(self.genericSettingsChanged, "templatefield_text")
-        )
-        self.ui.comboBox_formatPrefix.currentIndexChanged.connect(
-            self.formatPrefixChanged
-        )
+
         self.ui.checkBox_updateOnchange.toggled.connect(self.toggleUpdateOnChange)
 
         # populate the tableWidget_boxes with the default and custom boxes
@@ -417,7 +368,7 @@ class MainWindow(QMainWindow):
         # possible speeds are x2, x4, x8, x16, x32 and back to x1
         # change the button text to the current speed
         # change the speed of the image viewer
-        if self.image_viewer:
+        if self.image_viewer and self.image_viewer.timerThread is not None:
             speed = self.image_viewer.timerThread.getSpeed()
             if speed == 1:
                 speed = 2
@@ -480,7 +431,11 @@ class MainWindow(QMainWindow):
         store_data("scoresight.json", settingName, value)
 
     def eventFilter(self, obj, event):
-        if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Alt:
+        if (
+            event.type() == QEvent.KeyPress
+            and isinstance(event, QKeyEvent)
+            and event.key() == Qt.Key_Alt
+        ):
             self.menubar.setVisible(True)
         elif event.type() == QEvent.FocusOut and self.menubar.isVisible():
             self.menubar.setVisible(False)
@@ -520,13 +475,6 @@ class MainWindow(QMainWindow):
         self.globalSettingsChanged("update_on_change", value)
         if self.image_viewer:
             self.image_viewer.setUpdateOnChange(value)
-
-    def formatPrefixChanged(self, index):
-        if index == 12:
-            return  # do nothing if "Select Preset" is selected
-        # based on the selected index, set the format prefix
-        # change lineEdit_format to the selected format prefix
-        self.ui.lineEdit_format.setText(format_prefixes[index])
 
     def importConfiguration(self):
         # open a file dialog to select a configuration file
@@ -574,10 +522,6 @@ class MainWindow(QMainWindow):
     def toggleOSD(self, value):
         if self.image_viewer:
             self.image_viewer.toggleOSD(value)
-
-    def toggleOCRRects(self, value):
-        if self.image_viewer:
-            self.image_viewer.toggleOCRRects(value)
 
     def resetZoom(self):
         if self.image_viewer:
@@ -652,165 +596,7 @@ class MainWindow(QMainWindow):
         self.out_folder = None
         remove_data("scoresight.json", "output_folder")
 
-    def editSettings(self, settingsMutatorCallback):
-        # update the selected item's settings in the detectionTargetsStorage
-        item = self.ui.tableWidget_boxes.currentItem()
-        if item is None:
-            logger.info("no item selected")
-            return
-        item_name = item.text()
-        item_obj = self.detectionTargetsStorage.find_item_by_name(item_name)
-        if item_obj is None:
-            logger.info("item not found: %s", item_name)
-            return
-        item_obj = settingsMutatorCallback(item_obj)
-        self.detectionTargetsStorage.edit_item(item_name, item_obj)
-
-    def restoreDefaults(self):
-        # restore the default settings for the selected item
-        def restoreDefaultsSettings(item_obj):
-            info = default_info_for_box_name(item_obj.name)
-            item_obj.settings = normalize_settings_dict({}, info)
-            return item_obj
-
-        self.editSettings(restoreDefaultsSettings)
-        self.populateSettings(self.ui.tableWidget_boxes.currentItem().text())
-
-    def confThreshChanged(self):
-        def editConfThreshSettings(item_obj):
-            item_obj.settings["conf_thresh"] = (
-                float(self.ui.horizontalSlider_conf_thresh.value()) / 100.0
-            )
-            return item_obj
-
-        self.editSettings(editConfThreshSettings)
-
-    def cleanupThreshChanged(self):
-        def editCleanupThreshSettings(item_obj):
-            item_obj.settings["cleanup_thresh"] = (
-                float(self.ui.horizontalSlider_cleanup.value()) / 100.0
-            )
-            return item_obj
-
-        self.editSettings(editCleanupThreshSettings)
-
-    def genericSettingsChanged(self, settingName, value):
-        def editGenericSettings(item_obj):
-            item_obj.settings[settingName] = value
-            return item_obj
-
-        self.editSettings(editGenericSettings)
-
-    def vmixConnectionChanged(self):
-        self.vmixUpdater = VMixAPI(
-            self.ui.lineEdit_vmixHost.text(),
-            self.ui.lineEdit_vmixPort.text(),
-            self.ui.inputLineEdit_vmix.text(),
-            {},
-        )
-        self.globalSettingsChanged("vmix_host", self.ui.lineEdit_vmixHost.text())
-        self.globalSettingsChanged("vmix_port", self.ui.lineEdit_vmixPort.text())
-        self.globalSettingsChanged("vmix_input", self.ui.inputLineEdit_vmix.text())
-
-    def vmixMappingChanged(self, _):
-        # store entire mapping data in scoresight.json
-        mapping = {}
-        model = self.ui.tableView_vmixMapping.model()
-        if isinstance(model, QStandardItemModel):
-            for i in range(model.rowCount()):
-                item = model.item(i, 0)
-                value = model.item(i, 1)
-                if item and value:
-                    mapping[item.text()] = value.text()
-            self.globalSettingsChanged("vmix_mapping", mapping)
-            self.vmixUpdater.set_field_mapping(mapping)
-        else:
-            logger.error("vmixMappingChanged: model is not a QStandardItemModel")
-
-    def vmixUiSetup(self):
-        # populate the vmix connection from storage
-        self.ui.lineEdit_vmixHost.setText(
-            fetch_data("scoresight.json", "vmix_host", "localhost")
-        )
-        self.ui.lineEdit_vmixPort.setText(
-            fetch_data("scoresight.json", "vmix_port", "8099")
-        )
-        self.ui.inputLineEdit_vmix.setText(
-            fetch_data("scoresight.json", "vmix_input", "1")
-        )
-        # connect the lineEdits to vmixConnectionChanged
-        self.ui.lineEdit_vmixHost.textChanged.connect(self.vmixConnectionChanged)
-        self.ui.lineEdit_vmixPort.textChanged.connect(self.vmixConnectionChanged)
-        self.ui.inputLineEdit_vmix.textChanged.connect(self.vmixConnectionChanged)
-
-        # create the vmixUpdater
-        self.vmixUpdater = VMixAPI(
-            self.ui.lineEdit_vmixHost.text(),
-            self.ui.lineEdit_vmixPort.text(),
-            self.ui.inputLineEdit_vmix.text(),
-            {},
-        )
-        # add standard item model to the tableView_vmixMapping
-        self.ui.tableView_vmixMapping.setModel(QStandardItemModel())
-        mapping = fetch_data("scoresight.json", "vmix_mapping", {})
-        if mapping:
-            self.vmixUpdater.set_field_mapping(mapping)
-
-        self.ui.tableView_vmixMapping.model().dataChanged.connect(
-            self.vmixMappingChanged
-        )
-
-        self.ui.pushButton_startvmix.toggled.connect(self.togglevMix)
-
-    def togglevMix(self, value):
-        if not self.vmixUpdater:
-            return
-        if value:
-            self.ui.pushButton_startvmix.setText("🛑 Stop vMix")
-            self.vmixUpdater.running = True
-        else:
-            self.ui.pushButton_startvmix.setText("▶️ Start vMix")
-            self.vmixUpdater.running = False
-
-    def updatevMixTable(self, detectionTargets):
-        mapping_storage = fetch_data("scoresight.json", "vmix_mapping")
-        model = QStandardItemModel()
-        model.blockSignals(True)
-
-        for box in detectionTargets:
-            # add the detection to the vmix output mapping: tableView_vmixMapping
-            # check if the table already has the detectionTarget
-            items = model.findItems(box.name, Qt.MatchFlag.MatchExactly)
-            if len(items) == 0:
-                # add the item to the list
-                row = model.rowCount()
-                model.insertRow(row)
-                model.setItem(row, 0, QStandardItem(box.name))
-                # the first item shouldn't be editable
-                model.item(row, 0).setFlags(Qt.ItemFlag.NoItemFlags)
-            else:
-                # update the item in the list
-                item = items[0]
-                row = item.row()
-
-            # get value from storage or use the box name
-            if mapping_storage and box.name in mapping_storage:
-                model.setItem(row, 1, QStandardItem(mapping_storage[box.name]))
-            else:
-                model.setItem(row, 1, QStandardItem(box.name))
-        # remove the items that are not in the detectionTargets
-        for i in range(model.rowCount()):
-            item = model.item(i, 0)
-            if not any([box.name == item.text() for box in detectionTargets]):
-                model.removeRow(i)
-
-        model.blockSignals(False)
-        self.ui.tableView_vmixMapping.setModel(model)
-        self.ui.tableView_vmixMapping.model().dataChanged.connect(
-            self.vmixMappingChanged
-        )
-
-    def detectionTargetsChanged(self, detectionTargets):
+    def detectionTargetsChanged(self, detectionTargets: list[TextDetectionTarget]):
         for box in detectionTargets:
             logger.debug(f"Change: Detection target: {box.name}")
             # change the list icon to green checkmark
@@ -835,7 +621,7 @@ class MainWindow(QMainWindow):
             else:
                 item = items[0]
 
-            if not box.settings["templatefield"]:
+            if box.settings is None or not box.settings["templatefield"]:
                 # this is a detection target
                 item.setIcon(QIcon(resource_path("icons", "circle-check.svg")))
                 item.setData(Qt.ItemDataRole.UserRole, "checked")
@@ -844,7 +630,8 @@ class MainWindow(QMainWindow):
                 item.setIcon(QIcon(resource_path("icons", "template-field.svg")))
                 item.setData(Qt.ItemDataRole.UserRole, "templatefield")
 
-        self.updatevMixTable(detectionTargets)
+        self.vmixUiHandler.updatevMixTable(detectionTargets)
+        self.unoUiHandler.updateUNOTable(detectionTargets)
 
         # if save_csv is enabled, truncate the aggregate file
         if self.ui.checkBox_saveCsv.isChecked() and self.out_folder:
@@ -859,118 +646,6 @@ class MainWindow(QMainWindow):
             except Exception as e:
                 logger.error(f"Error truncating aggregate file: {e}")
 
-    def populateSettings(self, name):
-        self.ui.lineEdit_format.blockSignals(True)
-        self.ui.comboBox_fieldType.blockSignals(True)
-        self.ui.checkBox_smoothing.blockSignals(True)
-        self.ui.checkBox_skip_empty.blockSignals(True)
-        self.ui.horizontalSlider_conf_thresh.blockSignals(True)
-        self.ui.checkBox_autocrop.blockSignals(True)
-        self.ui.checkBox_skip_similar_image.blockSignals(True)
-        self.ui.horizontalSlider_cleanup.blockSignals(True)
-        self.ui.horizontalSlider_dilate.blockSignals(True)
-        self.ui.horizontalSlider_skew.blockSignals(True)
-        self.ui.horizontalSlider_vscale.blockSignals(True)
-        self.ui.checkBox_removeLeadingZeros.blockSignals(True)
-        self.ui.checkBox_rescalePatch.blockSignals(True)
-        self.ui.checkBox_normWHRatio.blockSignals(True)
-        self.ui.checkBox_invertPatch.blockSignals(True)
-        self.ui.checkBox_ordinalIndicator.blockSignals(True)
-        self.ui.comboBox_binarizationMethod.blockSignals(True)
-        self.ui.comboBox_formatPrefix.blockSignals(True)
-        self.ui.checkBox_templatefield.blockSignals(True)
-        self.ui.lineEdit_templatefield.blockSignals(True)
-
-        # populate the settings from the detectionTargetsStorage
-        item_obj = self.detectionTargetsStorage.find_item_by_name(name)
-        if item_obj is None:
-            self.ui.lineEdit_format.setText("")
-            self.ui.comboBox_fieldType.setCurrentIndex(0)
-            self.ui.checkBox_smoothing.setChecked(True)
-            self.ui.checkBox_skip_empty.setChecked(True)
-            self.ui.horizontalSlider_conf_thresh.setValue(50)
-            self.ui.checkBox_autocrop.setChecked(False)
-            self.ui.checkBox_skip_similar_image.setChecked(False)
-            self.ui.horizontalSlider_cleanup.setValue(0)
-            self.ui.horizontalSlider_dilate.setValue(1)
-            self.ui.horizontalSlider_skew.setValue(0)
-            self.ui.horizontalSlider_vscale.setValue(10)
-            self.ui.label_selectedInfo.setText("")
-            self.ui.checkBox_removeLeadingZeros.setChecked(False)
-            self.ui.checkBox_rescalePatch.setChecked(False)
-            self.ui.checkBox_normWHRatio.setChecked(False)
-            self.ui.checkBox_invertPatch.setChecked(False)
-            self.ui.checkBox_ordinalIndicator.setChecked(False)
-            self.ui.comboBox_binarizationMethod.setCurrentIndex(0)
-            self.ui.checkBox_templatefield.setChecked(False)
-            self.ui.lineEdit_templatefield.setText("")
-        else:
-            item_obj.settings = normalize_settings_dict(
-                item_obj.settings, default_info_for_box_name(item_obj.name)
-            )
-            self.ui.label_selectedInfo.setText(f"{item_obj.name}")
-            self.ui.lineEdit_format.setText(item_obj.settings["format_regex"])
-            self.ui.comboBox_fieldType.setCurrentIndex(item_obj.settings["type"])
-            self.ui.checkBox_smoothing.setChecked(item_obj.settings["smoothing"])
-            self.ui.checkBox_skip_empty.setChecked(item_obj.settings["skip_empty"])
-            self.ui.horizontalSlider_conf_thresh.setValue(
-                int(item_obj.settings["conf_thresh"] * 100)
-            )
-            self.ui.checkBox_autocrop.setChecked(item_obj.settings["autocrop"])
-            self.ui.checkBox_skip_similar_image.setChecked(
-                item_obj.settings["skip_similar_image"]
-            )
-            self.ui.horizontalSlider_cleanup.setValue(
-                int(item_obj.settings["cleanup_thresh"] * 100)
-            )
-            self.ui.horizontalSlider_dilate.setValue(item_obj.settings["dilate"])
-            self.ui.horizontalSlider_skew.setValue(item_obj.settings["skew"])
-            self.ui.horizontalSlider_vscale.setValue(item_obj.settings["vscale"])
-            self.ui.checkBox_removeLeadingZeros.setChecked(
-                item_obj.settings["remove_leading_zeros"]
-            )
-            self.ui.checkBox_rescalePatch.setChecked(item_obj.settings["rescale_patch"])
-            self.ui.checkBox_normWHRatio.setChecked(
-                item_obj.settings["normalize_wh_ratio"]
-            )
-            self.ui.checkBox_invertPatch.setChecked(item_obj.settings["invert_patch"])
-            self.ui.checkBox_dotDetector.setChecked(item_obj.settings["dot_detector"])
-            self.ui.checkBox_ordinalIndicator.setChecked(
-                item_obj.settings["ordinal_indicator"]
-            )
-            self.ui.comboBox_binarizationMethod.setCurrentIndex(
-                item_obj.settings["binarization_method"]
-            )
-            self.ui.checkBox_templatefield.setChecked(
-                item_obj.settings["templatefield"]
-            )
-            self.ui.lineEdit_templatefield.setText(
-                item_obj.settings["templatefield_text"]
-            )
-
-        self.ui.comboBox_formatPrefix.setCurrentIndex(12)
-
-        self.ui.lineEdit_format.blockSignals(False)
-        self.ui.comboBox_fieldType.blockSignals(False)
-        self.ui.checkBox_smoothing.blockSignals(False)
-        self.ui.checkBox_skip_empty.blockSignals(False)
-        self.ui.horizontalSlider_conf_thresh.blockSignals(False)
-        self.ui.checkBox_autocrop.blockSignals(False)
-        self.ui.checkBox_skip_similar_image.blockSignals(False)
-        self.ui.horizontalSlider_cleanup.blockSignals(False)
-        self.ui.horizontalSlider_dilate.blockSignals(False)
-        self.ui.horizontalSlider_skew.blockSignals(False)
-        self.ui.horizontalSlider_vscale.blockSignals(False)
-        self.ui.checkBox_removeLeadingZeros.blockSignals(False)
-        self.ui.checkBox_rescalePatch.blockSignals(False)
-        self.ui.checkBox_normWHRatio.blockSignals(False)
-        self.ui.checkBox_invertPatch.blockSignals(False)
-        self.ui.checkBox_ordinalIndicator.blockSignals(False)
-        self.ui.comboBox_binarizationMethod.blockSignals(False)
-        self.ui.comboBox_formatPrefix.blockSignals(False)
-        self.ui.checkBox_templatefield.blockSignals(False)
-        self.ui.lineEdit_templatefield.blockSignals(False)
-
     def listItemClicked(self, item):
         user_role = item.data(Qt.ItemDataRole.UserRole)
         if user_role in ["checked", "templatefield"] and item.column() == 0:
@@ -978,13 +653,13 @@ class MainWindow(QMainWindow):
             self.ui.pushButton_makeBox.setEnabled(False)
             self.ui.pushButton_removeBox.setEnabled(user_role == "checked")
             self.ui.groupBox_target_settings.setEnabled(user_role == "checked")
-            self.populateSettings(item.text())
+            self.boxSettingsUiHandler.populateSettings(item.text())
         else:
             # enable the make box button and disable the remove box button
             self.ui.pushButton_removeBox.setEnabled(False)
             self.ui.pushButton_makeBox.setEnabled(item.column() == 0)
             self.ui.groupBox_target_settings.setEnabled(False)
-            self.populateSettings("")
+            self.boxSettingsUiHandler.populateSettings("")
 
         if item.column() == 0:
             # if this is not a default box - enable the template field checkbox
@@ -994,6 +669,10 @@ class MainWindow(QMainWindow):
             else:
                 self.ui.checkBox_templatefield.setEnabled(False)
                 self.ui.lineEdit_templatefield.setEnabled(False)
+
+        # notify the image viewer to select the box
+        if self.image_viewer:
+            self.image_viewer.selectBox(item.text())
 
     def openOBSConnectModal(self):
         # disable OBS options
@@ -1198,6 +877,12 @@ class MainWindow(QMainWindow):
         self.sourceSelectionSucessful()
 
     def itemSelected(self, item_name):
+        if item_name is None:
+            # clear the selected item
+            self.ui.tableWidget_boxes.clearSelection()
+            self.ui.groupBox_target_settings.setEnabled(False)
+            self.boxSettingsUiHandler.populateSettings("")
+            return
         # select the item in the tableWidget_boxes
         items = self.ui.tableWidget_boxes.findItems(
             item_name, Qt.MatchFlag.MatchExactly
@@ -1293,6 +978,9 @@ class MainWindow(QMainWindow):
         self.ui.frame_for_source_view_label.layout().addWidget(self.image_viewer)
 
     def cameraConnectedEnableUI(self):
+        if self.image_viewer is None:
+            self.updateError("Image viewer is None")
+            return
         self.ui.pushButton_fourCorner.toggled.connect(
             self.image_viewer.toggleFourCorner
         )
@@ -1325,7 +1013,10 @@ class MainWindow(QMainWindow):
         for targetWithResult in results:
             if not targetWithResult.settings["templatefield"]:
                 continue
-            targetWithResult.result = evaluate_template_field(results, targetWithResult)
+            template_result = evaluate_template_field(results, targetWithResult)
+            targetWithResult.result = (
+                template_result if template_result is not None else ""
+            )
             targetWithResult.result_state = (
                 TextDetectionTargetWithResult.ResultState.Success
                 if targetWithResult.result is not None
@@ -1357,8 +1048,11 @@ class MainWindow(QMainWindow):
         if self.ui.checkBox_enableOutAPI.isChecked():
             update_out_api(results)
 
-        # update vmix
-        self.vmixUpdater.update_vmix(results)
+        # update vmix and uno
+        if self.vmixUiHandler.vmixUpdater is not None:
+            self.vmixUiHandler.vmixUpdater.update_vmix(results)
+        if self.unoUiHandler.unoUpdater is not None:
+            self.unoUiHandler.unoUpdater.update_uno(results)
 
         if self.out_folder is None:
             return

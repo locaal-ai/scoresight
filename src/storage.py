@@ -132,11 +132,21 @@ def fetch_custom_box_names():
 class TextDetectionTargetMemoryStorage(QObject):
     # This class is used to store the text detection targets in memory
 
+    _instance = None
     data_changed = Signal(list)
 
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(TextDetectionTargetMemoryStorage, cls).__new__(
+                cls, *args, **kwargs
+            )
+        return cls._instance
+
     def __init__(self):
-        super().__init__()
-        self._data: list[TextDetectionTarget] = []
+        if not hasattr(self, "_initialized"):
+            super().__init__()
+            self._data: list[TextDetectionTarget] = []
+            self._initialized = True
 
     def add_item(self, item: TextDetectionTarget):
         self._data.append(item)
@@ -284,6 +294,7 @@ class TextDetectionTargetMemoryStorage(QObject):
                         "templatefield_text": detectionTarget.settings.get(
                             "templatefield_text"
                         ),
+                        "composite_box": detectionTarget.settings.get("composite_box"),
                     },
                 }
             )

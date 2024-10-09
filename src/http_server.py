@@ -4,6 +4,7 @@ import http.client
 import logging
 import os
 import signal
+import socket
 import threading
 from fastapi import FastAPI, Query
 from fastapi.responses import HTMLResponse, JSONResponse, Response
@@ -196,8 +197,17 @@ async def get_csv():
     return Response(content=output.getvalue(), media_type="text/csv")
 
 
+def is_port_in_use(port: int) -> bool:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        return s.connect_ex(("localhost", port)) == 0
+
+
 def start_http_server():
     def run_uvicorn():
+        if is_port_in_use(PORT):
+            logger.error(f"Port {PORT} is already in use")
+            return
+
         config = uvicorn.Config(
             app=app,
             host="0.0.0.0",
@@ -212,7 +222,10 @@ def start_http_server():
         asyncio.set_event_loop(loop)
 
         logger.info(f"Server starting at port {PORT}")
-        loop.run_until_complete(server.serve())
+        try:
+            loop.run_until_complete(server.serve())
+        except Exception as e:
+            logger.error(f"Error running server: {e}")
         loop.close()
         logger.info("Server thread stopped")
 

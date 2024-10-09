@@ -23,6 +23,12 @@ class ResizableRect(QGraphicsRectItem):
         self.setPen(QPen(QBrush(Qt.GlobalColor.red), 3))
 
     def getOriginalRect(self):
+        """
+        Retrieve the original rectangle adjusted by the pen width.
+
+        Returns:
+            QRectF: The adjusted rectangle.
+        """
         # get the original rect adjusted by the pen width
         rect = self.rect()
         border = 0  # self.pen().width() / 2
@@ -144,6 +150,23 @@ class ResizableRect(QGraphicsRectItem):
         super().hoverMoveEvent(event)
 
 
+class MiniRect(ResizableRect):
+    def __init__(self, x, y, width, height, parent=None):
+        super().__init__(x, y, width, height)
+        self.setPen(QPen(QColor(255, 0, 0)))
+        self.setBrush(QBrush(QColor(255, 0, 0, 50)))
+        self.setParentItem(parent)
+        self.setFlags(QGraphicsItem.ItemIsMovable | QGraphicsItem.ItemIsSelectable)
+
+    def mousePressEvent(self, event):
+        super().mousePressEvent(event)
+        self.setCursor(Qt.SizeAllCursor)
+
+    def mouseReleaseEvent(self, event):
+        super().mouseReleaseEvent(event)
+        self.unsetCursor()
+
+
 class ResizableRectWithNameTypeAndResult(ResizableRect):
     def __init__(
         self,
@@ -157,7 +180,7 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         onCenter=False,
         boxChangedCallback=None,
         itemSelectedCallback=None,
-        showOCRRects=True,
+        boxDisplayStyle: int = 1,
     ):
         super().__init__(x, y, width, height, onCenter)
         self.setAcceptedMouseButtons(Qt.MouseButton.LeftButton)
@@ -166,20 +189,72 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         self.result = result
         self.boxChangedCallback = boxChangedCallback
         self.itemSelectedCallback = itemSelectedCallback
+        self.extraBoxes = []
+        self.cornerBoxes = []
+        self.cornerSize = 20
+
         self.posItem = QGraphicsSimpleTextItem("{}".format(self.name), parent=self)
+        self.resultItem = QGraphicsSimpleTextItem("{}".format(self.result), parent=self)
+        self.bgItem = QGraphicsRectItem(self.posItem.boundingRect(), parent=self)
+
+        # Mini-rect related attributes
+        self.mini_rects = []
+        self.mini_rect_mode = False
+        self.add_button = None
+        self.setupAddButton()
+
+        self.setupTextItems(image_size, boxDisplayStyle)
+        self.updateTextLabelPosition()
+        self.setBoxDisplayStyle(boxDisplayStyle)
+        self.setupCornerBoxes()
+        self.updateCornerBoxes()
+
+    def setupAddButton(self):
+        self.add_button = QGraphicsRectItem(0, 0, 60, 30, parent=self)
+        self.add_button.setBrush(QBrush(QColor(0, 255, 0)))
+        self.add_button.setPen(QPen(Qt.black))
+        self.add_button.setPos(self.rect().topLeft() + QPointF(5, 5))
+        self.add_button.setZValue(4)
+        self.add_button.setVisible(False)
+
+        # Add a "+" text to the button
+        text = QGraphicsSimpleTextItem("Add", self.add_button)
+        text.setPos(5, 0)
+        text.setFont(QFont("Arial", 20))
+
+    def setMiniRectMode(self, enabled):
+        self.mini_rect_mode = enabled
+        self.add_button.setVisible(enabled)
+
+    def setupTextItems(self, image_size, boxDisplayStyle):
         self.posItem.setBrush(QBrush(QColor("red")))
         fontPos = QFont("Arial", int(image_size / 60) if image_size > 0 else 32)
         fontPos.setWeight(QFont.Weight.Bold)
         self.posItem.setFont(fontPos)
-        self.resultItem = QGraphicsSimpleTextItem("{}".format(self.result), parent=self)
         self.resultItem.setBrush(QBrush(QColor("red")))
         fontRes = QFont("Arial", int(image_size / 75) if image_size > 0 else 20)
         fontRes.setWeight(QFont.Weight.Bold)
         self.resultItem.setFont(fontRes)
         # add a semitraansparent background to the text using another rect
-        self.bgItem = QGraphicsRectItem(self.posItem.boundingRect(), parent=self)
         self.bgItem.setBrush(QBrush(QColor(0, 0, 0, 128)))
         self.bgItem.setPen(QPen(Qt.GlobalColor.transparent))
+        # z order the text over the rect
+        self.posItem.setZValue(2)
+        self.bgItem.setZValue(1)
+        self.effectiveRect = None
+
+    def setupCornerBoxes(self):
+        for i in range(4):
+            cornerBox = QGraphicsRectItem(
+                0, 0, self.cornerSize, self.cornerSize, parent=self
+            )
+            cornerBox.setBrush(QBrush(QColor(255, 0, 0, 128)))  # Light red inside
+            cornerBox.setPen(QPen(QColor("red")))  # Red borders
+            cornerBox.setZValue(3)
+            cornerBox.setVisible(False)  # Initially hide the corner boxes
+            self.cornerBoxes.append(cornerBox)
+
+    def updateTextLabelPosition(self):
         xpos = (
             self.boundingRect().x()
             - self.posItem.boundingRect().width() / 2
@@ -189,12 +264,60 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         # set the text position to the top left corner of the rect
         self.posItem.setPos(xpos, ypos)
         self.bgItem.setPos(xpos, ypos)
-        # z order the text over the rect
-        self.posItem.setZValue(2)
-        self.bgItem.setZValue(1)
-        self.effectiveRect = None
-        self.extraBoxes = []
-        self.showOCRRects = showOCRRects
+
+    def setBoxDisplayStyle(self, boxDisplayStyle: int):
+        self.boxDisplayStyle = boxDisplayStyle
+        if self.boxDisplayStyle == 0:
+            # hide the rect and the text
+            self.hide()
+            self.posItem.hide()
+            self.bgItem.hide()
+            self.resultItem.hide()
+        elif self.boxDisplayStyle == 1:
+            # show the rect, but not the text
+            self.show()
+            self.posItem.hide()
+            self.bgItem.hide()
+            self.resultItem.hide()
+        else:
+            # show the rect and the text
+            self.show()
+            self.posItem.show()
+            self.bgItem.show()
+            self.resultItem.show()
+
+        if self.boxDisplayStyle != 3:
+            # do not show the effective rect and extra boxes
+            if self.effectiveRect is not None:
+                self.effectiveRect.hide()
+            for extraBox in self.extraBoxes:
+                # remove from the scene
+                extraBox.hide()
+
+    def updateCornerBoxes(self):
+        rect = self.boundingRect()
+        offset = QPointF(self.cornerSize / 2, self.cornerSize / 2)
+        self.cornerBoxes[0].setPos(rect.topLeft() - offset)
+        self.cornerBoxes[1].setPos(rect.topRight() - offset)
+        self.cornerBoxes[2].setPos(rect.bottomLeft() - offset)
+        self.cornerBoxes[3].setPos(rect.bottomRight() - offset)
+
+    def setRect(self, *args, **kwargs):
+        super().setRect(*args, **kwargs)
+        self.updateCornerBoxes()
+        self.updateTextLabelPosition()
+
+    def setSelected(self, selected):
+        super().setSelected(selected)
+        for cornerBox in self.cornerBoxes:
+            cornerBox.setVisible(selected)
+        if selected:
+            self.show()
+            self.posItem.show()
+            self.bgItem.show()
+            self.resultItem.show()
+        else:
+            self.setBoxDisplayStyle(self.boxDisplayStyle)
 
     def getRect(self):
         return self.getOriginalRect()
@@ -235,19 +358,8 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         )
         self.resultItem.setZValue(2)
 
-        if not self.showOCRRects:
-            # do not show the effective rect and extra boxes
-            if self.effectiveRect is not None:
-                self.effectiveRect.hide()
-            for extraBox in self.extraBoxes:
-                # remove from the scene
-                extraBox.hide()
-                self.scene().removeItem(extraBox)
-            self.extraBoxes.clear()
+        if self.boxDisplayStyle != 3:
             return
-        else:
-            if self.effectiveRect is not None:
-                self.effectiveRect.show()
 
         if targetWithResult.effectiveRect is not None:
             # draw the effective rect in the scene
@@ -294,6 +406,24 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
                 extraRect.setZValue(-2)
                 self.extraBoxes.append(extraRect)
 
+    def startCreateMiniRect(self, rect: QRectF):
+        new_mini_rect = MiniRect(
+            rect.x(),
+            rect.y(),
+            rect.width(),
+            rect.height(),
+            parent=self,
+        )
+        self.mini_rects.append(new_mini_rect)
+
+    def clearMiniRects(self):
+        for mini_rect in self.mini_rects:
+            self.scene().removeItem(mini_rect)
+        self.mini_rects.clear()
+
+    def getMiniRects(self):
+        return [rect.rect() for rect in self.mini_rects]
+
     def mouseReleaseEvent(self, event):
         super().mouseReleaseEvent(event)
         origRect = self.getRect()
@@ -306,8 +436,30 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         self.boxChangedCallback(self.name, boxRect)
 
     def mousePressEvent(self, event):
-        super().mousePressEvent(event)
+        if self.mini_rect_mode:
+            if self.add_button.contains(event.pos()):
+                self.startCreateMiniRect(
+                    QRectF(
+                        10,
+                        10,
+                        self.getRect().height() * 0.75,
+                        self.getRect().width() / 3,
+                    )
+                )
+            else:
+                super().mousePressEvent(event)
+        else:
+            super().mousePressEvent(event)
         self.itemSelectedCallback(self.name)
 
     def mouseMoveEvent(self, event):
         return super().mouseMoveEvent(event)
+
+    def hoverMoveEvent(self, event):
+        super().hoverMoveEvent(event)
+        if self.mini_rect_mode:
+            if self.add_button.contains(event.pos()):
+                self.add_button.setBrush(QBrush(QColor(0, 255, 0, 128)))
+                self.setCursor(Qt.CursorShape.PointingHandCursor)
+            else:
+                self.add_button.setBrush(QBrush(QColor(0, 255, 0)))
