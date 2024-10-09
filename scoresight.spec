@@ -51,6 +51,7 @@ datas = [
 sources = [
     'src/api_output.py',
     'src/base_video_capture.py',
+    'src/box_settings_ui_handler.py',
     'src/camera_info.py',
     'src/camera_thread.py',
     'src/camera_view.py',
