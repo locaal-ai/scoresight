@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(958, 730)
+        MainWindow.resize(949, 736)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_31 = QHBoxLayout(self.centralwidget)
@@ -156,26 +156,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_6.addWidget(self.checkBox_smoothing, 3, 2, 1, 1)
 
-        self.horizontalLayout_11 = QHBoxLayout()
-        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
-        self.label_15 = QLabel(self.groupBox_target_settings)
-        self.label_15.setObjectName(u"label_15")
-
-        self.horizontalLayout_11.addWidget(self.label_15)
-
-        self.horizontalSlider_vscale = QSlider(self.groupBox_target_settings)
-        self.horizontalSlider_vscale.setObjectName(u"horizontalSlider_vscale")
-        self.horizontalSlider_vscale.setMinimum(1)
-        self.horizontalSlider_vscale.setMaximum(10)
-        self.horizontalSlider_vscale.setPageStep(5)
-        self.horizontalSlider_vscale.setValue(10)
-        self.horizontalSlider_vscale.setOrientation(Qt.Horizontal)
-
-        self.horizontalLayout_11.addWidget(self.horizontalSlider_vscale)
-
-
-        self.gridLayout_6.addLayout(self.horizontalLayout_11, 10, 3, 1, 1)
-
         self.widget_27 = QWidget(self.groupBox_target_settings)
         self.widget_27.setObjectName(u"widget_27")
         sizePolicy.setHeightForWidth(self.widget_27.sizePolicy().hasHeightForWidth())
@@ -185,8 +165,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_32.setContentsMargins(0, 0, 0, 0)
         self.label_binarizationMethod = QLabel(self.widget_27)
         self.label_binarizationMethod.setObjectName(u"label_binarizationMethod")
-        sizePolicy.setHeightForWidth(self.label_binarizationMethod.sizePolicy().hasHeightForWidth())
-        self.label_binarizationMethod.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_32.addWidget(self.label_binarizationMethod)
 
@@ -196,8 +174,6 @@ class Ui_MainWindow(object):
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.addItem("")
         self.comboBox_binarizationMethod.setObjectName(u"comboBox_binarizationMethod")
-        sizePolicy2.setHeightForWidth(self.comboBox_binarizationMethod.sizePolicy().hasHeightForWidth())
-        self.comboBox_binarizationMethod.setSizePolicy(sizePolicy2)
 
         self.horizontalLayout_32.addWidget(self.comboBox_binarizationMethod)
 
@@ -219,11 +195,6 @@ class Ui_MainWindow(object):
         self.comboBox_formatPrefix.addItem("")
         self.comboBox_formatPrefix.addItem("")
         self.comboBox_formatPrefix.setObjectName(u"comboBox_formatPrefix")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.comboBox_formatPrefix.sizePolicy().hasHeightForWidth())
-        self.comboBox_formatPrefix.setSizePolicy(sizePolicy3)
 
         self.gridLayout_6.addWidget(self.comboBox_formatPrefix, 1, 3, 1, 1)
 
@@ -251,8 +222,6 @@ class Ui_MainWindow(object):
         self.comboBox_fieldType.addItem("")
         self.comboBox_fieldType.addItem("")
         self.comboBox_fieldType.setObjectName(u"comboBox_fieldType")
-        sizePolicy2.setHeightForWidth(self.comboBox_fieldType.sizePolicy().hasHeightForWidth())
-        self.comboBox_fieldType.setSizePolicy(sizePolicy2)
 
         self.horizontalLayout_8.addWidget(self.comboBox_fieldType)
 
@@ -261,28 +230,16 @@ class Ui_MainWindow(object):
 
         self.widget_17 = QWidget(self.groupBox_target_settings)
         self.widget_17.setObjectName(u"widget_17")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.widget_17.sizePolicy().hasHeightForWidth())
-        self.widget_17.setSizePolicy(sizePolicy4)
         self.horizontalLayout_15 = QHBoxLayout(self.widget_17)
         self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
         self.horizontalLayout_15.setContentsMargins(0, 0, 0, 0)
         self.label_4 = QLabel(self.widget_17)
         self.label_4.setObjectName(u"label_4")
-        sizePolicy.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
-        self.label_4.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_15.addWidget(self.label_4)
 
         self.horizontalSlider_cleanup = QSlider(self.widget_17)
         self.horizontalSlider_cleanup.setObjectName(u"horizontalSlider_cleanup")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.horizontalSlider_cleanup.sizePolicy().hasHeightForWidth())
-        self.horizontalSlider_cleanup.setSizePolicy(sizePolicy5)
         self.horizontalSlider_cleanup.setOrientation(Qt.Horizontal)
 
         self.horizontalLayout_15.addWidget(self.horizontalSlider_cleanup)
@@ -302,8 +259,11 @@ class Ui_MainWindow(object):
 
         self.widget_10 = QWidget(self.groupBox_target_settings)
         self.widget_10.setObjectName(u"widget_10")
-        sizePolicy4.setHeightForWidth(self.widget_10.sizePolicy().hasHeightForWidth())
-        self.widget_10.setSizePolicy(sizePolicy4)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.widget_10.sizePolicy().hasHeightForWidth())
+        self.widget_10.setSizePolicy(sizePolicy3)
         self.horizontalLayout_16 = QHBoxLayout(self.widget_10)
         self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
         self.label_6 = QLabel(self.widget_10)
@@ -321,52 +281,23 @@ class Ui_MainWindow(object):
 
         self.gridLayout_6.addWidget(self.widget_10, 0, 2, 1, 1)
 
-        self.horizontalLayout_12 = QHBoxLayout()
-        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
-        self.label_14 = QLabel(self.groupBox_target_settings)
-        self.label_14.setObjectName(u"label_14")
-
-        self.horizontalLayout_12.addWidget(self.label_14)
-
-        self.horizontalSlider_skew = QSlider(self.groupBox_target_settings)
-        self.horizontalSlider_skew.setObjectName(u"horizontalSlider_skew")
-        self.horizontalSlider_skew.setMinimum(-10)
-        self.horizontalSlider_skew.setMaximum(10)
-        self.horizontalSlider_skew.setOrientation(Qt.Horizontal)
-
-        self.horizontalLayout_12.addWidget(self.horizontalSlider_skew)
-
-
-        self.gridLayout_6.addLayout(self.horizontalLayout_12, 11, 3, 1, 1)
-
         self.checkBox_compositeBox = QCheckBox(self.groupBox_target_settings)
         self.checkBox_compositeBox.setObjectName(u"checkBox_compositeBox")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.checkBox_compositeBox.sizePolicy().hasHeightForWidth())
-        self.checkBox_compositeBox.setSizePolicy(sizePolicy6)
 
         self.gridLayout_6.addWidget(self.checkBox_compositeBox, 9, 3, 1, 1)
 
         self.widget_21 = QWidget(self.groupBox_target_settings)
         self.widget_21.setObjectName(u"widget_21")
-        sizePolicy4.setHeightForWidth(self.widget_21.sizePolicy().hasHeightForWidth())
-        self.widget_21.setSizePolicy(sizePolicy4)
         self.horizontalLayout_20 = QHBoxLayout(self.widget_21)
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
         self.horizontalLayout_20.setContentsMargins(0, 0, 0, 0)
         self.label_3 = QLabel(self.widget_21)
         self.label_3.setObjectName(u"label_3")
-        sizePolicy.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
-        self.label_3.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_20.addWidget(self.label_3)
 
         self.horizontalSlider_conf_thresh = QSlider(self.widget_21)
         self.horizontalSlider_conf_thresh.setObjectName(u"horizontalSlider_conf_thresh")
-        sizePolicy5.setHeightForWidth(self.horizontalSlider_conf_thresh.sizePolicy().hasHeightForWidth())
-        self.horizontalSlider_conf_thresh.setSizePolicy(sizePolicy5)
         self.horizontalSlider_conf_thresh.setValue(50)
         self.horizontalSlider_conf_thresh.setOrientation(Qt.Horizontal)
 
@@ -393,29 +324,23 @@ class Ui_MainWindow(object):
         self.checkBox = QCheckBox(self.groupBox_target_settings)
         self.checkBox.setObjectName(u"checkBox")
         self.checkBox.setEnabled(False)
-        sizePolicy6.setHeightForWidth(self.checkBox.sizePolicy().hasHeightForWidth())
-        self.checkBox.setSizePolicy(sizePolicy6)
 
         self.gridLayout_6.addWidget(self.checkBox, 2, 3, 1, 1)
 
         self.widget_7 = QWidget(self.groupBox_target_settings)
         self.widget_7.setObjectName(u"widget_7")
-        sizePolicy4.setHeightForWidth(self.widget_7.sizePolicy().hasHeightForWidth())
-        self.widget_7.setSizePolicy(sizePolicy4)
+        sizePolicy3.setHeightForWidth(self.widget_7.sizePolicy().hasHeightForWidth())
+        self.widget_7.setSizePolicy(sizePolicy3)
         self.horizontalLayout_17 = QHBoxLayout(self.widget_7)
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
         self.horizontalLayout_17.setContentsMargins(0, 0, 0, 0)
         self.label_2 = QLabel(self.widget_7)
         self.label_2.setObjectName(u"label_2")
-        sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_17.addWidget(self.label_2)
 
         self.lineEdit_format = QLineEdit(self.widget_7)
         self.lineEdit_format.setObjectName(u"lineEdit_format")
-        sizePolicy5.setHeightForWidth(self.lineEdit_format.sizePolicy().hasHeightForWidth())
-        self.lineEdit_format.setSizePolicy(sizePolicy5)
 
         self.horizontalLayout_17.addWidget(self.lineEdit_format)
 
@@ -424,22 +349,16 @@ class Ui_MainWindow(object):
 
         self.widget_13 = QWidget(self.groupBox_target_settings)
         self.widget_13.setObjectName(u"widget_13")
-        sizePolicy4.setHeightForWidth(self.widget_13.sizePolicy().hasHeightForWidth())
-        self.widget_13.setSizePolicy(sizePolicy4)
         self.horizontalLayout_13 = QHBoxLayout(self.widget_13)
         self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
         self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
         self.label_9 = QLabel(self.widget_13)
         self.label_9.setObjectName(u"label_9")
-        sizePolicy.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
-        self.label_9.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_13.addWidget(self.label_9)
 
         self.horizontalSlider_dilate = QSlider(self.widget_13)
         self.horizontalSlider_dilate.setObjectName(u"horizontalSlider_dilate")
-        sizePolicy5.setHeightForWidth(self.horizontalSlider_dilate.sizePolicy().hasHeightForWidth())
-        self.horizontalSlider_dilate.setSizePolicy(sizePolicy5)
         self.horizontalSlider_dilate.setMaximum(5)
         self.horizontalSlider_dilate.setPageStep(1)
         self.horizontalSlider_dilate.setOrientation(Qt.Horizontal)
@@ -463,6 +382,50 @@ class Ui_MainWindow(object):
         self.checkBox_rescalePatch.setObjectName(u"checkBox_rescalePatch")
 
         self.gridLayout_6.addWidget(self.checkBox_rescalePatch, 8, 2, 1, 1)
+
+        self.widget_vscale = QWidget(self.groupBox_target_settings)
+        self.widget_vscale.setObjectName(u"widget_vscale")
+        self.horizontalLayout_11 = QHBoxLayout(self.widget_vscale)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
+        self.label_15 = QLabel(self.widget_vscale)
+        self.label_15.setObjectName(u"label_15")
+
+        self.horizontalLayout_11.addWidget(self.label_15)
+
+        self.horizontalSlider_vscale = QSlider(self.widget_vscale)
+        self.horizontalSlider_vscale.setObjectName(u"horizontalSlider_vscale")
+        self.horizontalSlider_vscale.setMinimum(1)
+        self.horizontalSlider_vscale.setMaximum(10)
+        self.horizontalSlider_vscale.setPageStep(5)
+        self.horizontalSlider_vscale.setValue(10)
+        self.horizontalSlider_vscale.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_11.addWidget(self.horizontalSlider_vscale)
+
+
+        self.gridLayout_6.addWidget(self.widget_vscale, 10, 3, 1, 1)
+
+        self.widget_skew = QWidget(self.groupBox_target_settings)
+        self.widget_skew.setObjectName(u"widget_skew")
+        self.horizontalLayout_12 = QHBoxLayout(self.widget_skew)
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
+        self.label_14 = QLabel(self.widget_skew)
+        self.label_14.setObjectName(u"label_14")
+
+        self.horizontalLayout_12.addWidget(self.label_14)
+
+        self.horizontalSlider_skew = QSlider(self.widget_skew)
+        self.horizontalSlider_skew.setObjectName(u"horizontalSlider_skew")
+        self.horizontalSlider_skew.setMinimum(-10)
+        self.horizontalSlider_skew.setMaximum(10)
+        self.horizontalSlider_skew.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_12.addWidget(self.horizontalSlider_skew)
+
+
+        self.gridLayout_6.addWidget(self.widget_skew, 11, 3, 1, 1)
 
 
         self.verticalLayout_3.addWidget(self.groupBox_target_settings)
@@ -521,8 +484,8 @@ class Ui_MainWindow(object):
         self.tabWidget_outputs.setTabShape(QTabWidget.Rounded)
         self.tab_textFiles = QWidget()
         self.tab_textFiles.setObjectName(u"tab_textFiles")
-        sizePolicy4.setHeightForWidth(self.tab_textFiles.sizePolicy().hasHeightForWidth())
-        self.tab_textFiles.setSizePolicy(sizePolicy4)
+        sizePolicy3.setHeightForWidth(self.tab_textFiles.sizePolicy().hasHeightForWidth())
+        self.tab_textFiles.setSizePolicy(sizePolicy3)
         self.formLayout_2 = QFormLayout(self.tab_textFiles)
         self.formLayout_2.setObjectName(u"formLayout_2")
         self.formLayout_2.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
@@ -535,8 +498,11 @@ class Ui_MainWindow(object):
 
         self.widget_5 = QWidget(self.tab_textFiles)
         self.widget_5.setObjectName(u"widget_5")
-        sizePolicy6.setHeightForWidth(self.widget_5.sizePolicy().hasHeightForWidth())
-        self.widget_5.setSizePolicy(sizePolicy6)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.widget_5.sizePolicy().hasHeightForWidth())
+        self.widget_5.setSizePolicy(sizePolicy4)
         self.horizontalLayout_6 = QHBoxLayout(self.widget_5)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
@@ -561,8 +527,8 @@ class Ui_MainWindow(object):
 
         self.widget_12 = QWidget(self.tab_textFiles)
         self.widget_12.setObjectName(u"widget_12")
-        sizePolicy6.setHeightForWidth(self.widget_12.sizePolicy().hasHeightForWidth())
-        self.widget_12.setSizePolicy(sizePolicy6)
+        sizePolicy4.setHeightForWidth(self.widget_12.sizePolicy().hasHeightForWidth())
+        self.widget_12.setSizePolicy(sizePolicy4)
         self.horizontalLayout_14 = QHBoxLayout(self.widget_12)
         self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
         self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
@@ -590,8 +556,8 @@ class Ui_MainWindow(object):
         self.comboBox_appendMethod.addItem("")
         self.comboBox_appendMethod.addItem("")
         self.comboBox_appendMethod.setObjectName(u"comboBox_appendMethod")
-        sizePolicy6.setHeightForWidth(self.comboBox_appendMethod.sizePolicy().hasHeightForWidth())
-        self.comboBox_appendMethod.setSizePolicy(sizePolicy6)
+        sizePolicy4.setHeightForWidth(self.comboBox_appendMethod.sizePolicy().hasHeightForWidth())
+        self.comboBox_appendMethod.setSizePolicy(sizePolicy4)
 
         self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.comboBox_appendMethod)
 
@@ -636,6 +602,9 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setVerticalSpacing(2)
         self.pushButton_connectObs = QPushButton(self.tab_obs)
         self.pushButton_connectObs.setObjectName(u"pushButton_connectObs")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
         sizePolicy5.setHeightForWidth(self.pushButton_connectObs.sizePolicy().hasHeightForWidth())
         self.pushButton_connectObs.setSizePolicy(sizePolicy5)
         self.pushButton_connectObs.setMinimumSize(QSize(0, 0))
@@ -932,11 +901,11 @@ class Ui_MainWindow(object):
         self.frame_source_view = QFrame(self.centralwidget)
         self.frame_source_view.setObjectName(u"frame_source_view")
         self.frame_source_view.setEnabled(True)
-        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.frame_source_view.sizePolicy().hasHeightForWidth())
-        self.frame_source_view.setSizePolicy(sizePolicy7)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.frame_source_view.sizePolicy().hasHeightForWidth())
+        self.frame_source_view.setSizePolicy(sizePolicy6)
         self.frame_source_view.setFrameShape(QFrame.StyledPanel)
         self.frame_source_view.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.frame_source_view)
@@ -968,11 +937,11 @@ class Ui_MainWindow(object):
         self.comboBox_camera_source.addItem("")
         self.comboBox_camera_source.addItem("")
         self.comboBox_camera_source.setObjectName(u"comboBox_camera_source")
-        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy8.setHorizontalStretch(1)
-        sizePolicy8.setVerticalStretch(0)
-        sizePolicy8.setHeightForWidth(self.comboBox_camera_source.sizePolicy().hasHeightForWidth())
-        self.comboBox_camera_source.setSizePolicy(sizePolicy8)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy7.setHorizontalStretch(1)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.comboBox_camera_source.sizePolicy().hasHeightForWidth())
+        self.comboBox_camera_source.setSizePolicy(sizePolicy7)
 
         self.horizontalLayout_3.addWidget(self.comboBox_camera_source)
 
@@ -1155,11 +1124,11 @@ class Ui_MainWindow(object):
         self.frame_for_source_view_label = QFrame(self.frame_source_view)
         self.frame_for_source_view_label.setObjectName(u"frame_for_source_view_label")
         self.frame_for_source_view_label.setEnabled(True)
-        sizePolicy9 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
-        sizePolicy9.setHorizontalStretch(0)
-        sizePolicy9.setVerticalStretch(0)
-        sizePolicy9.setHeightForWidth(self.frame_for_source_view_label.sizePolicy().hasHeightForWidth())
-        self.frame_for_source_view_label.setSizePolicy(sizePolicy9)
+        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        sizePolicy8.setHorizontalStretch(0)
+        sizePolicy8.setVerticalStretch(0)
+        sizePolicy8.setHeightForWidth(self.frame_for_source_view_label.sizePolicy().hasHeightForWidth())
+        self.frame_for_source_view_label.setSizePolicy(sizePolicy8)
         self.gridLayout = QGridLayout(self.frame_for_source_view_label)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setSizeConstraint(QLayout.SetMaximumSize)
@@ -1181,13 +1150,13 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 958, 20))
+        self.menubar.setGeometry(QRect(0, 0, 949, 20))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
 
         self.comboBox_formatPrefix.setCurrentIndex(0)
-        self.tabWidget_outputs.setCurrentIndex(4)
+        self.tabWidget_outputs.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1205,7 +1174,6 @@ class Ui_MainWindow(object):
         self.pushButton_removeBox.setText(QCoreApplication.translate("MainWindow", u"Remove Selected", None))
         self.pushButton_restoreDefaults.setText(QCoreApplication.translate("MainWindow", u"Defaults", None))
         self.checkBox_smoothing.setText(QCoreApplication.translate("MainWindow", u"Average Output", None))
-        self.label_15.setText(QCoreApplication.translate("MainWindow", u"V.Scale", None))
         self.label_binarizationMethod.setText(QCoreApplication.translate("MainWindow", u"Binarize", None))
         self.comboBox_binarizationMethod.setItemText(0, QCoreApplication.translate("MainWindow", u"Global", None))
         self.comboBox_binarizationMethod.setItemText(1, QCoreApplication.translate("MainWindow", u"No Binarization", None))
@@ -1240,7 +1208,6 @@ class Ui_MainWindow(object):
         self.checkBox_skip_empty.setText(QCoreApplication.translate("MainWindow", u"Skip Empty Values", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Target:", None))
         self.label_selectedInfo.setText(QCoreApplication.translate("MainWindow", u"Select an item above", None))
-        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Skew", None))
         self.checkBox_compositeBox.setText(QCoreApplication.translate("MainWindow", u"Composite (Per-Character)", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Conf. Th", None))
 #if QT_CONFIG(tooltip)
@@ -1258,6 +1225,8 @@ class Ui_MainWindow(object):
         self.checkBox_rescalePatch.setToolTip(QCoreApplication.translate("MainWindow", u"Scale the image to 35 pixels height, a favorable size for OCR", None))
 #endif // QT_CONFIG(tooltip)
         self.checkBox_rescalePatch.setText(QCoreApplication.translate("MainWindow", u"Rescale Input", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"V.Scale", None))
+        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Skew", None))
 #if QT_CONFIG(tooltip)
         self.checkBox_templatefield.setToolTip(QCoreApplication.translate("MainWindow", u"This field is a combination of exising fields in a template", None))
 #endif // QT_CONFIG(tooltip)

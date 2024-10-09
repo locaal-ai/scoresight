@@ -431,12 +431,15 @@ class MainWindow(QMainWindow):
         store_data("scoresight.json", settingName, value)
 
     def eventFilter(self, obj, event):
-        if (
-            event.type() == QEvent.KeyPress
-            and isinstance(event, QKeyEvent)
-            and event.key() == Qt.Key_Alt
-        ):
-            self.menubar.setVisible(True)
+        if event.type() == QEvent.KeyPress:
+            if event.key() == Qt.Key_Alt:
+                self.menubar.setVisible(True)
+            if event.key() == Qt.Key_Escape:
+                self.menubar.setVisible(False)
+                # deselect any selected item
+                self.itemSelected(None)
+                if self.image_viewer is not None:
+                    self.image_viewer.selectBox(None)
         elif event.type() == QEvent.FocusOut and self.menubar.isVisible():
             self.menubar.setVisible(False)
         elif event.type() == QEvent.WindowDeactivate and self.menubar.isVisible():

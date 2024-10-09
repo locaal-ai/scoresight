@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>958</width>
-    <height>730</height>
+    <width>949</width>
+    <height>736</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -272,36 +272,6 @@
                </property>
               </widget>
              </item>
-             <item row="10" column="3">
-              <layout class="QHBoxLayout" name="horizontalLayout_11">
-               <item>
-                <widget class="QLabel" name="label_15">
-                 <property name="text">
-                  <string>V.Scale</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QSlider" name="horizontalSlider_vscale">
-                 <property name="minimum">
-                  <number>1</number>
-                 </property>
-                 <property name="maximum">
-                  <number>10</number>
-                 </property>
-                 <property name="pageStep">
-                  <number>5</number>
-                 </property>
-                 <property name="value">
-                  <number>10</number>
-                 </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
              <item row="9" column="2">
               <widget class="QWidget" name="widget_27" native="true">
                <property name="sizePolicy">
@@ -325,12 +295,6 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_binarizationMethod">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
                   <property name="text">
                    <string>Binarize</string>
                   </property>
@@ -338,12 +302,6 @@
                 </item>
                 <item>
                  <widget class="QComboBox" name="comboBox_binarizationMethod">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
                   <item>
                    <property name="text">
                     <string>Global</string>
@@ -371,12 +329,6 @@
              </item>
              <item row="1" column="3">
               <widget class="QComboBox" name="comboBox_formatPrefix">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
                <property name="currentIndex">
                 <number>0</number>
                </property>
@@ -493,12 +445,6 @@
                 </item>
                 <item>
                  <widget class="QComboBox" name="comboBox_fieldType">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
                   <item>
                    <property name="text">
                     <string>Number 0-9</string>
@@ -521,12 +467,6 @@
              </item>
              <item row="10" column="2">
               <widget class="QWidget" name="widget_17" native="true">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
                <layout class="QHBoxLayout" name="horizontalLayout_15">
                 <property name="leftMargin">
                  <number>0</number>
@@ -542,12 +482,6 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_4">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
                   <property name="text">
                    <string>Cleanup</string>
                   </property>
@@ -555,12 +489,6 @@
                 </item>
                 <item>
                  <widget class="QSlider" name="horizontalSlider_cleanup">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -615,38 +543,8 @@
                </layout>
               </widget>
              </item>
-             <item row="11" column="3">
-              <layout class="QHBoxLayout" name="horizontalLayout_12">
-               <item>
-                <widget class="QLabel" name="label_14">
-                 <property name="text">
-                  <string>Skew</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QSlider" name="horizontalSlider_skew">
-                 <property name="minimum">
-                  <number>-10</number>
-                 </property>
-                 <property name="maximum">
-                  <number>10</number>
-                 </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
              <item row="9" column="3">
               <widget class="QCheckBox" name="checkBox_compositeBox">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
                <property name="text">
                 <string>Composite (Per-Character)</string>
                </property>
@@ -654,12 +552,6 @@
              </item>
              <item row="12" column="2">
               <widget class="QWidget" name="widget_21" native="true">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
                <layout class="QHBoxLayout" name="horizontalLayout_20">
                 <property name="leftMargin">
                  <number>0</number>
@@ -675,12 +567,6 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_3">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
                   <property name="text">
                    <string>Conf. Th</string>
                   </property>
@@ -688,12 +574,6 @@
                 </item>
                 <item>
                  <widget class="QSlider" name="horizontalSlider_conf_thresh">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
                   <property name="value">
                    <number>50</number>
                   </property>
@@ -734,12 +614,6 @@
                <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
                <property name="text">
                 <string>Force Format</string>
                </property>
@@ -768,38 +642,19 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
                   <property name="text">
                    <string>Format</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_format">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                 </widget>
+                 <widget class="QLineEdit" name="lineEdit_format"/>
                 </item>
                </layout>
               </widget>
              </item>
              <item row="11" column="2">
               <widget class="QWidget" name="widget_13" native="true">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
                <layout class="QHBoxLayout" name="horizontalLayout_13">
                 <property name="leftMargin">
                  <number>0</number>
@@ -815,12 +670,6 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_9">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
                   <property name="text">
                    <string>Dilate</string>
                   </property>
@@ -828,12 +677,6 @@
                 </item>
                 <item>
                  <widget class="QSlider" name="horizontalSlider_dilate">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
                   <property name="maximum">
                    <number>5</number>
                   </property>
@@ -870,6 +713,88 @@
                <property name="text">
                 <string>Rescale Input</string>
                </property>
+              </widget>
+             </item>
+             <item row="10" column="3">
+              <widget class="QWidget" name="widget_vscale" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_11">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_15">
+                  <property name="text">
+                   <string>V.Scale</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="horizontalSlider_vscale">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>5</number>
+                  </property>
+                  <property name="value">
+                   <number>10</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="11" column="3">
+              <widget class="QWidget" name="widget_skew" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_12">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_14">
+                  <property name="text">
+                   <string>Skew</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="horizontalSlider_skew">
+                  <property name="minimum">
+                   <number>-10</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -966,7 +891,7 @@
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>4</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_textFiles">
           <property name="sizePolicy">
@@ -2290,7 +2215,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>958</width>
+     <width>949</width>
      <height>20</height>
     </rect>
    </property>
