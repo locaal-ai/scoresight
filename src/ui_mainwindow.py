@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(949, 736)
+        MainWindow.resize(949, 748)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_31 = QHBoxLayout(self.centralwidget)
@@ -726,10 +726,13 @@ class Ui_MainWindow(object):
         self.tab_uno.setObjectName(u"tab_uno")
         self.gridLayout_5 = QGridLayout(self.tab_uno)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.verticalLayout_8 = QVBoxLayout()
+        self.widget_uno_props = QWidget(self.tab_uno)
+        self.widget_uno_props.setObjectName(u"widget_uno_props")
+        self.verticalLayout_8 = QVBoxLayout(self.widget_uno_props)
+        self.verticalLayout_8.setSpacing(0)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
-        self.connectionWidget_2 = QWidget(self.tab_uno)
+        self.connectionWidget_2 = QWidget(self.widget_uno_props)
         self.connectionWidget_2.setObjectName(u"connectionWidget_2")
         self.horizontalLayout_29 = QHBoxLayout(self.connectionWidget_2)
         self.horizontalLayout_29.setSpacing(3)
@@ -754,7 +757,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.connectionWidget_2)
 
-        self.widget_26 = QWidget(self.tab_uno)
+        self.widget_26 = QWidget(self.widget_uno_props)
         self.widget_26.setObjectName(u"widget_26")
         self.widget_26.setMinimumSize(QSize(0, 0))
         self.horizontalLayout_30 = QHBoxLayout(self.widget_26)
@@ -762,8 +765,17 @@ class Ui_MainWindow(object):
         self.horizontalLayout_30.setContentsMargins(0, 5, 0, 5)
         self.checkBox_uno_send_same = QCheckBox(self.widget_26)
         self.checkBox_uno_send_same.setObjectName(u"checkBox_uno_send_same")
+        sizePolicy2.setHeightForWidth(self.checkBox_uno_send_same.sizePolicy().hasHeightForWidth())
+        self.checkBox_uno_send_same.setSizePolicy(sizePolicy2)
 
         self.horizontalLayout_30.addWidget(self.checkBox_uno_send_same)
+
+        self.checkBox_uno_essentials = QCheckBox(self.widget_26)
+        self.checkBox_uno_essentials.setObjectName(u"checkBox_uno_essentials")
+        sizePolicy2.setHeightForWidth(self.checkBox_uno_essentials.sizePolicy().hasHeightForWidth())
+        self.checkBox_uno_essentials.setSizePolicy(sizePolicy2)
+
+        self.horizontalLayout_30.addWidget(self.checkBox_uno_essentials)
 
         self.label_23 = QLabel(self.widget_26)
         self.label_23.setObjectName(u"label_23")
@@ -783,15 +795,37 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.widget_26)
 
+        self.widget_uno_essentials_details = QWidget(self.widget_uno_props)
+        self.widget_uno_essentials_details.setObjectName(u"widget_uno_essentials_details")
+        self.horizontalLayout_21 = QHBoxLayout(self.widget_uno_essentials_details)
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.horizontalLayout_21.setContentsMargins(0, 0, 0, 0)
+        self.label_24 = QLabel(self.widget_uno_essentials_details)
+        self.label_24.setObjectName(u"label_24")
+        sizePolicy.setHeightForWidth(self.label_24.sizePolicy().hasHeightForWidth())
+        self.label_24.setSizePolicy(sizePolicy)
 
-        self.gridLayout_5.addLayout(self.verticalLayout_8, 0, 0, 1, 1)
+        self.horizontalLayout_21.addWidget(self.label_24)
+
+        self.lineEdit_uno_essentials_id = QLineEdit(self.widget_uno_essentials_details)
+        self.lineEdit_uno_essentials_id.setObjectName(u"lineEdit_uno_essentials_id")
+        sizePolicy5.setHeightForWidth(self.lineEdit_uno_essentials_id.sizePolicy().hasHeightForWidth())
+        self.lineEdit_uno_essentials_id.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_21.addWidget(self.lineEdit_uno_essentials_id)
+
+
+        self.verticalLayout_8.addWidget(self.widget_uno_essentials_details)
+
+
+        self.gridLayout_5.addWidget(self.widget_uno_props, 0, 0, 1, 1)
 
         self.tableView_unoMapping = QTableView(self.tab_uno)
         self.tableView_unoMapping.setObjectName(u"tableView_unoMapping")
         self.tableView_unoMapping.horizontalHeader().setVisible(False)
         self.tableView_unoMapping.horizontalHeader().setStretchLastSection(True)
 
-        self.gridLayout_5.addWidget(self.tableView_unoMapping, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.tableView_unoMapping, 2, 0, 1, 1)
 
         self.tabWidget_outputs.addTab(self.tab_uno, "")
         self.tab_api = QWidget()
@@ -1276,8 +1310,12 @@ class Ui_MainWindow(object):
         self.checkBox_uno_send_same.setToolTip(QCoreApplication.translate("MainWindow", u"Send only new detections or also existing?", None))
 #endif // QT_CONFIG(tooltip)
         self.checkBox_uno_send_same.setText(QCoreApplication.translate("MainWindow", u"Send Same?", None))
+        self.checkBox_uno_essentials.setText(QCoreApplication.translate("MainWindow", u"Essentials", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"Rate Limit", None))
-        self.spinBox.setSuffix(QCoreApplication.translate("MainWindow", u"/second", None))
+        self.spinBox.setSuffix(QCoreApplication.translate("MainWindow", u"/sec", None))
+        self.label_24.setText(QCoreApplication.translate("MainWindow", u"Overlay ID", None))
+        self.lineEdit_uno_essentials_id.setText("")
+        self.lineEdit_uno_essentials_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"aaaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeee", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_uno), QCoreApplication.translate("MainWindow", u"UNO", None))
         self.checkBox_enableOutAPI.setText(QCoreApplication.translate("MainWindow", u"Send out API requests to external services.", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Encode", None))

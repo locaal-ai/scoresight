@@ -11,9 +11,21 @@ class UNOAPI:
         self.running = False
         self.update_same = fetch_data("scoresight.json", "uno_send_same", False)
         subscribe_to_data("scoresight.json", "uno_send_same", self.set_update_same)
+        self.essentials = fetch_data("scoresight.json", "uno_essentials", False)
+        subscribe_to_data("scoresight.json", "uno_essentials", self.set_essentials)
+        self.uno_essentials_id = fetch_data("scoresight.json", "uno_essentials_id", "")
+        subscribe_to_data(
+            "scoresight.json", "uno_essentials_id", self.set_uno_essentials_id
+        )
 
     def set_update_same(self, update_same):
         self.update_same = update_same
+
+    def set_essentials(self, essentials):
+        self.essentials = essentials
+
+    def set_uno_essentials_id(self, uno_essentials_id):
+        self.uno_essentials_id = uno_essentials_id
 
     def set_field_mapping(self, field_mapping):
         logger.debug(f"Setting UNO field mapping: {field_mapping}")
@@ -37,7 +49,15 @@ class UNOAPI:
                 self.send_uno_command(uno_command, target.result)
 
     def send_uno_command(self, command, value):
-        payload = {"command": command, "value": value}
+        if not self.essentials:
+            payload = {"command": command, "value": value}
+        else:
+            payload = {
+                "command": "SetOverlayContentField",
+                "value": value,
+                "fieldId": command,
+                "id": self.uno_essentials_id,
+            }
 
         try:
             response = requests.put(self.endpoint, json=payload)
