@@ -1,3 +1,4 @@
+from functools import partial
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtCore import Qt
 
@@ -78,7 +79,31 @@ class UNOUIHandler:
         self.ui.checkBox_uno_send_same.setChecked(
             fetch_data("scoresight.json", "uno_send_same", False)
         )
-        self.ui.checkBox_uno_send_same.stateChanged.connect(self.unoSendSameChanged)
+        self.ui.checkBox_uno_send_same.stateChanged.connect(
+            partial(self.globalSettingsChanged, "uno_send_same")
+        )
+
+        # connect the "essentials" checkbox
+        self.ui.checkBox_uno_essentials.setChecked(
+            fetch_data("scoresight.json", "uno_essentials", False)
+        )
+        self.ui.checkBox_uno_essentials.stateChanged.connect(self.set_uno_essentials)
+        # show/ hide widget_uno_essentials_details based on the checkbox
+        self.ui.widget_uno_essentials_details.setVisible(
+            self.ui.checkBox_uno_essentials.isChecked()
+        )
+
+        # connect lineEdit_uno_essentials_id
+        self.ui.lineEdit_uno_essentials_id.setText(
+            fetch_data("scoresight.json", "uno_essentials_id", "")
+        )
+        self.ui.lineEdit_uno_essentials_id.textChanged.connect(
+            partial(self.globalSettingsChanged, "uno_essentials_id")
+        )
+
+    def set_uno_essentials(self, value):
+        self.globalSettingsChanged("uno_essentials", value)
+        self.ui.widget_uno_essentials_details.setVisible(value)
 
     def toggleUNO(self, value):
         if not self.unoUpdater:
@@ -89,9 +114,6 @@ class UNOUIHandler:
         else:
             self.ui.toolButton_toggleUno.setText("▶️")
             self.unoUpdater.stop()
-
-    def unoSendSameChanged(self, state):
-        self.globalSettingsChanged("uno_send_same", state == Qt.Checked)
 
     def updateUNOTable(self, detectionTargets: list[TextDetectionTarget]):
         mapping_storage = fetch_data("scoresight.json", "uno_mapping")
