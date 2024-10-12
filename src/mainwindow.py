@@ -271,8 +271,9 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_boxDisplayStyle.currentIndexChanged.connect(
             partial(self.globalSettingsChanged, "box_display_style")
         )
+        box_display_style = fetch_data("scoresight.json", "box_display_style", 3)
         self.ui.comboBox_boxDisplayStyle.setCurrentIndex(
-            fetch_data("scoresight.json", "box_display_style", 3)
+            box_display_style if type(box_display_style) == int else 3
         )
 
         self.ui.checkBox_updateOnchange.toggled.connect(self.toggleUpdateOnChange)
