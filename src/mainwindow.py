@@ -243,11 +243,14 @@ class MainWindow(QMainWindow):
             "General Scoreboard",
             "General Fonts (English)",
             "General Scoreboard Large",
+            "Load External OCR Model",
         ]
         self.ui.comboBox_ocrModel.addItems(ocr_models)
-        self.ui.comboBox_ocrModel.setCurrentIndex(
-            fetch_data("scoresight.json", "ocr_model", 1)
-        )  # default to General Scoreboard
+        # default to General Scoreboard
+        ocr_model_from_storage = fetch_data("scoresight.json", "ocr_model", 1)
+        if type(ocr_model_from_storage) == str:
+            ocr_model_from_storage = 4
+        self.ui.comboBox_ocrModel.setCurrentIndex(ocr_model_from_storage)
 
         self.ui.frame_source_view.setEnabled(False)
         self.ui.groupBox_target_settings.setEnabled(False)
@@ -539,15 +542,35 @@ class MainWindow(QMainWindow):
                 1000 / detections_per_second
             )
 
-    def ocrModelChanged(self, index):
-        self.globalSettingsChanged("ocr_model", index)
+    def ocrModelChanged(self, index: int | str):
+        ocrModel = None
+        if index == 4:
+            # load a custom OCR model
+            file, _ = QFileDialog.getOpenFileName(
+                self, "Open OCR Model File", "", "OCR Model Files (*.traineddata)"
+            )
+            if not file:
+                return
+            # get absolute file path
+            file = path.abspath(file)
+            self.globalSettingsChanged("ocr_model", file)
+            ocrModel = file
+        elif type(index) == int:
+            self.globalSettingsChanged("ocr_model", index)
+            ocrModel = index
+        elif type(index) == str:
+            # check if the index is a valid existing file
+            if path.exists(index):
+                self.globalSettingsChanged("ocr_model", index)
+                ocrModel = index
+
         # update the ocr model in the text detector
         if (
             self.image_viewer
             and self.image_viewer.timerThread
             and self.image_viewer.timerThread.textDetector
         ):
-            self.image_viewer.timerThread.textDetector.setOcrModel(index)
+            self.image_viewer.timerThread.textDetector.setOcrModel(ocrModel)
 
     def openLogsDialog(self):
         if self.log_dialog is None:

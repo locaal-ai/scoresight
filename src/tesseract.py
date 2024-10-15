@@ -15,6 +15,7 @@ from text_detection_target import (
     TextDetectionTarget,
     TextDetectionTargetWithResult,
 )
+from sc_logging import logger
 
 
 def autocrop(image_in):
@@ -112,25 +113,37 @@ class TextDetector:
         else:
             self.setOcrModel(TextDetector.OcrModelIndex.DAKTRONICS)
 
-    def setOcrModel(self, ocrModelIndex):
+    def setOcrModel(self, ocrModelIndex: OcrModelIndex | int | str | None = None):
         ocr_model = None
-        if ocrModelIndex == self.OcrModelIndex.DAKTRONICS:
+        model_folder = resource_path("tesseract", "tessdata")
+        if ocrModelIndex == TextDetector.OcrModelIndex.DAKTRONICS:
             ocr_model = "daktronics"
-        if ocrModelIndex == self.OcrModelIndex.SCOREBOARD_GENERAL:
+        elif ocrModelIndex == TextDetector.OcrModelIndex.SCOREBOARD_GENERAL:
             ocr_model = "scoreboard_general"
-        if ocrModelIndex == self.OcrModelIndex.GENERAL_ENGLISH:
+        elif ocrModelIndex == TextDetector.OcrModelIndex.GENERAL_ENGLISH:
             ocr_model = "eng"
-        if ocrModelIndex == self.OcrModelIndex.SCOREBOARD_GENERAL_LARGE:
+        elif ocrModelIndex == TextDetector.OcrModelIndex.SCOREBOARD_GENERAL_LARGE:
             ocr_model = "scoreboard_general_large"
+        elif isinstance(ocrModelIndex, str):
+            # check the model file exists at the path
+            if path.exists(ocrModelIndex):
+                # Take the folder as the tessdata folder
+                model_folder = path.dirname(ocrModelIndex)
+                # Take the model name without extension as the "language"
+                ocr_model = path.basename(ocrModelIndex)
+                ocr_model = path.splitext(ocr_model)[0]
+
         if ocr_model is None:
             return
+
+        logger.info(f"Setting OCR model to {ocr_model} from {model_folder}")
 
         with self.api_lock:
             if self.api is not None:
                 self.api.End()
                 self.api = None
             self.api = PyTessBaseAPI(
-                path=resource_path("tesseract", "tessdata"),
+                path=model_folder,
                 lang=ocr_model,
             )
             # single word PSM
