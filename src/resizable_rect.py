@@ -231,6 +231,7 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         fontPos = QFont("Arial", int(image_size / 60) if image_size > 0 else 32)
         fontPos.setWeight(QFont.Weight.Bold)
         self.posItem.setFont(fontPos)
+        self.posItem.setPen(QPen(QColor("black"), 1))
         self.resultItem.setBrush(QBrush(QColor("red")))
         fontRes = QFont("Arial", int(image_size / 75) if image_size > 0 else 20)
         fontRes.setWeight(QFont.Weight.Bold)
@@ -263,6 +264,7 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         ypos = self.boundingRect().y() - self.posItem.boundingRect().height()
         # set the text position to the top left corner of the rect
         self.posItem.setPos(xpos, ypos)
+        self.bgItem.setRect(self.posItem.boundingRect())
         self.bgItem.setPos(xpos, ypos)
 
     def setBoxDisplayStyle(self, boxDisplayStyle: int):
