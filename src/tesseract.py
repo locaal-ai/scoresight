@@ -113,9 +113,9 @@ class TextDetector:
         else:
             self.setOcrModel(TextDetector.OcrModelIndex.DAKTRONICS)
 
-    def setOcrModel(self, ocrModelIndex: OcrModelIndex | str | None = None):
+    def setOcrModel(self, ocrModelIndex: OcrModelIndex | int | str | None = None):
         ocr_model = None
-        external_folder = None
+        model_folder = resource_path("tesseract", "tessdata")
         if ocrModelIndex == TextDetector.OcrModelIndex.DAKTRONICS:
             ocr_model = "daktronics"
         elif ocrModelIndex == TextDetector.OcrModelIndex.SCOREBOARD_GENERAL:
@@ -128,25 +128,22 @@ class TextDetector:
             # check the model file exists at the path
             if path.exists(ocrModelIndex):
                 # Take the folder as the tessdata folder
-                external_folder = path.dirname(ocrModelIndex)
+                model_folder = path.dirname(ocrModelIndex)
                 # Take the model name without extension as the "language"
                 ocr_model = path.basename(ocrModelIndex)
                 ocr_model = path.splitext(ocr_model)[0]
-        elif ocr_model is None:
+
+        if ocr_model is None:
             return
 
-        logger.info(f"Setting OCR model to {ocr_model}")
+        logger.info(f"Setting OCR model to {ocr_model} from {model_folder}")
 
         with self.api_lock:
             if self.api is not None:
                 self.api.End()
                 self.api = None
             self.api = PyTessBaseAPI(
-                path=(
-                    resource_path("tesseract", "tessdata")
-                    if external_folder is None
-                    else external_folder
-                ),
+                path=model_folder,
                 lang=ocr_model,
             )
             # single word PSM
