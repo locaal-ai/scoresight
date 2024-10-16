@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>949</width>
-    <height>736</height>
+    <width>963</width>
+    <height>733</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -160,6 +160,7 @@
                   <property name="font">
                    <font>
                     <pointsize>14</pointsize>
+                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -179,6 +180,7 @@
                   <property name="font">
                    <font>
                     <pointsize>14</pointsize>
+                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -520,6 +522,21 @@
                 </sizepolicy>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_16">
+                <property name="spacing">
+                 <number>3</number>
+                </property>
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
                 <item>
                  <widget class="QLabel" name="label_6">
                   <property name="sizePolicy">
@@ -535,8 +552,17 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="label_selectedInfo">
+                  <property name="maximumSize">
+                   <size>
+                    <width>110</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string>Select an item above</string>
+                  </property>
+                  <property name="textInteractionFlags">
+                   <set>Qt::NoTextInteraction</set>
                   </property>
                  </widget>
                 </item>
@@ -2215,8 +2241,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>949</width>
-     <height>20</height>
+     <width>963</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
