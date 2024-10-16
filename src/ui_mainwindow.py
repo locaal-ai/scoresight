@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(949, 736)
+        MainWindow.resize(963, 733)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_31 = QHBoxLayout(self.centralwidget)
@@ -265,7 +265,9 @@ class Ui_MainWindow(object):
         sizePolicy3.setHeightForWidth(self.widget_10.sizePolicy().hasHeightForWidth())
         self.widget_10.setSizePolicy(sizePolicy3)
         self.horizontalLayout_16 = QHBoxLayout(self.widget_10)
+        self.horizontalLayout_16.setSpacing(3)
         self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
+        self.horizontalLayout_16.setContentsMargins(5, 0, 5, 0)
         self.label_6 = QLabel(self.widget_10)
         self.label_6.setObjectName(u"label_6")
         sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
@@ -275,6 +277,8 @@ class Ui_MainWindow(object):
 
         self.label_selectedInfo = QLabel(self.widget_10)
         self.label_selectedInfo.setObjectName(u"label_selectedInfo")
+        self.label_selectedInfo.setMaximumSize(QSize(110, 16777215))
+        self.label_selectedInfo.setTextInteractionFlags(Qt.NoTextInteraction)
 
         self.horizontalLayout_16.addWidget(self.label_selectedInfo)
 
@@ -1150,7 +1154,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 949, 20))
+        self.menubar.setGeometry(QRect(0, 0, 963, 21))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
