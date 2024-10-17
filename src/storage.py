@@ -172,7 +172,7 @@ class TextDetectionTargetMemoryStorage(QObject):
                 self._data[i].settings = new_item.settings
                 self.data_changed.emit(self._data)
                 return
-        logger.warn("unable to find item to edit in storage: " + item_name)
+        logger.warning("unable to find item to edit in storage: " + item_name)
 
     def rename_item(self, old_name: str, new_name: str):
         for i, item in enumerate(self._data):
@@ -180,7 +180,7 @@ class TextDetectionTargetMemoryStorage(QObject):
                 self._data[i].name = new_name
                 self.data_changed.emit(self._data)
                 return True
-        logger.warn("unable to find item to rename in storage: " + old_name)
+        logger.warning("unable to find item to rename in storage: " + old_name)
         return False
 
     def get_data(self):
