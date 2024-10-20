@@ -123,11 +123,7 @@ class ImageViewer(CameraView):
             boxFound = self.findBox(detectionTarget.name)
             if boxFound is None:
                 boxFound = ResizableRectWithNameTypeAndResult(
-                    detectionTarget.x(),
-                    detectionTarget.y(),
-                    detectionTarget.width(),
-                    detectionTarget.height(),
-                    detectionTarget.name,
+                    detectionTarget,
                     # image size
                     self.scene.sceneRect().width(),
                     onCenter=False,
