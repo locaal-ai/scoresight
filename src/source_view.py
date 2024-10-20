@@ -1,5 +1,5 @@
 import math
-from PySide6.QtCore import QPointF, Qt, QTimer
+from PySide6.QtCore import QPointF, Qt, QTimer, QRectF
 from PySide6.QtGui import QBrush, QColor, QMouseEvent, QPen, QPolygonF
 from PySide6.QtWidgets import (
     QGraphicsPolygonItem,
@@ -151,7 +151,7 @@ class ImageViewer(CameraView):
                 if item.name not in done_targets:
                     self.scene.removeItem(item)
 
-    def boxChanged(self, name, rect):
+    def boxChanged(self, name: str, rect: QRectF, mini_rects: list[QRectF]):
         # update the detection target in the storage
         detectionTargets: list[TextDetectionTarget] = (
             self.detectionTargetsStorage.get_data()
@@ -165,6 +165,7 @@ class ImageViewer(CameraView):
                 self.detectionTargetsStorage.edit_item(
                     detectionTarget.name, detectionTarget
                 )
+                detectionTarget.mini_rects = mini_rects
                 break
 
     def findBox(self, name):
