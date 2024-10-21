@@ -1,3 +1,4 @@
+from typing import Callable
 from PySide6.QtCore import QPointF, QRectF, Qt
 from PySide6.QtGui import QBrush, QColor, QFont, QPen
 from PySide6.QtWidgets import (
@@ -6,7 +7,7 @@ from PySide6.QtWidgets import (
     QGraphicsSimpleTextItem,
 )
 
-from text_detection_target import TextDetectionTargetWithResult
+from text_detection_target import TextDetectionTarget, TextDetectionTargetWithResult
 
 
 class ResizableRect(QGraphicsRectItem):
@@ -151,12 +152,16 @@ class ResizableRect(QGraphicsRectItem):
 
 
 class MiniRect(ResizableRect):
-    def __init__(self, x, y, width, height, parent=None):
+    def __init__(self, x, y, width, height, boxChangedCallback, parent=None):
         super().__init__(x, y, width, height)
         self.setPen(QPen(QColor(255, 0, 0)))
         self.setBrush(QBrush(QColor(255, 0, 0, 50)))
         self.setParentItem(parent)
-        self.setFlags(QGraphicsItem.ItemIsMovable | QGraphicsItem.ItemIsSelectable)
+        self.setFlags(
+            QGraphicsItem.GraphicsItemFlag.ItemIsMovable
+            | QGraphicsItem.GraphicsItemFlag.ItemIsSelectable
+        )
+        self.boxChangedCallback = boxChangedCallback
 
     def mousePressEvent(self, event):
         super().mousePressEvent(event)
@@ -165,27 +170,30 @@ class MiniRect(ResizableRect):
     def mouseReleaseEvent(self, event):
         super().mouseReleaseEvent(event)
         self.unsetCursor()
+        self.boxChangedCallback()
 
 
 class ResizableRectWithNameTypeAndResult(ResizableRect):
     def __init__(
         self,
-        x,
-        y,
-        width,
-        height,
-        name,
+        detectionTarget: TextDetectionTarget,
         image_size,
         result="",
         onCenter=False,
-        boxChangedCallback=None,
+        boxChangedCallback: Callable[[str, QRectF, list[QRectF]], None] = None,
         itemSelectedCallback=None,
         boxDisplayStyle: int = 1,
     ):
-        super().__init__(x, y, width, height, onCenter)
+        super().__init__(
+            detectionTarget.x(),
+            detectionTarget.y(),
+            detectionTarget.width(),
+            detectionTarget.height(),
+            onCenter,
+        )
         self.setAcceptedMouseButtons(Qt.MouseButton.LeftButton)
         self.setAcceptHoverEvents(True)
-        self.name = name
+        self.name = detectionTarget.name
         self.result = result
         self.boxChangedCallback = boxChangedCallback
         self.itemSelectedCallback = itemSelectedCallback
@@ -198,7 +206,17 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         self.bgItem = QGraphicsRectItem(self.posItem.boundingRect(), parent=self)
 
         # Mini-rect related attributes
-        self.mini_rects = []
+        self.mini_rects = [
+            MiniRect(
+                r.x(),
+                r.y(),
+                r.width(),
+                r.height(),
+                self.sendBoxChangedCallback,
+                parent=self,
+            )
+            for r in detectionTarget.mini_rects
+        ]
         self.mini_rect_mode = False
         self.add_button = None
         self.setupAddButton()
@@ -210,15 +228,15 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
         self.updateCornerBoxes()
 
     def setupAddButton(self):
-        self.add_button = QGraphicsRectItem(0, 0, 60, 30, parent=self)
+        self.add_button = QGraphicsRectItem(0, 0, 25, 30, parent=self)
         self.add_button.setBrush(QBrush(QColor(0, 255, 0)))
         self.add_button.setPen(QPen(Qt.black))
-        self.add_button.setPos(self.rect().topLeft() + QPointF(5, 5))
+        self.add_button.setPos(self.rect().topLeft() + QPointF(2, 2))
         self.add_button.setZValue(4)
         self.add_button.setVisible(False)
 
         # Add a "+" text to the button
-        text = QGraphicsSimpleTextItem("Add", self.add_button)
+        text = QGraphicsSimpleTextItem("+", self.add_button)
         text.setPos(5, 0)
         text.setFont(QFont("Arial", 20))
 
@@ -414,6 +432,7 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
             rect.y(),
             rect.width(),
             rect.height(),
+            self.sendBoxChangedCallback,
             parent=self,
         )
         self.mini_rects.append(new_mini_rect)
@@ -426,8 +445,7 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
     def getMiniRects(self):
         return [rect.rect() for rect in self.mini_rects]
 
-    def mouseReleaseEvent(self, event):
-        super().mouseReleaseEvent(event)
+    def sendBoxChangedCallback(self):
         origRect = self.getRect()
         boxRect = QRectF(
             origRect.x() + self.x(),
@@ -435,7 +453,18 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
             origRect.width(),
             origRect.height(),
         )
-        self.boxChangedCallback(self.name, boxRect)
+        self.boxChangedCallback(
+            self.name,
+            boxRect,
+            [
+                QRectF(r.x(), r.y(), r.rect().width(), r.rect().height())
+                for r in self.mini_rects
+            ],
+        )
+
+    def mouseReleaseEvent(self, event):
+        super().mouseReleaseEvent(event)
+        self.sendBoxChangedCallback()
 
     def mousePressEvent(self, event):
         if self.mini_rect_mode:
@@ -449,6 +478,9 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
                     )
                 )
             else:
+                # deselect all mini rects
+                for mini_rect in self.mini_rects:
+                    mini_rect.setSelected(False)
                 super().mousePressEvent(event)
         else:
             super().mousePressEvent(event)
