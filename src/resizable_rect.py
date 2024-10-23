@@ -243,6 +243,8 @@ class ResizableRectWithNameTypeAndResult(ResizableRect):
     def setMiniRectMode(self, enabled):
         self.mini_rect_mode = enabled
         self.add_button.setVisible(enabled)
+        if not enabled:
+            self.clearMiniRects()
 
     def setupTextItems(self, image_size, boxDisplayStyle):
         self.posItem.setBrush(QBrush(QColor("red")))
