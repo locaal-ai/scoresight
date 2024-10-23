@@ -172,8 +172,6 @@ class TextDetector:
         with self.api_lock:
             self.api.SetPageSegMode(PSM.SINGLE_CHAR)
 
-        # print(f"scale_x: {scale_x}, scale_y: {scale_y}")
-
         # iterate over the mini rects and get the text from each
         text = ""
         for i, mini_rect_ in enumerate(target_rect.mini_rects):
@@ -201,17 +199,14 @@ class TextDetector:
                 int(mini_rect.y()) : int(mini_rect.y() + mini_rect.height()),
                 int(mini_rect.x()) : int(mini_rect.x() + mini_rect.width()),
             ]
-            # save the image for debugging
-            cv2.imwrite(f"mini_{i}.png", mini_imagecrop)
             try:
                 pilimage = Image.fromarray(mini_imagecrop)
                 with self.api_lock:
                     self.api.SetPageSegMode(PSM.SINGLE_CHAR)
                     self.api.SetImage(pilimage)
-                    char = self.api.GetUTF8Text().strip()
-                    text += char
-                # logger.debug(f"mini_imagecrop: {mini_rect_.toRect()} -> {mini_rect.toRect()}, {mini_imagecrop.shape}, {char}")
+                    text += self.api.GetUTF8Text().strip()
             except:
+                logger.exception("Error in detect_mini_rects")
                 pass
 
         with self.api_lock:
