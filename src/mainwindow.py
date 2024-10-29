@@ -137,8 +137,14 @@ class MainWindow(QMainWindow):
         self.addLanguageOption(languageMenu, "Russian", "ru_RU")
         self.addLanguageOption(languageMenu, "Chinese (Simplified)", "zh_CN")
 
+        # add a menu item to change the theme
+        theme_menu = file_menu.addMenu("Theme")
+        theme_menu.addAction("Light", lambda: self.setStyleTheme("windowsvista"))
+        theme_menu.addAction("Dark", lambda: self.setStyleTheme("windows11"))
+        theme_menu.addAction("System", lambda: self.setStyleTheme("Fusion"))
+
         # Hide the menu bar by default
-        self.menubar.setVisible(False)
+        self.menubar.setVisible(True)
 
         # Show the menu bar when the Alt key is pressed
         self.installEventFilter(self)
@@ -367,6 +373,9 @@ class MainWindow(QMainWindow):
         self.get_sources.connect(self.getSources)
         self.get_sources.emit()
 
+    def setStyleTheme(self, theme):
+        QApplication.instance().setStyle(theme)
+
     def toggleSpeed(self):
         # check the current speed and toggle it
         # possible speeds are x2, x4, x8, x16, x32 and back to x1
@@ -436,24 +445,12 @@ class MainWindow(QMainWindow):
 
     def eventFilter(self, obj, event):
         if event.type() == QEvent.KeyPress:
-            if event.key() == Qt.Key_Alt:
-                self.menubar.setVisible(True)
             if event.key() == Qt.Key_Escape:
-                self.menubar.setVisible(False)
                 # deselect any selected item
                 self.itemSelected(None)
                 if self.image_viewer is not None:
                     self.image_viewer.selectBox(None)
-        elif event.type() == QEvent.FocusOut and self.menubar.isVisible():
-            self.menubar.setVisible(False)
-        elif event.type() == QEvent.WindowDeactivate and self.menubar.isVisible():
-            self.menubar.setVisible(False)
         return super().eventFilter(obj, event)
-
-    def focusOutEvent(self, event):
-        if self.menubar.isVisible():
-            self.menubar.setVisible(False)
-        super().focusOutEvent(event)
 
     def changeEvent(self, event):
         if event.type() == QEvent.WindowDeactivate and self.menubar.isVisible():
