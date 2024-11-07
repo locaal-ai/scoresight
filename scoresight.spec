@@ -176,7 +176,7 @@ elif args.mac_osx:
         name='scoresight.app',
         icon='icons/MacOS_icon.png',
         bundle_identifier='com.royshilkrot.scoresight',
-        version='0.0.17',
+        version='0.1.0',
         info_plist={
             'NSPrincipalClass': 'NSApplication',
             'NSAppleScriptEnabled': False,
