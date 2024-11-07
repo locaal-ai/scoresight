@@ -22,20 +22,26 @@ def setup_logging():
 
     current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-    # basic config - send all logs to a file
+    # basic config - send all logs to a file with UTF-8 encoding
     logging.basicConfig(
         filename=os.path.join(data_dir, f"scoresight_std_{current_time}.log"),
         level=logging.INFO,
+        encoding="utf-8",  # Add explicit UTF-8 encoding
+        errors="replace",  # Replace invalid characters instead of crashing
     )
 
     # prepend the user data directory
     log_file_path = os.path.join(data_dir, f"scoresight_{current_time}.log")
 
-    # Create a file handler
-    file_handler = logging.FileHandler(log_file_path)
+    # Create a file handler with UTF-8 encoding
+    file_handler = logging.FileHandler(
+        log_file_path,
+        encoding="utf-8",  # Add explicit UTF-8 encoding
+        errors="replace",  # Replace invalid characters instead of crashing
+    )
     file_handler.setLevel(logging.DEBUG)
 
-    # Create a formatter
+    # Create a formatter that can handle Unicode
     formatter = logging.Formatter(
         "%(asctime)s - %(levelname)s - %(module)s - %(message)s"
     )
