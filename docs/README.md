@@ -10,7 +10,7 @@ ScoreSight is an OCR (Optical Character Recognition) application designed to ext
 
 <center>
 
-<strong>Download</strong>
+<strong>Download</strong><br/>
 
 <a href="https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-windows-0.1.0.zip"><img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" /></a>
 <a href="https://github.com/locaal-ai/scoresight/releases/download/0.1.0/scoresight-macos-x86-0.1.0.dmg"><img src="https://img.shields.io/badge/mac%20Intel-000000?style=for-the-badge" /></a>
@@ -18,7 +18,7 @@ ScoreSight is an OCR (Optical Character Recognition) application designed to ext
 <a href="https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-linux-0.1.0.tar"><img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black"/></a>
 
 
-<a href="https://youtu.be/wMNolI0w0tE" target="_blank"><img src="./scoresight_getting_started.png" width="50%"/></a>
+<a href="https://youtu.be/MtctQZ2DIjU" target="_blank"><img src="./scoresight_getting_started.png" width="50%"/></a>
 </center>
 
 If you'd like to donate to help support the project, you can do so on [GitHub](https://github.com/sponsors/royshil) or [Patreon](https://www.patreon.com/RoyShilkrot) or [OpenCollective](https://opencollective.com/occ-ai).
