@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
     QMenu,
     QMessageBox,
     QTableWidgetItem,
+    QStyleFactory,
 )
 from PySide6.QtGui import QIcon, QDesktopServices
 from PySide6.QtCore import (
@@ -139,9 +140,8 @@ class MainWindow(QMainWindow):
 
         # add a menu item to change the theme
         theme_menu = file_menu.addMenu("Theme")
-        theme_menu.addAction("Light", lambda: self.setStyleTheme("windowsvista"))
-        theme_menu.addAction("Dark", lambda: self.setStyleTheme("windows11"))
-        theme_menu.addAction("System", lambda: self.setStyleTheme("Fusion"))
+        for theme in QStyleFactory.keys():
+            theme_menu.addAction(theme, lambda theme=theme: self.setStyleTheme(theme))
 
         # Hide the menu bar by default
         self.menubar.setVisible(True)
