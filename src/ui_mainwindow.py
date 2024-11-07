@@ -3,35 +3,25 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.3
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QAbstractSpinBox, QApplication, QCheckBox,
-    QComboBox, QFormLayout, QFrame, QGridLayout,
-    QGroupBox, QHBoxLayout, QHeaderView, QLabel,
-    QLayout, QLineEdit, QMainWindow, QMenuBar,
-    QPushButton, QSizePolicy, QSlider, QSpacerItem,
-    QSpinBox, QTabWidget, QTableView, QTableWidget,
-    QTableWidgetItem, QToolButton, QVBoxLayout, QWidget)
+from PySide6.QtCore import *  # type: ignore
+from PySide6.QtGui import *  # type: ignore
+from PySide6.QtWidgets import *  # type: ignore
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(963, 733)
+        MainWindow.resize(963, 718)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_31 = QHBoxLayout(self.centralwidget)
         self.horizontalLayout_31.setObjectName(u"horizontalLayout_31")
+        self.horizontalLayout_31.setContentsMargins(-1, 0, -1, -1)
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
@@ -42,9 +32,9 @@ class Ui_MainWindow(object):
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Plain)
         self.frame.setLineWidth(0)
-        self.verticalLayout = QVBoxLayout(self.frame)
-        self.verticalLayout.setSpacing(3)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self._2 = QVBoxLayout(self.frame)
+        self._2.setSpacing(3)
+        self._2.setObjectName(u"_2")
         self.groupBox_sb_info = QWidget(self.frame)
         self.groupBox_sb_info.setObjectName(u"groupBox_sb_info")
         self.groupBox_sb_info.setEnabled(False)
@@ -473,7 +463,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addWidget(self.widget_6)
 
 
-        self.verticalLayout.addWidget(self.groupBox_sb_info)
+        self._2.addWidget(self.groupBox_sb_info)
 
         self.line_2 = QFrame(self.frame)
         self.line_2.setObjectName(u"line_2")
@@ -481,7 +471,7 @@ class Ui_MainWindow(object):
         self.line_2.setFrameShape(QFrame.Shape.HLine)
         self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
 
-        self.verticalLayout.addWidget(self.line_2)
+        self._2.addWidget(self.line_2)
 
         self.tabWidget_outputs = QTabWidget(self.frame)
         self.tabWidget_outputs.setObjectName(u"tabWidget_outputs")
@@ -730,10 +720,13 @@ class Ui_MainWindow(object):
         self.tab_uno.setObjectName(u"tab_uno")
         self.gridLayout_5 = QGridLayout(self.tab_uno)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.verticalLayout_8 = QVBoxLayout()
+        self.widget_uno_props = QWidget(self.tab_uno)
+        self.widget_uno_props.setObjectName(u"widget_uno_props")
+        self.verticalLayout_8 = QVBoxLayout(self.widget_uno_props)
+        self.verticalLayout_8.setSpacing(0)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
-        self.connectionWidget_2 = QWidget(self.tab_uno)
+        self.connectionWidget_2 = QWidget(self.widget_uno_props)
         self.connectionWidget_2.setObjectName(u"connectionWidget_2")
         self.horizontalLayout_29 = QHBoxLayout(self.connectionWidget_2)
         self.horizontalLayout_29.setSpacing(3)
@@ -758,7 +751,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.connectionWidget_2)
 
-        self.widget_26 = QWidget(self.tab_uno)
+        self.widget_26 = QWidget(self.widget_uno_props)
         self.widget_26.setObjectName(u"widget_26")
         self.widget_26.setMinimumSize(QSize(0, 0))
         self.horizontalLayout_30 = QHBoxLayout(self.widget_26)
@@ -766,8 +759,17 @@ class Ui_MainWindow(object):
         self.horizontalLayout_30.setContentsMargins(0, 5, 0, 5)
         self.checkBox_uno_send_same = QCheckBox(self.widget_26)
         self.checkBox_uno_send_same.setObjectName(u"checkBox_uno_send_same")
+        sizePolicy2.setHeightForWidth(self.checkBox_uno_send_same.sizePolicy().hasHeightForWidth())
+        self.checkBox_uno_send_same.setSizePolicy(sizePolicy2)
 
         self.horizontalLayout_30.addWidget(self.checkBox_uno_send_same)
+
+        self.checkBox_uno_essentials = QCheckBox(self.widget_26)
+        self.checkBox_uno_essentials.setObjectName(u"checkBox_uno_essentials")
+        sizePolicy2.setHeightForWidth(self.checkBox_uno_essentials.sizePolicy().hasHeightForWidth())
+        self.checkBox_uno_essentials.setSizePolicy(sizePolicy2)
+
+        self.horizontalLayout_30.addWidget(self.checkBox_uno_essentials)
 
         self.label_23 = QLabel(self.widget_26)
         self.label_23.setObjectName(u"label_23")
@@ -787,15 +789,37 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.widget_26)
 
+        self.widget_uno_essentials_details = QWidget(self.widget_uno_props)
+        self.widget_uno_essentials_details.setObjectName(u"widget_uno_essentials_details")
+        self.horizontalLayout_21 = QHBoxLayout(self.widget_uno_essentials_details)
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.horizontalLayout_21.setContentsMargins(0, 0, 0, 0)
+        self.label_24 = QLabel(self.widget_uno_essentials_details)
+        self.label_24.setObjectName(u"label_24")
+        sizePolicy.setHeightForWidth(self.label_24.sizePolicy().hasHeightForWidth())
+        self.label_24.setSizePolicy(sizePolicy)
 
-        self.gridLayout_5.addLayout(self.verticalLayout_8, 0, 0, 1, 1)
+        self.horizontalLayout_21.addWidget(self.label_24)
+
+        self.lineEdit_uno_essentials_id = QLineEdit(self.widget_uno_essentials_details)
+        self.lineEdit_uno_essentials_id.setObjectName(u"lineEdit_uno_essentials_id")
+        sizePolicy5.setHeightForWidth(self.lineEdit_uno_essentials_id.sizePolicy().hasHeightForWidth())
+        self.lineEdit_uno_essentials_id.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_21.addWidget(self.lineEdit_uno_essentials_id)
+
+
+        self.verticalLayout_8.addWidget(self.widget_uno_essentials_details)
+
+
+        self.gridLayout_5.addWidget(self.widget_uno_props, 0, 0, 1, 1)
 
         self.tableView_unoMapping = QTableView(self.tab_uno)
         self.tableView_unoMapping.setObjectName(u"tableView_unoMapping")
         self.tableView_unoMapping.horizontalHeader().setVisible(False)
         self.tableView_unoMapping.horizontalHeader().setStretchLastSection(True)
 
-        self.gridLayout_5.addWidget(self.tableView_unoMapping, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.tableView_unoMapping, 2, 0, 1, 1)
 
         self.tabWidget_outputs.addTab(self.tab_uno, "")
         self.tab_api = QWidget()
@@ -857,14 +881,14 @@ class Ui_MainWindow(object):
 
         self.tabWidget_outputs.addTab(self.tab_api, "")
 
-        self.verticalLayout.addWidget(self.tabWidget_outputs, 0, Qt.AlignTop)
+        self._2.addWidget(self.tabWidget_outputs, 0, Qt.AlignTop)
 
         self.pushButton_stopUpdates = QPushButton(self.frame)
         self.pushButton_stopUpdates.setObjectName(u"pushButton_stopUpdates")
         self.pushButton_stopUpdates.setMinimumSize(QSize(0, 0))
         self.pushButton_stopUpdates.setCheckable(True)
 
-        self.verticalLayout.addWidget(self.pushButton_stopUpdates)
+        self._2.addWidget(self.pushButton_stopUpdates)
 
         self.widget_detectionCadence = QWidget(self.frame)
         self.widget_detectionCadence.setObjectName(u"widget_detectionCadence")
@@ -897,7 +921,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_9.addWidget(self.checkBox_updateOnchange)
 
 
-        self.verticalLayout.addWidget(self.widget_detectionCadence)
+        self._2.addWidget(self.widget_detectionCadence)
 
 
         self.horizontalLayout_31.addWidget(self.frame)
@@ -912,10 +936,9 @@ class Ui_MainWindow(object):
         self.frame_source_view.setSizePolicy(sizePolicy6)
         self.frame_source_view.setFrameShape(QFrame.StyledPanel)
         self.frame_source_view.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_2 = QVBoxLayout(self.frame_source_view)
-        self.verticalLayout_2.setSpacing(0)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(-1, 6, -1, -1)
+        self._3 = QVBoxLayout(self.frame_source_view)
+        self._3.setSpacing(0)
+        self._3.setObjectName(u"_3")
         self.widget_4 = QWidget(self.frame_source_view)
         self.widget_4.setObjectName(u"widget_4")
         self.horizontalLayout_4 = QHBoxLayout(self.widget_4)
@@ -974,7 +997,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.pushButton_saveOCRTrainingData)
 
 
-        self.verticalLayout_2.addWidget(self.widget_4)
+        self._3.addWidget(self.widget_4)
 
         self.widget_viewTools = QWidget(self.frame_source_view)
         self.widget_viewTools.setObjectName(u"widget_viewTools")
@@ -1044,7 +1067,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.addWidget(self.label_11)
 
 
-        self.verticalLayout_2.addWidget(self.widget_viewTools)
+        self._3.addWidget(self.widget_viewTools)
 
         self.widget_cropPanel = QWidget(self.frame_source_view)
         self.widget_cropPanel.setObjectName(u"widget_cropPanel")
@@ -1123,7 +1146,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_26.addItem(self.horizontalSpacer_4)
 
 
-        self.verticalLayout_2.addWidget(self.widget_cropPanel)
+        self._3.addWidget(self.widget_cropPanel)
 
         self.frame_for_source_view_label = QFrame(self.frame_source_view)
         self.frame_for_source_view_label.setObjectName(u"frame_for_source_view_label")
@@ -1146,7 +1169,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.label_12, 0, 0, 1, 1)
 
 
-        self.verticalLayout_2.addWidget(self.frame_for_source_view_label)
+        self._3.addWidget(self.frame_for_source_view_label)
 
 
         self.horizontalLayout_31.addWidget(self.frame_source_view)
@@ -1154,7 +1177,6 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 963, 21))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
@@ -1280,8 +1302,12 @@ class Ui_MainWindow(object):
         self.checkBox_uno_send_same.setToolTip(QCoreApplication.translate("MainWindow", u"Send only new detections or also existing?", None))
 #endif // QT_CONFIG(tooltip)
         self.checkBox_uno_send_same.setText(QCoreApplication.translate("MainWindow", u"Send Same?", None))
+        self.checkBox_uno_essentials.setText(QCoreApplication.translate("MainWindow", u"Essentials", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"Rate Limit", None))
-        self.spinBox.setSuffix(QCoreApplication.translate("MainWindow", u"/second", None))
+        self.spinBox.setSuffix(QCoreApplication.translate("MainWindow", u"/sec", None))
+        self.label_24.setText(QCoreApplication.translate("MainWindow", u"Overlay ID", None))
+        self.lineEdit_uno_essentials_id.setText("")
+        self.lineEdit_uno_essentials_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"aaaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeee", None))
         self.tabWidget_outputs.setTabText(self.tabWidget_outputs.indexOf(self.tab_uno), QCoreApplication.translate("MainWindow", u"UNO", None))
         self.checkBox_enableOutAPI.setText(QCoreApplication.translate("MainWindow", u"Send out API requests to external services.", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Encode", None))
