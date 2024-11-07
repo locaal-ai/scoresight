@@ -1,6 +1,6 @@
 import json
 import os
-from PySide6.QtCore import QObject, Signal
+from PySide6.QtCore import QObject, Signal, QRectF
 from platformdirs import user_data_dir
 from defaults import default_info_for_box_name, normalize_settings_dict
 
@@ -218,6 +218,17 @@ class TextDetectionTargetMemoryStorage(QObject):
                     box["settings"] = {}
 
                 default_box_info = default_info_for_box_name(box["name"])
+                mini_rects: list[QRectF] = []
+                if "mini_rects" in box:
+                    for mini_rect in box["mini_rects"]:
+                        mini_rects.append(
+                            QRectF(
+                                mini_rect["x"],
+                                mini_rect["y"],
+                                mini_rect["width"],
+                                mini_rect["height"],
+                            )
+                        )
                 # set the position of the box
                 self._data.append(
                     TextDetectionTarget(
@@ -227,6 +238,7 @@ class TextDetectionTargetMemoryStorage(QObject):
                         box["rect"]["height"],
                         box["name"],
                         normalize_settings_dict(box["settings"], default_box_info),
+                        mini_rects,
                     )
                 )
                 if "is_custom" in box["settings"] and box["settings"]["is_custom"]:
@@ -239,7 +251,7 @@ class TextDetectionTargetMemoryStorage(QObject):
             return False
         return True
 
-    def getBoxesForStorage(self):
+    def getBoxesForStorage(self) -> list[dict]:
         # save all the boxes to scoresight.json
         boxes = []
         for detectionTarget in self._data:
@@ -296,6 +308,15 @@ class TextDetectionTargetMemoryStorage(QObject):
                         ),
                         "composite_box": detectionTarget.settings.get("composite_box"),
                     },
+                    "mini_rects": [
+                        {
+                            "x": mini_rect.x(),
+                            "y": mini_rect.y(),
+                            "width": mini_rect.width(),
+                            "height": mini_rect.height(),
+                        }
+                        for mini_rect in detectionTarget.mini_rects
+                    ],
                 }
             )
         return boxes

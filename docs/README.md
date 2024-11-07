@@ -12,10 +12,10 @@ ScoreSight is an OCR (Optical Character Recognition) application designed to ext
 
 <strong>Download</strong>
 
-<a href="https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-windows-0.0.16.zip"><img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" /></a>
-<a href="https://github.com/locaal-ai/scoresight/releases/download/0.0.16/scoresight-macos-x86-0.0.16.dmg"><img src="https://img.shields.io/badge/mac%20Intel-000000?style=for-the-badge" /></a>
-<a href="https://github.com/locaal-ai/scoresight/releases/download/0.0.16/scoresight-macos-arm64-0.0.16.dmg"><img src="https://img.shields.io/badge/mac%20M1/2/3-0a0a0a?style=for-the-badge&"/></a>
-<a href="https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-linux-0.0.16.tar"><img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black"/></a>
+<a href="https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-windows-0.0.17.zip"><img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" /></a>
+<a href="https://github.com/locaal-ai/scoresight/releases/download/0.0.17/scoresight-macos-x86-0.0.17.dmg"><img src="https://img.shields.io/badge/mac%20Intel-000000?style=for-the-badge" /></a>
+<a href="https://github.com/locaal-ai/scoresight/releases/download/0.0.17/scoresight-macos-arm64-0.0.17.dmg"><img src="https://img.shields.io/badge/mac%20M1/2/3-0a0a0a?style=for-the-badge&"/></a>
+<a href="https://github.com/locaal-ai/scoresight/releases/latest/download/scoresight-linux-0.0.17.tar"><img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black"/></a>
 
 
 <a href="https://youtu.be/wMNolI0w0tE" target="_blank"><img src="./scoresight_getting_started.png" width="50%"/></a>
