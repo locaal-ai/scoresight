@@ -1,4 +1,6 @@
-# ScoreSight - Real-time OCR For Scoreboards, Apps, Games and more
+# ⚠️ Stalled ⚠️ This project is not under active development
+
+## ScoreSight - Real-time OCR For Scoreboards, Apps, Games and more
 
 <div align="center">
 
@@ -184,13 +186,3 @@ Contributions are welcome! If you would like to contribute to this project, plea
 ## License
 
 This project is released under the MIT license.
-
-## Contact
-
-If you have any questions or suggestions, feel free to leave an issue on the repository.
-You may also email [support@scoresight.live](mailto:support@scoresight.live).
-
-## Business Inquiries
-
-If you wish to contract the development team to productionize ScoreSight for your needs,
-please contact [info@scoresight.live](mailto:info@scoresight.live).
