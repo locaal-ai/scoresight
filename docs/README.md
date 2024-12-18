@@ -1,4 +1,6 @@
-# ScoreSight - Real-time OCR For Scoreboards, Apps, Games and more
+# ⚠️ Stalled ⚠️ This project is not under active development
+
+## ScoreSight - Real-time OCR For Scoreboards, Apps, Games and more
 
 [![GitHub](https://img.shields.io/github/license/locaal-ai/scoresight)](https://github.com/locaal-ai/scoresight/blob/main/LICENSE)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/locaal-ai/scoresight/build.yaml)](https://github.com/locaal-ai/scoresight/actions/workflows/build.yaml)
@@ -73,15 +75,3 @@ See the [Install Guide](INSTALL.md) for help with installation.
 ## License
 
 This project is released under the MIT license.
-
-## Contact
-
-If you have any questions or suggestions, feel free to leave an issue on the repository.
-You may also email [support@scoresight.live](mailto:support@scoresight.live).
-
-For live support reach out on [Discord](https://discord.gg/8pG2tC923N).
-
-## Business Inquiries
-
-If you wish to contract the development team to productionize ScoreSight for your needs,
-please contact [info@scoresight.live](mailto:info@scoresight.live).
