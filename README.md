@@ -8,7 +8,6 @@
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/occ-ai/scoresight/build.yaml)](https://github.com/occ-ai/scoresight/actions/workflows/build.yaml)
 [![Total downloads](https://img.shields.io/github/downloads/occ-ai/scoresight/total)](https://github.com/occ-ai/scoresight/releases)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/occ-ai/scoresight)](https://github.com/occ-ai/scoresight/releases)
-[![Discord](https://img.shields.io/discord/1200229425141252116)](https://discord.gg/8pG2tC923N)
 
 </div>
 
